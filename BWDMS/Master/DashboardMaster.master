@@ -1,0 +1,297 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true"
+    CodeBehind="DashboardMaster.master.cs"
+    Inherits="BWDMS.Master.DashboardMaster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent"
+            runat="server">
+            BWDMS
+        </asp:ContentPlaceHolder>
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+          rel="stylesheet" />
+
+    <!-- BWDMS Dashboard CSS -->
+    <link href="<%= ResolveUrl("~/Content/Dashboard.css") %>"
+          rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="HeadContent"
+        runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+
+<body>
+
+<form id="form1" runat="server">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <button type="button"
+                    class="sidebar-toggle"
+                    id="sidebarToggle">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+            <span class="page-brand">
+                BWDMS
+            </span>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="notification">
+
+                <i class="bi bi-bell"></i>
+
+                <span class="notification-badge">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <div class="user-avatar">
+
+                    <asp:Label ID="lblUserInitial"
+                        runat="server">
+                        A
+                    </asp:Label>
+
+                </div>
+
+                <div class="user-details">
+
+                    <strong>
+                        <asp:Label ID="lblUserName"
+                            runat="server">
+                            Admin
+                        </asp:Label>
+                    </strong>
+
+                    <small>
+                        <asp:Label ID="lblUserRole"
+                            runat="server">
+                            Admin
+                        </asp:Label>
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar"
+           id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                BW
+            </div>
+
+            <div>
+                <strong>BWDMS</strong>
+                <small>Dealer Management</small>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-menu">
+
+            <div class="menu-title">
+                MAIN MENU
+            </div>
+
+
+            <a href="<%= ResolveUrl("~/Admin/Dashboard.aspx") %>"
+               class="menu-item">
+
+                <i class="bi bi-grid-1x2-fill"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <div class="menu-title">
+                MANAGEMENT
+            </div>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-tags-fill"></i>
+
+                <span>Categories</span>
+
+            </a>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-box-seam-fill"></i>
+
+                <span>Products</span>
+
+            </a>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-shop"></i>
+
+                <span>Dealers</span>
+
+            </a>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>Users</span>
+
+            </a>
+
+
+            <div class="menu-title">
+                REPORTS
+            </div>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                <span>Reports</span>
+
+            </a>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-file-earmark-text-fill"></i>
+
+                <span>Orders</span>
+
+            </a>
+
+
+            <div class="menu-title">
+                SYSTEM
+            </div>
+
+
+            <a href="#"
+               class="menu-item">
+
+                <i class="bi bi-gear-fill"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </div>
+
+
+        <!-- Logout -->
+
+        <div class="sidebar-bottom">
+
+            <asp:LinkButton ID="btnLogout"
+                runat="server"
+                CssClass="logout-button"
+                OnClick="btnLogout_Click">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>Logout</span>
+
+            </asp:LinkButton>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content"
+          id="mainContent">
+
+        <asp:ContentPlaceHolder ID="MainContent"
+            runat="server">
+        </asp:ContentPlaceHolder>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="dashboard-footer">
+
+        <span>
+            © 2026 BWDMS. All Rights Reserved.
+        </span>
+
+        <span>
+            Balaji Wafers Dealer Management System
+        </span>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- BWDMS Dashboard JS -->
+
+    <script src="<%= ResolveUrl("~/Scripts/Dashboard.js") %>"></script>
+
+</form>
+
+</body>
+
+</html>

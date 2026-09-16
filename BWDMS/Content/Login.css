@@ -1,0 +1,510 @@
+﻿/* =====================================================
+   BWDMS LOGIN PAGE
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #172033;
+}
+
+
+/* =====================================================
+   MAIN LOGIN PAGE
+   ===================================================== */
+
+.login-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   LEFT BRAND PANEL
+   ===================================================== */
+
+.brand-panel {
+    width: 48%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient( 135deg, #061a38 0%, #092b59 55%, #0b3971 100% );
+}
+
+
+    /* Decorative background */
+
+    .brand-panel::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.08);
+        top: -300px;
+        left: -250px;
+    }
+
+
+    .brand-panel::after {
+        content: "";
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.06);
+        bottom: -400px;
+        right: -300px;
+    }
+
+
+/* Overlay */
+
+.brand-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient( circle at 20% 20%, rgba(255,255,255,0.06), transparent 35% );
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   BRAND CONTENT
+   ===================================================== */
+
+.brand-content {
+    width: 80%;
+    max-width: 580px;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 5;
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.brand-logo {
+    width: 150px;
+    height: 105px;
+    margin: 0 auto 35px;
+    background: #ffffff;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+}
+
+
+.logo-balaji {
+    color: #183f87;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+
+.logo-wafers {
+    background: #319647;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 15px;
+    border-radius: 20px;
+    margin-top: 4px;
+    letter-spacing: .5px;
+}
+
+
+/* =====================================================
+   BRAND HEADING
+   ===================================================== */
+
+.brand-content h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -.8px;
+}
+
+
+.brand-description {
+    max-width: 480px;
+    margin: 18px auto 0;
+    color: #c8d5e8;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+.brand-line {
+    width: 60px;
+    height: 3px;
+    background: #e31b23;
+    margin: 30px auto 20px;
+    border-radius: 5px;
+}
+
+
+.brand-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #d8e2ef;
+    letter-spacing: 1px;
+}
+
+
+    .brand-tagline i {
+        color: #e31b23;
+        font-size: 20px;
+    }
+
+
+/* =====================================================
+   RIGHT LOGIN PANEL
+   ===================================================== */
+
+.login-panel {
+    width: 52%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    padding: 40px;
+}
+
+
+.login-container {
+    width: 100%;
+    max-width: 460px;
+}
+
+
+/* =====================================================
+   LOGIN HEADING
+   ===================================================== */
+
+.login-heading {
+    margin-bottom: 32px;
+}
+
+
+    .login-heading h2 {
+        margin: 0 0 8px;
+        font-size: 30px;
+        font-weight: 700;
+        color: #172033;
+    }
+
+
+    .login-heading p {
+        margin: 0;
+        font-size: 14px;
+        color: #667085;
+    }
+
+
+/* =====================================================
+   LABELS
+   ===================================================== */
+
+.form-label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #344054;
+}
+
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+.custom-input-group {
+    height: 50px;
+}
+
+
+    .custom-input-group .input-group-text {
+        width: 48px;
+        justify-content: center;
+        background: #ffffff;
+        border: 1px solid #d0d5dd;
+        border-right: 0;
+        color: #667085;
+    }
+
+
+    .custom-input-group .form-control {
+        height: 50px;
+        border: 1px solid #d0d5dd;
+        border-left: 0;
+        font-size: 14px;
+        color: #172033;
+        box-shadow: none;
+    }
+
+
+    .custom-input-group:focus-within .input-group-text {
+        border-color: #e31b23;
+        color: #e31b23;
+    }
+
+
+    .custom-input-group:focus-within .form-control {
+        border-color: #e31b23;
+        box-shadow: 0 0 0 3px rgba(227,27,35,.08);
+    }
+
+
+    .custom-input-group .form-control::placeholder {
+        color: #98a2b3;
+    }
+
+
+/* =====================================================
+   PASSWORD
+   ===================================================== */
+
+.password-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.forgot-password {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e31b23;
+    text-decoration: none;
+    margin-bottom: 8px;
+}
+
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+
+.password-toggle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #d0d5dd;
+    border-left: 0;
+    background: white;
+    color: #667085;
+    cursor: pointer;
+}
+
+
+    .password-toggle:hover {
+        color: #e31b23;
+    }
+
+
+/* =====================================================
+   REMEMBER ME
+   ===================================================== */
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0 22px;
+    font-size: 13px;
+    color: #475467;
+}
+
+
+    .remember-row input {
+        width: 15px;
+        height: 15px;
+        accent-color: #e31b23;
+        cursor: pointer;
+    }
+
+
+    .remember-row label {
+        cursor: pointer;
+    }
+
+
+/* =====================================================
+   VALIDATION
+   ===================================================== */
+
+.field-error {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #d92d20;
+}
+
+
+.validation-summary {
+    background: #fff4f4;
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+    color: #b42318;
+    font-size: 13px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+}
+
+
+    .validation-summary ul {
+        margin: 5px 0 0;
+        padding-left: 20px;
+    }
+
+
+.server-error {
+    display: block;
+    background: #fff4f4;
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+    color: #b42318;
+    padding: 11px 14px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+   ===================================================== */
+
+.login-button {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background: #e31b23;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .2px;
+    transition: all .2s ease;
+}
+
+
+    .login-button:hover {
+        background: #c9141b;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(227,27,35,.20);
+    }
+
+
+    .login-button:active {
+        transform: translateY(0);
+    }
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.login-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+    .login-footer p {
+        margin: 0;
+        font-size: 12px;
+        color: #98a2b3;
+    }
+
+
+/* =====================================================
+   MOBILE LOGO
+   ===================================================== */
+
+.mobile-logo {
+    display: none;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+
+.mobile-logo-main {
+    color: #183f87;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+
+.mobile-logo-sub {
+    display: inline-block;
+    background: #319647;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 15px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .brand-panel {
+        display: none;
+    }
+
+    .login-panel {
+        width: 100%;
+        padding: 30px 25px;
+    }
+
+    .mobile-logo {
+        display: block;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .login-panel {
+        padding: 25px 18px;
+    }
+
+    .login-heading h2 {
+        font-size: 25px;
+    }
+
+    .login-heading {
+        margin-bottom: 25px;
+    }
+}
