@@ -1,0 +1,29 @@
+﻿
+/* ============================================================
+   WEEKLY ROUTE PLANS
+   ============================================================ */
+
+
+/* SEARCH BOX */
+
+.weekly-plan-search {
+    width: 280px;
+}
+
+
+/* TABLE */
+
+.weekly-plan-table {
+    vertical-align: middle;
+}
+
+
+/* RESPONSIVE SEARCH */
+
+@media (max-width: 768px) {
+
+    .weekly-plan-search {
+        width: 100%;
+        margin-top: 15px;
+    }
+}

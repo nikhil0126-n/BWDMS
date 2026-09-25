@@ -1,15 +1,12 @@
 ﻿using System;
 
-namespace BWDMS.Admin
+namespace BWDMS.Dealer
 {
     public partial class Dashboard : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // ==========================================
-            // PREVENT BROWSER CACHE
-            // ==========================================
-
+            // Prevent browser caching
             Response.Cache.SetCacheability(
                 System.Web.HttpCacheability.NoCache);
 
@@ -22,10 +19,7 @@ namespace BWDMS.Admin
                 System.Web.HttpCacheRevalidation.AllCaches);
 
 
-            // ==========================================
-            // CHECK LOGIN
-            // ==========================================
-
+            // Check login
             if (Session["UserId"] == null)
             {
                 Response.Redirect(
@@ -38,14 +32,9 @@ namespace BWDMS.Admin
             }
 
 
-            // ==========================================
-            // CHECK ADMIN ROLE
-            // ==========================================
-
+            // Check Dealer role
             if (Session["UserRole"] == null ||
-                !Session["UserRole"].ToString().Equals(
-                    "Admin",
-                    StringComparison.OrdinalIgnoreCase))
+                Session["UserRole"].ToString() != "Dealer")
             {
                 Response.Redirect(
                     "~/Account/Login.aspx",

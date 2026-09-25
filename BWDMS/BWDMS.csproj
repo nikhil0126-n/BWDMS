@@ -69,15 +69,32 @@
   <ItemGroup>
     <Content Include="Account\CreateAdmin.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Admin\AddDealer.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Dealers.aspx" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\AddWeeklyRoutePlan.css" />
     <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\RouteSchedules.css" />
+    <Content Include="Content\WeeklyRoutePlans.css" />
+    <Content Include="Dealer\AddRoute.aspx" />
+    <Content Include="Dealer\AddRouteSchedule.aspx" />
+    <Content Include="Dealer\AddVillage.aspx" />
+    <Content Include="Dealer\AddWeeklyRoutePlan.aspx" />
+    <Content Include="Dealer\Dashboard.aspx" />
+    <Content Include="Dealer\Routes.aspx" />
+    <Content Include="Dealer\RouteSchedules.aspx" />
+    <Content Include="Dealer\Villages.aspx" />
+    <Content Include="Dealer\WeeklyRoutePlans.aspx" />
+    <Content Include="Scripts\AddWeeklyRoutePlan.js" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\RouteSchedules.js" />
+    <Content Include="Scripts\WeeklyRoutePlans.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +112,13 @@
     <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AddDealer.aspx.cs">
+      <DependentUpon>AddDealer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddDealer.aspx.designer.cs">
+      <DependentUpon>AddDealer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,8 +126,78 @@
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Dealers.aspx.cs">
+      <DependentUpon>Dealers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dealers.aspx.designer.cs">
+      <DependentUpon>Dealers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
+    <Compile Include="Dealer\AddRoute.aspx.cs">
+      <DependentUpon>AddRoute.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddRoute.aspx.designer.cs">
+      <DependentUpon>AddRoute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddRouteSchedule.aspx.cs">
+      <DependentUpon>AddRouteSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddRouteSchedule.aspx.designer.cs">
+      <DependentUpon>AddRouteSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddVillage.aspx.cs">
+      <DependentUpon>AddVillage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddVillage.aspx.designer.cs">
+      <DependentUpon>AddVillage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddWeeklyRoutePlan.aspx.cs">
+      <DependentUpon>AddWeeklyRoutePlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddWeeklyRoutePlan.aspx.designer.cs">
+      <DependentUpon>AddWeeklyRoutePlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Routes.aspx.cs">
+      <DependentUpon>Routes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Routes.aspx.designer.cs">
+      <DependentUpon>Routes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\RouteSchedules.aspx.cs">
+      <DependentUpon>RouteSchedules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\RouteSchedules.aspx.designer.cs">
+      <DependentUpon>RouteSchedules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Villages.aspx.cs">
+      <DependentUpon>Villages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Villages.aspx.designer.cs">
+      <DependentUpon>Villages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\WeeklyRoutePlans.aspx.cs">
+      <DependentUpon>WeeklyRoutePlans.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\WeeklyRoutePlans.aspx.designer.cs">
+      <DependentUpon>WeeklyRoutePlans.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Master\DashboardMaster.master.cs">
       <DependentUpon>DashboardMaster.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

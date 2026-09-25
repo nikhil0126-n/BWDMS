@@ -356,3 +356,191 @@ body {
         display: none;
     }
 }
+/* =========================================
+   DEALER DASHBOARD
+   ========================================= */
+
+.dashboard-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: #fff0f1;
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+
+.sales-chart {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #dddddd;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+
+.chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+}
+
+
+    .chart-placeholder i {
+        font-size: 35px;
+    }
+
+
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+    .stock-item:last-child {
+        border-bottom: none;
+    }
+
+
+    .stock-item strong {
+        display: block;
+        font-size: 14px;
+    }
+
+
+    .stock-item small {
+        display: block;
+        color: #999;
+        margin-top: 3px;
+    }
+
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+
+.quick-action {
+    border: 1px solid #eeeeee;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    color: #555;
+    transition: 0.2s;
+}
+
+
+    .quick-action i {
+        font-size: 20px;
+        color: #dc3545;
+    }
+
+
+    .quick-action span {
+        font-size: 11px;
+    }
+
+
+    .quick-action:hover {
+        border-color: #dc3545;
+        background: #fff8f8;
+        color: #dc3545;
+    }
+
+/* ============================================================
+   ROUTE TABLE
+   ============================================================ */
+
+.route-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+    /* Keep every row in one clean line */
+
+    .route-table th,
+    .route-table td {
+        vertical-align: middle;
+        white-space: nowrap;
+        padding: 12px 10px;
+    }
+
+
+/* Column widths */
+
+.route-code-col {
+    width: 13%;
+}
+
+.route-name-col {
+    width: 30%;
+}
+
+.route-day-col {
+    width: 25%;
+}
+
+.route-status-col {
+    width: 17%;
+}
+
+.route-action-col {
+    width: 15%;
+}
+
+
+/* Header */
+
+.route-table thead th {
+    font-weight: 700;
+    color: #111827;
+    border-bottom: 1px solid #dee2e6;
+}
+
+
+/* Rows */
+
+.route-table tbody tr {
+    border-bottom: 1px solid #dee2e6;
+}
+
+
+    /* Hover */
+
+    .route-table tbody tr:hover {
+        background-color: #fafafa;
+    }
+
+
+/* Status badge */
+
+.route-table .badge {
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+
+/* Edit button */
+
+.route-table .btn {
+    white-space: nowrap;
+}

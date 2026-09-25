@@ -1,0 +1,70 @@
+﻿
+.form-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #202124;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    min-height: 44px;
+    border-radius: 8px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #e63950;
+        box-shadow: 0 0 0 0.2rem rgba(230, 57, 80, 0.15);
+    }
+
+.validation-message {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.village-search-wrapper {
+    max-width: 450px;
+}
+
+.village-list-container {
+    max-height: 320px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    background: #ffffff;
+}
+
+.village-check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .village-check-list input[type="checkbox"] {
+        margin-right: 8px;
+        accent-color: #e63950;
+    }
+
+    .village-check-list label {
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+.form-actions {
+    border-top: 1px solid #eeeeee;
+}
+
+@media (max-width: 768px) {
+
+    .village-list-container {
+        max-height: 260px;
+    }
+}

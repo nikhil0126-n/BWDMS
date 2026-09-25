@@ -20,17 +20,26 @@
         </asp:ContentPlaceHolder>
     </title>
 
-    <!-- Bootstrap -->
+
+    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet" />
 
+
     <!-- Bootstrap Icons -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
           rel="stylesheet" />
 
-    <!-- BWDMS Dashboard CSS -->
+
+    <!-- Dashboard CSS -->
+
     <link href="<%= ResolveUrl("~/Content/Dashboard.css") %>"
           rel="stylesheet" />
+
+
+    <!-- Page-specific Head Content -->
 
     <asp:ContentPlaceHolder ID="HeadContent"
         runat="server">
@@ -38,13 +47,20 @@
 
 </head>
 
+
 <body>
 
 <form id="form1" runat="server">
 
-    <!-- ================= HEADER ================= -->
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <header class="top-header">
+
+
+        <!-- LEFT SIDE -->
 
         <div class="header-left">
 
@@ -56,6 +72,7 @@
 
             </button>
 
+
             <span class="page-brand">
                 BWDMS
             </span>
@@ -63,7 +80,12 @@
         </div>
 
 
+        <!-- RIGHT SIDE -->
+
         <div class="header-right">
+
+
+            <!-- Notification -->
 
             <div class="notification">
 
@@ -76,31 +98,49 @@
             </div>
 
 
+            <!-- User -->
+
             <div class="user-info">
+
 
                 <div class="user-avatar">
 
-                    <asp:Label ID="lblUserInitial"
+                    <asp:Label
+                        ID="lblUserInitial"
                         runat="server">
-                        A
+
+                        U
+
                     </asp:Label>
 
                 </div>
 
+
                 <div class="user-details">
 
                     <strong>
-                        <asp:Label ID="lblUserName"
+
+                        <asp:Label
+                            ID="lblUserName"
                             runat="server">
-                            Admin
+
+                            User
+
                         </asp:Label>
+
                     </strong>
 
+
                     <small>
-                        <asp:Label ID="lblUserRole"
+
+                        <asp:Label
+                            ID="lblUserRole"
                             runat="server">
-                            Admin
+
+                            User
+
                         </asp:Label>
+
                     </small>
 
                 </div>
@@ -112,141 +152,570 @@
     </header>
 
 
-    <!-- ================= SIDEBAR ================= -->
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
     <aside class="sidebar"
            id="sidebar">
 
+
+        <!-- SIDEBAR LOGO -->
+
         <div class="sidebar-logo">
 
+
             <div class="logo-icon">
+
                 BW
+
             </div>
 
+
             <div>
-                <strong>BWDMS</strong>
-                <small>Dealer Management</small>
+
+                <strong>
+                    BWDMS
+                </strong>
+
+                <small>
+                    Dealer Management
+                </small>
+
             </div>
 
         </div>
 
+
+
+        <!-- SIDEBAR MENU -->
 
         <div class="sidebar-menu">
 
+
+            <!-- =================================================
+                 COMMON DASHBOARD
+                 ================================================= -->
+
             <div class="menu-title">
+
                 MAIN MENU
+
             </div>
 
 
-            <a href="<%= ResolveUrl("~/Admin/Dashboard.aspx") %>"
-               class="menu-item">
+            <asp:HyperLink
+                ID="lnkDashboard"
+                runat="server"
+                CssClass="menu-item"
+                NavigateUrl="#">
 
                 <i class="bi bi-grid-1x2-fill"></i>
 
-                <span>Dashboard</span>
+                <span>
+                    Dashboard
+                </span>
 
-            </a>
-
-
-            <div class="menu-title">
-                MANAGEMENT
-            </div>
+            </asp:HyperLink>
 
 
-            <a href="#"
-               class="menu-item">
 
-                <i class="bi bi-tags-fill"></i>
+            <!-- =================================================
+                 ADMIN MENU
+                 ================================================= -->
 
-                <span>Categories</span>
-
-            </a>
-
-
-            <a href="#"
-               class="menu-item">
-
-                <i class="bi bi-box-seam-fill"></i>
-
-                <span>Products</span>
-
-            </a>
+            <asp:Panel
+                ID="pnlAdminMenu"
+                runat="server"
+                Visible="false">
 
 
-            <a href="#"
-               class="menu-item">
+                <div class="menu-title">
+
+                    MANAGEMENT
+
+                </div>
+
+
+                <asp:HyperLink
+                    ID="lnkAdminCategories"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-tags-fill"></i>
+
+                    <span>
+                        Categories
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkAdminProducts"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-box-seam-fill"></i>
+
+                    <span>
+                        Products
+                    </span>
+
+                </asp:HyperLink>
+
+
+               <asp:HyperLink
+                ID="lnkAdminDealers"
+                runat="server"
+                CssClass="menu-item"
+                NavigateUrl="~/Admin/Dealers.aspx">
 
                 <i class="bi bi-shop"></i>
 
-                <span>Dealers</span>
+                <span>
+                    Dealers
+                </span>
 
-            </a>
-
-
-            <a href="#"
-               class="menu-item">
-
-                <i class="bi bi-people-fill"></i>
-
-                <span>Users</span>
-
-            </a>
+            </asp:HyperLink>
 
 
-            <div class="menu-title">
-                REPORTS
-            </div>
+                <asp:HyperLink
+                    ID="lnkAdminUsers"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    <span>
+                        Users
+                    </span>
+
+                </asp:HyperLink>
 
 
-            <a href="#"
-               class="menu-item">
+                <div class="menu-title">
 
-                <i class="bi bi-bar-chart-fill"></i>
+                    REPORTS
 
-                <span>Reports</span>
-
-            </a>
+                </div>
 
 
-            <a href="#"
-               class="menu-item">
+                <asp:HyperLink
+                    ID="lnkAdminOrders"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
 
-                <i class="bi bi-file-earmark-text-fill"></i>
+                    <i class="bi bi-cart-check"></i>
 
-                <span>Orders</span>
+                    <span>
+                        Orders
+                    </span>
 
-            </a>
-
-
-            <div class="menu-title">
-                SYSTEM
-            </div>
+                </asp:HyperLink>
 
 
-            <a href="#"
-               class="menu-item">
+                <asp:HyperLink
+                    ID="lnkAdminReports"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
 
-                <i class="bi bi-gear-fill"></i>
+                    <i class="bi bi-bar-chart-fill"></i>
 
-                <span>Settings</span>
+                    <span>
+                        Reports
+                    </span>
 
-            </a>
+                </asp:HyperLink>
+
+
+                <div class="menu-title">
+
+                    SYSTEM
+
+                </div>
+
+
+                <asp:HyperLink
+                    ID="lnkAdminSettings"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-gear-fill"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </asp:HyperLink>
+
+            </asp:Panel>
+
+
+
+            <!-- =================================================
+                 DEALER MENU
+                 ================================================= -->
+
+            <asp:Panel
+                ID="pnlDealerMenu"
+                runat="server"
+                Visible="false">
+
+
+                <div class="menu-title">
+
+                    MANAGEMENT
+
+                </div>
+
+                <asp:HyperLink
+                    ID="lnkDealerRoutes"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Routes.aspx">
+
+                    <i class="bi bi-signpost-2"></i>
+
+                    <span>
+                        Routes
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerVillages"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Villages.aspx">
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    <span>Villages</span>
+
+                </asp:HyperLink>
+
+                
+                <asp:HyperLink
+                    ID="lnkWeeklyRoutePlans"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/RouteSchedules.aspx">
+
+                    <i class="bi bi-calendar-week"></i>
+
+                    <span>Weekly Plans</span>
+
+                </asp:HyperLink>
+                <!-- Shops -->
+
+                <asp:HyperLink
+                    ID="lnkDealerShops"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-shop"></i>
+
+                    <span>
+                        Shops
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <!-- Salesmen -->
+
+                <asp:HyperLink
+                    ID="lnkDealerSalesmen"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-people"></i>
+
+                    <span>
+                        Salesmen
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <!-- Vehicles -->
+
+                <asp:HyperLink
+                    ID="lnkDealerVehicles"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-truck"></i>
+
+                    <span>
+                        Vehicles
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <!-- Inventory -->
+
+                <asp:HyperLink
+                    ID="lnkDealerInventory"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <span>
+                        Inventory
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <!-- Orders -->
+
+                <asp:HyperLink
+                    ID="lnkDealerOrders"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-cart-check"></i>
+
+                    <span>
+                        Orders
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <div class="menu-title">
+
+                    OPERATIONS
+
+                </div>
+
+
+                <!-- Stock Reconciliation -->
+
+                <asp:HyperLink
+                    ID="lnkDealerReconciliation"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-arrow-repeat"></i>
+
+                    <span>
+                        Stock Reconciliation
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <!-- Reports -->
+
+                <asp:HyperLink
+                    ID="lnkDealerReports"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    <span>
+                        Reports
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <div class="menu-title">
+
+                    SYSTEM
+
+                </div>
+
+
+                <asp:HyperLink
+                    ID="lnkDealerSettings"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </asp:HyperLink>
+
+            </asp:Panel>
+
+
+
+            <!-- =================================================
+                 SALESMAN MENU
+                 ================================================= -->
+
+            <asp:Panel
+                ID="pnlSalesmanMenu"
+                runat="server"
+                Visible="false">
+
+
+                <div class="menu-title">
+
+                    MAIN MENU
+
+                </div>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanShops"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-shop"></i>
+
+                    <span>
+                        My Shops
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanRoutes"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-map"></i>
+
+                    <span>
+                        Routes / Beats
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanCreateOrder"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-cart-plus"></i>
+
+                    <span>
+                        Create Order
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanOrders"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-cart-check"></i>
+
+                    <span>
+                        My Orders
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanStock"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <span>
+                        Vehicle Stock
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <div class="menu-title">
+
+                    OPERATIONS
+
+                </div>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanCollection"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-cash-stack"></i>
+
+                    <span>
+                        Collection
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkSalesmanReports"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="#">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    <span>
+                        Reports
+                    </span>
+
+                </asp:HyperLink>
+
+            </asp:Panel>
 
         </div>
 
 
-        <!-- Logout -->
+
+        <!-- =====================================================
+             LOGOUT
+             ===================================================== -->
 
         <div class="sidebar-bottom">
 
-            <asp:LinkButton ID="btnLogout"
+            <asp:LinkButton
+                ID="btnLogout"
                 runat="server"
                 CssClass="logout-button"
                 OnClick="btnLogout_Click">
 
                 <i class="bi bi-box-arrow-right"></i>
 
-                <span>Logout</span>
+                <span>
+                    Logout
+                </span>
 
             </asp:LinkButton>
 
@@ -255,25 +724,34 @@
     </aside>
 
 
-    <!-- ================= MAIN CONTENT ================= -->
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
 
     <main class="main-content"
           id="mainContent">
 
-        <asp:ContentPlaceHolder ID="MainContent"
+        <asp:ContentPlaceHolder
+            ID="MainContent"
             runat="server">
+
         </asp:ContentPlaceHolder>
 
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
     <footer class="dashboard-footer">
 
         <span>
             © 2026 BWDMS. All Rights Reserved.
         </span>
+
 
         <span>
             Balaji Wafers Dealer Management System
@@ -282,13 +760,22 @@
     </footer>
 
 
-    <!-- Bootstrap JS -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- =====================================================
+         BOOTSTRAP JS
+         ===================================================== -->
 
-    <!-- BWDMS Dashboard JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
 
-    <script src="<%= ResolveUrl("~/Scripts/Dashboard.js") %>"></script>
+
+    <!-- =====================================================
+         DASHBOARD JS
+         ===================================================== -->
+
+    <script src="<%= ResolveUrl("~/Scripts/Dashboard.js") %>">
+    </script>
+
 
 </form>
 
