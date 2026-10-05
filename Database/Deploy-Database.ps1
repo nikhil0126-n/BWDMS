@@ -56,10 +56,10 @@ Write-Host '======================================================' -ForegroundC
 if (-not $ConnectionString) {
     [xml]$cfg = Get-Content $webConfig
     $node = $cfg.configuration.connectionStrings.add |
-            Where-Object { $_.name -eq 'BWDMSConnection' }
+            Where-Object { $_.name -eq 'Database1' }
 
     if (-not $node) {
-        throw "Connection string 'BWDMSConnection' is missing from Web.config"
+        throw "Connection string 'Database1' is missing from Web.config"
     }
 
     $ConnectionString = $node.connectionString

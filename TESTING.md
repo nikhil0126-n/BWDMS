@@ -34,12 +34,14 @@ reported as passing unless it was observed.
 | Solution build | 1 | 1 | 0 |
 | Page regression (60 pages × 3 roles) | 174 | **174** | 0 |
 | Unhandled exceptions during regression | 1 | **0 logged** | — |
-| **Route-day flow (load → sell → bill → count)** | **23** | **23** | 0 |
+| **Route-day flow (load → sell → bill → count)** | **24** | **24** | 0 |
 | **Offline sync + route closure + price history** | **22** | **22** | 0 |
 | Authentication & authorization | 12 | 12 | 0 |
 | Dealer isolation | 6 | 6 | 0 |
 | Routes & schedules | 8 | 8 | 0 |
 | Products, units & pricing | 5 | 5 | 0 |
+| Inventory PDF import (parser + first import) | 35 | 35 | 0 |
+| Inventory PDF import (re-import is idempotent) | 27 | 27 | 0 |
 | Inventory & stock | 10 | 10 | 0 |
 | Orders | 9 | 9 | 0 |
 | Reconciliation | 3 | 3 | 0 |
@@ -226,6 +228,91 @@ permanent: no weekly route duplication is performed.
 | P4 | Negative price / zero quantity rejected | Validation error | **PASS** |
 | P5 | Order line keeps a price snapshot | Changing a price does not alter old orders | **PASS** |
 
+### Inventory PDF import — 35 / 35
+
+#### a. Parser (6) — out of process
+
+Checked out of process against `C:\Users\kotak\Downloads\InventorySheet.pdf`
+(3 pages, 61,328 bytes, iText 2.0.8, FlateDecode content streams) by linking
+`BWDMS.dll` into a console probe.
+
+| # | Test | Expected | Result |
+|---|---|---|---|
+| X1 | Row extraction | 103 rows, Sr 1..103 in one sequence, no page duplicated | **PASS** |
+| X2 | Column split at `x = 385` | `250.00` lands in Purchase Price, not Total Packet | **PASS** |
+| X3 | Packing reconciliation | every row's `Box×bpp + Patti×ppp + Packet` equals Total Packet | **PASS** (0 flagged) |
+| X4 | Status tags | `[INACT.]` **and** `(INACT.)` both flip `IsActive`, both stripped from the name | **PASS** (10 inactive) |
+| X5 | Data completeness | 0 blank materials, 0 missing prices, 1 in-sheet duplicate name | **PASS** |
+| X6 | Patti packing | 74 rows derive it exactly; 29 without patti stock inherit only on a unanimous box size | **PASS** (29 left PKT/BOX) |
+
+X1 caught two real defects first: `/Contents` is written *ahead of* `/Type/Page`
+in the page dictionary, so a forward search found the next page's reference and
+a page could adopt the stream of the object behind it — the sheet came back as
+157 rows with rows 50–99 twice. Bounding the object probe at that object's own
+`endobj` fixed it.
+
+Category auto-detect over the 102 distinct names: Wafers 30, Namkeen 25,
+Fryums 13, Sev 9, fallback dropdown 26.
+
+#### b. UI round-trip (29) — `pdfimport.ps1`
+
+Login as admin → `Admin/AddProduct.aspx` → upload the sheet → *Read sheet* →
+tick every row → *Import products*. Every figure below is a **before/after
+delta**, so the run is repeatable.
+
+| # | Test | Expected | Result |
+|---|---|---|---|
+| Y1 | Import button is not offered until a sheet is read | absent from the first render | **PASS** |
+| Y2 | Godown + fallback-category dropdowns are offered | both populated (Shreeji Sales / Wafers) | **PASS** |
+| Y3 | *Read sheet* reports success | `Sheet read. Check the rows below…` | **PASS** |
+| Y4 | Preview columns | exactly `Sr.`, `Material`, `Box`, `Patti`, `Packet`, `Total Packet`, `Purchase Price`, `Sales Price` | **PASS** |
+| Y5 | Derived columns stay hidden | `Purchase Value` / `Sales Value` absent | **PASS** |
+| Y6 | Preview rows | 103 tick boxes, all ticked | **PASS** |
+| Y7 | Summary line | `103 row(s) read. Packing read for 102 by box and 74 by patti - 29 row(s) carry no patti stock…` | **PASS** |
+| Y8 | Products created | **+102** (103 rows − 1 in-sheet duplicate) | **PASS** |
+| Y9 | Variants created | **+102**, one per product | **PASS** |
+| Y10 | Unit options created | **+277** = 102 `PKT` + 74 `PTI` + 101 `BOX` | **PASS** |
+| Y11 | Price rows created | **+277**, one per unit option | **PASS** |
+| Y12 | Godown stock set from `Total Packet` | **+116,153** packets (sheet 116,186 less the skipped row's 33) | **PASS** |
+| Y13 | Stock ledger | **1** `Stock In` header `PDF-20261005-205536` + **102** detail lines | **PASS** |
+| Y14 | Tagged rows import inactive | **+9** (10 `[INACT.]`/`(INACT.)` rows less the skipped one) | **PASS** |
+| Y15 | Status tags stripped from names | 0 names still containing `INACT`/`NEW]` | **PASS** |
+| Y16 | In-sheet duplicate skipped, not copied | the name exists exactly once | **PASS** |
+| Y17 | No invented patti packing | 0 `PTI` options outside 8/10/12/16 | **PASS** |
+
+**Two harness bugs, not application bugs.** The first run imported only 8 of
+102 products. Both faults were in `pdfimport.ps1`:
+
+1. The tick boxes were posted as `ctl0$i`, so row 10 became `ctl010` — only
+   `ctl02`…`ctl09` matched, and exactly 8 rows came back ticked. Posting the
+   rendered `name` attributes verbatim removed the guess.
+2. The row count read `id="MainContent_…"`, but this page renders `id` with
+   the `ctl00_` prefix, so it counted 0 rows while the grid had 103.
+
+The application imported correctly in both runs; only the harness disagreed
+with it. The partial run was rolled back from the `PDF-%` ledger reference
+before re-running, leaving `Products` at 1 again and `Inventory` for
+Shreeji Sales at 0.
+
+#### c. Re-import is idempotent — 27 / 27
+
+Run again against the *same* sheet now that the catalogue already holds those
+102 products. The preview still reads all 103 rows, but each one comes back
+**unticked** because `Products` already contains the name, so the import loop
+skips every row and commits nothing.
+
+| # | Test | Expected | Result |
+|---|---|---|---|
+| Z1 | Sheet still reads | 103 rows, 8 columns, packing summary unchanged | **PASS** |
+| Z2 | Import reports nothing new | `Imported 0 product(s) … 103 were already in the catalogue.` | **PASS** |
+| Z3 | Products, variants, unit options, price rows | every delta **0** | **PASS** |
+| Z4 | Godown stock | unchanged | **PASS** |
+| Z5 | Ledger | no second `PDF-` header written | **PASS** |
+| Z6 | Names and packing still clean | duplicate exists once, no `INACT`/`NEW]` left in a name, no invented `PTI` packing | **PASS** |
+
+Pressing **Import** twice is therefore harmless — the second press tells you
+the rows are already there rather than creating a second copy.
+
 ---
 
 ## 6. Inventory, receipts and vehicle stock (PART 12 / PART 20)
@@ -380,6 +467,30 @@ Recorded so the same false conclusions are not reached again:
   `&#39;`-encoded quotes; it posts via `__EVENTTARGET`, not a form field.
 * `GridView` row controls are indexed (`ctl02`, `ctl03`, …) unless
   `ClientIDMode="Predictable"`.
+* Building those indexes with `"ctl0$i"` is wrong from row 10 on — it produces
+  `ctl010`. Round 1 of the PDF import "created 8 products" because only
+  `ctl02`…`ctl09` ever matched. **Post the rendered `name` attributes back
+  verbatim** instead of rebuilding them.
+* The `name` attribute always carries the full `UniqueID` path
+  (`ctl00$MainContent$…`); the `id` depends on `ClientIDMode` and this page
+  renders it with the `ctl00_` prefix. Counting rows off `id="MainContent_…"`
+  reported **0** rows for a grid that had **103**.
+* `SELECT MAX(QuantityPackets) … WHERE DealerId=2` was a shortcut that only
+  worked while that dealer held **one** inventory row. Once the bulk import
+  added products, the first dropdown option stopped being the row `MAX`
+  pointed at, so three suites saw `5000 -> 5000`. Use `SUM(...)`, or measure
+  the variant you actually selected.
+* A **load** takes stock *out* of the godown, so a test must pick a variant the
+  dealer holds — the dropdown lists every active product, not every stocked
+  one. A **receipt** may legitimately stock a variant that has none.
+* `AddReconciliation` renders **one row per active variant**. Reading "the
+  expected cell" as the first match returned `0` from an unloaded variant once
+  the catalogue grew to 94 active rows; the day's expected closing is the
+  **sum** of the rows.
+* `SELECT TOP 1 … WHERE Status='Pending'` picks an arbitrary order, but
+  `Dealer/Orders.aspx` pages at 25 rows — the chosen order can be on page 2,
+  whose row never renders. Pick the cancel target from a row that is actually
+  on the fetched page.
 * Validation controls render their message text with `style="display:none"`
   **before** they fail — their presence in the HTML is not evidence of failure.
 
@@ -421,16 +532,35 @@ UPDATE Inventory SET QuantityPackets=5000 WHERE DealerId=2;"
 
 # 4. run the suites (each resets the data it needs)
 powershell -ExecutionPolicy Bypass -File <script>\smoke.ps1     # 174 page requests
-powershell -ExecutionPolicy Bypass -File <script>\routeflow.ps1 # 23 route-day checks
+powershell -ExecutionPolicy Bypass -File <script>\routeflow.ps1 # 24 route-day checks
 powershell -ExecutionPolicy Bypass -File <script>\offline.ps1   # 22 sync/closure/history
 powershell -ExecutionPolicy Bypass -File <script>\receipt.ps1   # 9 receipt checks
 powershell -ExecutionPolicy Bypass -File <script>\e2e2.ps1      # 25 loading/dispatch/returns/CSV
+
+# 5. the inventory PDF import - 29 checks on a fresh catalogue, 27 on a
+#    re-import (which must then create nothing). The first run adds 102
+#    products and 116,153 packets to the Shreeji Sales godown.
+powershell -ExecutionPolicy Bypass -File <script>\pdfimport.ps1
 ```
+
+> `pdfimport.ps1` decides which mode to assert from whether a `PDF-` ledger
+> row already exists, so it can be run repeatedly: first run creates the
+> catalogue, every later run proves the sheet cannot duplicate it.
+
+> The five page suites above were re-run **with the 102 imported products
+> present**, i.e. against the catalogue the feature itself produces.
 
 > `routeflow.ps1` and `offline.ps1` deliberately change the same rows (a route
 > day gets **closed** by one suite that the other needs open), so **run them in
 > that order** — each script resets the state it needs at the top. That
 > ordering is a property of the tests, not of the application.
+
+> `routeflow.ps1` picks the schedule whose **weekday matches today** rather
+> than the first dropdown option. The routes are named after weekdays and the
+> dropdown is ordered by route name, so "Friday" always sorts ahead of
+> "Monday"; loading onto Friday's schedule and then billing from Monday's shop
+> correctly reports *no stock on board*. The application was right and the
+> harness was wrong.
 
 Each script prints a per-check `PASS`/`FAIL` line and a final
 `=== n passed / m failed ===`, and exits non-zero if anything failed.

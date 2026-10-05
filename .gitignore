@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Application log written at runtime (BWDMS/App_Data/AppLog.txt)
+AppLog.txt

@@ -34,7 +34,7 @@ CodeDom compiler provider, which `packages.config` already references.
 `BWDMS\Web.config`:
 
 ```xml
-<add name="BWDMSConnection"
+<add name="Database1"
      connectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True"
      providerName="System.Data.SqlClient" />
 ```
@@ -215,6 +215,47 @@ email), product categories (add/edit/search/deactivate), products, product
 variants with packet size/weight, MRP, box/patti/packet units with explicit
 conversion ratios, company→dealer purchase price and dealer→shop selling price.
 No barcodes, no credit limits, no hard-coded product list.
+
+#### Bulk import from an inventory PDF
+
+`Admin/AddProduct.aspx` also carries an **Import from inventory PDF** panel.
+Upload the warehouse sheet (the "INVENTORY IN WAREHOUSE" export) and press
+**Read sheet** — nothing is written yet. The parser reads the sheet's eight
+columns (`Sr.`, `Material`, `Box`, `Patti`, `Packet`, `Total Packet`,
+`Purchase Price`, `Sales Price`) and shows them in a tick-box preview;
+the sheet's *Purchase Value* and *Sales Value* columns are located only to be
+skipped, since both are derived figures.
+
+Each ticked row becomes **one product with one variant**:
+
+| Sheet value | Written to |
+|---|---|
+| `Material` | `Products.ProductName`, `ProductVariants.VariantCode`/`VariantName` |
+| `15GM*192` spec | `ProductVariants.PacketWeight`, `WeightUnit` |
+| `[INACT.]` / `(INACT.)` tag | `Products.IsActive = 0`, tag stripped from the name |
+| `Purchase Price` / `Sales Price` (per packet) | `ProductPrices`, scaled by packing for BOX and PTI |
+| `Total Packet` | `Inventory.QuantityPackets` for the chosen godown |
+
+Packing is derived rather than typed: packets-per-box comes from the row itself
+(`(Total − Packet) ÷ Box`) when the row carries no patti, and from the `*192`
+in the material otherwise; packets-per-patti is measured on rows that hold
+patti stock and inherited by rows that do not **only when every row of that box
+size agrees** — a box size with two answers is a per-product packing, and
+guessing would misprice a patti sale. Rows with no derivable patti packing get
+Packet and Box only. A `Stock In` ledger header with one detail line per
+product records the whole import under a single `PDF-` reference.
+
+Run against `InventorySheet.pdf` this produces **103 preview rows**, **102
+products** (row 101 repeats row 56 and is skipped rather than duplicated),
+**277 unit options** (102 `PKT` + 74 `PTI` + 101 `BOX`) and **116,153
+packets** of godown stock. Importing the same sheet twice is harmless: rows
+already in the catalogue come back unticked.
+
+The parser lives in `BWDMS\Data\InventoryPdfParser.cs` and is hand written: the
+project targets .NET Framework 4.7.2 with no package references, so it inflates
+the FlateDecode content streams itself and interprets `BT`/`Tf`/`Tm`/`Td`/`Tj`/
+`TJ`. Import runs inside one transaction, and rows already in the catalogue come
+back unticked so pressing the button twice is harmless.
 
 ### Routes, villages, schedules (Dealer)
 Permanent routes — **no Bi-Weekly concept anywhere**. A route can operate on

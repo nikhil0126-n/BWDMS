@@ -263,6 +263,7 @@
     <Compile Include="Data\AppAuth.cs" />
     <Compile Include="Data\CsvExport.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\InventoryPdfParser.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
     <Compile Include="Dealer\AddCompanyReceipt.aspx.cs">
       <DependentUpon>AddCompanyReceipt.aspx</DependentUpon>
