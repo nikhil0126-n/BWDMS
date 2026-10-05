@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -67,11 +67,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\CreateAdmin.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Admin\AddCategory.aspx" />
     <Content Include="Admin\AddDealer.aspx" />
+    <Content Include="Admin\AddProduct.aspx" />
+    <Content Include="Admin\AddVariant.aspx" />
+    <Content Include="Admin\Categories.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Dealers.aspx" />
+    <Content Include="Admin\Orders.aspx" />
+    <Content Include="Admin\ProductVariants.aspx" />
+    <Content Include="Admin\Products.aspx" />
+    <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\Users.aspx" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
@@ -80,24 +90,74 @@
     <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\RouteSchedules.css" />
+    <Content Include="Content\RouteVillageAssignment.css" />
+    <Content Include="Content\ScheduleVillages.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
+    <Content Include="Dealer\AddCompanyReceipt.aspx" />
+    <Content Include="Dealer\AddDispatch.aspx" />
+    <Content Include="Dealer\AddInventory.aspx" />
+    <Content Include="Dealer\AddOrder.aspx" />
+    <Content Include="Dealer\AddReconciliation.aspx" />
+    <Content Include="Dealer\AddReturn.aspx" />
     <Content Include="Dealer\AddRoute.aspx" />
     <Content Include="Dealer\AddRouteSchedule.aspx" />
+    <Content Include="Dealer\AddSalesman.aspx" />
+    <Content Include="Dealer\AddShop.aspx" />
+    <Content Include="Dealer\AddVehicle.aspx" />
     <Content Include="Dealer\AddVillage.aspx" />
     <Content Include="Dealer\AddWeeklyRoutePlan.aspx" />
+    <Content Include="Dealer\CompanyReceipts.aspx" />
     <Content Include="Dealer\Dashboard.aspx" />
+    <Content Include="Dealer\DispatchDetails.aspx" />
+    <Content Include="Dealer\Dispatches.aspx" />
+    <Content Include="Dealer\Inventory.aspx" />
+    <Content Include="Dealer\Orders.aspx" />
+    <Content Include="Dealer\Reconciliations.aspx" />
+    <Content Include="Dealer\Reports.aspx" />
+    <Content Include="Dealer\Returns.aspx" />
     <Content Include="Dealer\Routes.aspx" />
     <Content Include="Dealer\RouteSchedules.aspx" />
+    <Content Include="Dealer\RouteVillageAssignment.aspx" />
+    <Content Include="Dealer\Salesmen.aspx" />
+    <Content Include="Dealer\ScheduleVillages.aspx" />
+    <Content Include="Dealer\Shops.aspx" />
+    <Content Include="Dealer\ShopOrders.aspx" />
+    <Content Include="Dealer\StockTransactions.aspx" />
+    <Content Include="Dealer\VehicleLoading.aspx" />
+    <Content Include="Dealer\Vehicles.aspx" />
     <Content Include="Dealer\Villages.aspx" />
     <Content Include="Dealer\WeeklyRoutePlans.aspx" />
+    <Content Include="Handlers\OrderSync.ashx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Salesman\Bill.aspx" />
+    <Content Include="Salesman\Collection.aspx" />
+    <Content Include="Salesman\CreateOrder.aspx" />
+    <Content Include="Salesman\Dashboard.aspx" />
+    <Content Include="Salesman\OfflineQueue.aspx" />
+    <Content Include="Salesman\Orders.aspx" />
+    <Content Include="Salesman\Reports.aspx" />
+    <Content Include="Salesman\Routes.aspx" />
+    <Content Include="Salesman\Shops.aspx" />
+    <Content Include="Salesman\VehicleStock.aspx" />
     <Content Include="Scripts\AddWeeklyRoutePlan.js" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\OfflineSync.js" />
     <Content Include="Scripts\RouteSchedules.js" />
+    <Content Include="Scripts\RouteVillageAssignment.js" />
+    <Content Include="Scripts\ScheduleVillages.js" />
     <Content Include="Scripts\WeeklyRoutePlans.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\CreateAdmin.aspx.cs">
       <DependentUpon>CreateAdmin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -112,12 +172,40 @@
     <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AddCategory.aspx.cs">
+      <DependentUpon>AddCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddCategory.aspx.designer.cs">
+      <DependentUpon>AddCategory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AddDealer.aspx.cs">
       <DependentUpon>AddDealer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\AddDealer.aspx.designer.cs">
       <DependentUpon>AddDealer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddProduct.aspx.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddProduct.aspx.designer.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddVariant.aspx.cs">
+      <DependentUpon>AddVariant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddVariant.aspx.designer.cs">
+      <DependentUpon>AddVariant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -133,8 +221,87 @@
     <Compile Include="Admin\Dealers.aspx.designer.cs">
       <DependentUpon>Dealers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProductVariants.aspx.cs">
+      <DependentUpon>ProductVariants.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProductVariants.aspx.designer.cs">
+      <DependentUpon>ProductVariants.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Products.aspx.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Products.aspx.designer.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AppAuth.cs" />
+    <Compile Include="Data\CsvExport.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
+    <Compile Include="Dealer\AddCompanyReceipt.aspx.cs">
+      <DependentUpon>AddCompanyReceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddCompanyReceipt.aspx.designer.cs">
+      <DependentUpon>AddCompanyReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddDispatch.aspx.cs">
+      <DependentUpon>AddDispatch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddDispatch.aspx.designer.cs">
+      <DependentUpon>AddDispatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddReturn.aspx.cs">
+      <DependentUpon>AddReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddReturn.aspx.designer.cs">
+      <DependentUpon>AddReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddInventory.aspx.cs">
+      <DependentUpon>AddInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddInventory.aspx.designer.cs">
+      <DependentUpon>AddInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddOrder.aspx.cs">
+      <DependentUpon>AddOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddOrder.aspx.designer.cs">
+      <DependentUpon>AddOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddReconciliation.aspx.cs">
+      <DependentUpon>AddReconciliation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddReconciliation.aspx.designer.cs">
+      <DependentUpon>AddReconciliation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\AddRoute.aspx.cs">
       <DependentUpon>AddRoute.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -148,6 +315,27 @@
     </Compile>
     <Compile Include="Dealer\AddRouteSchedule.aspx.designer.cs">
       <DependentUpon>AddRouteSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddSalesman.aspx.cs">
+      <DependentUpon>AddSalesman.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddSalesman.aspx.designer.cs">
+      <DependentUpon>AddSalesman.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddShop.aspx.cs">
+      <DependentUpon>AddShop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddShop.aspx.designer.cs">
+      <DependentUpon>AddShop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\AddVehicle.aspx.cs">
+      <DependentUpon>AddVehicle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\AddVehicle.aspx.designer.cs">
+      <DependentUpon>AddVehicle.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\AddVillage.aspx.cs">
       <DependentUpon>AddVillage.aspx</DependentUpon>
@@ -163,12 +351,68 @@
     <Compile Include="Dealer\AddWeeklyRoutePlan.aspx.designer.cs">
       <DependentUpon>AddWeeklyRoutePlan.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\CompanyReceipts.aspx.cs">
+      <DependentUpon>CompanyReceipts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\CompanyReceipts.aspx.designer.cs">
+      <DependentUpon>CompanyReceipts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dealer\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\DispatchDetails.aspx.cs">
+      <DependentUpon>DispatchDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\DispatchDetails.aspx.designer.cs">
+      <DependentUpon>DispatchDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Dispatches.aspx.cs">
+      <DependentUpon>Dispatches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Dispatches.aspx.designer.cs">
+      <DependentUpon>Dispatches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Inventory.aspx.cs">
+      <DependentUpon>Inventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Inventory.aspx.designer.cs">
+      <DependentUpon>Inventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Reconciliations.aspx.cs">
+      <DependentUpon>Reconciliations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Reconciliations.aspx.designer.cs">
+      <DependentUpon>Reconciliations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Returns.aspx.cs">
+      <DependentUpon>Returns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Returns.aspx.designer.cs">
+      <DependentUpon>Returns.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Routes.aspx.cs">
       <DependentUpon>Routes.aspx</DependentUpon>
@@ -184,6 +428,62 @@
     <Compile Include="Dealer\RouteSchedules.aspx.designer.cs">
       <DependentUpon>RouteSchedules.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\RouteVillageAssignment.aspx.cs">
+      <DependentUpon>RouteVillageAssignment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\RouteVillageAssignment.aspx.designer.cs">
+      <DependentUpon>RouteVillageAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Salesmen.aspx.cs">
+      <DependentUpon>Salesmen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Salesmen.aspx.designer.cs">
+      <DependentUpon>Salesmen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\ScheduleVillages.aspx.cs">
+      <DependentUpon>ScheduleVillages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\ScheduleVillages.aspx.designer.cs">
+      <DependentUpon>ScheduleVillages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Shops.aspx.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Shops.aspx.designer.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\ShopOrders.aspx.cs">
+      <DependentUpon>ShopOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\ShopOrders.aspx.designer.cs">
+      <DependentUpon>ShopOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\StockTransactions.aspx.cs">
+      <DependentUpon>StockTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\StockTransactions.aspx.designer.cs">
+      <DependentUpon>StockTransactions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\VehicleLoading.aspx.cs">
+      <DependentUpon>VehicleLoading.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\VehicleLoading.aspx.designer.cs">
+      <DependentUpon>VehicleLoading.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\Vehicles.aspx.cs">
+      <DependentUpon>Vehicles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\Vehicles.aspx.designer.cs">
+      <DependentUpon>Vehicles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\Villages.aspx.cs">
       <DependentUpon>Villages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -198,6 +498,85 @@
     <Compile Include="Dealer\WeeklyRoutePlans.aspx.designer.cs">
       <DependentUpon>WeeklyRoutePlans.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs" />
+    <Compile Include="Salesman\Bill.aspx.cs">
+      <DependentUpon>Bill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Bill.aspx.designer.cs">
+      <DependentUpon>Bill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Collection.aspx.cs">
+      <DependentUpon>Collection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Collection.aspx.designer.cs">
+      <DependentUpon>Collection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\CreateOrder.aspx.cs">
+      <DependentUpon>CreateOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\CreateOrder.aspx.designer.cs">
+      <DependentUpon>CreateOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\OfflineQueue.aspx.cs">
+      <DependentUpon>OfflineQueue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\OfflineQueue.aspx.designer.cs">
+      <DependentUpon>OfflineQueue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Routes.aspx.cs">
+      <DependentUpon>Routes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Routes.aspx.designer.cs">
+      <DependentUpon>Routes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Shops.aspx.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Shops.aspx.designer.cs">
+      <DependentUpon>Shops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\VehicleStock.aspx.cs">
+      <DependentUpon>VehicleStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\VehicleStock.aspx.designer.cs">
+      <DependentUpon>VehicleStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\OrderSync.ashx.cs" />
     <Compile Include="Master\DashboardMaster.master.cs">
       <DependentUpon>DashboardMaster.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

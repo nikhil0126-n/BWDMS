@@ -9,9 +9,61 @@
 
     if (sidebarToggle && sidebar) {
 
+        const backdrop =
+            document.getElementById("sidebarBackdrop");
+
+
+        // Open / close the sidebar and its backdrop together
+
+        function setSidebarOpen(open) {
+
+            sidebar.classList.toggle("show", open);
+
+            if (backdrop) {
+                backdrop.classList.toggle("show", open);
+            }
+
+        }
+
+
         sidebarToggle.addEventListener("click", function () {
 
-            sidebar.classList.toggle("show");
+            setSidebarOpen(!sidebar.classList.contains("show"));
+
+        });
+
+
+        // Click outside (on the backdrop) closes the sidebar
+
+        if (backdrop) {
+
+            backdrop.addEventListener("click", function () {
+
+                setSidebarOpen(false);
+
+            });
+
+        }
+
+
+        // Escape closes the sidebar
+
+        document.addEventListener("keydown", function (event) {
+
+            if (event.key === "Escape") {
+                setSidebarOpen(false);
+            }
+
+        });
+
+
+        // Leaving the mobile breakpoint resets the sidebar
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 768) {
+                setSidebarOpen(false);
+            }
 
         });
 

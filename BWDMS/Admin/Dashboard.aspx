@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Admin Dashboard"
+<%@ Page Title="Admin Dashboard"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -38,13 +38,14 @@
 
         <div>
 
-            <button class="btn btn-danger">
+            <a href="AddProduct.aspx"
+               class="btn btn-danger">
 
                 <i class="bi bi-plus-lg"></i>
 
                 Add Product
 
-            </button>
+            </a>
 
         </div>
 
@@ -67,11 +68,15 @@
                 </div>
 
                 <h3>
-                    0
+                    <asp:Label
+                        ID="lblDealerCount"
+                        runat="server"
+                        Text="0">
+                    </asp:Label>
                 </h3>
 
                 <small class="text-muted">
-                    Registered dealers
+                    Active registered dealers
                 </small>
 
             </div>
@@ -90,7 +95,11 @@
                 </div>
 
                 <h3>
-                    0
+                    <asp:Label
+                        ID="lblCategoryCount"
+                        runat="server"
+                        Text="0">
+                    </asp:Label>
                 </h3>
 
                 <small class="text-muted">
@@ -113,7 +122,11 @@
                 </div>
 
                 <h3>
-                    0
+                    <asp:Label
+                        ID="lblProductCount"
+                        runat="server"
+                        Text="0">
+                    </asp:Label>
                 </h3>
 
                 <small class="text-muted">
@@ -136,7 +149,11 @@
                 </div>
 
                 <h3>
-                    0
+                    <asp:Label
+                        ID="lblOrderCount"
+                        runat="server"
+                        Text="0">
+                    </asp:Label>
                 </h3>
 
                 <small class="text-muted">
@@ -159,12 +176,66 @@
             <div class="dashboard-card">
 
                 <h5 class="fw-bold">
-                    Recent Orders
+                    Recent Dealer Activity
                 </h5>
 
                 <p class="text-muted">
-                    No orders available yet.
+                    Latest orders created by your dealers
                 </p>
+
+                <div class="table-responsive">
+
+                    <asp:GridView
+                        ID="gvRecentActivity"
+                        runat="server"
+                        AutoGenerateColumns="False"
+                        CssClass="table table-hover align-middle"
+                        GridLines="None"
+                        EmptyDataText="No orders available yet." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+
+                        <Columns>
+
+                            <asp:BoundField
+                                DataField="CreatedAtText"
+                                HeaderText="Created" />
+
+                            <asp:BoundField
+                                DataField="DealerName"
+                                HeaderText="Dealer" />
+
+                            <asp:BoundField
+                                DataField="OrderNumber"
+                                HeaderText="Order No." />
+
+                            <asp:BoundField
+                                DataField="ShopName"
+                                HeaderText="Shop" />
+
+                            <asp:BoundField
+                                DataField="GrandTotalText"
+                                HeaderText="Amount"
+                                DataFormatString="{0:N2}" />
+
+                            <asp:TemplateField
+                                HeaderText="Status">
+
+                                <ItemTemplate>
+
+                                    <span class='<%# Eval("StatusCss") %>'>
+
+                                        <%# Eval("Status") %>
+
+                                    </span>
+
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+
+                        </Columns>
+
+                    </asp:GridView>
+
+                </div>
 
             </div>
 
@@ -181,17 +252,101 @@
 
                 <div class="d-grid gap-2 mt-3">
 
-                    <button class="btn btn-outline-danger">
+                    <a href="AddCategory.aspx"
+                       class="btn btn-outline-danger">
                         Add Category
-                    </button>
+                    </a>
 
-                    <button class="btn btn-outline-danger">
+                    <a href="AddProduct.aspx"
+                       class="btn btn-outline-danger">
                         Add Product
-                    </button>
+                    </a>
 
-                    <button class="btn btn-outline-danger">
+                    <a href="AddDealer.aspx"
+                       class="btn btn-outline-danger">
                         Add Dealer
-                    </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Orders By Status (all dealers) -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-12">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+
+                        <h5 class="fw-bold mb-1">
+                            Orders By Status
+                        </h5>
+
+                        <small class="text-muted">
+                            High-level sales summary across all dealers
+                        </small>
+
+                    </div>
+
+
+                    <asp:Label
+                        ID="lblStatusTotal"
+                        runat="server"
+                        CssClass="badge bg-secondary">
+                    </asp:Label>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <asp:GridView
+                        ID="gvStatusSummary"
+                        runat="server"
+                        AutoGenerateColumns="False"
+                        CssClass="table table-hover align-middle"
+                        GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+
+                        <Columns>
+
+                            <asp:TemplateField
+                                HeaderText="Status">
+
+                                <ItemTemplate>
+
+                                    <span class='<%# Eval("StatusCss") %>'>
+
+                                        <%# Eval("Status") %>
+
+                                    </span>
+
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+
+
+                            <asp:BoundField
+                                DataField="OrderCount"
+                                HeaderText="Orders" />
+
+                            <asp:BoundField
+                                DataField="AmountText"
+                                HeaderText="Grand Total"
+                                DataFormatString="{0:N2}" />
+
+                        </Columns>
+
+                    </asp:GridView>
 
                 </div>
 

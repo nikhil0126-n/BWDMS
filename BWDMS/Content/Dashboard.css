@@ -254,6 +254,25 @@ body {
 
 
 /* =========================================
+   SIDEBAR BACKDROP (MOBILE OVERLAY)
+   ========================================= */
+
+.sidebar-backdrop {
+    display: none;
+}
+
+
+/* =========================================
+   SEARCH / TOOLBAR BOX IN CARD HEADERS
+   ========================================= */
+
+.grid-search-box {
+    width: 250px;
+    max-width: 100%;
+}
+
+
+/* =========================================
    MAIN CONTENT
    ========================================= */
 
@@ -324,6 +343,51 @@ body {
    RESPONSIVE
    ========================================= */
 
+/* ----------------------------------------
+   TABLET (768px – 991.98px)
+   ---------------------------------------- */
+
+@media (max-width: 991.98px) {
+
+    .top-header {
+        padding: 0 20px;
+    }
+
+
+    .header-right {
+        gap: 18px;
+    }
+
+
+    .main-content {
+        padding: 90px 20px 80px;
+    }
+
+
+    .dashboard-footer {
+        padding: 0 20px;
+    }
+
+
+    /* Wide data tables scroll inside .table-responsive
+       instead of squeezing, clipping or breaking the layout */
+
+    .table-responsive > .table {
+        min-width: 600px;
+    }
+
+
+    .table-responsive > .table.route-table {
+        table-layout: auto;
+        min-width: 780px;
+    }
+}
+
+
+/* ----------------------------------------
+   MOBILE (up to 768px) — off-canvas sidebar
+   ---------------------------------------- */
+
 @media (max-width: 768px) {
 
     .sidebar {
@@ -335,6 +399,15 @@ body {
         .sidebar.show {
             left: 0;
         }
+
+
+    .sidebar-backdrop.show {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.45);
+        z-index: 1050;
+    }
 
 
     .top-header {
@@ -356,6 +429,72 @@ body {
         display: none;
     }
 }
+
+
+/* ----------------------------------------
+   SMALL MOBILE (up to 767.98px) — tighten shell
+   ---------------------------------------- */
+
+@media (max-width: 767.98px) {
+
+    .top-header {
+        padding: 0 14px;
+    }
+
+
+    .header-left {
+        gap: 10px;
+    }
+
+
+    .header-right {
+        gap: 14px;
+    }
+
+
+    .page-brand {
+        font-size: 17px;
+    }
+
+
+    .main-content {
+        padding: 85px 14px 90px;
+    }
+
+
+    .dashboard-card {
+        padding: 16px;
+    }
+
+
+    .dashboard-footer {
+        padding: 0 14px;
+        font-size: 11px;
+    }
+
+
+        /* Keep the footer on one line on narrow screens */
+
+        .dashboard-footer span:last-child {
+            display: none;
+        }
+
+
+    /* Page / card headers wrap instead of overflowing */
+
+    .main-content .d-flex.justify-content-between {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+
+    /* Search boxes take the full row */
+
+    .grid-search-box {
+        width: 100%;
+    }
+}
+
 /* =========================================
    DEALER DASHBOARD
    ========================================= */
@@ -471,7 +610,7 @@ body {
 
 .route-table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 

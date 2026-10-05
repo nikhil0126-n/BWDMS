@@ -47,7 +47,7 @@ namespace BWDMS.Dealer
             if (Session["UserRole"] == null ||
                 Session["UserRole"].ToString() != "Dealer")
             {
-                Response.Redirect("~/Account/Login.aspx");
+                Response.Redirect(BWDMS.Data.AppAuth.HomeUrl(Session["UserRole"]));
                 return;
             }
 
@@ -89,15 +89,29 @@ namespace BWDMS.Dealer
 
                 string query = @"
                     SELECT
-                        RouteId,
-                        RouteCode,
-                        RouteName,
-                        DayOfWeek,
-                        IsActive
-                    FROM Routes
-                    WHERE DealerId = @DealerId
+                        r.RouteId,
+                        r.RouteCode,
+                        r.RouteName,
+                        r.RouteType,
+                        r.DayOfWeek,
+                        r.OrderDispatchDays,
+                        r.IsActive,
+                        Days =
+                            CASE
+                                WHEN NULLIF(r.OrderDispatchDays, '') IS NULL
+                                    THEN NULLIF(r.DayOfWeek, '')
+                                ELSE r.OrderDispatchDays
+                            END,
+                        SalesmanName = ISNULL(s.FullName, ''),
+                        VehicleNumber = ISNULL(v.VehicleNumber, '')
+                    FROM Routes r
+                    LEFT JOIN Users s
+                        ON s.UserId = r.PreferredSalesmanId
+                    LEFT JOIN Vehicles v
+                        ON v.VehicleId = r.DefaultVehicleId
+                    WHERE r.DealerId = @DealerId
                     ORDER BY
-                        CASE DayOfWeek
+                        CASE r.DayOfWeek
                             WHEN 'Monday' THEN 1
                             WHEN 'Tuesday' THEN 2
                             WHEN 'Wednesday' THEN 3
@@ -107,7 +121,7 @@ namespace BWDMS.Dealer
                             WHEN 'Sunday' THEN 7
                             ELSE 8
                         END,
-                        RouteName";
+                        r.RouteName";
 
 
                 // ----------------------------------------------------

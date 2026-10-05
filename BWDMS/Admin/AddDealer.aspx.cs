@@ -41,7 +41,8 @@ namespace BWDMS.Admin
                         StringComparison.OrdinalIgnoreCase))
             {
                 Response.Redirect(
-                    "~/Account/Login.aspx",
+                    BWDMS.Data.AppAuth.HomeUrl(
+                        Session["UserRole"]),
                     false);
 
                 Context.ApplicationInstance.CompleteRequest();

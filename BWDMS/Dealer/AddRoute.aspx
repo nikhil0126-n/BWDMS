@@ -157,13 +157,13 @@
 
 
 
-            <!-- Route Code -->
+            <!-- Route Number -->
 
             <div class="col-md-6">
 
                 <label class="form-label fw-semibold">
 
-                    Route Code
+                    Route Number
 
                 </label>
 
@@ -179,7 +179,7 @@
 
                 <div class="form-text">
 
-                    Optional unique code for this route.
+                    Unique route number. Must be unique per route.
 
                 </div>
 
@@ -187,28 +187,79 @@
 
 
 
-            <!-- Day -->
+            <!-- Route Type -->
 
             <div class="col-md-6">
 
                 <label class="form-label fw-semibold">
 
-                    Route Day
+                    Route Type
+
+                </label>
+
+
+                <asp:DropDownList
+                    ID="ddlRouteType"
+                    runat="server"
+                    AutoPostBack="false"
+                    CssClass="form-select">
+
+                    <asp:ListItem
+                        Text="-- Select Type --"
+                        Value="">
+                    </asp:ListItem>
+
+                    <asp:ListItem
+                        Text="Order Taking"
+                        Value="Order Taking">
+                    </asp:ListItem>
+
+                    <asp:ListItem
+                        Text="Delivery"
+                        Value="Delivery">
+                    </asp:ListItem>
+
+                    <asp:ListItem
+                        Text="Collection"
+                        Value="Collection">
+                    </asp:ListItem>
+
+                    <asp:ListItem
+                        Text="Mixed"
+                        Value="Mixed">
+                    </asp:ListItem>
+
+                </asp:DropDownList>
+
+
+                <div class="form-text">
+
+                    Optional. Example: Order Taking.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Order / Dispatch Days -->
+
+            <div class="col-md-12">
+
+                <label class="form-label fw-semibold">
+
+                    Order / Dispatch Days
 
                     <span class="text-danger">*</span>
 
                 </label>
 
 
-                <asp:DropDownList
-                    ID="ddlDayOfWeek"
+                <asp:CheckBoxList
+                    ID="cblDays"
                     runat="server"
-                    CssClass="form-select">
-
-                    <asp:ListItem
-                        Text="-- Select Day --"
-                        Value="">
-                    </asp:ListItem>
+                    RepeatDirection="Horizontal"
+                    RepeatLayout="Flow">
 
                     <asp:ListItem
                         Text="Monday"
@@ -245,18 +296,111 @@
                         Value="Sunday">
                     </asp:ListItem>
 
+                </asp:CheckBoxList>
+
+
+                <div class="form-text">
+
+                    Tick every day on which this route operates.
+
+                </div>
+
+
+                <asp:CustomValidator
+                    ID="cvDays"
+                    runat="server"
+                    ServerValidate="cvDays_ServerValidate"
+                    ErrorMessage="Select at least one order/dispatch day."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:CustomValidator>
+
+            </div>
+
+
+
+            <!-- Preferred Salesperson -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Preferred Salesperson
+
+                </label>
+
+
+                <asp:DropDownList
+                    ID="ddlSalesman"
+                    runat="server"
+                    AutoPostBack="false"
+                    CssClass="form-select">
                 </asp:DropDownList>
 
 
-                <asp:RequiredFieldValidator
-                    ID="rfvDayOfWeek"
+                <div class="form-text">
+
+                    Default salesperson for this route.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Preferred Driver -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Preferred Driver
+
+                </label>
+
+
+                <asp:DropDownList
+                    ID="ddlDriver"
                     runat="server"
-                    ControlToValidate="ddlDayOfWeek"
-                    InitialValue=""
-                    ErrorMessage="Please select a route day."
-                    CssClass="text-danger small"
-                    Display="Dynamic">
-                </asp:RequiredFieldValidator>
+                    AutoPostBack="false"
+                    CssClass="form-select">
+                </asp:DropDownList>
+
+
+                <div class="form-text">
+
+                    Default driver for this route.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Default Truck -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Default Truck
+
+                </label>
+
+
+                <asp:DropDownList
+                    ID="ddlVehicle"
+                    runat="server"
+                    AutoPostBack="false"
+                    CssClass="form-select">
+                </asp:DropDownList>
+
+
+                <div class="form-text">
+
+                    Default vehicle for this route.
+
+                </div>
 
             </div>
 
@@ -295,6 +439,26 @@
 
 
         </div>
+
+
+
+        <!-- ========================================================
+             AUDIT INFORMATION (EDIT MODE ONLY)
+             ======================================================== -->
+
+        <asp:Panel
+            ID="pnlAudit"
+            runat="server"
+            Visible="false"
+            CssClass="border rounded p-3 mt-4 bg-light">
+
+            <asp:Label
+                ID="lblAudit"
+                runat="server"
+                CssClass="form-text text-muted d-block">
+            </asp:Label>
+
+        </asp:Panel>
 
 
 

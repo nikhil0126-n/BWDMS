@@ -209,7 +209,7 @@
                 ID="lnkDashboard"
                 runat="server"
                 CssClass="menu-item"
-                NavigateUrl="#">
+                NavigateUrl="~/Admin/Dashboard.aspx">
 
                 <i class="bi bi-grid-1x2-fill"></i>
 
@@ -242,7 +242,7 @@
                     ID="lnkAdminCategories"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Admin/Categories.aspx">
 
                     <i class="bi bi-tags-fill"></i>
 
@@ -257,7 +257,7 @@
                     ID="lnkAdminProducts"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Admin/Products.aspx">
 
                     <i class="bi bi-box-seam-fill"></i>
 
@@ -287,7 +287,7 @@
                     ID="lnkAdminUsers"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Admin/Users.aspx">
 
                     <i class="bi bi-people-fill"></i>
 
@@ -309,7 +309,7 @@
                     ID="lnkAdminOrders"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Admin/Orders.aspx">
 
                     <i class="bi bi-cart-check"></i>
 
@@ -324,7 +324,7 @@
                     ID="lnkAdminReports"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Admin/Reports.aspx">
 
                     <i class="bi bi-bar-chart-fill"></i>
 
@@ -346,7 +346,7 @@
                     ID="lnkAdminSettings"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Account/ChangePassword.aspx">
 
                     <i class="bi bi-gear-fill"></i>
 
@@ -391,6 +391,20 @@
                 </asp:HyperLink>
 
                 <asp:HyperLink
+                    ID="lnkRouteVillageAssignment"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/RouteVillageAssignment.aspx">
+
+                    <i class="bi bi-signpost-split"></i>
+
+                    <span>
+                        Route Villages
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
                     ID="lnkDealerVillages"
                     runat="server"
                     CssClass="menu-item"
@@ -402,16 +416,31 @@
 
                 </asp:HyperLink>
 
-                
                 <asp:HyperLink
-                    ID="lnkWeeklyRoutePlans"
+                    ID="lnkRouteSchedules"
                     runat="server"
                     CssClass="menu-item"
                     NavigateUrl="~/Dealer/RouteSchedules.aspx">
 
+                    <i class="bi bi-calendar3"></i>
+
+                    <span>
+                        Route Schedules
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkWeeklyRoutePlans"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/WeeklyRoutePlans.aspx">
+
                     <i class="bi bi-calendar-week"></i>
 
-                    <span>Weekly Plans</span>
+                    <span>
+                        Weekly Plans
+                    </span>
 
                 </asp:HyperLink>
                 <!-- Shops -->
@@ -420,7 +449,7 @@
                     ID="lnkDealerShops"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Shops.aspx">
 
                     <i class="bi bi-shop"></i>
 
@@ -437,7 +466,7 @@
                     ID="lnkDealerSalesmen"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Salesmen.aspx">
 
                     <i class="bi bi-people"></i>
 
@@ -454,7 +483,7 @@
                     ID="lnkDealerVehicles"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Vehicles.aspx">
 
                     <i class="bi bi-truck"></i>
 
@@ -471,7 +500,7 @@
                     ID="lnkDealerInventory"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Inventory.aspx">
 
                     <i class="bi bi-box-seam"></i>
 
@@ -488,7 +517,7 @@
                     ID="lnkDealerOrders"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Orders.aspx">
 
                     <i class="bi bi-cart-check"></i>
 
@@ -512,7 +541,7 @@
                     ID="lnkDealerReconciliation"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Reconciliations.aspx">
 
                     <i class="bi bi-arrow-repeat"></i>
 
@@ -529,7 +558,7 @@
                     ID="lnkDealerReports"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Dealer/Reports.aspx">
 
                     <i class="bi bi-bar-chart"></i>
 
@@ -551,7 +580,7 @@
                     ID="lnkDealerSettings"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Account/ChangePassword.aspx">
 
                     <i class="bi bi-gear"></i>
 
@@ -586,7 +615,7 @@
                     ID="lnkSalesmanShops"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/Shops.aspx">
 
                     <i class="bi bi-shop"></i>
 
@@ -601,7 +630,7 @@
                     ID="lnkSalesmanRoutes"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/Routes.aspx">
 
                     <i class="bi bi-map"></i>
 
@@ -616,7 +645,7 @@
                     ID="lnkSalesmanCreateOrder"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/CreateOrder.aspx">
 
                     <i class="bi bi-cart-plus"></i>
 
@@ -631,7 +660,7 @@
                     ID="lnkSalesmanOrders"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/Orders.aspx">
 
                     <i class="bi bi-cart-check"></i>
 
@@ -646,7 +675,7 @@
                     ID="lnkSalesmanStock"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/VehicleStock.aspx">
 
                     <i class="bi bi-box-seam"></i>
 
@@ -668,7 +697,7 @@
                     ID="lnkSalesmanCollection"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/Collection.aspx">
 
                     <i class="bi bi-cash-stack"></i>
 
@@ -683,7 +712,7 @@
                     ID="lnkSalesmanReports"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="#">
+                    NavigateUrl="~/Salesman/Reports.aspx">
 
                     <i class="bi bi-bar-chart"></i>
 
@@ -722,6 +751,16 @@
         </div>
 
     </aside>
+
+
+
+    <!-- =====================================================
+         SIDEBAR BACKDROP (MOBILE ONLY)
+         ===================================================== -->
+
+    <div id="sidebarBackdrop"
+         class="sidebar-backdrop">
+    </div>
 
 
 

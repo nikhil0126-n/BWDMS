@@ -1,0 +1,1 @@
+<%@ WebHandler Language="C#" CodeBehind="OrderSync.ashx.cs" Class="BWDMS.Handlers.OrderSync" %>

@@ -1,4 +1,4 @@
-﻿
+
 <%@ Page Title="Route Schedules"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
@@ -103,7 +103,7 @@
                     CssClass="schedule-table"
                     GridLines="None"
                     EmptyDataText="No route schedules found."
-                    DataKeyNames="RouteScheduleId">
+                    DataKeyNames="RouteScheduleId" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                     <Columns>
 
@@ -127,6 +127,18 @@
                             DataField="DriverName"
                             HeaderText="Driver" />
 
+                        <asp:TemplateField HeaderText="Villages">
+
+                            <ItemTemplate>
+
+                                <%# Eval("ScheduledVillageCount") %>
+                                /
+                                <%# Eval("VillageCount") %>
+
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Status">
 
                             <ItemTemplate>
@@ -145,6 +157,19 @@
 
                         </asp:TemplateField>
 
+
+                        <asp:TemplateField HeaderText="Route Day">
+
+                            <ItemTemplate>
+
+                                <%# Convert.ToBoolean(Eval("IsClosed"))
+                                    ? "<span class='badge bg-secondary'>Closed " + Eval("ClosedDateText") + "</span>"
+                                    : "<span class='badge bg-success'>Open</span>" %>
+
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Action">
 
                             <ItemTemplate>
@@ -153,6 +178,13 @@
                                    href='<%# "AddRouteSchedule.aspx?id=" + Eval("RouteScheduleId") %>'>
 
                                     Edit
+
+                                </a>
+
+                                <a class="btn-edit"
+                                   href='<%# "ScheduleVillages.aspx?id=" + Eval("RouteScheduleId") %>'>
+
+                                    Villages
 
                                 </a>
 

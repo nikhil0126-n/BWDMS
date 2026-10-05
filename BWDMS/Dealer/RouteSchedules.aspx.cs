@@ -1,19 +1,13 @@
 ﻿
 using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
+using BWDMS.Data;
 
 namespace BWDMS.Dealer
 {
     public partial class RouteSchedules : System.Web.UI.Page
     {
-        private readonly string connectionString =
-            ConfigurationManager
-                .ConnectionStrings["BWDMSConnection"]
-                .ConnectionString;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Cache.SetCacheability(
@@ -28,6 +22,23 @@ namespace BWDMS.Dealer
                 return;
             }
 
+
+            // ========================================================
+            // CHECK DEALER ROLE
+            //
+            // This page previously accepted any logged-in user and
+            // returned every dealer's schedules. A dealer must only
+            // ever see schedules for routes owned by that dealer.
+            // ========================================================
+
+            if (Session["UserRole"] == null ||
+                Session["UserRole"].ToString() != "Dealer")
+            {
+                Response.Redirect(BWDMS.Data.AppAuth.HomeUrl(Session["UserRole"]), false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadSchedules();
@@ -38,13 +49,23 @@ namespace BWDMS.Dealer
         {
             DataTable dt = new DataTable();
 
+            int dealerId =
+                Convert.ToInt32(Session["UserId"]);
+
+
+            // DealerId is reached through Routes, which owns the schedule.
             string query = @"
                 SELECT
                     rs.RouteScheduleId,
                     rs.DayOfWeek,
                     rs.IsActive,
+                    rs.VehicleId,
+                    rs.SalesmanId,
+                    rs.DriverId,
+                    rs.RouteId,
 
                     r.RouteName,
+                    r.RouteCode,
 
                     ISNULL(v.VehicleNumber, 'Not Assigned')
                         AS VehicleNumber,
@@ -53,12 +74,34 @@ namespace BWDMS.Dealer
                         AS SalesmanName,
 
                     ISNULL(d.FullName, 'Not Assigned')
-                        AS DriverName
+                        AS DriverName,
+
+                    rs.IsClosed,
+                    ClosedDateText =
+                        CASE
+                            WHEN rs.IsClosed = 0 THEN '-'
+                            ELSE CONVERT(NVARCHAR(10), rs.StockDate, 120)
+                        END,
+
+                    (
+                        SELECT COUNT(*)
+                        FROM RouteVillages rv
+                        WHERE rv.RouteId = r.RouteId
+                        AND rv.IsActive = 1
+                    ) AS VillageCount,
+
+                    (
+                        SELECT COUNT(*)
+                        FROM RouteVillageSchedules rvs
+                        WHERE rvs.RouteScheduleId = rs.RouteScheduleId
+                        AND rvs.IsActive = 1
+                    ) AS ScheduledVillageCount
 
                 FROM RouteSchedules rs
 
                 INNER JOIN Routes r
                     ON rs.RouteId = r.RouteId
+                    AND r.DealerId = @DealerId
 
                 LEFT JOIN Vehicles v
                     ON rs.VehicleId = v.VehicleId
@@ -88,14 +131,21 @@ namespace BWDMS.Dealer
             ";
 
             using (SqlConnection connection =
-                new SqlConnection(connectionString))
+                DatabaseHelper.GetConnection())
             {
                 using (SqlCommand command =
                     new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue(
+                    command.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value =
+                        dealerId;
+
+                    command.Parameters.Add(
                         "@DayOfWeek",
-                        ddlDayFilter.SelectedValue ?? "");
+                        SqlDbType.NVarChar,
+                        40).Value =
+                        ddlDayFilter.SelectedValue ?? "";
 
                     using (SqlDataAdapter adapter =
                         new SqlDataAdapter(command))
@@ -106,6 +156,7 @@ namespace BWDMS.Dealer
             }
 
             gvSchedules.DataSource = dt;
+
             gvSchedules.DataBind();
 
             lblTotal.Text = dt.Rows.Count + " schedules";

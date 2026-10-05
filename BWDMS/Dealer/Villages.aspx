@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Villages"
+<%@ Page Title="Villages"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -72,7 +72,7 @@
 
 
 
-            <div style="width:280px;">
+            <div class="grid-search-box">
 
                 <asp:TextBox
                     ID="txtSearch"
@@ -99,7 +99,7 @@
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
                 CssClass="table align-middle mb-0"
-                GridLines="None">
+                GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
                 <Columns>

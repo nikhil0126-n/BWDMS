@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Routes"
+<%@ Page Title="Routes"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -84,7 +84,7 @@
                  LIVE SEARCH
                  ==================================================== -->
 
-            <div style="width:250px;">
+            <div class="grid-search-box">
 
                 <asp:TextBox
                     ID="txtSearch"
@@ -114,7 +114,7 @@
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
                 CssClass="table route-table align-middle mb-0"
-                GridLines="None">
+                GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
                 <Columns>
@@ -152,8 +152,69 @@
 
 
                     <asp:BoundField
+                        DataField="RouteType"
+                        HeaderText="Type">
+
+                        <HeaderStyle
+                            CssClass="route-day-col" />
+
+                        <ItemStyle
+                            CssClass="route-day-col" />
+
+                    </asp:BoundField>
+
+
+
+
+                    <asp:BoundField
+                        DataField="Days"
+                        HeaderText="Order / Dispatch Days">
+
+                        <HeaderStyle
+                            CssClass="route-day-col" />
+
+                        <ItemStyle
+                            CssClass="route-day-col" />
+
+                    </asp:BoundField>
+
+
+
+
+                    <asp:BoundField
+                        DataField="SalesmanName"
+                        HeaderText="Preferred Salesman">
+
+                        <HeaderStyle
+                            CssClass="route-day-col" />
+
+                        <ItemStyle
+                            CssClass="route-day-col" />
+
+                    </asp:BoundField>
+
+
+
+
+                    <asp:BoundField
+                        DataField="VehicleNumber"
+                        HeaderText="Default Truck">
+
+                        <HeaderStyle
+                            CssClass="route-day-col" />
+
+                        <ItemStyle
+                            CssClass="route-day-col" />
+
+                    </asp:BoundField>
+
+
+
+
+                    <asp:BoundField
                         DataField="DayOfWeek"
-                        HeaderText="Day">
+                        HeaderText="Day"
+                        Visible="false">
 
                         <HeaderStyle
                             CssClass="route-day-col" />
@@ -227,6 +288,21 @@
                                 <i class="bi bi-pencil me-1"></i>
 
                                 Edit
+
+
+                            </asp:HyperLink>
+
+
+                            <asp:HyperLink
+                                ID="lnkAssignVillages"
+                                runat="server"
+                                CssClass="btn btn-outline-secondary btn-sm ms-1"
+                                NavigateUrl='<%# "~/Dealer/RouteVillageAssignment.aspx?route=" + Eval("RouteId") %>'>
+
+
+                                <i class="bi bi-geo-alt me-1"></i>
+
+                                Villages
 
 
                             </asp:HyperLink>

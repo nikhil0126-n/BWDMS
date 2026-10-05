@@ -96,22 +96,58 @@ namespace BWDMS.Dealer
         protected global::System.Web.UI.WebControls.TextBox txtRouteCode;
 
         /// <summary>
-        /// ddlDayOfWeek control.
+        /// ddlRouteType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDayOfWeek;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRouteType;
 
         /// <summary>
-        /// rfvDayOfWeek control.
+        /// cblDays control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDayOfWeek;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblDays;
+
+        /// <summary>
+        /// cvDays control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvDays;
+
+        /// <summary>
+        /// ddlSalesman control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesman;
+
+        /// <summary>
+        /// ddlDriver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDriver;
+
+        /// <summary>
+        /// ddlVehicle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlVehicle;
 
         /// <summary>
         /// ddlStatus control.
@@ -121,6 +157,24 @@ namespace BWDMS.Dealer
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+
+        /// <summary>
+        /// pnlAudit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAudit;
+
+        /// <summary>
+        /// lblAudit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAudit;
 
         /// <summary>
         /// btnSaveRoute control.

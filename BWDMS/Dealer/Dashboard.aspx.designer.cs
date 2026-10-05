@@ -13,5 +13,124 @@ namespace BWDMS.Dealer
 
     public partial class Dashboard
     {
+        /// <summary>
+        /// ddlPeriod control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPeriod;
+
+        /// <summary>
+        /// gvActivity control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvActivity;
+
+        /// <summary>
+        /// gvLowStock control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvLowStock;
+
+        /// <summary>
+        /// gvOrdersByStatus control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvOrdersByStatus;
+
+        /// <summary>
+        /// gvRecentOrders control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvRecentOrders;
+
+        /// <summary>
+        /// gvSalesSummary control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvSalesSummary;
+
+        /// <summary>
+        /// gvSchedules control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvSchedules;
+
+        /// <summary>
+        /// lblLoadedToday control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblLoadedToday;
+
+        /// <summary>
+        /// lblLowStockCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblLowStockCount;
+
+        /// <summary>
+        /// lblNoStockItems control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblNoStockItems;
+
+        /// <summary>
+        /// lblReconComplete control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblReconComplete;
+
+        /// <summary>
+        /// lblReconPending control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblReconPending;
+
+        /// <summary>
+        /// lblSalesmanCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSalesmanCount;
+
+        /// <summary>
+        /// lblSalesPeriod control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSalesPeriod;
+
+        /// <summary>
+        /// lblSalesPeriodOrders control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSalesPeriodOrders;
+
+        /// <summary>
+        /// lblSalesPeriodTotal control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSalesPeriodTotal;
+
+        /// <summary>
+        /// lblShopCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblShopCount;
+
+        /// <summary>
+        /// lblStockPackets control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblStockPackets;
+
+        /// <summary>
+        /// lblStockValue control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblStockValue;
+
+        /// <summary>
+        /// lblStockVariants control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblStockVariants;
+
+        /// <summary>
+        /// lblTodayName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblTodayName;
+
+        /// <summary>
+        /// lblTodayOrders control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblTodayOrders;
+
+        /// <summary>
+        /// lblVehicleCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblVehicleCount;
+
+        /// <summary>
+        /// repStockItems control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Repeater repStockItems;
     }
 }

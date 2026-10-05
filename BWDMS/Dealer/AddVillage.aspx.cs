@@ -47,7 +47,7 @@ namespace BWDMS.Dealer
             if (Session["UserRole"] == null ||
                 Session["UserRole"].ToString() != "Dealer")
             {
-                Response.Redirect("~/Account/Login.aspx");
+                Response.Redirect(BWDMS.Data.AppAuth.HomeUrl(Session["UserRole"]));
                 return;
             }
 

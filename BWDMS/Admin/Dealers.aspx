@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Dealers"
+<%@ Page Title="Dealers"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -82,7 +82,7 @@
             </div>
 
 
-            <div style="width:250px;">
+            <div class="grid-search-box">
 
                 <asp:TextBox
                     ID="txtSearch"
@@ -107,7 +107,7 @@
                 CssClass="table table-hover align-middle"
                 GridLines="None"
                 DataKeyNames="UserId"
-                OnRowCommand="gvDealers_RowCommand">
+                OnRowCommand="gvDealers_RowCommand" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
                 <Columns>
