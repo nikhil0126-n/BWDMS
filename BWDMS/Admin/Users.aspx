@@ -37,6 +37,26 @@
 
         <div class="d-flex gap-2">
 
+            <a href="AddUser.aspx"
+               class="btn btn-danger">
+
+                <i class="bi bi-person-plus"></i>
+
+                Add User
+
+            </a>
+
+
+            <a href="AddUser.aspx?role=Salesman"
+               class="btn btn-outline-danger">
+
+                <i class="bi bi-person-badge"></i>
+
+                Add Salesman
+
+            </a>
+
+
             <a href="Dealers.aspx"
                class="btn btn-outline-secondary">
 
@@ -139,7 +159,11 @@
                 runat="server"
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
-                GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                GridLines="None"
+                DataKeyNames="UserId"
+                OnRowCommand="gvUsers_RowCommand"
+                OnPageIndexChanging="gvUsers_PageIndexChanging"
+                AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 
@@ -194,6 +218,46 @@
                     <asp:BoundField
                         DataField="CreatedAtText"
                         HeaderText="Created" />
+
+
+                    <asp:TemplateField
+                        HeaderText="Action">
+
+                        <ItemTemplate>
+
+                            <div class="d-flex gap-1">
+
+                                <a href='AddUser.aspx?id=<%# Eval("UserId") %>'
+                                   class="btn btn-sm btn-outline-secondary"
+                                   title="Edit user">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                    Edit
+
+                                </a>
+
+
+                                <asp:LinkButton
+                                    ID="btnDelete"
+                                    runat="server"
+                                    CommandName="DeleteUser"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    CssClass="btn btn-sm btn-outline-danger"
+                                    OnClientClick='return confirm("Delete <%# Eval("FullName") %> (<%# Eval("Role") %>) permanently? This cannot be undone.");'
+                                    title="Delete user">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Delete
+
+                                </asp:LinkButton>
+
+                            </div>
+
+                        </ItemTemplate>
+
+                    </asp:TemplateField>
 
                 </Columns>
 
