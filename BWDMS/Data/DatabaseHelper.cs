@@ -7,7 +7,7 @@ namespace BWDMS.Data
     {
         private static readonly string connectionString =
             ConfigurationManager
-            .ConnectionStrings["BWDMSConnection"]
+            .ConnectionStrings["Database1"]
             .ConnectionString;
 
         public static SqlConnection GetConnection()
