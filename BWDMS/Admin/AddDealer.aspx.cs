@@ -121,7 +121,7 @@ namespace BWDMS.Admin
                     {
                         ShowMessage(
                             "A user with this email already exists.",
-                            "alert alert-danger");
+                            "alert alert-danger d-block");
 
                         return;
                     }
