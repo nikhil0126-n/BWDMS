@@ -1,7 +1,7 @@
 ﻿
 .route-page {
     padding: 28px;
-    background: #f7f8fa;
+    background: #eef1f6;
     min-height: 100vh;
 }
 
@@ -44,12 +44,12 @@
 }
 
 .btn-primary {
-    background: #d92332;
+    background: #2563eb;
     color: #fff;
 }
 
     .btn-primary:hover {
-        background: #b91d2a;
+        background: #1a4fd0;
         color: #fff;
     }
 
@@ -66,12 +66,12 @@
 
 .btn-edit {
     padding: 7px 13px;
-    background: #fff1f2;
-    color: #c51f2d;
+    background: #eef4ff;
+    color: #1a4fd0;
 }
 
     .btn-edit:hover {
-        background: #d92332;
+        background: #2563eb;
         color: #fff;
     }
 
@@ -101,8 +101,8 @@
     .search-input:focus,
     .form-control:focus,
     .filter-select:focus {
-        border-color: #d92332;
-        box-shadow: 0 0 0 3px rgba(217, 35, 50, 0.08);
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
     }
 
 .filter-select {
@@ -171,7 +171,7 @@
     }
 
     .schedule-table tr:hover td {
-        background: #fffafa;
+        background: #eef4ff;
     }
 
 .status-active,
@@ -189,8 +189,8 @@
 }
 
 .status-inactive {
-    color: #9a3b3b;
-    background: #fff0f0;
+    color: #64748b;
+    background: #f1f4f9;
 }
 
 .form-card {
@@ -201,7 +201,7 @@
 .message-label {
     display: block;
     margin-bottom: 18px;
-    color: #d92332;
+    color: #2563eb;
     font-size: 14px;
 }
 
@@ -224,7 +224,7 @@
     }
 
         .form-group label span {
-            color: #d92332;
+            color: #dc2626;
         }
 
 .form-control {
@@ -240,7 +240,7 @@
 }
 
 .validation-error {
-    color: #d92332;
+    color: #dc2626;
     font-size: 12px;
 }
 

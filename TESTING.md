@@ -105,7 +105,7 @@ The failure codes returned to the browser are the salesman's own words, not
 
 ---
 
-## 1c. Route-day flow — 23 / 23
+## 1c. Route-day flow — 24 / 24
 
 The flow the business actually runs:
 
@@ -555,12 +555,15 @@ powershell -ExecutionPolicy Bypass -File <script>\pdfimport.ps1
 > that order** — each script resets the state it needs at the top. That
 > ordering is a property of the tests, not of the application.
 
-> `routeflow.ps1` picks the schedule whose **weekday matches today** rather
-> than the first dropdown option. The routes are named after weekdays and the
-> dropdown is ordered by route name, so "Friday" always sorts ahead of
-> "Monday"; loading onto Friday's schedule and then billing from Monday's shop
-> correctly reports *no stock on board*. The application was right and the
-> harness was wrong.
+> `routeflow.ps1` loads onto the route-day **the salesman's shop is bound to**
+> (`Shops.RouteScheduleId`), because that is the schedule `CreateOrder`
+> resolves the vehicle stock through. `RouteSchedules.DayOfWeek` is a weekday
+> template, and the dropdown is ordered by route name — the routes are named
+> after weekdays, so "Friday" always sorts ahead of "Monday". Loading onto
+> Friday's schedule and then billing from Monday's shop correctly reports *no
+> stock on board*. The application was right and the harness was wrong; the
+> suite now reads the shop's schedule from the database instead of guessing
+> from today's weekday, so it passes on any day of the week.
 
 Each script prints a per-check `PASS`/`FAIL` line and a final
 `=== n passed / m failed ===`, and exits non-zero if anything failed.

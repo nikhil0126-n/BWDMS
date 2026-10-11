@@ -806,7 +806,7 @@
                 ValidationGroup="Order"
                 runat="server"
                 Text="Save Order"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSave_Click" />
 
         </div>

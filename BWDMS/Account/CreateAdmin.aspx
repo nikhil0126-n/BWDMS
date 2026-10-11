@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"
+<%@ Page Language="C#" AutoEventWireup="true"
     CodeBehind="CreateAdmin.aspx.cs"
     Inherits="BWDMS.Account.CreateAdmin" %>
 
@@ -84,7 +84,7 @@
                             ID="btnCreate"
                             runat="server"
                             Text="Create Admin"
-                            CssClass="btn btn-danger w-100"
+                            CssClass="btn btn-primary w-100"
                             OnClick="btnCreate_Click" />
 
                         <asp:Label

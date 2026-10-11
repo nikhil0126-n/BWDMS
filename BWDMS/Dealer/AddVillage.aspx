@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Village"
+<%@ Page Title="Add Village"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -254,7 +254,7 @@
                 ID="btnSaveVillage"
                 runat="server"
                 Text="Create Village"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSaveVillage_Click" />
 
         </div>

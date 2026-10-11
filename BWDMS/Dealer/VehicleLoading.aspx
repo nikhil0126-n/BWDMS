@@ -507,7 +507,7 @@
                 ValidationGroup="Load"
                 runat="server"
                 Text="Load Vehicle"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnLoad_Click" />
 
         </div>

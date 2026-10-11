@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Route"
+<%@ Page Title="Add Route"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -488,7 +488,7 @@
                 ID="btnSaveRoute"
                 runat="server"
                 Text="Create Route"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSaveRoute_Click">
             </asp:Button>
 

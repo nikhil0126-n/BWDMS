@@ -27,7 +27,7 @@
 
     <style>
         body {
-            background: #f4f6f9;
+            background: #eef1f6;
             min-height: 100vh;
             display: flex;
             align-items: center;

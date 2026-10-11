@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Weekly Route Plan"
+<%@ Page Title="Add Weekly Route Plan"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -219,7 +219,7 @@
                 ID="btnSavePlan"
                 runat="server"
                 Text="Save Weekly Plan"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSavePlan_Click"
                 CausesValidation="true" />
 

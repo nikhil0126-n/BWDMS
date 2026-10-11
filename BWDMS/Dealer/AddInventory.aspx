@@ -269,7 +269,7 @@
                 ID="btnSave"
                 runat="server"
                 Text="Save Stock"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSave_Click" />
 
         </div>

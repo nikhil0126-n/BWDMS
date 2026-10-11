@@ -200,6 +200,25 @@ Database/                00_CreateDatabase.sql, 01_Schema.sql,
 
 **60 `.aspx` pages**, 130 C# files.
 
+### Theme
+
+The whole product is styled by `Content/Dashboard.css` (loaded once by
+`DashboardMaster.master`) with `Content/Login.css` for the sign-in page and
+per-module CSS layered on top. The look is a **dark navy navigation shell with
+a blue primary accent** on a light canvas.
+
+Every colour is declared once in the `:root` block at the top of each of those
+two files, so the product can be re-tinted by editing the navy pair
+(`--bw-navy-*`) and the blue pair (`--bw-blue-*`) without touching any
+component rule. The same file also carries Bootstrap overrides, so buttons,
+forms, tables, cards, pagination, alerts and badges inherit the palette
+automatically.
+
+Buttons use Bootstrap semantics: `.btn-primary` is the brand action (Save,
+Add, Create), `.btn-light` is the neutral/Cancel action, and
+`.btn-outline-danger` is reserved for genuinely destructive commands such as
+delete and deactivate.
+
 > `Services\` and `Models\` from the suggested layout are intentionally absent:
 > the specification allows refining the organisation. Business logic lives in
 > the page code-behind next to the rules it enforces, with shared helpers in
@@ -601,7 +620,7 @@ Summary of the automated runs that gate this build:
 | Build | `MSBuild /t:Rebuild` | exit 0 |
 | Page regression | 60 pages × 3 roles = 180 requests | 174 pass / 0 fail |
 | Unhandled exceptions | `App_Data\AppLog.txt` | none logged |
-| Route-day flow | load → sell → bill → count | 23 / 23 |
+| Route-day flow | load → sell → bill → count | 24 / 24 |
 | Offline sync + route closure + price history | 22 / 22 |
 | Company receipt / dispatch / returns / cancel / CSV | 25 / 25 |
 | Company receipt E2E | 9 / 9 |

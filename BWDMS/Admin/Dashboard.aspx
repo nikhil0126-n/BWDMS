@@ -39,7 +39,7 @@
         <div>
 
             <a href="AddProduct.aspx"
-               class="btn btn-danger">
+               class="btn btn-primary">
 
                 <i class="bi bi-plus-lg"></i>
 

@@ -58,7 +58,7 @@
             <asp:HyperLink
                 ID="lnkAddVariant"
                 runat="server"
-                CssClass="btn btn-danger">
+                CssClass="btn btn-primary">
 
                 <i class="bi bi-plus-lg"></i>
 

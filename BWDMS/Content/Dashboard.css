@@ -1,6 +1,53 @@
-﻿/* =========================================
-   BWDMS DASHBOARD
-   ========================================= */
+﻿/* ============================================================================
+   BWDMS — GLOBAL THEME
+   ----------------------------------------------------------------------------
+   Navy navigation shell + blue primary accent on a light canvas.
+
+   Every colour in the app is declared once in the :root block below, so the
+   whole product can be re-tinted by editing those two lines (the navy pair and
+   the blue pair) without touching any component rule.
+   ============================================================================ */
+
+:root {
+
+    /* --- Brand: navy shell --------------------------------------------- */
+    --bw-navy-950: #071733;
+    --bw-navy-900: #0b1f3f;
+    --bw-navy-800: #123059;
+    --bw-navy-700: #1b3a68;
+
+    /* --- Brand: blue accent -------------------------------------------- */
+    --bw-blue-700: #1a4fd0;
+    --bw-blue-600: #2563eb;
+    --bw-blue-500: #3b82f6;
+    --bw-blue-100: #dbe7fe;
+    --bw-blue-050: #eef4ff;
+
+    /* --- Neutrals ------------------------------------------------------- */
+    --bw-canvas: #eef1f6;
+    --bw-surface: #ffffff;
+    --bw-surface-2: #f6f8fc;
+    --bw-border: #e1e7f0;
+    --bw-border-soft: #edf1f7;
+    --bw-text: #1c2434;
+    --bw-text-soft: #566078;
+    --bw-text-muted: #8b94a8;
+
+    /* --- Semantic ------------------------------------------------------- */
+    --bw-success: #16a34a;
+    --bw-warning: #f59e0b;
+    --bw-danger: #dc2626;
+    --bw-info: #0ea5e9;
+
+    /* --- Elevation ------------------------------------------------------ */
+    --bw-radius: 14px;
+    --bw-radius-sm: 9px;
+    --bw-shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+    --bw-shadow: 0 4px 14px rgba(16, 24, 40, .07);
+    --bw-shadow-lg: 0 14px 34px rgba(16, 24, 40, .12);
+    --bw-focus: 0 0 0 3px rgba(37, 99, 235, .18);
+}
+
 
 * {
     box-sizing: border-box;
@@ -9,15 +56,16 @@
 
 body {
     margin: 0;
-    background: #f6f7f9;
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: #252525;
+    background: var(--bw-canvas);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    color: var(--bw-text);
+    -webkit-font-smoothing: antialiased;
 }
 
 
-/* =========================================
+/* ============================================================================
    HEADER
-   ========================================= */
+   ============================================================================ */
 
 .top-header {
     position: fixed;
@@ -25,8 +73,9 @@ body {
     left: 250px;
     right: 0;
     height: 70px;
-    background: #ffffff;
-    border-bottom: 1px solid #e7e7e7;
+    background: var(--bw-surface);
+    border-bottom: 1px solid var(--bw-border);
+    box-shadow: 0 1px 3px rgba(16, 24, 40, .04);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,13 +96,21 @@ body {
     background: transparent;
     font-size: 24px;
     cursor: pointer;
-    color: #555;
+    color: var(--bw-text-soft);
+    transition: color .2s ease;
 }
+
+
+    .sidebar-toggle:hover {
+        color: var(--bw-blue-600);
+    }
 
 
 .page-brand {
     font-size: 20px;
     font-weight: 700;
+    color: var(--bw-navy-900);
+    letter-spacing: .2px;
 }
 
 
@@ -67,7 +124,7 @@ body {
 .notification {
     position: relative;
     font-size: 20px;
-    color: #555;
+    color: var(--bw-text-soft);
     cursor: pointer;
 }
 
@@ -76,7 +133,7 @@ body {
     position: absolute;
     top: -7px;
     right: -8px;
-    background: #dc3545;
+    background: var(--bw-danger);
     color: white;
     font-size: 9px;
     width: 16px;
@@ -99,7 +156,8 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #dc3545;
+    background: linear-gradient(135deg, var(--bw-blue-500), var(--bw-blue-700));
+    box-shadow: 0 3px 10px rgba(37, 99, 235, .32);
     color: white;
     display: flex;
     align-items: center;
@@ -116,18 +174,19 @@ body {
 
     .user-details strong {
         font-size: 14px;
+        color: var(--bw-text);
     }
 
 
     .user-details small {
-        color: #888;
+        color: var(--bw-text-muted);
         font-size: 12px;
     }
 
 
-/* =========================================
-   SIDEBAR
-   ========================================= */
+/* ============================================================================
+   SIDEBAR — dark navy navigation shell
+   ============================================================================ */
 
 .sidebar {
     position: fixed;
@@ -135,8 +194,8 @@ body {
     top: 0;
     bottom: 0;
     width: 250px;
-    background: #ffffff;
-    border-right: 1px solid #e5e5e5;
+    background: linear-gradient(180deg, var(--bw-navy-900) 0%, var(--bw-navy-950) 100%);
+    border-right: 1px solid rgba(255, 255, 255, .06);
     z-index: 1100;
     display: flex;
     flex-direction: column;
@@ -149,16 +208,17 @@ body {
     align-items: center;
     gap: 12px;
     padding: 0 22px;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
 
 .logo-icon {
     width: 40px;
     height: 40px;
-    background: #dc3545;
+    background: linear-gradient(135deg, var(--bw-blue-500), var(--bw-blue-700));
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, .38);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -169,12 +229,13 @@ body {
 .sidebar-logo strong {
     display: block;
     font-size: 17px;
+    color: #ffffff;
 }
 
 
 .sidebar-logo small {
     display: block;
-    color: #999;
+    color: rgba(219, 228, 243, .58);
     font-size: 10px;
 }
 
@@ -188,7 +249,7 @@ body {
 
 .menu-title {
     font-size: 10px;
-    color: #999;
+    color: rgba(219, 228, 243, .42);
     font-weight: 700;
     letter-spacing: 1px;
     padding: 15px 14px 8px;
@@ -201,11 +262,11 @@ body {
     gap: 12px;
     padding: 11px 14px;
     margin-bottom: 3px;
-    border-radius: 7px;
-    color: #555;
+    border-radius: var(--bw-radius-sm);
+    color: rgba(226, 232, 244, .80);
     text-decoration: none;
     font-size: 14px;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 
@@ -215,20 +276,21 @@ body {
 
 
     .menu-item:hover {
-        background: #fff0f1;
-        color: #dc3545;
+        background: rgba(255, 255, 255, .08);
+        color: #ffffff;
     }
 
 
     .menu-item.active {
-        background: #dc3545;
-        color: white;
+        background: linear-gradient(135deg, var(--bw-blue-600), var(--bw-blue-700));
+        color: #ffffff;
+        box-shadow: 0 6px 18px rgba(37, 99, 235, .38);
     }
 
 
 .sidebar-bottom {
     padding: 15px;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid rgba(255, 255, 255, .08);
 }
 
 
@@ -240,31 +302,33 @@ body {
     padding: 11px 14px;
     border: none;
     background: transparent;
-    color: #dc3545;
-    border-radius: 7px;
+    color: rgba(252, 165, 165, .92);
+    border-radius: var(--bw-radius-sm);
     cursor: pointer;
     text-decoration: none;
     font-size: 14px;
+    transition: .2s;
 }
 
 
     .logout-button:hover {
-        background: #fff0f1;
+        background: rgba(220, 38, 38, .18);
+        color: #ffffff;
     }
 
 
-/* =========================================
+/* ============================================================================
    SIDEBAR BACKDROP (MOBILE OVERLAY)
-   ========================================= */
+   ============================================================================ */
 
 .sidebar-backdrop {
     display: none;
 }
 
 
-/* =========================================
+/* ============================================================================
    SEARCH / TOOLBAR BOX IN CARD HEADERS
-   ========================================= */
+   ============================================================================ */
 
 .grid-search-box {
     width: 250px;
@@ -272,9 +336,9 @@ body {
 }
 
 
-/* =========================================
+/* ============================================================================
    MAIN CONTENT
-   ========================================= */
+   ============================================================================ */
 
 .main-content {
     margin-left: 250px;
@@ -283,28 +347,29 @@ body {
 }
 
 
-/* =========================================
+/* ============================================================================
    DASHBOARD CARDS
-   ========================================= */
+   ============================================================================ */
 
 .dashboard-card {
-    background: #ffffff;
-    border: 1px solid #eeeeee;
-    border-radius: 12px;
+    background: var(--bw-surface);
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius);
     padding: 22px;
     height: 100%;
-    transition: 0.2s;
+    box-shadow: var(--bw-shadow-sm);
+    transition: .2s;
 }
 
 
     .dashboard-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: var(--bw-shadow-lg);
     }
 
 
 .card-title {
-    color: #888;
+    color: var(--bw-text-muted);
     font-size: 13px;
     margin-bottom: 8px;
 }
@@ -314,12 +379,13 @@ body {
     margin: 0;
     font-size: 28px;
     font-weight: 700;
+    color: var(--bw-navy-900);
 }
 
 
-/* =========================================
+/* ============================================================================
    FOOTER
-   ========================================= */
+   ============================================================================ */
 
 .dashboard-footer {
     position: fixed;
@@ -327,21 +393,21 @@ body {
     left: 250px;
     right: 0;
     height: 55px;
-    background: #ffffff;
-    border-top: 1px solid #eeeeee;
+    background: var(--bw-surface);
+    border-top: 1px solid var(--bw-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
-    color: #888;
+    color: var(--bw-text-muted);
     font-size: 12px;
     z-index: 900;
 }
 
 
-/* =========================================
+/* ============================================================================
    RESPONSIVE
-   ========================================= */
+   ============================================================================ */
 
 /* ----------------------------------------
    TABLET (768px – 991.98px)
@@ -405,7 +471,7 @@ body {
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(17, 24, 39, 0.45);
+        background: rgba(7, 23, 51, 0.55);
         z-index: 1050;
     }
 
@@ -495,16 +561,16 @@ body {
     }
 }
 
-/* =========================================
+/* ============================================================================
    DEALER DASHBOARD
-   ========================================= */
+   ============================================================================ */
 
 .dashboard-icon {
     width: 45px;
     height: 45px;
-    border-radius: 10px;
-    background: #fff0f1;
-    color: #dc3545;
+    border-radius: 12px;
+    background: var(--bw-blue-050);
+    color: var(--bw-blue-600);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -517,9 +583,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed #dddddd;
-    border-radius: 8px;
-    background: #fafafa;
+    border: 1px dashed var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface-2);
 }
 
 
@@ -528,7 +594,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    color: #aaa;
+    color: var(--bw-text-muted);
 }
 
 
@@ -542,7 +608,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid var(--bw-border-soft);
 }
 
 
@@ -559,7 +625,7 @@ body {
 
     .stock-item small {
         display: block;
-        color: #999;
+        color: var(--bw-text-muted);
         margin-top: 3px;
     }
 
@@ -572,9 +638,9 @@ body {
 
 
 .quick-action {
-    border: 1px solid #eeeeee;
-    background: #ffffff;
-    border-radius: 8px;
+    border: 1px solid var(--bw-border);
+    background: var(--bw-surface);
+    border-radius: var(--bw-radius-sm);
     padding: 14px 10px;
     display: flex;
     flex-direction: column;
@@ -582,14 +648,14 @@ body {
     justify-content: center;
     gap: 7px;
     cursor: pointer;
-    color: #555;
-    transition: 0.2s;
+    color: var(--bw-text-soft);
+    transition: .2s;
 }
 
 
     .quick-action i {
         font-size: 20px;
-        color: #dc3545;
+        color: var(--bw-blue-600);
     }
 
 
@@ -599,9 +665,10 @@ body {
 
 
     .quick-action:hover {
-        border-color: #dc3545;
-        background: #fff8f8;
-        color: #dc3545;
+        border-color: var(--bw-blue-500);
+        background: var(--bw-blue-050);
+        color: var(--bw-blue-700);
+        box-shadow: var(--bw-shadow-sm);
     }
 
 /* ============================================================
@@ -651,22 +718,22 @@ body {
 
 .route-table thead th {
     font-weight: 700;
-    color: #111827;
-    border-bottom: 1px solid #dee2e6;
+    color: var(--bw-navy-900);
+    border-bottom: 1px solid var(--bw-border);
 }
 
 
 /* Rows */
 
 .route-table tbody tr {
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--bw-border-soft);
 }
 
 
     /* Hover */
 
     .route-table tbody tr:hover {
-        background-color: #fafafa;
+        background-color: var(--bw-blue-050);
     }
 
 
@@ -682,4 +749,389 @@ body {
 
 .route-table .btn {
     white-space: nowrap;
+}
+
+
+/* ============================================================================
+   BOOTSTRAP OVERRIDES
+   ----------------------------------------------------------------------------
+   Bootstrap is loaded from the CDN ahead of this file, so these rules win at
+   equal specificity and pull every stock component into the same palette.
+   ============================================================================ */
+
+/* --- Buttons ------------------------------------------------------------ */
+
+.btn {
+    border-radius: var(--bw-radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    padding: .5rem 1rem;
+    transition: background-color .18s ease, border-color .18s ease,
+                box-shadow .18s ease, color .18s ease;
+}
+
+
+.btn-primary {
+    background-color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+}
+
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: var(--bw-blue-700);
+        border-color: var(--bw-blue-700);
+        box-shadow: var(--bw-focus);
+    }
+
+
+.btn-outline-primary {
+    color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+}
+
+
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus {
+        background-color: var(--bw-blue-600);
+        border-color: var(--bw-blue-600);
+        box-shadow: var(--bw-focus);
+    }
+
+
+.btn-secondary {
+    background-color: #64748b;
+    border-color: #64748b;
+}
+
+
+.btn-light {
+    background-color: var(--bw-surface);
+    border-color: var(--bw-border);
+    color: var(--bw-text-soft);
+}
+
+
+    .btn-light:hover,
+    .btn-light:focus {
+        background-color: var(--bw-surface-2);
+        border-color: var(--bw-blue-500);
+        color: var(--bw-blue-700);
+    }
+
+
+.btn-success {
+    background-color: var(--bw-success);
+    border-color: var(--bw-success);
+}
+
+
+.btn-danger {
+    background-color: var(--bw-danger);
+    border-color: var(--bw-danger);
+}
+
+
+.btn:focus,
+.btn-check:focus + .btn {
+    box-shadow: var(--bw-focus);
+}
+
+
+/* --- Forms -------------------------------------------------------------- */
+
+.form-control,
+.form-select {
+    border-color: var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    color: var(--bw-text);
+    font-size: 14px;
+    background-color: var(--bw-surface);
+}
+
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--bw-blue-500);
+        box-shadow: var(--bw-focus);
+        color: var(--bw-text);
+    }
+
+
+    .form-control::placeholder {
+        color: var(--bw-text-muted);
+    }
+
+
+.form-label {
+    color: var(--bw-text);
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+
+.form-check-input {
+    border-color: var(--bw-border);
+    cursor: pointer;
+}
+
+
+    .form-check-input:checked {
+        background-color: var(--bw-blue-600);
+        border-color: var(--bw-blue-600);
+    }
+
+
+.input-group-text {
+    background-color: var(--bw-surface-2);
+    border-color: var(--bw-border);
+    color: var(--bw-text-muted);
+    border-radius: var(--bw-radius-sm);
+}
+
+
+/* --- Cards -------------------------------------------------------------- */
+
+.card {
+    background-color: var(--bw-surface);
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius);
+    box-shadow: var(--bw-shadow-sm);
+}
+
+
+.card-header {
+    background-color: var(--bw-surface);
+    border-bottom: 1px solid var(--bw-border-soft);
+    font-weight: 700;
+    color: var(--bw-navy-900);
+}
+
+
+.card-footer {
+    background-color: var(--bw-surface-2);
+    border-top: 1px solid var(--bw-border-soft);
+}
+
+
+/* --- Tables ------------------------------------------------------------- */
+
+.table {
+    --bs-table-bg: transparent;
+    color: var(--bw-text);
+    margin-bottom: 0;
+}
+
+
+    .table > :not(caption) > * > * {
+        background-color: transparent;
+        border-bottom-color: var(--bw-border-soft);
+    }
+
+
+    .table > thead > tr > th {
+        background-color: var(--bw-surface-2);
+        color: var(--bw-text-soft);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        border-bottom: 1px solid var(--bw-border);
+        padding: 12px 14px;
+        vertical-align: middle;
+    }
+
+
+    .table > tbody > tr > td {
+        padding: 12px 14px;
+        vertical-align: middle;
+    }
+
+
+.table-hover > tbody > tr:hover > * {
+    background-color: var(--bw-blue-050);
+}
+
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: var(--bw-surface-2);
+}
+
+
+/* --- Pagination --------------------------------------------------------- */
+
+.pagination {
+    --bs-pagination-bg: var(--bw-surface);
+    --bs-pagination-border-color: var(--bw-border);
+    --bs-pagination-color: var(--bw-text-soft);
+    --bs-pagination-hover-bg: var(--bw-blue-050);
+    --bs-pagination-hover-border-color: var(--bw-blue-500);
+    --bs-pagination-hover-color: var(--bw-blue-700);
+    --bs-pagination-active-bg: var(--bw-blue-600);
+    --bs-pagination-active-border-color: var(--bw-blue-600);
+    --bs-pagination-disabled-bg: var(--bw-surface);
+    --bs-pagination-disabled-border-color: var(--bw-border);
+    --bs-pagination-disabled-color: var(--bw-text-muted);
+    --bs-pagination-focus-box-shadow: var(--bw-focus);
+}
+
+
+    .pagination .page-link {
+        border-radius: var(--bw-radius-sm);
+        margin: 0 2px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+
+/* --- Badges ------------------------------------------------------------- */
+
+.badge {
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+
+.bg-primary {
+    background-color: var(--bw-blue-600) !important;
+}
+
+
+.text-primary {
+    color: var(--bw-blue-600) !important;
+}
+
+
+.bg-success {
+    background-color: var(--bw-success) !important;
+}
+
+
+.bg-warning {
+    background-color: var(--bw-warning) !important;
+}
+
+
+.bg-danger {
+    background-color: var(--bw-danger) !important;
+}
+
+
+.bg-info {
+    background-color: var(--bw-info) !important;
+}
+
+
+.bg-secondary {
+    background-color: #64748b !important;
+}
+
+
+/* --- Text ---------------------------------------------------------------- */
+
+.text-danger {
+    color: var(--bw-danger) !important;
+}
+
+
+.text-success {
+    color: var(--bw-success) !important;
+}
+
+
+.text-muted {
+    color: var(--bw-text-muted) !important;
+}
+
+
+/* --- Alerts ------------------------------------------------------------- */
+
+.alert {
+    border-radius: var(--bw-radius);
+    border-width: 1px;
+    font-size: 14px;
+}
+
+
+.alert-info {
+    background-color: #e6f4fe;
+    border-color: #b6e0fe;
+    color: #075985;
+}
+
+
+.alert-success {
+    background-color: #e8f7ee;
+    border-color: #bbe8cb;
+    color: #14532d;
+}
+
+
+.alert-warning {
+    background-color: #fef4e6;
+    border-color: #fbdca8;
+    color: #7c4a03;
+}
+
+
+.alert-danger {
+    background-color: #fdecec;
+    border-color: #f8c6c6;
+    color: #7f1d1d;
+}
+
+
+.alert-secondary {
+    background-color: var(--bw-surface-2);
+    border-color: var(--bw-border);
+    color: var(--bw-text-soft);
+}
+
+
+/* --- Links -------------------------------------------------------------- */
+
+a {
+    color: var(--bw-blue-600);
+    text-decoration: none;
+}
+
+
+    a:hover {
+        color: var(--bw-blue-700);
+        text-decoration: underline;
+    }
+
+
+/* --- Misc --------------------------------------------------------------- */
+
+.dropdown-menu {
+    border-color: var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    box-shadow: var(--bw-shadow);
+    font-size: 14px;
+}
+
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--bw-blue-050);
+    color: var(--bw-blue-700);
+}
+
+
+.modal-content {
+    border-color: var(--bw-border);
+    border-radius: var(--bw-radius);
+    box-shadow: var(--bw-shadow-lg);
+}
+
+
+.modal-header,
+.modal-footer {
+    border-color: var(--bw-border-soft);
+}
+
+
+hr {
+    border-color: var(--bw-border-soft);
 }

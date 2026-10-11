@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Dealer"
+<%@ Page Title="Add Dealer"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -222,7 +222,7 @@
                 ID="btnCreateDealer"
                 runat="server"
                 Text="Create Dealer"
-                CssClass="btn btn-danger"
+                CssClass="btn btn-primary"
                 OnClick="btnCreateDealer_Click" />
 
 

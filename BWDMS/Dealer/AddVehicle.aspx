@@ -240,7 +240,7 @@
                 ID="btnSaveVehicle"
                 runat="server"
                 Text="Create Vehicle"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 OnClick="btnSaveVehicle_Click" />
 
         </div>

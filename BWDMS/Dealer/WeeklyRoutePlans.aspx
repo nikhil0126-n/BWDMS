@@ -35,7 +35,7 @@
         </div>
 
         <a href="AddWeeklyRoutePlan.aspx"
-           class="btn btn-danger">
+           class="btn btn-primary">
 
             <i class="bi bi-plus-lg me-1"></i>
             Add Weekly Plan

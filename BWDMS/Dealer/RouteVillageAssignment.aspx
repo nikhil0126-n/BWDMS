@@ -261,7 +261,7 @@
                 ID="btnSave"
                 runat="server"
                 Text="Save Assignment"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-primary px-4"
                 CausesValidation="true"
                 OnClick="btnSave_Click">
             </asp:Button>

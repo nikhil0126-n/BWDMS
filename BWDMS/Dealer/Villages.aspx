@@ -37,7 +37,7 @@
 
 
         <a href="AddVillage.aspx"
-           class="btn btn-danger">
+           class="btn btn-primary">
 
             <i class="bi bi-plus-lg me-1"></i>
 

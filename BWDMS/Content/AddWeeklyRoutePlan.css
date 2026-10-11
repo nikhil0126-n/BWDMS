@@ -19,8 +19,8 @@
 
     .form-control:focus,
     .form-select:focus {
-        border-color: #e63950;
-        box-shadow: 0 0 0 0.2rem rgba(230, 57, 80, 0.15);
+        border-color: #2563eb;
+        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.18);
     }
 
 .validation-message {
@@ -50,7 +50,7 @@
 
     .village-check-list input[type="checkbox"] {
         margin-right: 8px;
-        accent-color: #e63950;
+        accent-color: #2563eb;
     }
 
     .village-check-list label {

@@ -38,7 +38,7 @@
         <div class="d-flex gap-2">
 
             <a href="CreateOrder.aspx"
-               class="btn btn-danger">
+               class="btn btn-primary">
 
                 <i class="bi bi-plus-lg"></i>
 
