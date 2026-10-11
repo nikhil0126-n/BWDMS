@@ -73,6 +73,7 @@
     <Content Include="Admin\AddCategory.aspx" />
     <Content Include="Admin\AddDealer.aspx" />
     <Content Include="Admin\AddProduct.aspx" />
+    <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\AddVariant.aspx" />
     <Content Include="Admin\Categories.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="Admin\AddDealer.aspx.designer.cs">
       <DependentUpon>AddDealer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddUser.aspx.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddUser.aspx.designer.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AddProduct.aspx.cs">
       <DependentUpon>AddProduct.aspx</DependentUpon>
