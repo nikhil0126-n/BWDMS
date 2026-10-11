@@ -26,3 +26,27 @@ Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Admin.A
    at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
 ===
 
+=== 2026-10-11T09:04:08.406Z
+URL: /Admin/Products.aspx
+User: 1
+Type: System.Web.HttpException
+Message: The GridView 'gvProducts' fired event PageIndexChanging which wasn't handled.
+Stack: System.Web.HttpException (0x80004005): The GridView 'gvProducts' fired event PageIndexChanging which wasn't handled.
+   at System.Web.UI.WebControls.GridView.OnPageIndexChanging(GridViewPageEventArgs e)
+   at System.Web.UI.WebControls.GridView.HandlePage(Int32 newPage)
+   at System.Web.UI.WebControls.GridView.HandleEvent(EventArgs e, Boolean causesValidation, String validationGroup)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-11T09:04:22.929Z
+URL: /Admin/Products.aspx
+User: 1
+Type: System.Web.HttpException
+Message: The GridView 'gvProducts' fired event PageIndexChanging which wasn't handled.
+Stack: System.Web.HttpException (0x80004005): The GridView 'gvProducts' fired event PageIndexChanging which wasn't handled.
+   at System.Web.UI.WebControls.GridView.OnPageIndexChanging(GridViewPageEventArgs e)
+   at System.Web.UI.WebControls.GridView.HandlePage(Int32 newPage)
+   at System.Web.UI.WebControls.GridView.HandleEvent(EventArgs e, Boolean causesValidation, String validationGroup)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
