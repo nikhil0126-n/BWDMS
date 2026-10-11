@@ -195,9 +195,9 @@
             </div>
 
 
-            <!-- Role -->
+            <!-- Role (hidden on the Add Salesman page) -->
 
-            <div class="col-md-6">
+            <div class="col-md-6" id="divRole" runat="server">
 
                 <label class="form-label fw-semibold">
 

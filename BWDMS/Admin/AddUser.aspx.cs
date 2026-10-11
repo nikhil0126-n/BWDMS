@@ -94,31 +94,103 @@ namespace BWDMS.Admin
 
                     LoadAccount();
                 }
+                else if (SalesmanOnlyMode)
+                {
+                    // ======================================
+                    // AddUser.aspx?role=Salesman
+                    //
+                    // The role dropdown is not shown at all
+                    // and the role is forced to Salesman.
+                    // ======================================
+
+                    SetSalesmanMode();
+                }
                 else
                 {
                     SetAddMode();
 
                     // ==========================================
-                    // AddUser.aspx?role=Salesman opens the form
-                    // ready for a salesman with the dealer box
-                    // already showing.
+                    // PLAIN ADD USER PAGE
+                    //
+                    // Salesmen are created from the Add Salesman
+                    // page, where the dealer is picked. So this
+                    // page only offers Admin / Dealer and never
+                    // shows the dealer dropdown.
                     // ==========================================
+
+                    ListItem salesmanItem =
+                        ddlRole.Items.FindByValue(
+                            "Salesman");
+
+                    if (salesmanItem != null)
+                    {
+                        ddlRole.Items.Remove(
+                            salesmanItem);
+                    }
 
                     string requestedRole =
                         Request.QueryString["role"];
 
                     if (requestedRole == "Admin" ||
-                        requestedRole == "Dealer" ||
-                        requestedRole == "Salesman")
+                        requestedRole == "Dealer")
                     {
                         SetSelectedValue(
                             ddlRole,
                             requestedRole);
                     }
+                    else
+                    {
+                        SetSelectedValue(
+                            ddlRole,
+                            "Dealer");
+                    }
 
-                    ApplyRoleRules();
+                    divDealer.Visible = false;
+
+                    rfvDealer.Enabled = false;
                 }
             }
+        }
+
+
+        // ============================================================
+        // ADD SALESMAN ONLY MODE (?role=Salesman)
+        //
+        // The page is then a pure salesman form: no role dropdown,
+        // the dealer box always shows and the role is fixed.
+        // ============================================================
+
+        private bool SalesmanOnlyMode
+        {
+            get
+            {
+                return TargetUserId == 0 &&
+                       string.Equals(
+                           Request.QueryString["role"],
+                           "Salesman",
+                           StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+
+        private void SetSalesmanMode()
+        {
+            SetAddMode();
+
+            lblPageTitle.Text = "Add Salesman";
+            lblHeading.Text = "Add Salesman";
+            lblSubHeading.Text =
+                "Create a salesman account and assign his dealer";
+            btnSave.Text = "Create Salesman";
+
+            // The role cannot be changed here.
+            divRole.Visible = false;
+
+            SetSelectedValue(
+                ddlRole,
+                "Salesman");
+
+            ApplyRoleRules();
         }
 
 
@@ -396,9 +468,13 @@ namespace BWDMS.Admin
             // ROLE WHITELIST
             //
             // CK_Users_Role allows only Admin / Dealer / Salesman.
+            // On the Add Salesman page the role is forced, whatever
+            // was posted.
             // ========================================================
 
-            string role = ddlRole.SelectedValue;
+            string role = SalesmanOnlyMode
+                ? "Salesman"
+                : ddlRole.SelectedValue;
 
             if (role != "Admin" &&
                 role != "Dealer" &&
