@@ -34,18 +34,37 @@
                             Create BWDMS Admin
                         </h3>
 
+                        <asp:ValidationSummary
+                            ID="valSummary"
+                            runat="server"
+                            CssClass="alert alert-danger d-block"
+                            HeaderText="Please fix the following:"
+                            ShowMessageBox="false"
+                            ShowSummary="true" />
+
                         <div class="mb-3">
 
                             <label class="form-label">
                                 Full Name
+                                <span class="text-danger">*</span>
                             </label>
 
                             <asp:TextBox
                                 ID="txtFullName"
                                 runat="server"
                                 CssClass="form-control"
+                                MaxLength="100"
                                 Text="BWDMS Administrator">
                             </asp:TextBox>
+
+                            <asp:RequiredFieldValidator
+                                ID="rfvFullName"
+                                runat="server"
+                                ControlToValidate="txtFullName"
+                                ErrorMessage="Full name is required."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RequiredFieldValidator>
 
                         </div>
 
@@ -53,14 +72,35 @@
 
                             <label class="form-label">
                                 Email
+                                <span class="text-danger">*</span>
                             </label>
 
                             <asp:TextBox
                                 ID="txtEmail"
                                 runat="server"
                                 CssClass="form-control"
+                                MaxLength="100"
                                 Text="admin@balaji.com">
                             </asp:TextBox>
+
+                            <asp:RequiredFieldValidator
+                                ID="rfvEmail"
+                                runat="server"
+                                ControlToValidate="txtEmail"
+                                ErrorMessage="Email is required."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+
+                            <asp:RegularExpressionValidator
+                                ID="revEmail"
+                                runat="server"
+                                ControlToValidate="txtEmail"
+                                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                ErrorMessage="Enter a valid email address."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
 
                         </div>
 
@@ -68,6 +108,7 @@
 
                             <label class="form-label">
                                 Password
+                                <span class="text-danger">*</span>
                             </label>
 
                             <asp:TextBox
@@ -75,8 +116,28 @@
                                 runat="server"
                                 CssClass="form-control"
                                 TextMode="Password"
+                                MaxLength="50"
                                 Text="Admin@123">
                             </asp:TextBox>
+
+                            <asp:RequiredFieldValidator
+                                ID="rfvPassword"
+                                runat="server"
+                                ControlToValidate="txtPassword"
+                                ErrorMessage="Password is required."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+
+                            <asp:RegularExpressionValidator
+                                ID="revPassword"
+                                runat="server"
+                                ControlToValidate="txtPassword"
+                                ValidationExpression="^.{6,}$"
+                                ErrorMessage="Password must be at least 6 characters."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
 
                         </div>
 
@@ -85,6 +146,7 @@
                             runat="server"
                             Text="Create Admin"
                             CssClass="btn btn-primary w-100"
+                            CausesValidation="true"
                             OnClick="btnCreate_Click" />
 
                         <asp:Label

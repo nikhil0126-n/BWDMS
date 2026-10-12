@@ -144,6 +144,16 @@
                     OnTextChanged="FilterChanged">
                 </asp:TextBox>
 
+                <asp:RegularExpressionValidator
+                    ID="revDateFrom"
+                    runat="server"
+                    ControlToValidate="txtDateFrom"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Use YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
             </div>
 
 
@@ -157,6 +167,16 @@
                     AutoPostBack="true"
                     OnTextChanged="FilterChanged">
                 </asp:TextBox>
+
+                <asp:RegularExpressionValidator
+                    ID="revDateTo"
+                    runat="server"
+                    ControlToValidate="txtDateTo"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Use YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 

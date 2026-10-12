@@ -155,6 +155,17 @@
                     Display="Dynamic">
                 </asp:RequiredFieldValidator>
 
+                <asp:RegularExpressionValidator
+                    ID="revReceiptDate"
+                    ValidationGroup="Receipt"
+                    runat="server"
+                    ControlToValidate="txtReceiptDate"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Receipt date must be YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
             </div>
 
 

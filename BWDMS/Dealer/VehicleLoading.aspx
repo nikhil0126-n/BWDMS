@@ -247,6 +247,17 @@
                     Display="Dynamic">
                 </asp:RequiredFieldValidator>
 
+                <asp:RegularExpressionValidator
+                    ID="revStockDate"
+                    ValidationGroup="Load"
+                    runat="server"
+                    ControlToValidate="txtStockDate"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Stock date must be YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
             </div>
 
 

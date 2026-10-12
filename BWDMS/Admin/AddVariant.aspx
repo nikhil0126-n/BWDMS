@@ -219,6 +219,17 @@
                     Text="0">
                 </asp:TextBox>
 
+
+                <asp:RegularExpressionValidator
+                    ID="revSortOrder"
+                    runat="server"
+                    ControlToValidate="txtSortOrder"
+                    ValidationExpression="^\d{0,5}$"
+                    ErrorMessage="Sort order must be a whole number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
             </div>
 
 
@@ -383,6 +394,16 @@
                                 Text='<%# Eval("PacketsPerUnit") %>'>
                             </asp:TextBox>
 
+                            <asp:RegularExpressionValidator
+                                ID="revPacketsPerUnit"
+                                runat="server"
+                                ControlToValidate="txtPacketsPerUnit"
+                                ValidationExpression="^\d{0,5}$"
+                                ErrorMessage="Whole number."
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
+
                         </td>
 
 
@@ -394,6 +415,16 @@
                                 CssClass="form-control form-control-sm"
                                 Text='<%# Eval("PrintedPrice") %>'>
                             </asp:TextBox>
+
+                            <asp:RegularExpressionValidator
+                                ID="revPrintedPrice"
+                                runat="server"
+                                ControlToValidate="txtPrintedPrice"
+                                ValidationExpression="^\d{0,7}(\.\d{1,2})?$"
+                                ErrorMessage="0.00"
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
 
                         </td>
 
@@ -407,6 +438,16 @@
                                 Text='<%# Eval("DealerPrice") %>'>
                             </asp:TextBox>
 
+                            <asp:RegularExpressionValidator
+                                ID="revDealerPrice"
+                                runat="server"
+                                ControlToValidate="txtDealerPrice"
+                                ValidationExpression="^\d{0,7}(\.\d{1,2})?$"
+                                ErrorMessage="0.00"
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
+
                         </td>
 
 
@@ -418,6 +459,16 @@
                                 CssClass="form-control form-control-sm"
                                 Text='<%# Eval("ShopPrice") %>'>
                             </asp:TextBox>
+
+                            <asp:RegularExpressionValidator
+                                ID="revShopPrice"
+                                runat="server"
+                                ControlToValidate="txtShopPrice"
+                                ValidationExpression="^\d{0,7}(\.\d{1,2})?$"
+                                ErrorMessage="0.00"
+                                CssClass="text-danger small"
+                                Display="Dynamic">
+                            </asp:RegularExpressionValidator>
 
                         </td>
 

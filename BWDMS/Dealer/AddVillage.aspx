@@ -192,9 +192,20 @@
                     ID="txtPincode"
                     runat="server"
                     CssClass="form-control"
-                    MaxLength="10"
+                    MaxLength="6"
                     placeholder="Example: 360005">
                 </asp:TextBox>
+
+
+                <asp:RegularExpressionValidator
+                    ID="revPincode"
+                    runat="server"
+                    ControlToValidate="txtPincode"
+                    ValidationExpression="^\d{0,6}$"
+                    ErrorMessage="Pincode must be 6 digits."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 

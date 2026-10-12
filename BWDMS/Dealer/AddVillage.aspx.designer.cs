@@ -114,6 +114,15 @@ namespace BWDMS.Dealer
         protected global::System.Web.UI.WebControls.TextBox txtPincode;
 
         /// <summary>
+        /// revPincode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPincode;
+
+        /// <summary>
         /// ddlStatus control.
         /// </summary>
         /// <remarks>

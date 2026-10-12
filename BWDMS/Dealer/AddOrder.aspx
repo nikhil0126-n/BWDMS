@@ -269,6 +269,17 @@
                     Display="Dynamic">
                 </asp:RequiredFieldValidator>
 
+                <asp:RegularExpressionValidator
+                    ID="revOrderDate"
+                    ValidationGroup="Order"
+                    runat="server"
+                    ControlToValidate="txtOrderDate"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Order date must be YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
             </div>
 
 
@@ -290,6 +301,17 @@
                     CssClass="form-control"
                     placeholder="YYYY-MM-DD">
                 </asp:TextBox>
+
+                <asp:RegularExpressionValidator
+                    ID="revDeliveryDate"
+                    ValidationGroup="Order"
+                    runat="server"
+                    ControlToValidate="txtDeliveryDate"
+                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                    ErrorMessage="Delivery date must be YYYY-MM-DD."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 

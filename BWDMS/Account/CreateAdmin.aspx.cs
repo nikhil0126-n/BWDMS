@@ -8,6 +8,11 @@ namespace BWDMS.Account
     {
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             string fullName = txtFullName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;

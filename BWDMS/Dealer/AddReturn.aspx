@@ -345,6 +345,16 @@
                                     Text='<%# Eval("Returned") %>'>
                                 </asp:TextBox>
 
+                                <asp:RegularExpressionValidator
+                                    ID="revQty"
+                                    runat="server"
+                                    ControlToValidate="txtQty"
+                                    ValidationExpression="^\d{0,5}$"
+                                    ErrorMessage="Whole packets."
+                                    CssClass="text-danger small"
+                                    Display="Dynamic">
+                                </asp:RegularExpressionValidator>
+
                             </td>
 
 

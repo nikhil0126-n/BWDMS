@@ -247,6 +247,11 @@ namespace BWDMS.Dealer
             object sender,
             EventArgs e)
         {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             LoadDispatches();
         }
 

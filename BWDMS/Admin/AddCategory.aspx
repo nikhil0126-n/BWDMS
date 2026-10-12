@@ -139,6 +139,17 @@
                 </asp:TextBox>
 
 
+                <asp:RegularExpressionValidator
+                    ID="revSortOrder"
+                    runat="server"
+                    ControlToValidate="txtSortOrder"
+                    ValidationExpression="^\d{0,5}$"
+                    ErrorMessage="Sort order must be a whole number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
+
                 <small class="text-muted">
                     Lower numbers appear first.
                 </small>

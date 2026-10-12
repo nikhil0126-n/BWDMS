@@ -1229,6 +1229,11 @@ namespace BWDMS.Dealer
             object sender,
             EventArgs e)
         {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             LoadDashboard();
         }
 
@@ -1239,6 +1244,11 @@ namespace BWDMS.Dealer
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             // Re-run the exact same report pipeline (same report
             // key, same From / To filter, same SQL) so the file
             // always holds what the grid shows.
