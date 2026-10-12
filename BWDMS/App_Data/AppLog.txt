@@ -67,3 +67,15 @@ Stack: System.Web.HttpException (0x80004005): The file '/Dealer/Dispatch.aspx' d
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 ===
 
+=== 2026-10-12T07:55:47.191Z
+URL: /Dealer/Inventory.aspx
+User: 2
+Type: System.Web.HttpException
+Message: The GridView 'gvInventory' fired event PageIndexChanging which wasn't handled.
+Stack: System.Web.HttpException (0x80004005): The GridView 'gvInventory' fired event PageIndexChanging which wasn't handled.
+   at System.Web.UI.WebControls.GridView.OnPageIndexChanging(GridViewPageEventArgs e)
+   at System.Web.UI.WebControls.GridView.HandlePage(Int32 newPage)
+   at System.Web.UI.WebControls.GridView.HandleEvent(EventArgs e, Boolean causesValidation, String validationGroup)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+

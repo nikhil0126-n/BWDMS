@@ -191,7 +191,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table table-hover align-middle"
                         GridLines="None"
-                        EmptyDataText="No orders available yet." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No orders available yet." AllowPaging="true" OnPageIndexChanging="gvRecentActivity_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -315,7 +315,7 @@
                         runat="server"
                         AutoGenerateColumns="False"
                         CssClass="table table-hover align-middle"
-                        GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        GridLines="None" AllowPaging="true" OnPageIndexChanging="gvStatusSummary_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 

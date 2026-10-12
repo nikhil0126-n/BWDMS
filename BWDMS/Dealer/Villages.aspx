@@ -99,7 +99,7 @@
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
                 CssClass="table align-middle mb-0"
-                GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvVillages_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
                 <Columns>
