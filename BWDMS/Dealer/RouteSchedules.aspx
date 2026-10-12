@@ -48,6 +48,22 @@
             <div class="filter-wrapper">
 
                 <asp:DropDownList ID="ddlDayFilter"
+                    <asp:RequiredFieldValidator
+                        ID="rfv_ayFilter"
+                        runat="server"
+                        ControlToValidate="ddlDayFilter"
+                        ErrorMessage="Please select an option"
+                        CssClass="text-danger small"
+                        Display="Dynamic">
+                    </asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator
+                        ID="rfv_ayFilter"
+                        runat="server"
+                        ControlToValidate="ddlDayFilter"
+                        ErrorMessage="Please select an option"
+                        CssClass="text-danger small"
+                        Display="Dynamic">
+                    </asp:RequiredFieldValidator>
                     runat="server"
                     CssClass="filter-select"
                     AutoPostBack="true"

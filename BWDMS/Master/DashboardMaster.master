@@ -430,7 +430,7 @@
 
                 </asp:HyperLink>
 
-                <asp:HyperLink
+              <!--  <asp:HyperLink
                     ID="lnkWeeklyRoutePlans"
                     runat="server"
                     CssClass="menu-item"
@@ -442,7 +442,7 @@
                         Weekly Plans
                     </span>
 
-                </asp:HyperLink>
+                </asp:HyperLink>  -->
                 <!-- Shops -->
 
                 <asp:HyperLink
