@@ -236,5 +236,22 @@ namespace BWDMS.Salesman
         {
             LoadStock();
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvStock_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvStock.PageIndex = e.NewPageIndex;
+
+            LoadStock();
+        }
+
     }
 }

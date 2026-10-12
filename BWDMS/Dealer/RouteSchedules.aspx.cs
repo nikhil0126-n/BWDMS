@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -168,5 +168,22 @@ namespace BWDMS.Dealer
         {
             LoadSchedules();
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvSchedules_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvSchedules.PageIndex = e.NewPageIndex;
+
+            LoadSchedules();
+        }
+
     }
 }

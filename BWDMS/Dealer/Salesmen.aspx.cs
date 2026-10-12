@@ -134,5 +134,22 @@ namespace BWDMS.Dealer
                 ? "alert alert-success mb-4"
                 : "alert alert-danger mb-4";
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvSalesmen_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvSalesmen.PageIndex = e.NewPageIndex;
+
+            LoadSalesmen();
+        }
+
     }
 }

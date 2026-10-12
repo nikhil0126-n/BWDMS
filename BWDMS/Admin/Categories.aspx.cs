@@ -140,5 +140,22 @@ namespace BWDMS.Admin
                 ? "alert alert-success d-block"
                 : "alert alert-danger d-block";
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvCategories_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvCategories.PageIndex = e.NewPageIndex;
+
+            LoadCategories();
+        }
+
     }
 }

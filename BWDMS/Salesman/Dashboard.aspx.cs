@@ -295,5 +295,22 @@ namespace BWDMS.Salesman
 
             gvBeat.DataBind();
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvBeat_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvBeat.PageIndex = e.NewPageIndex;
+
+            LoadTodaysBeat();
+        }
+
     }
 }

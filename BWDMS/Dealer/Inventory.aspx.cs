@@ -226,6 +226,23 @@ namespace BWDMS.Dealer
                 ? "alert alert-success d-block"
                 : "alert alert-danger d-block";
         }
+
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvInventory_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvInventory.PageIndex = e.NewPageIndex;
+
+            LoadInventory();
+        }
     }
 
 

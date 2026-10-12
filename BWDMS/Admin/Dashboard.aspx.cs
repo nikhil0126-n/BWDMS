@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using BWDMS.Data;
@@ -287,5 +287,38 @@ namespace BWDMS.Admin
             gvRecentActivity.DataSource = dt;
             gvRecentActivity.DataBind();
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvRecentActivity_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvRecentActivity.PageIndex = e.NewPageIndex;
+
+            LoadRecentActivity();
+        }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvStatusSummary_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvStatusSummary.PageIndex = e.NewPageIndex;
+
+            LoadStatusSummary();
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using BWDMS.Data;
@@ -205,5 +205,22 @@ namespace BWDMS.Admin
                 }
             }
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvDealers_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvDealers.PageIndex = e.NewPageIndex;
+
+            LoadDealers();
+        }
+
     }
 }

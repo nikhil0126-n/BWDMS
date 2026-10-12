@@ -452,5 +452,22 @@ namespace BWDMS.Admin
 
             base.Render(writer);
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvReport_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvReport.PageIndex = e.NewPageIndex;
+
+            RunReport();
+        }
+
     }
 }
