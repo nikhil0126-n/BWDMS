@@ -263,7 +263,7 @@
                 runat="server"
                 AutoGenerateColumns="True"
                 CssClass="table table-hover align-middle"
-                GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvReport_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <EmptyDataTemplate>
 

@@ -154,7 +154,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                DataKeyNames="ReceiptId" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="ReceiptId" AllowPaging="true" OnPageIndexChanging="gvReceipts_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

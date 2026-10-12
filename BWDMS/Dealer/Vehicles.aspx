@@ -118,7 +118,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table route-table align-middle mb-0"
                 GridLines="None"
-                EmptyDataText="No vehicles found. Click &quot;Add Vehicle&quot; to create the first one." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No vehicles found. Click &quot;Add Vehicle&quot; to create the first one." AllowPaging="true" OnPageIndexChanging="gvVehicles_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

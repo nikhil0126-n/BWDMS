@@ -103,7 +103,7 @@
                     CssClass="schedule-table"
                     GridLines="None"
                     EmptyDataText="No route schedules found."
-                    DataKeyNames="RouteScheduleId" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                    DataKeyNames="RouteScheduleId" AllowPaging="true" OnPageIndexChanging="gvSchedules_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                     <Columns>
 

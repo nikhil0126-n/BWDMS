@@ -106,7 +106,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                DataKeyNames="ProductVariantId" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="ProductVariantId" AllowPaging="true" OnPageIndexChanging="gvVariants_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

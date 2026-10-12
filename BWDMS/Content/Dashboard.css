@@ -984,6 +984,84 @@ body {
     }
 
 
+/* --- ASP.NET GridView numeric pager --------------------------------------
+   There is no <PagerTemplate> on any page, so every paged grid falls back to
+   the control's default pager: an unnamed <table> wrapped in a colspan cell,
+   carrying the current page as a <span> and the other pages as <a> postback
+   links. Styling it here covers all 45 paged grids at once.
+
+   The pager row is a data row, so it would otherwise pick up the grid's hover
+   and header fills - take those back before laying out the pills. ------------- */
+
+.table-hover > tbody > tr:hover > td[colspan],
+.table > tbody > tr:hover > td[colspan],
+.route-table > tbody > tr:hover > td[colspan],
+.schedule-table > tbody > tr:hover > td[colspan] {
+    background-color: transparent;
+}
+
+
+td[colspan] > table {
+    margin: 0;
+    border: none;
+    background: none;
+    border-collapse: separate;
+}
+
+
+td[colspan] > table > tbody > tr > td {
+    padding: 4px 4px;
+    background: none;
+    border: none;
+    vertical-align: middle;
+}
+
+
+td[colspan] > table span,
+td[colspan] > table a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border-radius: var(--bw-radius-sm);
+    font-size: 13px;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+
+    /* the current page - not a link, so mark it as the selected pill */
+
+    td[colspan] > table span {
+        background-color: var(--bw-blue-600);
+        border: 1px solid var(--bw-blue-600);
+        color: #ffffff;
+        font-weight: 700;
+        cursor: default;
+    }
+
+
+    td[colspan] > table a {
+        background-color: var(--bw-surface);
+        border: 1px solid var(--bw-border);
+        color: var(--bw-text-soft);
+        font-weight: 600;
+    }
+
+
+        td[colspan] > table a:hover,
+        td[colspan] > table a:focus {
+            background-color: var(--bw-blue-050);
+            border-color: var(--bw-blue-500);
+            color: var(--bw-blue-700);
+            text-decoration: none;
+            outline: none;
+        }
+
+
 /* --- Badges ------------------------------------------------------------- */
 
 .badge {

@@ -176,7 +176,7 @@
                 CssClass="table table-hover align-middle"
                 GridLines="None"
                 OnRowCommand="gvOrders_RowCommand"
-                DataKeyNames="OrderId" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="OrderId" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

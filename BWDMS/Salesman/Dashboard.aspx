@@ -150,7 +150,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table route-table align-middle mb-0"
                 GridLines="None"
-                EmptyDataText="No villages are scheduled for today." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No villages are scheduled for today." AllowPaging="true" OnPageIndexChanging="gvBeat_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
                 <Columns>
 
                     <asp:BoundField

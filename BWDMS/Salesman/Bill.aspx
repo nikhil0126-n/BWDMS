@@ -189,7 +189,7 @@
                     runat="server"
                     AutoGenerateColumns="False"
                     CssClass="table table-sm table-bordered align-middle mb-0"
-                    GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                    GridLines="None" AllowPaging="true" OnPageIndexChanging="gvLines_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                     <Columns>
 

@@ -84,7 +84,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table weekly-plan-table align-middle mb-0"
                 GridLines="None"
-                EmptyDataText="No weekly route plans found." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No weekly route plans found." AllowPaging="true" OnPageIndexChanging="gvWeeklyPlans_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

@@ -118,7 +118,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table route-table align-middle mb-0"
                 GridLines="None"
-                EmptyDataText="No salesman accounts yet. Click &quot;Add Account&quot; to create one." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No salesman accounts yet. Click &quot;Add Account&quot; to create one." AllowPaging="true" OnPageIndexChanging="gvSalesmen_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 

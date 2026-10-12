@@ -292,7 +292,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table align-middle mb-0"
                         GridLines="None"
-                        EmptyDataText="No orders in this period." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No orders in this period." AllowPaging="true" OnPageIndexChanging="gvSalesSummary_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -510,7 +510,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table align-middle mb-0"
                         GridLines="None"
-                        EmptyDataText="No route schedules for today." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No route schedules for today." AllowPaging="true" OnPageIndexChanging="gvSchedules_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -559,7 +559,7 @@
                         runat="server"
                         AutoGenerateColumns="False"
                         CssClass="table align-middle mb-0"
-                        GridLines="None" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrdersByStatus_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -736,7 +736,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table align-middle"
                         GridLines="None"
-                        EmptyDataText="No orders available" AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No orders available" AllowPaging="true" OnPageIndexChanging="gvRecentOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -973,7 +973,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table align-middle"
                         GridLines="None"
-                        EmptyDataText="No activity recorded yet." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No activity recorded yet." AllowPaging="true" OnPageIndexChanging="gvActivity_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
@@ -1043,7 +1043,7 @@
                         AutoGenerateColumns="False"
                         CssClass="table align-middle mb-0"
                         GridLines="None"
-                        EmptyDataText="No low-stock alerts. All items are above their reorder level." AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        EmptyDataText="No low-stock alerts. All items are above their reorder level." AllowPaging="true" OnPageIndexChanging="gvLowStock_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                         <Columns>
 
