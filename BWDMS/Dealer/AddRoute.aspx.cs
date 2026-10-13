@@ -1109,8 +1109,46 @@ namespace BWDMS.Dealer
                                 dealerId;
 
 
-                            cmd.ExecuteNonQuery();
+                            object newRouteId =
+                                cmd.ExecuteScalar();
+
+                            routeId =
+                                newRouteId == null ||
+                                newRouteId == DBNull.Value
+                                    ? 0
+                                    : Convert.ToInt32(newRouteId);
                         }
+                    }
+
+
+                    // =================================================
+                    // KEEP THE WEEKLY ROUTE-DAYS IN STEP
+                    //
+                    // The route is now the only thing a dealer
+                    // edits. Its route-days -- with the vehicle,
+                    // salesman and driver picked above, and the
+                    // route's villages in the route's own order --
+                    // are produced here, so orders, dispatch,
+                    // vehicle loading and billing always have one to
+                    // work with.
+                    //
+                    // RouteSchedules stores a day NAME and never a
+                    // date, so these same rows are simply reused
+                    // week after week.
+                    // =================================================
+
+                    if (routeId > 0)
+                    {
+                        RouteScheduleSync.SyncRoute(
+                            con,
+                            transaction,
+                            routeId,
+                            dealerId,
+                            selectedDays,
+                            vehicleId,
+                            salesmanId,
+                            driverId,
+                            isActive);
                     }
 
                     transaction.Commit();

@@ -168,7 +168,7 @@
 
             <div class="logo-icon">
 
-                BW
+                B
 
             </div>
 
@@ -176,12 +176,8 @@
             <div>
 
                 <strong>
-                    BWDMS
+                    Balaji DMS
                 </strong>
-
-                <small>
-                    Dealer Management
-                </small>
 
             </div>
 
@@ -415,35 +411,6 @@
                     <span>Villages</span>
 
                 </asp:HyperLink>
-
-                <asp:HyperLink
-                    ID="lnkRouteSchedules"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/RouteSchedules.aspx">
-
-                    <i class="bi bi-calendar3"></i>
-
-                    <span>
-                        Route Schedules
-                    </span>
-
-                </asp:HyperLink>
-
-              <!--  <asp:HyperLink
-                    ID="lnkWeeklyRoutePlans"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/WeeklyRoutePlans.aspx">
-
-                    <i class="bi bi-calendar-week"></i>
-
-                    <span>
-                        Weekly Plans
-                    </span>
-
-                </asp:HyperLink>  -->
-                <!-- Shops -->
 
                 <asp:HyperLink
                     ID="lnkDealerShops"

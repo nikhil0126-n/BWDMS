@@ -1,37 +1,37 @@
 ﻿/* ============================================================================
    BWDMS — GLOBAL THEME
    ----------------------------------------------------------------------------
-   Navy navigation shell + blue primary accent on a light canvas.
+   Navy navigation shell + indigo primary accent on a white canvas.
 
    Every colour in the app is declared once in the :root block below, so the
    whole product can be re-tinted by editing those two lines (the navy pair and
-   the blue pair) without touching any component rule.
+   the indigo pair) without touching any component rule.
    ============================================================================ */
 
 :root {
 
     /* --- Brand: navy shell --------------------------------------------- */
-    --bw-navy-950: #071733;
-    --bw-navy-900: #0b1f3f;
-    --bw-navy-800: #123059;
-    --bw-navy-700: #1b3a68;
+    --bw-navy-950: #07143a;
+    --bw-navy-900: #0b1b47;
+    --bw-navy-800: #12275f;
+    --bw-navy-700: #1b3481;
 
-    /* --- Brand: blue accent -------------------------------------------- */
-    --bw-blue-700: #1a4fd0;
-    --bw-blue-600: #2563eb;
-    --bw-blue-500: #3b82f6;
-    --bw-blue-100: #dbe7fe;
-    --bw-blue-050: #eef4ff;
+    /* --- Brand: indigo accent ------------------------------------------ */
+    --bw-blue-700: #4338ca;
+    --bw-blue-600: #4f46e5;
+    --bw-blue-500: #6366f1;
+    --bw-blue-100: #e0e7ff;
+    --bw-blue-050: #eef2ff;
 
     /* --- Neutrals ------------------------------------------------------- */
-    --bw-canvas: #eef1f6;
+    --bw-canvas: #ffffff;
     --bw-surface: #ffffff;
-    --bw-surface-2: #f6f8fc;
-    --bw-border: #e1e7f0;
-    --bw-border-soft: #edf1f7;
-    --bw-text: #1c2434;
-    --bw-text-soft: #566078;
-    --bw-text-muted: #8b94a8;
+    --bw-surface-2: #f7f8fa;
+    --bw-border: #e5e7eb;
+    --bw-border-soft: #f1f2f4;
+    --bw-text: #111827;
+    --bw-text-soft: #4b5563;
+    --bw-text-muted: #9ca3af;
 
     /* --- Semantic ------------------------------------------------------- */
     --bw-success: #16a34a;
@@ -40,12 +40,12 @@
     --bw-info: #0ea5e9;
 
     /* --- Elevation ------------------------------------------------------ */
-    --bw-radius: 14px;
+    --bw-radius: 12px;
     --bw-radius-sm: 9px;
-    --bw-shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
-    --bw-shadow: 0 4px 14px rgba(16, 24, 40, .07);
-    --bw-shadow-lg: 0 14px 34px rgba(16, 24, 40, .12);
-    --bw-focus: 0 0 0 3px rgba(37, 99, 235, .18);
+    --bw-shadow-sm: 0 1px 2px rgba(16, 24, 40, .05);
+    --bw-shadow: 0 4px 14px rgba(16, 24, 40, .06);
+    --bw-shadow-lg: 0 14px 34px rgba(16, 24, 40, .10);
+    --bw-focus: 0 0 0 3px rgba(79, 70, 229, .20);
 }
 
 
@@ -67,20 +67,13 @@ body {
    HEADER
    ============================================================================ */
 
+/* The reference layout has no bar across the top: the sidebar runs to the
+   very top of the window and the page title is the first thing in the
+   content column. The markup stays (ids, labels, anything that greps
+   them) but it is not drawn. */
+
 .top-header {
-    position: fixed;
-    top: 0;
-    left: 250px;
-    right: 0;
-    height: 70px;
-    background: var(--bw-surface);
-    border-bottom: 1px solid var(--bw-border);
-    box-shadow: 0 1px 3px rgba(16, 24, 40, .04);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 28px;
-    z-index: 1000;
+    display: none;
 }
 
 
@@ -194,102 +187,111 @@ body {
     top: 0;
     bottom: 0;
     width: 250px;
-    background: linear-gradient(180deg, var(--bw-navy-900) 0%, var(--bw-navy-950) 100%);
-    border-right: 1px solid rgba(255, 255, 255, .06);
+    background: var(--bw-navy-900);
+    border-right: none;
     z-index: 1100;
     display: flex;
     flex-direction: column;
 }
 
 
+/* --- Logo: white hexagon badge + BALAJI DMS wordmark -------------------- */
+
 .sidebar-logo {
-    height: 70px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 22px;
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    gap: 11px;
+    margin: 6px 10px 2px;
+    padding: 14px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .06);
 }
 
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--bw-blue-500), var(--bw-blue-700));
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, .38);
+    width: 34px;
+    height: 38px;
+    flex: 0 0 auto;
+    background: #ffffff;
+    color: var(--bw-navy-900);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 
 .sidebar-logo strong {
     display: block;
-    font-size: 17px;
+    font-size: 16px;
     color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: .9px;
+    white-space: nowrap;
 }
 
 
 .sidebar-logo small {
-    display: block;
-    color: rgba(219, 228, 243, .58);
-    font-size: 10px;
+    display: none;
 }
 
 
 .sidebar-menu {
     flex: 1;
-    padding: 18px 12px;
+    padding: 14px 10px;
     overflow-y: auto;
 }
 
 
 .menu-title {
     font-size: 10px;
-    color: rgba(219, 228, 243, .42);
+    color: rgba(219, 228, 243, .38);
     font-weight: 700;
-    letter-spacing: 1px;
-    padding: 15px 14px 8px;
+    letter-spacing: 1.2px;
+    padding: 14px 14px 7px;
 }
 
 
 .menu-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
-    margin-bottom: 3px;
-    border-radius: var(--bw-radius-sm);
-    color: rgba(226, 232, 244, .80);
+    gap: 13px;
+    padding: 12px 14px;
+    margin-bottom: 4px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .90);
     text-decoration: none;
-    font-size: 14px;
-    transition: .2s;
+    font-size: 15px;
+    transition: .18s;
 }
 
 
     .menu-item i {
         font-size: 17px;
+        width: 20px;
+        text-align: center;
     }
 
 
     .menu-item:hover {
-        background: rgba(255, 255, 255, .08);
+        background: rgba(255, 255, 255, .10);
         color: #ffffff;
     }
 
 
     .menu-item.active {
-        background: linear-gradient(135deg, var(--bw-blue-600), var(--bw-blue-700));
+        background: var(--bw-navy-700);
         color: #ffffff;
-        box-shadow: 0 6px 18px rgba(37, 99, 235, .38);
+        box-shadow: none;
     }
 
 
 .sidebar-bottom {
-    padding: 15px;
+    padding: 12px;
     border-top: 1px solid rgba(255, 255, 255, .08);
 }
 
@@ -298,21 +300,21 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
+    gap: 13px;
+    padding: 12px 14px;
     border: none;
     background: transparent;
-    color: rgba(252, 165, 165, .92);
-    border-radius: var(--bw-radius-sm);
+    color: rgba(255, 255, 255, .90);
+    border-radius: 10px;
     cursor: pointer;
     text-decoration: none;
-    font-size: 14px;
-    transition: .2s;
+    font-size: 15px;
+    transition: .18s;
 }
 
 
     .logout-button:hover {
-        background: rgba(220, 38, 38, .18);
+        background: rgba(255, 255, 255, .10);
         color: #ffffff;
     }
 
@@ -331,9 +333,25 @@ body {
    ============================================================================ */
 
 .grid-search-box {
-    width: 250px;
+    width: 380px;
     max-width: 100%;
 }
+
+
+    /* Reference search field: tall, generously rounded, magnifier on the
+       left. The glyph is drawn from CSS so no page markup changes. */
+
+    .grid-search-box .form-control {
+        height: 44px;
+        border-color: var(--bw-border);
+        border-radius: 10px;
+        padding-left: 42px;
+        font-size: 15px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 16px center;
+        background-size: 16px 16px;
+    }
 
 
 /* ============================================================================
@@ -342,8 +360,9 @@ body {
 
 .main-content {
     margin-left: 250px;
-    padding: 95px 30px 80px;
-    min-height: calc(100vh - 60px);
+    padding: 34px 34px 80px;
+    min-height: 100vh;
+    background: var(--bw-canvas);
 }
 
 
@@ -355,31 +374,34 @@ body {
     background: var(--bw-surface);
     border: 1px solid var(--bw-border);
     border-radius: var(--bw-radius);
-    padding: 22px;
+    padding: 20px;
     height: 100%;
-    box-shadow: var(--bw-shadow-sm);
-    transition: .2s;
+    box-shadow: none;
+    transition: none;
 }
 
 
+    /* Reference cards sit flat on the canvas: no lift, no bloom. */
+
     .dashboard-card:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--bw-shadow-lg);
+        transform: none;
+        box-shadow: none;
     }
 
 
 .card-title {
-    color: var(--bw-text-muted);
-    font-size: 13px;
+    color: var(--bw-text-soft);
+    font-size: 14px;
+    font-weight: 600;
     margin-bottom: 8px;
 }
 
 
 .dashboard-card h3 {
     margin: 0;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    color: var(--bw-navy-900);
+    color: var(--bw-text);
 }
 
 
@@ -426,7 +448,7 @@ body {
 
 
     .main-content {
-        padding: 90px 20px 80px;
+        padding: 28px 20px 80px;
     }
 
 
@@ -476,13 +498,28 @@ body {
     }
 
 
+    /* The sidebar toggle lives in the header, so on small screens a slim,
+       toggle-only header comes back - otherwise the drawer could never be
+       opened once the header is hidden. */
+
     .top-header {
+        display: flex;
         left: 0;
+        height: 58px;
+        justify-content: flex-start;
+        padding: 0 14px;
+    }
+
+
+    .header-right,
+    .page-brand {
+        display: none;
     }
 
 
     .main-content {
         margin-left: 0;
+        padding: 74px 14px 90px;
     }
 
 
@@ -524,7 +561,7 @@ body {
 
 
     .main-content {
-        padding: 85px 14px 90px;
+        padding: 74px 14px 90px;
     }
 
 
@@ -762,12 +799,23 @@ body {
 /* --- Buttons ------------------------------------------------------------ */
 
 .btn {
-    border-radius: var(--bw-radius-sm);
+    border-radius: 9px;
     font-weight: 600;
-    font-size: 14px;
-    padding: .5rem 1rem;
+    font-size: 14.5px;
+    padding: .6rem 1.15rem;
     transition: background-color .18s ease, border-color .18s ease,
                 box-shadow .18s ease, color .18s ease;
+}
+
+
+/* .btn-sm has the same specificity as .btn and this file is loaded after
+   Bootstrap, so the rule above was quietly cancelling it out and every
+   action-column button came out full size. Two classes beats one. */
+
+.btn.btn-sm {
+    font-size: 13.5px;
+    padding: .35rem .75rem;
+    border-radius: 8px;
 }
 
 
@@ -925,26 +973,42 @@ body {
 
     .table > :not(caption) > * > * {
         background-color: transparent;
-        border-bottom-color: var(--bw-border-soft);
+        border-bottom-color: transparent;
     }
 
 
+    /* Reference header: flat light-grey band, dark sentence-case label.
+       The GridView writes its rows as bare <tr>, so the HTML parser puts
+       every row - header included - into a single auto-generated <tbody>.
+       The header therefore has to be picked out by its <th> cells rather
+       than by <thead>; the <thead> arm is kept for hand-written tables. */
+
+    .table > tbody > tr > th,
     .table > thead > tr > th {
-        background-color: var(--bw-surface-2);
-        color: var(--bw-text-soft);
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: .4px;
+        background-color: #eeeeee;
+        color: var(--bw-text);
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: normal;
         border-bottom: 1px solid var(--bw-border);
-        padding: 12px 14px;
+        padding: 16px;
         vertical-align: middle;
     }
 
+
+    /* Reference rows: tall and line-free, separated by space alone. */
 
     .table > tbody > tr > td {
-        padding: 12px 14px;
+        padding: 16px;
+        font-size: 15px;
         vertical-align: middle;
+        border-bottom: 1px solid transparent;
+    }
+
+
+    .table > tbody > tr:last-child > td {
+        border-bottom: none;
     }
 
 

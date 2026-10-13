@@ -79,3 +79,102 @@ Stack: System.Web.HttpException (0x80004005): The GridView 'gvInventory' fired e
    at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
 ===
 
+=== 2026-10-12T10:04:37.943Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:04:50.242Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:05:23.881Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:08:38.880Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:08:51.749Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:08:52.192Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:08:52.354Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:08:54.903Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-12T10:09:14.462Z
+URL: /Dealer/RouteSchedules.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'rfv_ayFilter' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+

@@ -105,7 +105,6 @@
     <Content Include="Dealer\AddReconciliation.aspx" />
     <Content Include="Dealer\AddReturn.aspx" />
     <Content Include="Dealer\AddRoute.aspx" />
-    <Content Include="Dealer\AddRouteSchedule.aspx" />
     <Content Include="Dealer\AddSalesman.aspx" />
     <Content Include="Dealer\AddShop.aspx" />
     <Content Include="Dealer\AddVehicle.aspx" />
@@ -120,11 +119,10 @@
     <Content Include="Dealer\Reconciliations.aspx" />
     <Content Include="Dealer\Reports.aspx" />
     <Content Include="Dealer\Returns.aspx" />
+    <Content Include="Dealer\RouteHistory.aspx" />
     <Content Include="Dealer\Routes.aspx" />
-    <Content Include="Dealer\RouteSchedules.aspx" />
     <Content Include="Dealer\RouteVillageAssignment.aspx" />
     <Content Include="Dealer\Salesmen.aspx" />
-    <Content Include="Dealer\ScheduleVillages.aspx" />
     <Content Include="Dealer\Shops.aspx" />
     <Content Include="Dealer\ShopOrders.aspx" />
     <Content Include="Dealer\StockTransactions.aspx" />
@@ -273,6 +271,7 @@
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\InventoryPdfParser.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
+    <Compile Include="Data\RouteScheduleSync.cs" />
     <Compile Include="Dealer\AddCompanyReceipt.aspx.cs">
       <DependentUpon>AddCompanyReceipt.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -321,13 +320,6 @@
     </Compile>
     <Compile Include="Dealer\AddRoute.aspx.designer.cs">
       <DependentUpon>AddRoute.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dealer\AddRouteSchedule.aspx.cs">
-      <DependentUpon>AddRouteSchedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dealer\AddRouteSchedule.aspx.designer.cs">
-      <DependentUpon>AddRouteSchedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\AddSalesman.aspx.cs">
       <DependentUpon>AddSalesman.aspx</DependentUpon>
@@ -427,19 +419,19 @@
     <Compile Include="Dealer\Returns.aspx.designer.cs">
       <DependentUpon>Returns.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\RouteHistory.aspx.cs">
+      <DependentUpon>RouteHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\RouteHistory.aspx.designer.cs">
+      <DependentUpon>RouteHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\Routes.aspx.cs">
       <DependentUpon>Routes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dealer\Routes.aspx.designer.cs">
       <DependentUpon>Routes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dealer\RouteSchedules.aspx.cs">
-      <DependentUpon>RouteSchedules.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dealer\RouteSchedules.aspx.designer.cs">
-      <DependentUpon>RouteSchedules.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\RouteVillageAssignment.aspx.cs">
       <DependentUpon>RouteVillageAssignment.aspx</DependentUpon>
@@ -454,13 +446,6 @@
     </Compile>
     <Compile Include="Dealer\Salesmen.aspx.designer.cs">
       <DependentUpon>Salesmen.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dealer\ScheduleVillages.aspx.cs">
-      <DependentUpon>ScheduleVillages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dealer\ScheduleVillages.aspx.designer.cs">
-      <DependentUpon>ScheduleVillages.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Shops.aspx.cs">
       <DependentUpon>Shops.aspx</DependentUpon>

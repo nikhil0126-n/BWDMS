@@ -186,24 +186,6 @@ namespace BWDMS.Master
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerVillages;
 
         /// <summary>
-        /// lnkRouteSchedules control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRouteSchedules;
-
-        /// <summary>
-        /// lnkWeeklyRoutePlans control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkWeeklyRoutePlans;
-
-        /// <summary>
         /// lnkDealerShops control.
         /// </summary>
         /// <remarks>

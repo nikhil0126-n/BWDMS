@@ -828,6 +828,22 @@ namespace BWDMS.Dealer
                     }
 
 
+                    // =============================================
+                    // PUT THE NEW VILLAGE ORDER ONTO EVERY
+                    // ROUTE-DAY OF THIS ROUTE
+                    //
+                    // The route-days are derived from the route, so
+                    // the order saved here follows them without any
+                    // per-day village screen.
+                    // =============================================
+
+                    RouteScheduleSync.SyncVillageVisits(
+                        con,
+                        transaction,
+                        routeId,
+                        dealerId);
+
+
                     transaction.Commit();
 
 

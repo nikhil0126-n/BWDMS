@@ -169,25 +169,6 @@
 
                     </asp:TemplateField>
 
-
-                    <asp:TemplateField
-                        HeaderText="Action">
-
-                        <ItemTemplate>
-
-                            <a class="btn btn-sm btn-outline-danger"
-                               href='<%# ResolveUrl("~/Dealer/ScheduleVillages.aspx?id=" + Eval("RouteScheduleId")) %>'>
-
-                                <i class="bi bi-geo-alt"></i>
-
-                                Villages
-
-                            </a>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
                 </Columns>
 
 

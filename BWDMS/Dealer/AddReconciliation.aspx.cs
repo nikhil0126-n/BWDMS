@@ -1423,6 +1423,11 @@ namespace BWDMS.Dealer
         // Approving the count closes the route day; un-approving re-opens it.
         // Nothing happens when no route is attached, because the count is
         // then about the vehicle as a whole rather than one route.
+        //
+        // StockDate records WHICH day the closure belongs to. The schedule
+        // itself is recurring, so after stamping one date the next
+        // occurrence of the same weekday comes round open again -- that is
+        // what lets a route repeat every week without being recreated.
         private void SetRouteDayClosed(
             SqlConnection con,
             SqlTransaction tx,
@@ -1438,6 +1443,11 @@ namespace BWDMS.Dealer
             string query = @"
                 UPDATE RouteSchedules
                 SET IsClosed = @IsClosed,
+                    StockDate =
+                        CASE
+                            WHEN @IsClosed = 1 THEN @StockDate
+                            ELSE NULL
+                        END,
                     ClosedAt =
                         CASE
                             WHEN @IsClosed = 1 THEN GETDATE()
@@ -1448,8 +1458,7 @@ namespace BWDMS.Dealer
                             WHEN @IsClosed = 1 THEN @DealerId
                             ELSE NULL
                         END
-                WHERE RouteScheduleId = @RouteScheduleId
-                  AND (StockDate IS NULL OR StockDate = @StockDate)";
+                WHERE RouteScheduleId = @RouteScheduleId";
 
             using (SqlCommand cmd =
                 new SqlCommand(query, con, tx))
@@ -1489,15 +1498,18 @@ namespace BWDMS.Dealer
                 return false;
             }
 
+            // A route-day repeats weekly: the closure only applies
+            // to the one date it was recorded for (StockDate), so
+            // the next occurrence of the same weekday is open.
             string query = @"
-                SELECT TOP (1) IsClosed
+                SELECT CASE
+                           WHEN IsClosed = 1
+                                AND StockDate = @StockDate
+                           THEN 1
+                           ELSE 0
+                       END
                 FROM RouteSchedules
-                WHERE RouteScheduleId = @RouteScheduleId
-                ORDER BY
-                    CASE
-                        WHEN StockDate = @StockDate THEN 0
-                        ELSE 1
-                    END";
+                WHERE RouteScheduleId = @RouteScheduleId";
 
             using (SqlCommand cmd =
                 new SqlCommand(query, con, tx))

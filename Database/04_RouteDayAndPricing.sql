@@ -86,6 +86,29 @@ WHERE  rs.IsClosed = 0;
 GO
 
 
+-- The schedule itself repeats weekly, so a closure blocks only the ONE
+-- date it was taken for. Older rows were closed without recording that
+-- date; take it from ClosedAt so those days stay closed while the
+-- following week's occurrence opens again.
+IF EXISTS
+(
+    SELECT 1
+    FROM   dbo.RouteSchedules
+    WHERE  IsClosed = 1
+       AND StockDate IS NULL
+       AND ClosedAt IS NOT NULL
+)
+BEGIN
+    UPDATE rs
+    SET    rs.StockDate = CONVERT(DATE, rs.ClosedAt)
+    FROM   dbo.RouteSchedules rs
+    WHERE  rs.IsClosed = 1
+       AND rs.StockDate IS NULL
+       AND rs.ClosedAt IS NOT NULL;
+END
+GO
+
+
 /* ============================================================================
    SECTION 2 - OFFLINE SYNC IDEMPOTENCY
    ----------------------------------------------------------------------------
