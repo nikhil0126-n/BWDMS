@@ -94,9 +94,7 @@
     <Content Include="Content\AddWeeklyRoutePlan.css" />
     <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Login.css" />
-    <Content Include="Content\RouteSchedules.css" />
     <Content Include="Content\RouteVillageAssignment.css" />
-    <Content Include="Content\ScheduleVillages.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
     <Content Include="Dealer\AddCompanyReceipt.aspx" />
     <Content Include="Dealer\AddDispatch.aspx" />
@@ -147,9 +145,7 @@
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\OfflineSync.js" />
-    <Content Include="Scripts\RouteSchedules.js" />
     <Content Include="Scripts\RouteVillageAssignment.js" />
-    <Content Include="Scripts\ScheduleVillages.js" />
     <Content Include="Scripts\WeeklyRoutePlans.js" />
     <Content Include="Web.config" />
   </ItemGroup>
