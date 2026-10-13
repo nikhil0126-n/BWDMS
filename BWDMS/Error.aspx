@@ -67,7 +67,7 @@
 
 <body>
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" novalidate>
 
         <div class="error-card">
 

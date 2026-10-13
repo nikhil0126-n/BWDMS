@@ -182,6 +182,7 @@
 
                 <label class="form-label fw-semibold">
                     Phone
+                    <span class="text-danger">*</span>
                 </label>
 
                 <asp:TextBox
@@ -191,6 +192,25 @@
                     MaxLength="40"
                     placeholder="Example: 9876543210">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ErrorMessage="Phone number is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ValidationExpression="^(\d{10})?$"
+                    ErrorMessage="Enter a 10-digit mobile number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 

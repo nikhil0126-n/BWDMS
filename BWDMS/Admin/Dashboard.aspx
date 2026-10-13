@@ -167,9 +167,108 @@
     </div>
 
 
-    <!-- Recent Activity -->
+    <!-- Product Overview + Recent Activity -->
 
     <div class="row mt-4">
+
+
+        <!-- Product Overview (donut by category) -->
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-card">
+
+                <h5 class="fw-bold mb-1">
+                    Product Overview
+                </h5>
+
+                <p class="text-muted small mb-3">
+                    Active products grouped by category
+                </p>
+
+
+                <asp:Label
+                    ID="lblOverviewMessage"
+                    runat="server"
+                    Visible="false"
+                    CssClass="text-muted small d-block text-center py-5">
+                </asp:Label>
+
+
+                <div id="divOverview"
+                     runat="server">
+
+                    <div class="position-relative d-flex justify-content-center my-3">
+
+                        <canvas id="productOverviewChart"
+                                width="180"
+                                height="180">
+                        </canvas>
+
+                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+
+                            <div class="fw-bold"
+                                 style="font-size: 1.9rem; line-height: 1.1;">
+
+                                <asp:Label
+                                    ID="lblOverviewTotal"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+
+                            </div>
+
+                            <small class="text-muted">
+                                Total Products
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <asp:Repeater
+                        ID="rptOverview"
+                        runat="server">
+
+                        <ItemTemplate>
+
+                            <div class="d-flex align-items-center justify-content-between py-1">
+
+                                <span class="d-inline-flex align-items-center">
+
+                                    <span style='display:inline-block; width:13px; height:13px; border-radius:3px; margin-right:9px; background-color:<%# Eval("Color") %>;'>
+                                    </span>
+
+                                    <%# Eval("CategoryName") %>
+
+                                </span>
+
+
+                                <span class="text-muted small">
+
+                                    <strong class="text-body">
+                                        <%# Eval("CountText") %>
+                                    </strong>
+
+                                    (<%# Eval("PercentText") %>)
+
+                                </span>
+
+                            </div>
+
+                        </ItemTemplate>
+
+                    </asp:Repeater>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Recent Activity -->
 
         <div class="col-lg-8">
 
@@ -242,119 +341,70 @@
         </div>
 
 
-        <div class="col-lg-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold">
-                    Quick Actions
-                </h5>
-
-                <div class="d-grid gap-2 mt-3">
-
-                    <a href="AddCategory.aspx"
-                       class="btn btn-outline-danger">
-                        Add Category
-                    </a>
-
-                    <a href="AddProduct.aspx"
-                       class="btn btn-outline-danger">
-                        Add Product
-                    </a>
-
-                    <a href="AddDealer.aspx"
-                       class="btn btn-outline-danger">
-                        Add Dealer
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
 
-    <!-- Orders By Status (all dealers) -->
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+    </script>
 
-    <div class="row mt-4">
+    <script type="text/javascript">
+        function drawProductOverview() {
 
-        <div class="col-lg-12">
+            var data = <%= ProductOverviewJson %>;
+            var canvas = document.getElementById('productOverviewChart');
 
-            <div class="dashboard-card">
+            if (!canvas || typeof Chart === 'undefined' || !data || !data.length) {
+                return;
+            }
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
+            if (canvas.__bwChart) {
+                canvas.__bwChart.destroy();
+            }
 
-                    <div>
+            var labels = [];
+            var values = [];
+            var colors = [];
 
-                        <h5 class="fw-bold mb-1">
-                            Orders By Status
-                        </h5>
+            for (var i = 0; i < data.length; i++) {
+                labels.push(data[i].label);
+                values.push(data[i].value);
+                colors.push(data[i].color);
+            }
 
-                        <small class="text-muted">
-                            High-level sales summary across all dealers
-                        </small>
+            canvas.__bwChart = new Chart(canvas, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '62%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
+                                    var pct = total ? Math.round(ctx.parsed * 1000 / total) / 10 : 0;
+                                    return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-                    </div>
-
-
-                    <asp:Label
-                        ID="lblStatusTotal"
-                        runat="server"
-                        CssClass="badge bg-secondary">
-                    </asp:Label>
-
-                </div>
-
-
-                <div class="table-responsive">
-
-                    <asp:GridView
-                        ID="gvStatusSummary"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table table-hover align-middle"
-                        GridLines="None" AllowPaging="true" OnPageIndexChanging="gvStatusSummary_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                        <Columns>
-
-                            <asp:TemplateField
-                                HeaderText="Status">
-
-                                <ItemTemplate>
-
-                                    <span class='<%# Eval("StatusCss") %>'>
-
-                                        <%# Eval("Status") %>
-
-                                    </span>
-
-                                </ItemTemplate>
-
-                            </asp:TemplateField>
-
-
-                            <asp:BoundField
-                                DataField="OrderCount"
-                                HeaderText="Orders" />
-
-                            <asp:BoundField
-                                DataField="AmountText"
-                                HeaderText="Grand Total"
-                                DataFormatString="{0:N2}" />
-
-                        </Columns>
-
-                    </asp:GridView>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+        window.addEventListener('load', drawProductOverview);
+    </script>
 
 
 </asp:Content>

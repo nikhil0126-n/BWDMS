@@ -154,18 +154,33 @@
 
                         <ItemTemplate>
 
-                            <asp:LinkButton
-                                ID="btnToggle"
-                                runat="server"
-                                CommandName="ToggleStatus"
-                                CommandArgument='<%# Eval("UserId") %>'
-                                CssClass="btn btn-sm btn-outline-danger">
+                            <div class="d-flex flex-wrap gap-1">
 
-                                <i class="bi bi-power"></i>
+                                <a href='<%# "DealerDetails.aspx?id=" + Eval("UserId") %>'
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="View dealer details">
 
-                                <%# Convert.ToBoolean(Eval("IsActive")) ? "Deactivate" : "Activate" %>
+                                    <i class="bi bi-eye"></i>
 
-                            </asp:LinkButton>
+                                    View
+
+                                </a>
+
+
+                                <asp:LinkButton
+                                    ID="btnToggle"
+                                    runat="server"
+                                    CommandName="ToggleStatus"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    CssClass="btn btn-sm btn-outline-danger">
+
+                                    <i class="bi bi-power"></i>
+
+                                    <%# Convert.ToBoolean(Eval("IsActive")) ? "Deactivate" : "Activate" %>
+
+                                </asp:LinkButton>
+
+                            </div>
 
                         </ItemTemplate>
 

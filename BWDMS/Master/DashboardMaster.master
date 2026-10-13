@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true"
+<%@ Master Language="C#" AutoEventWireup="true"
     CodeBehind="DashboardMaster.master.cs"
     Inherits="BWDMS.Master.DashboardMaster" %>
 
@@ -50,7 +50,7 @@
 
 <body>
 
-<form id="form1" runat="server">
+<form id="form1" runat="server" novalidate>
 
 
     <!-- =====================================================

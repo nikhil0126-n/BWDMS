@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"
+<%@ Page Language="C#" AutoEventWireup="true"
     CodeBehind="Login.aspx.cs"
     Inherits="BWDMS.Account.Login" %>
 
@@ -34,7 +34,7 @@
 
 <body>
 
-<form id="form1" runat="server">
+<form id="form1" runat="server" novalidate>
 
     <div class="login-page">
 

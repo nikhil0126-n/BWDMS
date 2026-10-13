@@ -51,6 +51,42 @@ namespace BWDMS.Admin
         protected global::System.Web.UI.WebControls.Label lblOrderCount;
 
         /// <summary>
+        /// lblOverviewMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOverviewMessage;
+
+        /// <summary>
+        /// divOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOverview;
+
+        /// <summary>
+        /// lblOverviewTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOverviewTotal;
+
+        /// <summary>
+        /// rptOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptOverview;
+
+        /// <summary>
         /// gvRecentActivity control.
         /// </summary>
         /// <remarks>
@@ -58,23 +94,5 @@ namespace BWDMS.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRecentActivity;
-
-        /// <summary>
-        /// lblStatusTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatusTotal;
-
-        /// <summary>
-        /// gvStatusSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStatusSummary;
     }
 }

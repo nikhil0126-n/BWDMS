@@ -25,11 +25,23 @@
         <div>
 
             <h3 class="fw-bold mb-1">
-                Add Dealer
+
+                <asp:Label
+                    ID="lblHeading"
+                    runat="server"
+                    Text="Add Dealer">
+                </asp:Label>
+
             </h3>
 
             <p class="text-muted mb-0">
-                Create a new dealer account
+
+                <asp:Label
+                    ID="lblSubHeading"
+                    runat="server"
+                    Text="Create a new dealer account">
+                </asp:Label>
+
             </p>
 
         </div>
@@ -161,15 +173,35 @@
 
                 <label class="form-label fw-semibold">
                     Phone Number
+                    <span class="text-danger">*</span>
                 </label>
 
                 <asp:TextBox
                     ID="txtPhone"
                     runat="server"
                     CssClass="form-control"
-                    MaxLength="15"
+                    MaxLength="10"
                     placeholder="Example: 9876543210">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ErrorMessage="Phone number is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ValidationExpression="^(\d{10})?$"
+                    ErrorMessage="Enter a 10-digit mobile number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 
@@ -212,6 +244,13 @@
                     Password
 
                     <span class="text-danger">*</span>
+
+                    <small
+                        ID="lblPasswordHint"
+                        runat="server"
+                        class="text-muted fw-normal">
+                        minimum 6 characters
+                    </small>
 
                 </label>
 
