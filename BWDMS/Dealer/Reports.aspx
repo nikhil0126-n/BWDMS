@@ -81,19 +81,31 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Total Products
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+                        <i class="bi bi-box-seam"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="card-title">
+                            Total Products
+                        </div>
+
+                        <h4 class="fw-bold mb-0">
+
+                            <asp:Label
+                                ID="lblKpiProducts"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </h4>
+
+                    </div>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiProducts"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
@@ -104,19 +116,31 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Low / Out of Stock
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-warning-subtle text-warning-emphasis">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="card-title">
+                            Low / Out of Stock
+                        </div>
+
+                        <h4 class="fw-bold mb-0">
+
+                            <asp:Label
+                                ID="lblKpiLowStock"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </h4>
+
+                    </div>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiLowStock"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
@@ -127,19 +151,31 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Orders
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-success-subtle text-success-emphasis">
+                        <i class="bi bi-cart-check"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="card-title">
+                            Orders
+                        </div>
+
+                        <h4 class="fw-bold mb-0">
+
+                            <asp:Label
+                                ID="lblKpiOrders"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </h4>
+
+                    </div>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiOrders"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
@@ -150,19 +186,31 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Total Sales Value
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-info-subtle text-info-emphasis">
+                        <i class="bi bi-currency-rupee"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="card-title">
+                            Total Sales Value
+                        </div>
+
+                        <h4 class="fw-bold mb-0">
+
+                            <asp:Label
+                                ID="lblKpiSales"
+                                runat="server"
+                                Text="0.00">
+                            </asp:Label>
+
+                        </h4>
+
+                    </div>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiSales"
-                        runat="server"
-                        Text="0.00">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 

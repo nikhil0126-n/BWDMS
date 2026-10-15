@@ -384,6 +384,26 @@ body {
 
 
 /* ============================================================================
+   STAT CARD ICON
+   ----------------------------------------------------------------------------
+   Soft tinted tile that sits in the top-right corner of the headline stat
+   cards. The tint itself comes from Bootstrap's bg-*-subtle / text-*-emphasis
+   utilities in the markup; this rule only sets the shape.
+   ============================================================================ */
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex: 0 0 auto;
+}
+
+
+/* ============================================================================
    FOOTER
    ============================================================================ */
 
@@ -1212,4 +1232,66 @@ a {
 
 hr {
     border-color: var(--bw-border-soft);
+}
+
+
+/* ============================================================================
+   PRODUCT IMAGE DROP ZONE
+   ============================================================================ */
+
+.image-drop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    padding: 16px;
+    border: 2px dashed var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface-2);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .15s ease, background .15s ease;
+}
+
+
+.image-drop:hover,
+.image-drop.dragging {
+    border-color: var(--bw-blue-600);
+    background: var(--bw-blue-050);
+}
+
+
+.image-drop.has-image {
+    border-style: solid;
+}
+
+
+.image-drop-inner {
+    padding: 8px;
+}
+
+
+.image-drop-icon {
+    display: block;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--bw-blue-600);
+    margin-bottom: 10px;
+}
+
+
+.image-drop-preview {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+
+.image-drop-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
 }

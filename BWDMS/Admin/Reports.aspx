@@ -75,44 +75,32 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Users
-                </div>
+                <div class="d-flex align-items-center gap-3">
 
+                    <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+                        <i class="bi bi-people"></i>
+                    </span>
 
-                <div class="fw-bold fs-4">
+                    <div>
 
-                    <asp:Label
-                        ID="lblKpiUsers"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </div>
-
-            </div>
-
-        </div>
+                        <div class="text-muted small">
+                            Users
+                        </div>
 
 
-        <div class="col-md-3">
+                        <div class="fw-bold fs-4">
 
-            <div class="dashboard-card text-center">
+                            <asp:Label
+                                ID="lblKpiUsers"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
 
-                <div class="text-muted small">
-                    Dealers
-                </div>
+                        </div>
 
-
-                <div class="fw-bold fs-4">
-
-                    <asp:Label
-                        ID="lblKpiDealers"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
+                    </div>
 
                 </div>
 
@@ -123,20 +111,32 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Shops
-                </div>
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-success-subtle text-success-emphasis">
+                        <i class="bi bi-person-vcard"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Dealers
+                        </div>
 
 
-                <div class="fw-bold fs-4">
+                        <div class="fw-bold fs-4">
 
-                    <asp:Label
-                        ID="lblKpiShops"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
+                            <asp:Label
+                                ID="lblKpiDealers"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -147,20 +147,68 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Orders Value
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-warning-subtle text-warning-emphasis">
+                        <i class="bi bi-shop"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Shops
+                        </div>
+
+
+                        <div class="fw-bold fs-4">
+
+                            <asp:Label
+                                ID="lblKpiShops"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
+            </div>
 
-                <div class="fw-bold fs-4">
+        </div>
 
-                    <asp:Label
-                        ID="lblKpiSales"
-                        runat="server"
-                        Text="0.00">
-                    </asp:Label>
+
+        <div class="col-md-3">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-info-subtle text-info-emphasis">
+                        <i class="bi bi-currency-rupee"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Orders Value
+                        </div>
+
+
+                        <div class="fw-bold fs-4">
+
+                            <asp:Label
+                                ID="lblKpiSales"
+                                runat="server"
+                                Text="0.00">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
 
                 </div>
 

@@ -215,6 +215,74 @@
             </div>
 
 
+            <div class="col-12">
+
+                <label class="form-label fw-semibold">
+                    Product Image
+                </label>
+
+
+                <div id="imageDrop"
+                     class="image-drop<%= HasImage ? " has-image" : "" %>">
+
+                    <div id="imageDropEmpty"
+                         class="image-drop-inner"
+                         style="<%= HasImage ? "display:none;" : "" %>">
+
+                        <i class="bi bi-cloud-arrow-up image-drop-icon"></i>
+
+                        <div class="fw-semibold">
+                            Drag &amp; drop image here
+                        </div>
+
+                        <div class="text-muted small">
+                            or
+                            <span class="text-primary fw-semibold">
+                                Browse
+                            </span>
+                            &middot; PNG, JPG or WEBP up to 2 MB
+                        </div>
+
+                    </div>
+
+
+                    <img id="imagePreview"
+                         class="image-drop-preview"
+                         alt="Product image preview"
+                         src="<%= PreviewUrl %>"
+                         style="<%= HasImage ? "" : "display:none;" %>" />
+
+
+                    <button type="button"
+                            id="imageRemove"
+                            class="btn btn-sm btn-light border image-drop-remove"
+                            title="Remove image"
+                            style="<%= HasImage ? "" : "display:none;" %>">
+
+                        <i class="bi bi-trash"></i>
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+
+                <asp:FileUpload
+                    ID="fuProductImage"
+                    runat="server"
+                    CssClass="d-none"
+                    accept="image/png,image/jpeg,image/webp" />
+
+
+                <asp:HiddenField
+                    ID="hfRemoveImage"
+                    runat="server"
+                    Value="0" />
+
+            </div>
+
+
         </div>
 
 
@@ -247,13 +315,16 @@
 
 
     <%-- ==========================================================
-         BULK IMPORT FROM AN INVENTORY PDF
+         BULK IMPORT FROM AN INVENTORY PDF - DISABLED
 
-         The sheet is read first and shown as a preview so the
-         eight columns it carries can be checked before anything
-         is written. Nothing reaches the database until the
-         Import button is pressed.
+         Hidden on request: the import card no longer shows on the
+         Add Product screen. The panel below and its code-behind
+         are kept, wrapped in a server comment, so the feature can
+         be brought back by deleting the two wrapper comments.
          ========================================================== --%>
+
+    <%-- DISABLED - import from inventory PDF. Delete this wrapper
+         (and the closing one after the panel) to enable it again.
 
     <asp:Panel
         ID="pnlImport"
@@ -462,5 +533,137 @@
 
 
     </asp:Panel>
+
+    --%>
+
+
+    <script type="text/javascript">
+
+        // ============================================================
+        // PRODUCT IMAGE DROP ZONE
+        //
+        // The real file input is hidden, so dragging or clicking the
+        // tile fills it in. A dropped file is copied into the input
+        // through a DataTransfer, which is the only way a script is
+        // allowed to set files on a file input.
+        // ============================================================
+
+        (function () {
+            var drop = document.getElementById("imageDrop");
+            var input = document.getElementById("<%= fuProductImage.ClientID %>");
+            var empty = document.getElementById("imageDropEmpty");
+            var preview = document.getElementById("imagePreview");
+            var remove = document.getElementById("imageRemove");
+            var flag = document.getElementById("<%= hfRemoveImage.ClientID %>");
+
+            if (!drop || !input || !flag) {
+                return;
+            }
+
+            function showPreview(source) {
+                if (source instanceof File) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (loaded) {
+                        preview.src = loaded.target.result;
+                        paint();
+                    };
+
+                    reader.readAsDataURL(source);
+                } else {
+                    preview.src = source;
+                    paint();
+                }
+            }
+
+            function paint() {
+                preview.style.display = "block";
+                empty.style.display = "none";
+                remove.style.display = "inline-block";
+                drop.className = "image-drop has-image";
+            }
+
+            function wipe() {
+                input.value = "";
+                preview.removeAttribute("src");
+                preview.style.display = "none";
+                empty.style.display = "block";
+                remove.style.display = "none";
+                drop.className = "image-drop";
+                flag.value = "1";
+            }
+
+            drop.addEventListener("click", function (event) {
+                if (remove && (event.target === remove ||
+                    remove.contains(event.target))) {
+                    return;
+                }
+
+                input.click();
+            });
+
+            input.addEventListener("change", function () {
+                if (input.files && input.files.length > 0) {
+                    flag.value = "0";
+                    showPreview(input.files[0]);
+                }
+            });
+
+            remove.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                wipe();
+            });
+
+            ["dragenter", "dragover"].forEach(function (name) {
+                drop.addEventListener(name, function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    drop.classList.add("dragging");
+                });
+            });
+
+            ["dragleave", "dragend"].forEach(function (name) {
+                drop.addEventListener(name, function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    drop.classList.remove("dragging");
+                });
+            });
+
+            drop.addEventListener("drop", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                drop.classList.remove("dragging");
+
+                var files = event.dataTransfer && event.dataTransfer.files;
+
+                if (!files || files.length === 0) {
+                    return;
+                }
+
+                var file = files[0];
+
+                if (!/^image\//.test(file.type)) {
+                    window.alert("Please drop a PNG, JPG or WEBP image.");
+                    return;
+                }
+
+                try {
+                    var carrier = new DataTransfer();
+
+                    carrier.items.add(file);
+                    input.files = carrier.files;
+                } catch (error) {
+                    window.alert("Please use Browse to pick the image.");
+                    return;
+                }
+
+                flag.value = "0";
+                showPreview(file);
+            });
+        })();
+
+    </script>
 
 </asp:Content>

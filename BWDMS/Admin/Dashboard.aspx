@@ -63,8 +63,16 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Total Dealers
+                <div class="d-flex justify-content-between align-items-start">
+
+                    <div class="card-title">
+                        Total Dealers
+                    </div>
+
+                    <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+                        <i class="bi bi-people"></i>
+                    </span>
+
                 </div>
 
                 <h3>
@@ -90,8 +98,16 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Categories
+                <div class="d-flex justify-content-between align-items-start">
+
+                    <div class="card-title">
+                        Categories
+                    </div>
+
+                    <span class="stat-icon bg-success-subtle text-success-emphasis">
+                        <i class="bi bi-tags"></i>
+                    </span>
+
                 </div>
 
                 <h3>
@@ -117,8 +133,16 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Total Products
+                <div class="d-flex justify-content-between align-items-start">
+
+                    <div class="card-title">
+                        Total Products
+                    </div>
+
+                    <span class="stat-icon bg-warning-subtle text-warning-emphasis">
+                        <i class="bi bi-box-seam"></i>
+                    </span>
+
                 </div>
 
                 <h3>
@@ -144,8 +168,16 @@
 
             <div class="dashboard-card">
 
-                <div class="card-title">
-                    Total Orders
+                <div class="d-flex justify-content-between align-items-start">
+
+                    <div class="card-title">
+                        Total Orders
+                    </div>
+
+                    <span class="stat-icon bg-info-subtle text-info-emphasis">
+                        <i class="bi bi-cart-check"></i>
+                    </span>
+
                 </div>
 
                 <h3>

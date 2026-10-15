@@ -175,7 +175,9 @@
 
                     <div class="d-flex align-items-center gap-3">
 
-                        <i class="bi bi-people fs-2 text-primary"></i>
+                        <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+                            <i class="bi bi-people"></i>
+                        </span>
 
                         <div>
 
@@ -206,7 +208,9 @@
 
                     <div class="d-flex align-items-center gap-3">
 
-                        <i class="bi bi-shop fs-2 text-success"></i>
+                        <span class="stat-icon bg-success-subtle text-success-emphasis">
+                            <i class="bi bi-shop"></i>
+                        </span>
 
                         <div>
 
@@ -237,7 +241,9 @@
 
                     <div class="d-flex align-items-center gap-3">
 
-                        <i class="bi bi-cart-check fs-2 text-warning"></i>
+                        <span class="stat-icon bg-warning-subtle text-warning-emphasis">
+                            <i class="bi bi-cart-check"></i>
+                        </span>
 
                         <div>
 
@@ -268,7 +274,9 @@
 
                     <div class="d-flex align-items-center gap-3">
 
-                        <i class="bi bi-currency-rupee fs-2 text-info"></i>
+                        <span class="stat-icon bg-info-subtle text-info-emphasis">
+                            <i class="bi bi-currency-rupee"></i>
+                        </span>
 
                         <div>
 
