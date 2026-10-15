@@ -260,3 +260,206 @@ Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 ===
 
+=== 2026-10-15T03:14:40.242Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(243): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(243): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:14:57.041Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(243): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(243): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:16:59.765Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:17:01.536Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:17:42.600Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:17:43.858Z
+URL: /Admin/Reports.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Reports.aspx(258): error CS1061: 'admin_reports_aspx' does not contain a definition for 'ReportChanged' and no accessible extension method 'ReportChanged' accepting a first argument of type 'admin_reports_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:50:26.159Z
+URL: /Admin/Users.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Users.aspx(290): error CS1061: 'admin_users_aspx' does not contain a definition for 'btnPager_Click' and no accessible extension method 'btnPager_Click' accepting a first argument of type 'admin_users_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Users.aspx(290): error CS1061: 'admin_users_aspx' does not contain a definition for 'btnPager_Click' and no accessible extension method 'btnPager_Click' accepting a first argument of type 'admin_users_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:50:39.081Z
+URL: /Admin/Users.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\asp project\BWDMS\BWDMS\Admin\Users.aspx(290): error CS1061: 'admin_users_aspx' does not contain a definition for 'btnPager_Click' and no accessible extension method 'btnPager_Click' accepting a first argument of type 'admin_users_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\asp project\BWDMS\BWDMS\Admin\Users.aspx(290): error CS1061: 'admin_users_aspx' does not contain a definition for 'btnPager_Click' and no accessible extension method 'btnPager_Click' accepting a first argument of type 'admin_users_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:52:50.066Z
+URL: /Admin/Orders.aspx
+User: 1
+Type: System.ArgumentException
+Message: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+Stack: System.ArgumentException: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+   at System.Web.UI.ClientScriptManager.ValidateEvent(String uniqueId, String argument)
+   at System.Web.UI.Control.ValidateEvent(String uniqueID, String eventArgument)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T03:53:12.999Z
+URL: /Admin/Orders.aspx
+User: 1
+Type: System.ArgumentException
+Message: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+Stack: System.ArgumentException: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+   at System.Web.UI.ClientScriptManager.ValidateEvent(String uniqueId, String argument)
+   at System.Web.UI.Control.ValidateEvent(String uniqueID, String eventArgument)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T03:55:40.404Z
+URL: /Admin/Orders.aspx
+User: 1
+Type: System.ArgumentException
+Message: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+Stack: System.ArgumentException: Invalid postback or callback argument.  Event validation is enabled using <pages enableEventValidation="true"/> in configuration or <%@ Page EnableEventValidation="true" %> in a page.  For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them.  If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation.
+   at System.Web.UI.ClientScriptManager.ValidateEvent(String uniqueId, String argument)
+   at System.Web.UI.Control.ValidateEvent(String uniqueID, String eventArgument)
+   at System.Web.UI.WebControls.GridView.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T03:58:19.968Z
+URL: /Admin/Orders.aspx
+User: 1
+Type: System.InvalidOperationException
+Message: RegisterForEventValidation can only be called during Render();
+Stack: System.InvalidOperationException: RegisterForEventValidation can only be called during Render();
+   at System.Web.UI.ClientScriptManager.RegisterForEventValidation(String uniqueId, String argument)
+   at BWDMS.Data.GridPager.RegisterArguments(GridView grid, Int32 pageCount) in C:\asp project\BWDMS\BWDMS\Data\GridPager.cs:line 125
+   at BWDMS.Data.GridPager.Html(GridView grid) in C:\asp project\BWDMS\BWDMS\Data\GridPager.cs:line 54
+   at BWDMS.Admin.Orders.LoadOrders() in C:\asp project\BWDMS\BWDMS\Admin\Orders.aspx.cs:line 137
+   at BWDMS.Admin.Orders.Page_Load(Object sender, EventArgs e) in C:\asp project\BWDMS\BWDMS\Admin\Orders.aspx.cs:line 53
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:10:05.144Z
+URL: /
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Default'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Default'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+

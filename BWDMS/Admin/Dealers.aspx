@@ -107,7 +107,7 @@
                 CssClass="table table-hover align-middle"
                 GridLines="None"
                 DataKeyNames="UserId"
-                OnRowCommand="gvDealers_RowCommand" AllowPaging="true" OnPageIndexChanging="gvDealers_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                OnRowCommand="gvDealers_RowCommand" AllowPaging="true" OnPageIndexChanging="gvDealers_PageIndexChanging" PageSize="10" PagerSettings-Visible="false" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
                 <Columns>
@@ -207,6 +207,12 @@
             </asp:GridView>
 
         </div>
+
+
+        <asp:Literal
+            ID="litPager"
+            runat="server">
+        </asp:Literal>
 
     </div>
 

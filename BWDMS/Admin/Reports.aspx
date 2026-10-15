@@ -20,7 +20,7 @@
     runat="server">
 
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
 
         <div>
 
@@ -35,7 +35,7 @@
         </div>
 
 
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 align-items-center flex-wrap">
 
             <a href="Users.aspx"
                class="btn btn-outline-secondary">
@@ -55,6 +55,39 @@
                 Orders
 
             </a>
+
+
+            <div class="report-range">
+
+                <i class="bi bi-calendar3"></i>
+
+                <asp:TextBox
+                    ID="txtFromDate"
+                    runat="server"
+                    CssClass="form-control form-control-sm"
+                    TextMode="Date">
+                </asp:TextBox>
+
+                <span class="text-muted">
+                    &ndash;
+                </span>
+
+                <asp:TextBox
+                    ID="txtToDate"
+                    runat="server"
+                    CssClass="form-control form-control-sm"
+                    TextMode="Date">
+                </asp:TextBox>
+
+                <asp:Button
+                    ID="btnApplyRange"
+                    runat="server"
+                    Text="Apply"
+                    CssClass="btn btn-sm btn-primary"
+                    OnClick="btnApplyRange_Click">
+                </asp:Button>
+
+            </div>
 
         </div>
 
@@ -215,6 +248,101 @@
             </div>
 
         </div>
+
+    </div>
+
+
+    <!-- Top products -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+
+                <h5 class="fw-bold mb-1">
+                    Top Products
+                </h5>
+
+                <small class="text-muted">
+
+                    <asp:Label
+                        ID="lblTopProductsRange"
+                        runat="server"
+                        Text="Best selling products by packets sold">
+                    </asp:Label>
+
+                </small>
+
+            </div>
+
+
+            <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+
+                <i class="bi bi-trophy"></i>
+
+            </span>
+
+        </div>
+
+
+        <asp:Repeater
+            ID="rptTopProducts"
+            runat="server">
+
+            <HeaderTemplate>
+
+                <div class="top-products-row top-products-head">
+
+                    <span>
+                        Products
+                    </span>
+
+                    <span class="text-end">
+                        Sales Qty
+                    </span>
+
+                </div>
+
+            </HeaderTemplate>
+
+
+            <ItemTemplate>
+
+                <div class="top-products-row">
+
+                    <span class="top-products-name">
+
+                        <span class="top-products-rank">
+                            <%# Container.ItemIndex + 1 %>
+                        </span>
+
+                        <%# Server.HtmlEncode(Convert.ToString(Eval("Product"))) %>
+
+                    </span>
+
+
+                    <span class="fw-semibold text-end">
+                        <%# Convert.ToInt32(Eval("SalesQty")).ToString("N0") %>
+                    </span>
+
+                </div>
+
+            </ItemTemplate>
+
+        </asp:Repeater>
+
+
+        <asp:Panel
+            ID="pnlNoTopProducts"
+            runat="server"
+            Visible="false">
+
+            <p class="text-muted mb-0">
+                No sales have been recorded yet.
+            </p>
+
+        </asp:Panel>
 
     </div>
 

@@ -87,6 +87,19 @@ namespace BWDMS.Admin
         protected global::System.Web.UI.WebControls.Repeater rptOverview;
 
         /// <summary>
+        /// gvRecentDealers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRecentDealers;
+
+        /* Recent Dealer Activity is hidden on the page but kept for
+           later; the markup and the code-behind are commented out too.
+           Restore this declaration together with them.
+
+        /// <summary>
         /// gvRecentActivity control.
         /// </summary>
         /// <remarks>
@@ -94,5 +107,7 @@ namespace BWDMS.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRecentActivity;
+
+        */
     }
 }

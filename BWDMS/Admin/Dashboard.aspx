@@ -300,9 +300,105 @@
         </div>
 
 
-        <!-- Recent Activity -->
+        <!-- Recent Dealers -->
 
         <div class="col-lg-8">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex justify-content-between align-items-start mb-1">
+
+                    <div>
+
+                        <h5 class="fw-bold mb-1">
+                            Recent Dealers
+                        </h5>
+
+                        <p class="text-muted small mb-0">
+                            Newest dealers on the system
+                        </p>
+
+                    </div>
+
+
+                    <a href="Dealers.aspx"
+                       class="btn btn-sm btn-outline-secondary">
+
+                        View all
+
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <asp:GridView
+                        ID="gvRecentDealers"
+                        runat="server"
+                        AutoGenerateColumns="False"
+                        CssClass="table table-hover align-middle"
+                        GridLines="None"
+                        EmptyDataText="No dealers have joined yet.">
+
+                        <Columns>
+
+                            <asp:BoundField
+                                DataField="DealerName"
+                                HeaderText="Dealers Name" />
+
+                            <asp:BoundField
+                                DataField="Location"
+                                HeaderText="Location" />
+
+                            <asp:TemplateField
+                                HeaderText="Status">
+
+                                <ItemTemplate>
+
+                                    <span class='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge bg-success" : "badge bg-danger" %>'>
+
+                                        <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
+
+                                    </span>
+
+                                </ItemTemplate>
+
+                            </asp:TemplateField>
+
+                            <asp:BoundField
+                                DataField="JoinedOn"
+                                HeaderText="Joined On" />
+
+                        </Columns>
+
+                    </asp:GridView>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <%-- ============================================================
+         RECENT DEALER ACTIVITY - HIDDEN, NOT DELETED.
+         The panel was taken off the dashboard on request. The markup
+         below is kept so it can be restored later; to bring it back,
+         remove the opening comment tag above this banner and the
+         closing one after the closing table div further down.
+         Its loader (LoadRecentActivity) and pager handler are
+         commented out in Dashboard.aspx.cs for the same reason.
+         ============================================================
+
+    Recent Dealer Activity
+
+    <div class="row mt-4">
+
+        <div class="col-lg-12">
 
             <div class="dashboard-card">
 
@@ -374,6 +470,8 @@
 
 
     </div>
+
+    ============ end of hidden Recent Dealer Activity ============ --%>
 
 
     <script type="text/javascript"

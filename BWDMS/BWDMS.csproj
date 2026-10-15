@@ -134,6 +134,7 @@
     <Content Include="Dealer\Villages.aspx" />
     <Content Include="Dealer\WeeklyRoutePlans.aspx" />
     <Content Include="Handlers\OrderSync.ashx" />
+    <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Salesman\Bill.aspx" />
@@ -279,6 +280,7 @@
     <Compile Include="Data\AppAuth.cs" />
     <Compile Include="Data\CsvExport.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\GridPager.cs" />
     <Compile Include="Data\InventoryPdfParser.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
     <Compile Include="Dealer\AddCompanyReceipt.aspx.cs">
@@ -518,6 +520,13 @@
     </Compile>
     <Compile Include="Dealer\WeeklyRoutePlans.aspx.designer.cs">
       <DependentUpon>WeeklyRoutePlans.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
