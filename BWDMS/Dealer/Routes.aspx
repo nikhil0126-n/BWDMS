@@ -39,6 +39,16 @@
         </div>
 
 
+        <a href="RouteHistory.aspx"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-clock-history"></i>
+
+            Route History
+
+        </a>
+
+
         <a href="AddRoute.aspx"
            class="btn btn-primary">
 
@@ -289,6 +299,19 @@
 
                                 Edit
 
+
+                            </asp:HyperLink>
+
+
+                            <asp:HyperLink
+                                ID="lnkDetails"
+                                runat="server"
+                                CssClass="btn btn-outline-primary btn-sm"
+                                NavigateUrl='<%# "~/Dealer/RouteDetails.aspx?id=" + Eval("RouteId") %>'>
+
+                                <i class="bi bi-eye me-1"></i>
+
+                                Details
 
                             </asp:HyperLink>
 

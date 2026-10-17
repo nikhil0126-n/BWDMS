@@ -93,6 +93,7 @@
     </Content>
     <Content Include="Content\AddWeeklyRoutePlan.css" />
     <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\Images\balaji-dms-logo.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\RouteVillageAssignment.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
@@ -117,13 +118,17 @@
     <Content Include="Dealer\Reconciliations.aspx" />
     <Content Include="Dealer\Reports.aspx" />
     <Content Include="Dealer\Returns.aspx" />
+    <Content Include="Dealer\RouteDetails.aspx" />
     <Content Include="Dealer\RouteHistory.aspx" />
     <Content Include="Dealer\Routes.aspx" />
     <Content Include="Dealer\RouteVillageAssignment.aspx" />
+    <Content Include="Dealer\SalesmanDetails.aspx" />
     <Content Include="Dealer\Salesmen.aspx" />
+    <Content Include="Dealer\ShopDetails.aspx" />
     <Content Include="Dealer\Shops.aspx" />
     <Content Include="Dealer\ShopOrders.aspx" />
     <Content Include="Dealer\StockTransactions.aspx" />
+    <Content Include="Dealer\VehicleDetails.aspx" />
     <Content Include="Dealer\VehicleLoading.aspx" />
     <Content Include="Dealer\Vehicles.aspx" />
     <Content Include="Dealer\Villages.aspx" />
@@ -415,6 +420,13 @@
     <Compile Include="Dealer\Returns.aspx.designer.cs">
       <DependentUpon>Returns.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\RouteDetails.aspx.cs">
+      <DependentUpon>RouteDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\RouteDetails.aspx.designer.cs">
+      <DependentUpon>RouteDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\RouteHistory.aspx.cs">
       <DependentUpon>RouteHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -436,12 +448,26 @@
     <Compile Include="Dealer\RouteVillageAssignment.aspx.designer.cs">
       <DependentUpon>RouteVillageAssignment.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\SalesmanDetails.aspx.cs">
+      <DependentUpon>SalesmanDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\SalesmanDetails.aspx.designer.cs">
+      <DependentUpon>SalesmanDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\Salesmen.aspx.cs">
       <DependentUpon>Salesmen.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dealer\Salesmen.aspx.designer.cs">
       <DependentUpon>Salesmen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\ShopDetails.aspx.cs">
+      <DependentUpon>ShopDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\ShopDetails.aspx.designer.cs">
+      <DependentUpon>ShopDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Shops.aspx.cs">
       <DependentUpon>Shops.aspx</DependentUpon>
@@ -470,6 +496,13 @@
     </Compile>
     <Compile Include="Dealer\VehicleLoading.aspx.designer.cs">
       <DependentUpon>VehicleLoading.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\VehicleDetails.aspx.cs">
+      <DependentUpon>VehicleDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\VehicleDetails.aspx.designer.cs">
+      <DependentUpon>VehicleDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Vehicles.aspx.cs">
       <DependentUpon>Vehicles.aspx</DependentUpon>

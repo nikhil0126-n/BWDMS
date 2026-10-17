@@ -187,6 +187,19 @@
 
                             </asp:HyperLink>
 
+
+                            <asp:HyperLink
+                                ID="lnkDetails"
+                                runat="server"
+                                CssClass="btn btn-outline-primary btn-sm"
+                                NavigateUrl='<%# "~/Dealer/VehicleDetails.aspx?id=" + Eval("VehicleId") %>'>
+
+                                <i class="bi bi-eye me-1"></i>
+
+                                Details
+
+                            </asp:HyperLink>
+
                         </ItemTemplate>
 
                     </asp:TemplateField>

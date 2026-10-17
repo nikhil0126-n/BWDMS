@@ -49,6 +49,16 @@
             </a>
 
 
+            <a href="RouteHistory.aspx"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-clock-history"></i>
+
+                Route History
+
+            </a>
+
+
             <a href="Orders.aspx"
                class="btn btn-primary">
 

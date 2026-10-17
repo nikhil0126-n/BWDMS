@@ -223,6 +223,19 @@
 
 
                                 <asp:HyperLink
+                                    ID="lnkDetails"
+                                    runat="server"
+                                    CssClass="btn btn-sm btn-outline-primary"
+                                    NavigateUrl='<%# "~/Dealer/ShopDetails.aspx?id=" + Eval("ShopId") %>'>
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Details
+
+                                </asp:HyperLink>
+
+
+                                <asp:HyperLink
                                     ID="lnkOrderHistory"
                                     runat="server"
                                     CssClass="btn btn-sm btn-outline-danger"

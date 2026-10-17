@@ -7,13 +7,11 @@ using BWDMS.Data;
 namespace BWDMS.Dealer
 {
     /// <summary>
-    /// Route run history.
+    /// Route report history.
     ///
-    /// A route-day only gets a date stamp when something actually happens to
-    /// it - stock loaded, orders taken, or the day closed at reconciliation.
-    /// An open, untouched route-day carries no date anywhere, so it cannot be
-    /// listed here. The report therefore unions the three dated sources and
-    /// shows one row per (route, date) that has at least one of them.
+    /// No table is invented for this: every row is a (date, route-day) pair
+    /// that actually happened, taken from the union of the three places a
+    /// route day leaves a trace — a vehicle load, an order, or a closure.
     /// </summary>
     public partial class RouteHistory : System.Web.UI.Page
     {
@@ -74,24 +72,29 @@ namespace BWDMS.Dealer
 
 
         // ------------------------------------------------------------
-        // FILTER DROPDOWN
-        //
-        // A filter control, so no validation is attached to it.
+        // FILTERS
         // ------------------------------------------------------------
 
         private void LoadRoutes()
         {
-            string query = @"
-                SELECT
-                    r.RouteId,
-                    r.RouteName
-                FROM dbo.Routes r
-                WHERE r.DealerId = @DealerId
-                ORDER BY r.RouteName";
+            ddlRoute.Items.Clear();
 
-            using (SqlConnection con = DatabaseHelper.GetConnection())
+            ListItem all = new ListItem("All routes", "");
+            all.Selected = true;
+
+            ddlRoute.Items.Add(all);
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand cmd = new SqlCommand(@"
+                    SELECT
+                        r.RouteId,
+                        r.RouteName
+                    FROM Routes r
+                    WHERE r.DealerId = @DealerId
+                      AND r.IsActive = 1
+                    ORDER BY r.RouteName;", con))
                 {
                     cmd.Parameters.Add(
                         "@DealerId",
@@ -99,19 +102,14 @@ namespace BWDMS.Dealer
 
                     con.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        ddlRoute.Items.Clear();
-
-                        ddlRoute.Items.Add(
-                            new ListItem("All routes", "0"));
-
-                        while (dr.Read())
+                        while (reader.Read())
                         {
                             ddlRoute.Items.Add(
                                 new ListItem(
-                                    dr["RouteName"].ToString(),
-                                    dr["RouteId"].ToString()));
+                                    reader["RouteName"].ToString(),
+                                    reader["RouteId"].ToString()));
                         }
                     }
                 }
@@ -119,153 +117,142 @@ namespace BWDMS.Dealer
         }
 
 
+        protected void FilterChanged(object sender, EventArgs e)
+        {
+            LoadRouteHistory();
+        }
+
+
+        protected void btnShow_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            LoadRouteHistory();
+        }
+
+
         // ------------------------------------------------------------
-        // REPORT
+        // ROUTE RUNS
         // ------------------------------------------------------------
 
         private void LoadRouteHistory()
         {
-            DateTime fromDate;
-            DateTime toDate;
+            DateTime? from = ParseDate(txtFromDate.Text);
 
-            bool hasFrom = TryDate(txtFromDate.Text, out fromDate);
-            bool hasTo = TryDate(txtToDate.Text, out toDate);
+            DateTime? to = ParseDate(txtToDate.Text);
 
-            if (hasFrom && hasTo && fromDate > toDate)
-            {
-                ShowMessage(
-                    "The From date cannot be later than the To date.",
-                    false);
+            object routeId =
+                string.IsNullOrWhiteSpace(ddlRoute.SelectedValue)
+                    ? (object)DBNull.Value
+                    : Convert.ToInt32(ddlRoute.SelectedValue);
 
-                gvRouteHistory.DataSource = null;
-
-                gvRouteHistory.DataBind();
-
-                return;
-            }
-
-
-            int routeId = 0;
-
-            int.TryParse(ddlRoute.SelectedValue, out routeId);
-
-
+            // A route day is "closed" only for the date it was closed on.
+            // The route repeats weekly, so a closure for last Monday must
+            // not paint every past Monday as closed.
             string query = @"
-                /* Dates the route carried stock onto a vehicle. */
-
-                ;WITH dayLoad AS
+                ;WITH Activity AS
                 (
                     SELECT
-                        rs.RouteId,
-                        ActivityDate = CONVERT(DATE, vs.StockDate),
-                        VehicleId    = MAX(vs.VehicleId),
-                        LoadedPackets = SUM(vs.LoadedPackets),
-                        SoldPackets   = SUM(vs.SoldPackets)
-                    FROM dbo.VehicleStock vs
-                    INNER JOIN dbo.RouteSchedules rs
-                        ON rs.RouteScheduleId = vs.RouteScheduleId
+                        vs.StockDate  AS ActivityDate,
+                        vs.RouteScheduleId
+                    FROM VehicleStock vs
                     WHERE vs.DealerId = @DealerId
                       AND vs.RouteScheduleId IS NOT NULL
-                    GROUP BY rs.RouteId, CONVERT(DATE, vs.StockDate)
-                ),
 
-                /* Dates the route collected orders. */
+                    UNION
 
-                dayOrders AS
-                (
                     SELECT
-                        rs.RouteId,
-                        ActivityDate = CONVERT(DATE, o.OrderDate),
-                        OrderCount = COUNT(o.OrderId),
-                        OrderValue = SUM(o.GrandTotal)
-                    FROM dbo.Orders o
-                    INNER JOIN dbo.RouteSchedules rs
-                        ON rs.RouteScheduleId = o.RouteScheduleId
+                        o.OrderDate   AS ActivityDate,
+                        o.RouteScheduleId
+                    FROM Orders o
                     WHERE o.DealerId = @DealerId
                       AND o.RouteScheduleId IS NOT NULL
-                    GROUP BY rs.RouteId, CONVERT(DATE, o.OrderDate)
-                ),
 
-                /* Dates a route-day was stamped closed. StockDate is only
-                   written when the day is closed, so it doubles as the
-                   closure date - see SetRouteDayClosed. */
+                    UNION
 
-                dayClosed AS
-                (
                     SELECT
-                        rs.RouteId,
-                        ActivityDate = rs.StockDate,
-                        DayOfWeek  = MAX(rs.DayOfWeek),
-                        IsClosed   = MAX(
-                                        CASE WHEN rs.IsClosed = 1
-                                             THEN 1 ELSE 0 END)
-                    FROM dbo.RouteSchedules rs
-                    INNER JOIN dbo.Routes r
+                        rs.StockDate  AS ActivityDate,
+                        rs.RouteScheduleId
+                    FROM RouteSchedules rs
+                    INNER JOIN Routes r
                         ON r.RouteId = rs.RouteId
                     WHERE r.DealerId = @DealerId
                       AND rs.StockDate IS NOT NULL
-                    GROUP BY rs.RouteId, rs.StockDate
-                ),
-
-                activity AS
-                (
-                    SELECT RouteId, ActivityDate FROM dayLoad
-                    UNION
-                    SELECT RouteId, ActivityDate FROM dayOrders
-                    UNION
-                    SELECT RouteId, ActivityDate FROM dayClosed
                 )
-
                 SELECT
+                    a.ActivityDate,
                     ActivityDateText =
-                        CONVERT(NVARCHAR(10), a.ActivityDate, 120),
-                    DayOfWeek =
-                        ISNULL(c.DayOfWeek,
-                               DATENAME(WEEKDAY, a.ActivityDate)),
-                    RouteName = r.RouteName,
-                    VehicleNumber =
-                        ISNULL(v.VehicleNumber, '-'),
-                    SalesmanName =
-                        ISNULL(su.FullName, '-'),
-                    DriverName =
-                        ISNULL(du.FullName, '-'),
-                    LoadedPackets = ISNULL(dl.LoadedPackets, 0),
-                    SoldPackets   = ISNULL(dl.SoldPackets, 0),
-                    OrderCount    = ISNULL(dord.OrderCount, 0),
-                    OrderValue    = ISNULL(dord.OrderValue, 0),
-                    IsClosed      = ISNULL(c.IsClosed, 0)
-                FROM activity a
-                INNER JOIN dbo.Routes r
-                    ON r.RouteId = a.RouteId
-                    AND r.DealerId = @DealerId
-                LEFT JOIN dayLoad dl
-                    ON dl.RouteId = a.RouteId
-                   AND dl.ActivityDate = a.ActivityDate
-                LEFT JOIN dayOrders dord
-                    ON dord.RouteId = a.RouteId
-                   AND dord.ActivityDate = a.ActivityDate
-                LEFT JOIN dayClosed c
-                    ON c.RouteId = a.RouteId
-                   AND c.ActivityDate = a.ActivityDate
-                LEFT JOIN dbo.Vehicles v
-                    ON v.VehicleId = ISNULL(
-                         dl.VehicleId,
-                         ISNULL(r.DefaultVehicleId, 0))
-                LEFT JOIN dbo.Users su
-                    ON su.UserId = r.PreferredSalesmanId
-                LEFT JOIN dbo.Users du
-                    ON du.UserId = r.PreferredDriverId
-                WHERE (@RouteId = 0
-                       OR r.RouteId = @RouteId)
-                  AND (@FromDate IS NULL
-                       OR a.ActivityDate >= @FromDate)
-                  AND (@ToDate IS NULL
-                       OR a.ActivityDate <= @ToDate)
-                ORDER BY a.ActivityDate DESC,
-                         r.RouteName";
+                        CONVERT(NVARCHAR(10), a.ActivityDate, 103),
+                    DayOfWeek        = DATENAME(WEEKDAY, a.ActivityDate),
+                    r.RouteName,
+                    v.VehicleNumber,
+                    SalesmanName     = ISNULL(s.FullName, '-'),
+                    DriverName       = ISNULL(d.FullName, '-'),
+                    LoadedPackets    = ISNULL(load.LoadedPackets, 0),
+                    SoldPackets      = ISNULL(load.SoldPackets, 0),
+                    OrderCount       = ISNULL(ord.OrderCount, 0),
+                    OrderValue       = ISNULL(ord.OrderValue, 0),
+                    IsClosed         =
+                        CASE
+                            WHEN rs.IsClosed = 1
+                                 AND rs.StockDate = a.ActivityDate
+                                THEN 1
+                            ELSE 0
+                        END
+                FROM Activity a
+                INNER JOIN RouteSchedules rs
+                    ON rs.RouteScheduleId = a.RouteScheduleId
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                LEFT JOIN Vehicles v
+                    ON v.VehicleId = rs.VehicleId
+                LEFT JOIN Users s
+                    ON s.UserId = rs.SalesmanId
+                LEFT JOIN Users d
+                    ON d.UserId = rs.DriverId
+                OUTER APPLY
+                (
+                    SELECT
+                        LoadedPackets = SUM(vs.LoadedPackets),
+                        SoldPackets   = SUM(vs.SoldPackets)
+                    FROM VehicleStock vs
+                    WHERE vs.RouteScheduleId = rs.RouteScheduleId
+                      AND vs.StockDate       = a.ActivityDate
+                ) load
+                OUTER APPLY
+                (
+                    SELECT
+                        OrderCount = COUNT(*),
+                        OrderValue = SUM(o.GrandTotal)
+                    FROM Orders o
+                    WHERE o.RouteScheduleId = rs.RouteScheduleId
+                      AND o.OrderDate        = a.ActivityDate
+                ) ord
+                WHERE r.DealerId = @DealerId
+                  AND
+                  (
+                        @RouteId IS NULL
+                     OR r.RouteId = @RouteId
+                  )
+                  AND
+                  (
+                        @FromDate IS NULL
+                     OR a.ActivityDate >= @FromDate
+                  )
+                  AND
+                  (
+                        @ToDate IS NULL
+                     OR a.ActivityDate <= @ToDate
+                  )
+                ORDER BY
+                    a.ActivityDate DESC,
+                    r.RouteName;";
 
-
-            using (SqlConnection con = DatabaseHelper.GetConnection())
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -279,35 +266,26 @@ namespace BWDMS.Dealer
 
                     cmd.Parameters.Add(
                         "@FromDate",
-                        SqlDbType.Date).Value = hasFrom
-                            ? (object)fromDate
-                            : DBNull.Value;
+                        SqlDbType.Date).Value =
+                            from.HasValue
+                                ? (object)from.Value
+                                : DBNull.Value;
 
                     cmd.Parameters.Add(
                         "@ToDate",
-                        SqlDbType.Date).Value = hasTo
-                            ? (object)toDate
-                            : DBNull.Value;
+                        SqlDbType.Date).Value =
+                            to.HasValue
+                                ? (object)to.Value
+                                : DBNull.Value;
 
-                    using (SqlDataAdapter da =
+                    using (SqlDataAdapter adapter =
                         new SqlDataAdapter(cmd))
                     {
-                        DataTable dt = new DataTable();
+                        DataTable table = new DataTable();
 
-                        da.Fill(dt);
+                        adapter.Fill(table);
 
-                        if (dt.Rows.Count == 0)
-                        {
-                            ShowMessage(
-                                "No route runs found for the selected filters.",
-                                true);
-                        }
-                        else
-                        {
-                            lblMessage.Visible = false;
-                        }
-
-                        gvRouteHistory.DataSource = dt;
+                        gvRouteHistory.DataSource = table;
 
                         gvRouteHistory.DataBind();
                     }
@@ -316,62 +294,43 @@ namespace BWDMS.Dealer
         }
 
 
-        // ------------------------------------------------------------
-        // FILTER EVENTS
-        // ------------------------------------------------------------
-
-        private static bool TryDate(string text, out DateTime value)
+        private DateTime? ParseDate(string value)
         {
-            return DateTime.TryParse(
-                (text ?? string.Empty).Trim(),
-                out value);
+            DateTime parsed;
+
+            if (!string.IsNullOrWhiteSpace(value) &&
+                DateTime.TryParse(value.Trim(), out parsed))
+            {
+                return parsed.Date;
+            }
+
+            return null;
         }
 
-
-        protected void FilterChanged(
-            object sender,
-            EventArgs e)
-        {
-            LoadRouteHistory();
-        }
-
-
-        protected void btnShow_Click(
-            object sender,
-            EventArgs e)
-        {
-            LoadRouteHistory();
-        }
-
-
-        private void ShowMessage(
-            string message,
-            bool success)
-        {
-            lblMessage.Visible = true;
-
-            lblMessage.Text = message;
-
-            lblMessage.CssClass = success
-                ? "alert alert-success d-block"
-                : "alert alert-danger d-block";
-        }
-
-        // ------------------------------------------------------------
-        // PAGING
-        //
-        // The new index has to be applied before the grid is rebound,
-        // otherwise the postback lands back on the page it came from.
-        // ------------------------------------------------------------
 
         protected void gvRouteHistory_PageIndexChanging(
             object sender,
-            System.Web.UI.WebControls.GridViewPageEventArgs e)
+            GridViewPageEventArgs e)
         {
             gvRouteHistory.PageIndex = e.NewPageIndex;
 
             LoadRouteHistory();
         }
 
+
+        // ------------------------------------------------------------
+        // MESSAGE
+        // ------------------------------------------------------------
+
+        private void ShowMessage(
+            string message,
+            bool success)
+        {
+            lblMessage.Visible = true;
+            lblMessage.Text = message;
+            lblMessage.CssClass = success
+                ? "alert alert-success d-block"
+                : "alert alert-danger d-block";
+        }
     }
 }

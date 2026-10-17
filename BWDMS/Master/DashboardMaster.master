@@ -48,7 +48,7 @@
 </head>
 
 
-<body>
+<body runat="server" id="bodyTag">
 
 <form id="form1" runat="server">
 
@@ -165,21 +165,9 @@
 
         <div class="sidebar-logo">
 
-
-            <div class="logo-icon">
-
-                B
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    Balaji DMS
-                </strong>
-
-            </div>
+            <img src="<%= ResolveUrl("~/Content/Images/balaji-dms-logo.png") %>"
+                 alt="BALAJI DMS"
+                 class="logo-image" />
 
         </div>
 
@@ -366,11 +354,33 @@
                 Visible="false">
 
 
-                <div class="menu-title">
+                <asp:HyperLink
+                    ID="lnkDealerShops"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Shops.aspx">
 
-                    MANAGEMENT
+                    <i class="bi bi-shop"></i>
 
-                </div>
+                    <span>
+                        Shop
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerSalesmen"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Salesmen.aspx">
+
+                    <i class="bi bi-people"></i>
+
+                    <span>
+                        Salesmen
+                    </span>
+
+                </asp:HyperLink>
 
                 <asp:HyperLink
                     ID="lnkDealerRoutes"
@@ -382,6 +392,104 @@
 
                     <span>
                         Routes
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerVehicles"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Vehicles.aspx">
+
+                    <i class="bi bi-truck"></i>
+
+                    <span>
+                        Vehicles
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerMovement"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/StockTransactions.aspx">
+
+                    <i class="bi bi-arrow-left-right"></i>
+
+                    <span>
+                        Vehicle Movement
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerInventory"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Inventory.aspx">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <span>
+                        Warehouse Stock
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerVehicleStock"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/VehicleLoading.aspx">
+
+                    <i class="bi bi-boxes"></i>
+
+                    <span>
+                        Vehicle Stock
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerOrders"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Orders.aspx">
+
+                    <i class="bi bi-cart-check"></i>
+
+                    <span>
+                        Orders
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerReconciliation"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Reconciliations.aspx">
+
+                    <i class="bi bi-arrow-repeat"></i>
+
+                    <span>
+                        Daily Closing
+                    </span>
+
+                </asp:HyperLink>
+
+                <asp:HyperLink
+                    ID="lnkDealerReports"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Reports.aspx">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    <span>
+                        Reports
                     </span>
 
                 </asp:HyperLink>
@@ -411,137 +519,6 @@
                     <span>Villages</span>
 
                 </asp:HyperLink>
-
-                <asp:HyperLink
-                    ID="lnkDealerShops"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Shops.aspx">
-
-                    <i class="bi bi-shop"></i>
-
-                    <span>
-                        Shops
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <!-- Salesmen -->
-
-                <asp:HyperLink
-                    ID="lnkDealerSalesmen"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Salesmen.aspx">
-
-                    <i class="bi bi-people"></i>
-
-                    <span>
-                        Salesmen
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <!-- Vehicles -->
-
-                <asp:HyperLink
-                    ID="lnkDealerVehicles"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Vehicles.aspx">
-
-                    <i class="bi bi-truck"></i>
-
-                    <span>
-                        Vehicles
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <!-- Inventory -->
-
-                <asp:HyperLink
-                    ID="lnkDealerInventory"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Inventory.aspx">
-
-                    <i class="bi bi-box-seam"></i>
-
-                    <span>
-                        Inventory
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <!-- Orders -->
-
-                <asp:HyperLink
-                    ID="lnkDealerOrders"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Orders.aspx">
-
-                    <i class="bi bi-cart-check"></i>
-
-                    <span>
-                        Orders
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <div class="menu-title">
-
-                    OPERATIONS
-
-                </div>
-
-
-                <!-- Stock Reconciliation -->
-
-                <asp:HyperLink
-                    ID="lnkDealerReconciliation"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Reconciliations.aspx">
-
-                    <i class="bi bi-arrow-repeat"></i>
-
-                    <span>
-                        Stock Reconciliation
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <!-- Reports -->
-
-                <asp:HyperLink
-                    ID="lnkDealerReports"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Reports.aspx">
-
-                    <i class="bi bi-bar-chart"></i>
-
-                    <span>
-                        Reports
-                    </span>
-
-                </asp:HyperLink>
-
-
-                <div class="menu-title">
-
-                    SYSTEM
-
-                </div>
-
 
                 <asp:HyperLink
                     ID="lnkDealerSettings"
