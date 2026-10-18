@@ -161,7 +161,7 @@
             <asp:Label
                 ID="lblOrderNumber"
                 runat="server"
-                Text="ORD1024">
+                Text="-">
             </asp:Label>
         </h2>
 
@@ -169,7 +169,7 @@
             ID="lblStatus"
             runat="server"
             CssClass="od-status"
-            Text="Complete">
+            Text="-">
         </asp:Label>
 
     </div>
@@ -184,7 +184,7 @@
             <asp:Label
                 ID="lblShopName"
                 runat="server"
-                Text="Sharama store">
+                Text="-">
             </asp:Label>
         </div>
 
@@ -193,7 +193,7 @@
             <asp:Label
                 ID="lblSalesman"
                 runat="server"
-                Text="Rahul Patel">
+                Text="-">
             </asp:Label>
         </div>
 
@@ -202,7 +202,7 @@
             <asp:Label
                 ID="lblDate"
                 runat="server"
-                Text="17 jun 2026">
+                Text="-">
             </asp:Label>
         </div>
 
@@ -211,7 +211,7 @@
             <asp:Label
                 ID="lblPayment"
                 runat="server"
-                Text="Cash">
+                Text="-">
             </asp:Label>
         </div>
 
@@ -220,7 +220,7 @@
             <asp:Label
                 ID="lblCollection"
                 runat="server"
-                Text="3000">
+                Text="-">
             </asp:Label>
         </div>
 

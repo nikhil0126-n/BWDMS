@@ -186,58 +186,53 @@ namespace BWDMS.Dealer
         }
 
 
-        // Product level opening / loaded / sold / return / current.
+        // Product level opening / loaded / sold / return / current
+        // straight from the VehicleStock ledger.
         private DataTable GetStockTable(int vehicleId)
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("ProductName");
+            string query = @"
+                SELECT
+                    ProductName   = p.ProductName,
+                    OpeningStock  = 0,
+                    Loaded        = ISNULL(SUM(vs.LoadedPackets), 0),
+                    Sold          = ISNULL(SUM(vs.SoldPackets), 0),
+                    Return        = ISNULL(SUM(vs.ReturnedPackets), 0),
+                    CurrentStock  =
+                        ISNULL(SUM(vs.LoadedPackets), 0)
+                        - ISNULL(SUM(vs.SoldPackets), 0)
+                        - ISNULL(SUM(vs.ReturnedPackets), 0)
+                FROM VehicleStock vs
+                INNER JOIN ProductVariants pv
+                    ON pv.ProductVariantId = vs.ProductVariantId
+                INNER JOIN Products p
+                    ON p.ProductId = pv.ProductId
+                WHERE vs.DealerId = @DealerId
+                  AND vs.VehicleId = @VehicleId
+                GROUP BY p.ProductName
+                ORDER BY p.ProductName";
 
-            dt.Columns.Add("OpeningStock", typeof(int));
-
-            dt.Columns.Add("Loaded", typeof(int));
-
-            dt.Columns.Add("Sold", typeof(int));
-
-            dt.Columns.Add("Return", typeof(int));
-
-            dt.Columns.Add("CurrentStock", typeof(int));
-
-            try
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
             {
-                using (SqlConnection con =
-                    DatabaseHelper.GetConnection())
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
                 {
-                    string query = @"
-                        SELECT p.ProductName,
-                               ISNULL(SUM(od.Quantity), 0) AS Loaded
-                        FROM OrderDetails od
-                        INNER JOIN ProductVariants pv
-                            ON pv.VariantId = od.VariantId
-                        INNER JOIN Products p
-                            ON p.ProductId = pv.ProductId
-                        WHERE od.VehicleId = @VehicleId
-                        GROUP BY p.ProductName";
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
+                    cmd.Parameters.Add(
+                        "@VehicleId",
+                        SqlDbType.Int).Value = vehicleId;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
                     {
-                        cmd.Parameters.Add(
-                            "@VehicleId",
-                            SqlDbType.Int).Value = vehicleId;
-
-                        using (SqlDataAdapter da =
-                            new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
+                        da.Fill(dt);
                     }
                 }
-            }
-            catch
-            {
-                // Ledger tables may not be final yet -
-                // page still renders with the column layout.
             }
 
             return dt;
