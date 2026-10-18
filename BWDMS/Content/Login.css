@@ -15,6 +15,11 @@
     --bw-blue-100: #dbe7fe;
     --bw-blue-050: #eef4ff;
 
+    /* Primary action colour - kept in step with the dashboard palette
+       (see Content/Dashboard.css). */
+    --bw-primary: #686ce5;
+    --bw-primary-hover: #5a5ed8;
+
     --bw-canvas: #eef1f6;
     --bw-surface: #ffffff;
     --bw-surface-2: #f6f8fc;
@@ -432,7 +437,7 @@ body {
     height: 50px;
     border: none;
     border-radius: var(--bw-radius-sm);
-    background: var(--bw-blue-600);
+    background: var(--bw-primary);
     color: #ffffff;
     font-size: 15px;
     font-weight: 700;
@@ -442,10 +447,10 @@ body {
 
 
     .login-button:hover {
-        background: var(--bw-blue-700);
+        background: var(--bw-primary-hover);
         color: #ffffff;
         transform: translateY(-1px);
-        box-shadow: 0 8px 20px rgba(37, 99, 235, .28);
+        box-shadow: 0 8px 20px rgba(104, 108, 229, .30);
     }
 
 

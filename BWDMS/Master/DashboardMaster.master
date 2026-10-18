@@ -166,22 +166,16 @@
         <div class="sidebar-logo">
 
 
-            <div class="logo-icon">
-
-                BW
-
-            </div>
+            <img class="logo-icon"
+                 src="<%= ResolveUrl("~/Content/images/logo-mark.png") %>"
+                 alt="BALAJI DMS" />
 
 
             <div>
 
                 <strong>
-                    BWDMS
+                    BALAJI DMS
                 </strong>
-
-                <small>
-                    Dealer Management
-                </small>
 
             </div>
 

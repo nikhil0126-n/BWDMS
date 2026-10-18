@@ -14,6 +14,20 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet" />
 
+    <style>
+        /* Primary action buttons - kept in step with the dashboard palette. */
+        .btn-primary {
+            background-color: #686ce5;
+            border-color: #686ce5;
+        }
+
+            .btn-primary:hover,
+            .btn-primary:focus {
+                background-color: #5a5ed8;
+                border-color: #5a5ed8;
+            }
+    </style>
+
 </head>
 
 <body class="bg-light">

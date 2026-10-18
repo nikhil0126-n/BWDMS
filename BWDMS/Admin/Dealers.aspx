@@ -40,7 +40,7 @@
         <div>
 
             <a href="AddDealer.aspx"
-               class="btn btn-primary">
+               class="btn btn-primary btn-add-dealer">
 
                 <i class="bi bi-plus-lg"></i>
 

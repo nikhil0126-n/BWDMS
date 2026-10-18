@@ -125,6 +125,12 @@ namespace BWDMS.Admin
                     FullName,
                     Email,
                     Phone,
+                    OwnerName,
+                    Address,
+                    City,
+                    State,
+                    Pincode,
+                    Username,
                     IsActive
                 FROM Users
                 WHERE UserId = @UserId
@@ -165,6 +171,24 @@ namespace BWDMS.Admin
                                 ? ""
                                 : reader["Phone"].ToString();
 
+                        txtOwnerName.Text =
+                            ReadText(reader, "OwnerName");
+
+                        txtAddress.Text =
+                            ReadText(reader, "Address");
+
+                        txtCity.Text =
+                            ReadText(reader, "City");
+
+                        txtState.Text =
+                            ReadText(reader, "State");
+
+                        txtPincode.Text =
+                            ReadText(reader, "Pincode");
+
+                        txtUsername.Text =
+                            ReadText(reader, "Username");
+
                         ddlStatus.SelectedValue =
                             Convert.ToBoolean(
                                 reader["IsActive"])
@@ -196,6 +220,24 @@ namespace BWDMS.Admin
 
             string phone =
                 txtPhone.Text.Trim();
+
+            string ownerName =
+                txtOwnerName.Text.Trim();
+
+            string address =
+                txtAddress.Text.Trim();
+
+            string city =
+                txtCity.Text.Trim();
+
+            string state =
+                txtState.Text.Trim();
+
+            string pincode =
+                txtPincode.Text.Trim();
+
+            string username =
+                txtUsername.Text.Trim();
 
             bool isActive =
                 ddlStatus.SelectedValue == "1";
@@ -251,6 +293,22 @@ namespace BWDMS.Admin
                 }
 
 
+                // ======================================
+                // CHECK USERNAME (must be unique)
+                // ======================================
+
+                if (!IsUsernameAvailable(
+                        connection,
+                        username))
+                {
+                    ShowMessage(
+                        "A user with this username already exists.",
+                        "alert alert-danger d-block");
+
+                    return;
+                }
+
+
                 if (EditId > 0)
                 {
                     if (!UpdateDealer(
@@ -258,6 +316,12 @@ namespace BWDMS.Admin
                             fullName,
                             email,
                             phone,
+                            ownerName,
+                            address,
+                            city,
+                            state,
+                            pincode,
+                            username,
                             password,
                             isActive))
                     {
@@ -272,6 +336,12 @@ namespace BWDMS.Admin
                         fullName,
                         email,
                         phone,
+                        ownerName,
+                        address,
+                        city,
+                        state,
+                        pincode,
+                        username,
                         password,
                         isActive);
                 }
@@ -295,6 +365,12 @@ namespace BWDMS.Admin
             string fullName,
             string email,
             string phone,
+            string ownerName,
+            string address,
+            string city,
+            string state,
+            string pincode,
+            string username,
             string password,
             bool isActive)
         {
@@ -304,6 +380,12 @@ namespace BWDMS.Admin
                     FullName,
                     Email,
                     Phone,
+                    OwnerName,
+                    Address,
+                    City,
+                    State,
+                    Pincode,
+                    Username,
                     PasswordHash,
                     Role,
                     IsActive
@@ -313,6 +395,12 @@ namespace BWDMS.Admin
                     @FullName,
                     @Email,
                     @Phone,
+                    @OwnerName,
+                    @Address,
+                    @City,
+                    @State,
+                    @Pincode,
+                    @Username,
                     @PasswordHash,
                     'Dealer',
                     @IsActive
@@ -335,6 +423,30 @@ namespace BWDMS.Admin
                 command.Parameters.AddWithValue(
                     "@Phone",
                     phone);
+
+                command.Parameters.AddWithValue(
+                    "@OwnerName",
+                    DbText(ownerName));
+
+                command.Parameters.AddWithValue(
+                    "@Address",
+                    DbText(address));
+
+                command.Parameters.AddWithValue(
+                    "@City",
+                    DbText(city));
+
+                command.Parameters.AddWithValue(
+                    "@State",
+                    DbText(state));
+
+                command.Parameters.AddWithValue(
+                    "@Pincode",
+                    DbText(pincode));
+
+                command.Parameters.AddWithValue(
+                    "@Username",
+                    DbText(username));
 
                 command.Parameters.AddWithValue(
                     "@PasswordHash",
@@ -363,6 +475,12 @@ namespace BWDMS.Admin
             string fullName,
             string email,
             string phone,
+            string ownerName,
+            string address,
+            string city,
+            string state,
+            string pincode,
+            string username,
             string password,
             bool isActive)
         {
@@ -375,6 +493,12 @@ namespace BWDMS.Admin
                 SET FullName = @FullName,
                     Email = @Email,
                     Phone = @Phone,
+                    OwnerName = @OwnerName,
+                    Address = @Address,
+                    City = @City,
+                    State = @State,
+                    Pincode = @Pincode,
+                    Username = @Username,
                     PasswordHash = @PasswordHash,
                     IsActive = @IsActive,
                     UpdatedAt = GETDATE()
@@ -385,6 +509,12 @@ namespace BWDMS.Admin
                 SET FullName = @FullName,
                     Email = @Email,
                     Phone = @Phone,
+                    OwnerName = @OwnerName,
+                    Address = @Address,
+                    City = @City,
+                    State = @State,
+                    Pincode = @Pincode,
+                    Username = @Username,
                     IsActive = @IsActive,
                     UpdatedAt = GETDATE()
                 WHERE UserId = @UserId
@@ -407,6 +537,30 @@ namespace BWDMS.Admin
                 command.Parameters.AddWithValue(
                     "@Phone",
                     phone);
+
+                command.Parameters.AddWithValue(
+                    "@OwnerName",
+                    DbText(ownerName));
+
+                command.Parameters.AddWithValue(
+                    "@Address",
+                    DbText(address));
+
+                command.Parameters.AddWithValue(
+                    "@City",
+                    DbText(city));
+
+                command.Parameters.AddWithValue(
+                    "@State",
+                    DbText(state));
+
+                command.Parameters.AddWithValue(
+                    "@Pincode",
+                    DbText(pincode));
+
+                command.Parameters.AddWithValue(
+                    "@Username",
+                    DbText(username));
 
                 command.Parameters.AddWithValue(
                     "@IsActive",
@@ -438,6 +592,66 @@ namespace BWDMS.Admin
             }
 
             return true;
+        }
+
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+
+        private static string ReadText(
+            SqlDataReader reader,
+            string column)
+        {
+            return reader[column] == DBNull.Value
+                ? ""
+                : reader[column].ToString();
+        }
+
+
+        // Optional text is stored as NULL rather than an empty string.
+        private static object DbText(string value)
+        {
+            return string.IsNullOrWhiteSpace(value)
+                ? (object)DBNull.Value
+                : value;
+        }
+
+
+        // Usernames stay unique across every user account.
+        private bool IsUsernameAvailable(
+            SqlConnection connection,
+            string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return true;
+            }
+
+            string query = @"
+                SELECT COUNT(*)
+                FROM Users
+                WHERE Username = @Username
+                  AND UserId <> @UserId";
+
+
+            using (SqlCommand command =
+                   new SqlCommand(
+                       query,
+                       connection))
+            {
+                command.Parameters.AddWithValue(
+                    "@Username",
+                    username);
+
+                command.Parameters.AddWithValue(
+                    "@UserId",
+                    EditId);
+
+
+                return Convert.ToInt32(
+                    command.ExecuteScalar()) == 0;
+            }
         }
 
 
