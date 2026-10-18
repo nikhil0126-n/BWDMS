@@ -102,7 +102,7 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                DataKeyNames="CategoryId" AllowPaging="true" OnPageIndexChanging="gvCategories_PageIndexChanging" PageSize="10" PagerSettings-Visible="false" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="CategoryId" AllowPaging="true" OnPageIndexChanging="gvCategories_PageIndexChanging" OnRowCommand="gvCategories_RowCommand" PageSize="10" PagerSettings-Visible="false" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 
@@ -151,17 +151,38 @@
 
                         <ItemTemplate>
 
-                            <asp:HyperLink
-                                ID="lnkEdit"
-                                runat="server"
-                                CssClass="btn btn-sm btn-outline-danger"
-                                NavigateUrl='<%# "~/Admin/AddCategory.aspx?id=" + Eval("CategoryId") %>'>
+                            <div class="d-flex gap-1">
 
-                                <i class="bi bi-pencil"></i>
+                                <asp:HyperLink
+                                    ID="lnkEdit"
+                                    runat="server"
+                                    CssClass="btn btn-sm btn-outline-danger"
+                                    NavigateUrl='<%# "~/Admin/AddCategory.aspx?id=" + Eval("CategoryId") %>'
+                                    title="Edit category">
 
-                                Edit
+                                    <i class="bi bi-pencil"></i>
 
-                            </asp:HyperLink>
+                                    Edit
+
+                                </asp:HyperLink>
+
+
+                                <asp:LinkButton
+                                    ID="btnDelete"
+                                    runat="server"
+                                    CommandName="DeleteCategory"
+                                    CommandArgument='<%# Eval("CategoryId") %>'
+                                    CssClass="btn btn-sm btn-outline-danger"
+                                    OnClientClick='<%# "return confirm(\"Delete " + Eval("CategoryName") + " category? This cannot be undone.\");" %>'
+                                    title="Delete category">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Delete
+
+                                </asp:LinkButton>
+
+                            </div>
 
                         </ItemTemplate>
 

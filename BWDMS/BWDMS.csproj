@@ -100,6 +100,7 @@
     <Content Include="Content\ScheduleVillages.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
     <Content Include="Content\images\logo-mark.png" />
+    <Content Include="Content\images\logo-mark-navy.png" />
     <Content Include="Dealer\AddCompanyReceipt.aspx" />
     <Content Include="Dealer\AddDispatch.aspx" />
     <Content Include="Dealer\AddInventory.aspx" />

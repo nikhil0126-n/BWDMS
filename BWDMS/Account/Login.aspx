@@ -51,12 +51,12 @@
                 <!-- Logo -->
                 <div class="brand-logo">
 
-                    <div class="logo-balaji">
-                        BALAJI
-                    </div>
+                    <img class="brand-logo-img"
+                         src="../Content/images/logo-mark-navy.png"
+                         alt="BALAJI DMS" />
 
-                    <div class="logo-wafers">
-                        WAFERS
+                    <div class="brand-logo-name">
+                        BALAJI DMS
                     </div>
 
                 </div>
@@ -115,12 +115,12 @@
 
                 <div class="mobile-logo">
 
-                    <div class="mobile-logo-main">
-                        BALAJI
-                    </div>
+                    <img class="mobile-logo-img"
+                         src="../Content/images/logo-mark-navy.png"
+                         alt="BALAJI DMS" />
 
-                    <div class="mobile-logo-sub">
-                        WAFERS
+                    <div class="mobile-logo-name">
+                        BALAJI DMS
                     </div>
 
                 </div>
