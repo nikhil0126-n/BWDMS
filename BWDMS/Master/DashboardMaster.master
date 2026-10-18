@@ -194,13 +194,6 @@
                  COMMON DASHBOARD
                  ================================================= -->
 
-            <div class="menu-title">
-
-                MAIN MENU
-
-            </div>
-
-
             <asp:HyperLink
                 ID="lnkDashboard"
                 runat="server"
@@ -366,52 +359,6 @@
                 Visible="false">
 
 
-                <div class="menu-title">
-
-                    MANAGEMENT
-
-                </div>
-
-                <asp:HyperLink
-                    ID="lnkDealerRoutes"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Routes.aspx">
-
-                    <i class="bi bi-signpost-2"></i>
-
-                    <span>
-                        Routes
-                    </span>
-
-                </asp:HyperLink>
-
-                <asp:HyperLink
-                    ID="lnkRouteVillageAssignment"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/RouteVillageAssignment.aspx">
-
-                    <i class="bi bi-signpost-split"></i>
-
-                    <span>
-                        Route Villages
-                    </span>
-
-                </asp:HyperLink>
-
-                <asp:HyperLink
-                    ID="lnkDealerVillages"
-                    runat="server"
-                    CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Villages.aspx">
-
-                    <i class="bi bi-geo-alt"></i>
-
-                    <span>Villages</span>
-
-                </asp:HyperLink>
-
                 <asp:HyperLink
                     ID="lnkDealerShops"
                     runat="server"
@@ -421,13 +368,11 @@
                     <i class="bi bi-shop"></i>
 
                     <span>
-                        Shops
+                        Shop
                     </span>
 
                 </asp:HyperLink>
 
-
-                <!-- Salesmen -->
 
                 <asp:HyperLink
                     ID="lnkDealerSalesmen"
@@ -444,7 +389,50 @@
                 </asp:HyperLink>
 
 
-                <!-- Vehicles -->
+                <asp:HyperLink
+                    ID="lnkDealerRoutes"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Routes.aspx">
+
+                    <i class="bi bi-signpost-2"></i>
+
+                    <span>
+                        Routes
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkDealerVillages"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Villages.aspx">
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    <span>
+                        Villages
+                    </span>
+
+                </asp:HyperLink>
+
+
+                <asp:HyperLink
+                    ID="lnkRouteVillageAssignment"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/RouteVillageAssignment.aspx">
+
+                    <i class="bi bi-signpost-split"></i>
+
+                    <span>
+                        Route Villages
+                    </span>
+
+                </asp:HyperLink>
+
 
                 <asp:HyperLink
                     ID="lnkDealerVehicles"
@@ -461,7 +449,20 @@
                 </asp:HyperLink>
 
 
-                <!-- Inventory -->
+                <asp:HyperLink
+                    ID="lnkDealerVehicleMovement"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/Dispatches.aspx">
+
+                    <i class="bi bi-arrow-left-right"></i>
+
+                    <span>
+                        Vehicle Movement
+                    </span>
+
+                </asp:HyperLink>
+
 
                 <asp:HyperLink
                     ID="lnkDealerInventory"
@@ -472,13 +473,26 @@
                     <i class="bi bi-box-seam"></i>
 
                     <span>
-                        Inventory
+                        Warehouse Stock
                     </span>
 
                 </asp:HyperLink>
 
 
-                <!-- Orders -->
+                <asp:HyperLink
+                    ID="lnkDealerVehicleStock"
+                    runat="server"
+                    CssClass="menu-item"
+                    NavigateUrl="~/Dealer/VehicleLoading.aspx">
+
+                    <i class="bi bi-boxes"></i>
+
+                    <span>
+                        Vehicle Stock
+                    </span>
+
+                </asp:HyperLink>
+
 
                 <asp:HyperLink
                     ID="lnkDealerOrders"
@@ -495,15 +509,6 @@
                 </asp:HyperLink>
 
 
-                <div class="menu-title">
-
-                    OPERATIONS
-
-                </div>
-
-
-                <!-- Stock Reconciliation -->
-
                 <asp:HyperLink
                     ID="lnkDealerReconciliation"
                     runat="server"
@@ -513,13 +518,11 @@
                     <i class="bi bi-arrow-repeat"></i>
 
                     <span>
-                        Stock Reconciliation
+                        Daily Closing
                     </span>
 
                 </asp:HyperLink>
 
-
-                <!-- Reports -->
 
                 <asp:HyperLink
                     ID="lnkDealerReports"
@@ -534,13 +537,6 @@
                     </span>
 
                 </asp:HyperLink>
-
-
-                <div class="menu-title">
-
-                    SYSTEM
-
-                </div>
 
 
                 <asp:HyperLink

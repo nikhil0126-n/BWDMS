@@ -43,10 +43,18 @@ namespace BWDMS.Master
             // LOAD USER INFORMATION
             // ==========================================
 
-            if (!IsPostBack)
-            {
-                LoadUserInformation();
-            }
+            // The role menus are declared Visible="false" in the markup, so the
+            // right one has to be re-shown on EVERY request. Guarding this with
+            // !IsPostBack made the whole sidebar menu disappear on the first
+            // postback (search, paging or a filter change).
+            LoadUserInformation();
+
+
+            // ==========================================
+            // HIGHLIGHT THE CURRENT MENU ITEM
+            // ==========================================
+
+            HighlightActiveMenuItem();
         }
 
 
@@ -165,6 +173,59 @@ namespace BWDMS.Master
                        .CompleteRequest();
 
                 return;
+            }
+        }
+
+
+        // ==============================================
+        // HIGHLIGHT THE MENU ITEM OF THE PAGE SHOWN
+        // ==============================================
+
+        private void HighlightActiveMenuItem()
+        {
+            string currentFile = System.IO.Path.GetFileName(
+                Request.Path ?? string.Empty);
+
+            if (string.IsNullOrWhiteSpace(currentFile))
+            {
+                return;
+            }
+
+            MarkActiveMenuItem(this, currentFile);
+        }
+
+
+        private void MarkActiveMenuItem(
+            System.Web.UI.Control root,
+            string currentFile)
+        {
+            foreach (System.Web.UI.Control child in root.Controls)
+            {
+                System.Web.UI.WebControls.HyperLink link =
+                    child as System.Web.UI.WebControls.HyperLink;
+
+                if (link != null &&
+                    !string.IsNullOrEmpty(link.NavigateUrl) &&
+                    link.CssClass != null &&
+                    link.CssClass.Contains("menu-item"))
+                {
+                    string target = System.IO.Path.GetFileName(
+                        link.NavigateUrl);
+
+                    if (string.Equals(
+                            target,
+                            currentFile,
+                            StringComparison.OrdinalIgnoreCase) &&
+                        !link.CssClass.Contains("active"))
+                    {
+                        link.CssClass += " active";
+                    }
+                }
+
+                if (child.HasControls())
+                {
+                    MarkActiveMenuItem(child, currentFile);
+                }
             }
         }
 

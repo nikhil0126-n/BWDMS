@@ -31,7 +31,7 @@
             </h3>
 
             <p class="text-muted mb-0 page-subtitle">
-                Retail shops served by your dealership
+                Manage all shops
             </p>
 
         </div>
@@ -72,7 +72,7 @@
             ID="txtSearch"
             runat="server"
             CssClass="form-control"
-            placeholder="Search shop, owner or phone..."
+            placeholder="Search Dealers...."
             AutoPostBack="true"
             OnTextChanged="txtSearch_TextChanged">
         </asp:TextBox>
@@ -129,56 +129,38 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                DataKeyNames="ShopId" AllowPaging="true" OnPageIndexChanging="gvShops_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="ShopId" AllowPaging="true" OnPageIndexChanging="gvShops_PageIndexChanging" PageSize="25" PagerSettings-Mode="Numeric" PagerSettings-PageButtonCount="10" PagerSettings-Position="Bottom" PagerSettings-PreviousPageText="&lsaquo;" PagerSettings-NextPageText="&rsaquo;">
 
                 <Columns>
 
                     <asp:BoundField
                         DataField="ShopCode"
-                        HeaderText="Code" />
+                        HeaderText="Shop Code" />
 
                     <asp:BoundField
                         DataField="ShopName"
-                        HeaderText="Shop" />
+                        HeaderText="Shop Name" />
 
                     <asp:BoundField
                         DataField="OwnerName"
-                        HeaderText="Owner" />
+                        HeaderText="Owner Name" />
 
                     <asp:BoundField
                         DataField="Phone"
-                        HeaderText="Phone" />
+                        HeaderText="Mobile" />
 
                     <asp:BoundField
                         DataField="VillageName"
-                        HeaderText="Village" />
-
-                    <asp:BoundField
-                        DataField="RouteName"
-                        HeaderText="Route" />
-
-                    <asp:BoundField
-                        DataField="OrderCount"
-                        HeaderText="Orders" />
-
-                    <asp:BoundField
-                        DataField="OpeningBalanceText"
-                        HeaderText="Opening Bal." />
+                        HeaderText="Location" />
 
                     <asp:TemplateField
                         HeaderText="Status">
 
                         <ItemTemplate>
 
-                            <span class='<%# Convert.ToBoolean(Eval("IsActive"))
-                                ? "badge bg-success"
-                                : "badge bg-secondary" %>'>
-
-                                <%# Convert.ToBoolean(Eval("IsActive"))
-                                    ? "Active"
-                                    : "Inactive" %>
-
-                            </span>
+                            <%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "Active"
+                                : "Inactive" %>
 
                         </ItemTemplate>
 
@@ -190,12 +172,12 @@
 
                         <ItemTemplate>
 
-                            <div class="d-flex gap-2">
+                            <div class="row-actions">
 
                                 <asp:HyperLink
                                     ID="lnkDetails"
                                     runat="server"
-                                    CssClass="btn btn-sm btn-outline-primary"
+                                    CssClass="row-action"
                                     NavigateUrl='<%# "~/Dealer/ShopDetails.aspx?id=" + Eval("ShopId") %>'>
 
                                     <i class="bi bi-eye"></i>
@@ -206,10 +188,10 @@
                                 <asp:HyperLink
                                     ID="lnkEdit"
                                     runat="server"
-                                    CssClass="btn btn-sm btn-outline-primary"
+                                    CssClass="row-action"
                                     NavigateUrl='<%# "~/Dealer/AddShop.aspx?id=" + Eval("ShopId") %>'>
 
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil-square"></i>
 
                                 </asp:HyperLink>
 
@@ -217,7 +199,7 @@
                                 <asp:HyperLink
                                     ID="lnkOrderHistory"
                                     runat="server"
-                                    CssClass="btn btn-sm btn-outline-secondary"
+                                    CssClass="row-action"
                                     NavigateUrl='<%# "~/Dealer/ShopOrders.aspx?shopId=" + Eval("ShopId") %>'>
 
                                     <i class="bi bi-clock-history"></i>

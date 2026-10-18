@@ -212,6 +212,16 @@ namespace BWDMS.Master
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicles;
 
+
+        /// <summary>
+        /// lnkDealerVehicleMovement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicleMovement;
+
         /// <summary>
         /// lnkDealerInventory control.
         /// </summary>
@@ -220,6 +230,16 @@ namespace BWDMS.Master
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerInventory;
+
+
+        /// <summary>
+        /// lnkDealerVehicleStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicleStock;
 
         /// <summary>
         /// lnkDealerOrders control.
