@@ -20,76 +20,52 @@
     runat="server">
 
 
-    <!-- =========================================
-         PAGE HEADER
-         ========================================= -->
+    <!-- Breadcrumb -->
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <nav class="dash-breadcrumb"
+         aria-label="breadcrumb">
 
-        <div>
+        <a href="Dashboard.aspx">
+            Dealer
+        </a>
 
-            <h3 class="fw-bold mb-1 page-title">
-                Dealer Dashboard
-            </h3>
+        <span>/</span>
 
-            <p class="text-muted mb-0 page-subtitle">
-                Manage your sales, shops, stock and daily operations
-            </p>
+        <span class="current">
+            Dashboard
+        </span>
 
-        </div>
-
-
-        <div class="d-flex gap-2">
-
-            <a href="AddOrder.aspx"
-               class="btn btn-primary">
-
-                <i class="bi bi-plus-lg"></i>
-
-                Create Order
-
-            </a>
-
-        </div>
-
-    </div>
+    </nav>
 
 
-    <!-- =========================================
-         STATISTICS
-         ========================================= -->
+    <!-- ============================================================
+         HEADLINE NUMBERS
+         ============================================================ -->
 
-    <div class="row g-4 mb-4">
+    <div class="row g-3 mb-4">
 
+        <div class="col-md-3 col-6">
 
-        <!-- Total Shops -->
+            <div class="dashboard-card dash-kpi">
 
-        <div class="col-xl-3 col-md-6">
+                <div class="dash-kpi-text">
 
-            <div class="stat-tile h-100">
-
-                <i class="bi bi-shop"></i>
-
-                <div>
-
-                    <span class="stat-label">
+                    <div class="card-title">
                         Total Shops
-                    </span>
+                    </div>
 
-                    <span class="stat-value">
-
+                    <h3 class="fw-bold mb-0">
                         <asp:Label
                             ID="lblShopCount"
                             runat="server"
                             Text="0">
                         </asp:Label>
+                    </h3>
 
-                    </span>
+                </div>
 
-                    <small class="text-muted d-block">
-                        Active shops
-                    </small>
-
+                <div class="kpi-icon kpi-blue">
+                    <i class="bi bi-shop"></i>
                 </div>
 
             </div>
@@ -97,104 +73,86 @@
         </div>
 
 
-        <!-- Salesmen -->
+        <div class="col-md-3 col-6">
 
-        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card dash-kpi">
 
-            <div class="stat-tile h-100">
+                <div class="dash-kpi-text">
 
-                <i class="bi bi-people"></i>
-
-                <div>
-
-                    <span class="stat-label">
-                        Salesmen
-                    </span>
-
-                    <span class="stat-value">
-
-                        <asp:Label
-                            ID="lblSalesmanCount"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
-                    </span>
-
-                    <small class="text-muted d-block">
-                        Active salesmen
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Vehicles -->
-
-        <div class="col-xl-3 col-md-6">
-
-            <div class="stat-tile h-100">
-
-                <i class="bi bi-truck"></i>
-
-                <div>
-
-                    <span class="stat-label">
-                        Vehicles
-                    </span>
-
-                    <span class="stat-value">
-
-                        <asp:Label
-                            ID="lblVehicleCount"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
-                    </span>
-
-                    <small class="text-muted d-block">
-                        Active vehicles
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Today's Orders -->
-
-        <div class="col-xl-3 col-md-6">
-
-            <div class="stat-tile h-100">
-
-                <i class="bi bi-cart-check"></i>
-
-                <div>
-
-                    <span class="stat-label">
+                    <div class="card-title">
                         Today's Orders
-                    </span>
+                    </div>
 
-                    <span class="stat-value">
-
+                    <h3 class="fw-bold mb-0">
                         <asp:Label
                             ID="lblTodayOrders"
                             runat="server"
                             Text="0">
                         </asp:Label>
+                    </h3>
 
-                    </span>
+                </div>
 
-                    <small class="text-muted d-block">
-                        Orders received today
-                    </small>
+                <div class="kpi-icon kpi-green">
+                    <i class="bi bi-clipboard2-check"></i>
+                </div>
 
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 col-6">
+
+            <div class="dashboard-card dash-kpi">
+
+                <div class="dash-kpi-text">
+
+                    <div class="card-title">
+                        Today's Sales
+                    </div>
+
+                    <h3 class="fw-bold mb-0">
+                        <asp:Label
+                            ID="lblTodaySales"
+                            runat="server"
+                            Text="&#8377;0">
+                        </asp:Label>
+                    </h3>
+
+                </div>
+
+                <div class="kpi-icon kpi-green">
+                    <i class="bi bi-currency-rupee"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 col-6">
+
+            <div class="dashboard-card dash-kpi">
+
+                <div class="dash-kpi-text">
+
+                    <div class="card-title">
+                        Today's Dispatched
+                    </div>
+
+                    <h3 class="fw-bold mb-0">
+                        <asp:Label
+                            ID="lblTodayDispatched"
+                            runat="server"
+                            Text="&#8377;0">
+                        </asp:Label>
+                    </h3>
+
+                </div>
+
+                <div class="kpi-icon kpi-teal">
+                    <i class="bi bi-truck"></i>
                 </div>
 
             </div>
@@ -204,119 +162,36 @@
     </div>
 
 
-    <!-- =========================================
-         SECOND ROW
-         ========================================= -->
+    <!-- ============================================================
+         SALES OVERVIEW + TOP PRODUCTS
+         ============================================================ -->
 
-    <div class="row g-4 mt-1">
+    <div class="row g-3 mb-4">
 
+        <div class="col-md-8">
 
-        <!-- Sales Summary -->
+            <div class="dashboard-card h-100">
 
-        <div class="col-xl-8">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-
-                    <div>
-
-                        <h5 class="fw-bold mb-1">
-                            Sales Overview
-                        </h5>
-
-                        <small class="text-muted">
-                            <asp:Label
-                                ID="lblSalesPeriod"
-                                runat="server"
-                                Text="Sales performance">
-                            </asp:Label>
-                        </small>
-
-                    </div>
-
-
-                    <asp:DropDownList
-                        ID="ddlPeriod"
-                        runat="server"
-                        CssClass="form-select form-select-sm w-auto"
-                        AutoPostBack="true">
-
-                        <asp:ListItem Text="This Week" Value="Week">
-                        </asp:ListItem>
-
-                        <asp:ListItem Text="This Month" Value="Month" Selected="True">
-                        </asp:ListItem>
-
-                        <asp:ListItem Text="This Year" Value="Year">
-                        </asp:ListItem>
-
-                    </asp:DropDownList>
-
-                </div>
-
-
-                <div class="table-responsive">
-
-                    <asp:GridView
-                        ID="gvSalesSummary"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table align-middle mb-0"
-                        GridLines="None"
-                        EmptyDataText="No orders in this period." AllowPaging="true" OnPageIndexChanging="gvSalesSummary_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                        <Columns>
-
-                            <asp:TemplateField
-                                HeaderText="Status">
-
-                                <ItemTemplate>
-
-                                    <span class='<%# Eval("StatusCss") %>'>
-
-                                        <%# Eval("Status") %>
-
-                                    </span>
-
-                                </ItemTemplate>
-
-                            </asp:TemplateField>
-
-
-                            <asp:BoundField
-                                DataField="OrderCount"
-                                HeaderText="Orders" />
-
-                            <asp:BoundField
-                                DataField="AmountText"
-                                HeaderText="Grand Total"
-                                DataFormatString="{0:N2}" />
-
-                        </Columns>
-
-                    </asp:GridView>
-
-                </div>
-
-
-                <div class="d-flex justify-content-between align-items-center mt-3">
-
-                    <small class="text-muted">
-                        <asp:Label
-                            ID="lblSalesPeriodOrders"
-                            runat="server"
-                            Text="0 orders">
-                        </asp:Label>
-                    </small>
+                <div class="d-flex justify-content-between align-items-center mb-3">
 
                     <h5 class="fw-bold mb-0">
-                        <asp:Label
-                            ID="lblSalesPeriodTotal"
-                            runat="server"
-                            Text="0.00">
-                        </asp:Label>
+                        Sales Overview
                     </h5>
+
+                    <span class="dash-period">
+                        <i class="bi bi-calendar3"></i>
+
+                        This Month
+                    </span>
+
+                </div>
+
+                <div class="dash-chart">
+
+                    <asp:Literal
+                        ID="litChart"
+                        runat="server">
+                    </asp:Literal>
 
                 </div>
 
@@ -325,100 +200,28 @@
         </div>
 
 
-        <!-- Warehouse Stock Summary -->
+        <div class="col-md-4">
 
-        <div class="col-xl-4">
+            <div class="dashboard-card h-100">
 
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold mb-1">
-                    Stock Summary
+                <h5 class="fw-bold mb-3">
+                    Top Products
                 </h5>
 
-                <small class="text-muted">
-                    Current inventory status
-                </small>
-
-
-                <div class="row g-2 text-center mt-2 mb-2">
-
-                    <div class="col">
-
-                        <h6 class="fw-bold mb-0">
-                            <asp:Label
-                                ID="lblStockVariants"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-                        </h6>
-
-                        <small class="text-muted">
-                            Variants
-                        </small>
-
-                    </div>
-
-
-                    <div class="col">
-
-                        <h6 class="fw-bold mb-0">
-                            <asp:Label
-                                ID="lblStockPackets"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-                        </h6>
-
-                        <small class="text-muted">
-                            Packets
-                        </small>
-
-                    </div>
-
-
-                    <div class="col">
-
-                        <h6 class="fw-bold mb-0">
-                            <asp:Label
-                                ID="lblStockValue"
-                                runat="server"
-                                Text="0.00">
-                            </asp:Label>
-                        </h6>
-
-                        <small class="text-muted">
-                            Stock value
-                        </small>
-
-                    </div>
-
-                </div>
-
-
                 <asp:Repeater
-                    ID="repStockItems"
+                    ID="rptTopProducts"
                     runat="server">
 
                     <ItemTemplate>
 
-                        <div class="stock-item">
+                        <div class="dash-top-item">
 
-                            <div>
+                            <span class="name">
+                                <%# Eval("ProductName") %>
+                            </span>
 
-                                <strong>
-                                    <%# Eval("ItemName") %>
-                                </strong>
-
-                                <small>
-                                    <%# Eval("PacketsText") %>
-                                </small>
-
-                            </div>
-
-                            <span class='<%# Eval("StockStateCss") %>'>
-
-                                <%# Eval("StockState") %>
-
+                            <span class="qty">
+                                <%# Eval("QuantityText") %> Packets
                             </span>
 
                         </div>
@@ -427,17 +230,12 @@
 
                 </asp:Repeater>
 
-                <!--
-                  Repeater has no EmptyDataTemplate (unlike GridView and
-                  ListView), so the empty state is a sibling label whose
-                  visibility is toggled when the repeater is bound.
-                -->
                 <asp:Label
-                    ID="lblNoStockItems"
+                    ID="lblNoProducts"
                     runat="server"
                     Visible="false"
-                    CssClass="text-muted">
-                    No stock recorded yet.
+                    CssClass="text-muted small"
+                    Text="No orders yet this month.">
                 </asp:Label>
 
             </div>
@@ -447,60 +245,121 @@
     </div>
 
 
-    <!-- =========================================
-         THIRD ROW
-         ========================================= -->
+    <!-- ============================================================
+         VEHICLE STATUS + RECENT ORDERS
+         ============================================================ -->
 
-    <div class="row g-4 mt-1">
+    <div class="row g-3">
 
+        <div class="col-md-4">
 
-        <!-- Today's Schedules -->
+            <div class="dashboard-card h-100">
 
-        <div class="col-xl-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold mb-1">
-                    Today's Schedules
+                <h5 class="fw-bold mb-3">
+                    Vehicle Status
                 </h5>
 
-                <small class="text-muted">
-                    Routes running on
-                    <asp:Label
-                        ID="lblTodayName"
-                        runat="server"
-                        Text="">
-                    </asp:Label>
-                </small>
+                <div class="row g-3">
+
+                    <div class="col-6">
+
+                        <div class="dash-vs">
+
+                            <span>
+                                Available
+                            </span>
+
+                            <strong>
+                                <asp:Label
+                                    ID="lblVsAvailable"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+                            </strong>
+
+                        </div>
+
+                    </div>
 
 
-                <div class="table-responsive mt-3">
+                    <div class="col-6">
 
-                    <asp:GridView
-                        ID="gvSchedules"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table align-middle mb-0"
-                        GridLines="None"
-                        EmptyDataText="No route schedules for today." AllowPaging="true" OnPageIndexChanging="gvSchedules_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        <div class="dash-vs">
 
-                        <Columns>
+                            <span>
+                                Running
+                            </span>
 
-                            <asp:BoundField
-                                DataField="RouteName"
-                                HeaderText="Route" />
+                            <strong>
+                                <asp:Label
+                                    ID="lblVsRunning"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+                            </strong>
 
-                            <asp:BoundField
-                                DataField="DayOfWeek"
-                                HeaderText="Day" />
+                        </div>
 
-                            <asp:BoundField
-                                DataField="VehicleNumber"
-                                HeaderText="Vehicle" />
+                    </div>
 
-                        </Columns>
 
-                    </asp:GridView>
+                    <div class="col-6">
+
+                        <div class="dash-vs">
+
+                            <span>
+                                Loading
+                            </span>
+
+                            <strong>
+                                <asp:Label
+                                    ID="lblVsLoading"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="dash-vs">
+
+                            <span>
+                                Returning
+                            </span>
+
+                            <strong>
+                                <asp:Label
+                                    ID="lblVsReturning"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dash-vs-stock">
+
+                    <span>
+                        Warehouse Stock Value
+                    </span>
+
+                    <strong>
+                        &#8377;<asp:Label
+                            ID="lblStockValue"
+                            runat="server"
+                            Text="0">
+                        </asp:Label>
+                    </strong>
 
                 </div>
 
@@ -509,196 +368,13 @@
         </div>
 
 
-        <!-- Orders By Status -->
+        <div class="col-md-8">
 
-        <div class="col-xl-4">
+            <div class="dashboard-card h-100">
 
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold mb-1">
-                    Orders By Status
+                <h5 class="fw-bold mb-3">
+                    Recent Orders
                 </h5>
-
-                <small class="text-muted">
-                    All orders taken by your dealership
-                </small>
-
-
-                <div class="table-responsive mt-3">
-
-                    <asp:GridView
-                        ID="gvOrdersByStatus"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table align-middle mb-0"
-                        GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrdersByStatus_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                        <Columns>
-
-                            <asp:TemplateField
-                                HeaderText="Status">
-
-                                <ItemTemplate>
-
-                                    <span class='<%# Eval("StatusCss") %>'>
-
-                                        <%# Eval("Status") %>
-
-                                    </span>
-
-                                </ItemTemplate>
-
-                            </asp:TemplateField>
-
-
-                            <asp:BoundField
-                                DataField="OrderCount"
-                                HeaderText="Orders" />
-
-                        </Columns>
-
-                    </asp:GridView>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Vehicle Loading And Reconciliation -->
-
-        <div class="col-xl-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold mb-1">
-                    Vehicle Loading
-                </h5>
-
-                <small class="text-muted">
-                    Loading and reconciliation status for today
-                </small>
-
-
-                <div class="stock-item mt-3">
-
-                    <div>
-
-                        <strong>
-                            Loaded today
-                        </strong>
-
-                        <small>
-                            Packets loaded onto vehicles
-                        </small>
-
-                    </div>
-
-                    <span class="badge bg-primary">
-                        <asp:Label
-                            ID="lblLoadedToday"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-                    </span>
-
-                </div>
-
-
-                <div class="stock-item">
-
-                    <div>
-
-                        <strong>
-                            Reconciliations complete
-                        </strong>
-
-                        <small>
-                            Approved today
-                        </small>
-
-                    </div>
-
-                    <span class="badge bg-success">
-                        <asp:Label
-                            ID="lblReconComplete"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-                    </span>
-
-                </div>
-
-
-                <div class="stock-item">
-
-                    <div>
-
-                        <strong>
-                            Reconciliations pending
-                        </strong>
-
-                        <small>
-                            Awaiting approval today
-                        </small>
-
-                    </div>
-
-                    <span class="badge bg-warning text-dark">
-                        <asp:Label
-                            ID="lblReconPending"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================================
-         FOURTH ROW
-         ========================================= -->
-
-    <div class="row g-4 mt-1">
-
-
-        <!-- Recent Orders -->
-
-        <div class="col-xl-8">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                    <div>
-
-                        <h5 class="fw-bold mb-1">
-                            Recent Orders
-                        </h5>
-
-                        <small class="text-muted">
-                            Latest shop orders
-                        </small>
-
-                    </div>
-
-
-                    <a href="Orders.aspx"
-                       class="text-danger text-decoration-none">
-
-                        View All
-
-                    </a>
-
-                </div>
-
 
                 <div class="table-responsive">
 
@@ -706,19 +382,24 @@
                         ID="gvRecentOrders"
                         runat="server"
                         AutoGenerateColumns="False"
-                        CssClass="table align-middle"
+                        CssClass="table table-hover align-middle"
                         GridLines="None"
-                        EmptyDataText="No orders available" AllowPaging="true" OnPageIndexChanging="gvRecentOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                        AllowPaging="true"
+                        OnPageIndexChanging="gvRecentOrders_PageIndexChanging"
+                        PageSize="5"
+                        PagerSettings-Mode="NumericFirstLast"
+                        PagerSettings-PageButtonCount="5"
+                        PagerSettings-Position="Bottom">
 
                         <Columns>
 
                             <asp:BoundField
                                 DataField="OrderNumber"
-                                HeaderText="Order" />
+                                HeaderText="Order ID" />
 
                             <asp:BoundField
                                 DataField="ShopName"
-                                HeaderText="Shop" />
+                                HeaderText="Shop Name" />
 
                             <asp:BoundField
                                 DataField="SalesmanName"
@@ -727,7 +408,7 @@
                             <asp:BoundField
                                 DataField="GrandTotalText"
                                 HeaderText="Amount"
-                                DataFormatString="{0:N2}" />
+                                HtmlEncode="False" />
 
                             <asp:TemplateField
                                 HeaderText="Status">
@@ -746,292 +427,20 @@
 
                         </Columns>
 
-                    </asp:GridView>
 
-                </div>
+                        <EmptyDataTemplate>
 
-            </div>
+                            <div class="text-center py-4">
 
-        </div>
+                                <i class="bi bi-cart-x fs-1 text-muted"></i>
 
+                                <p class="text-muted mt-3 mb-0">
+                                    No orders yet.
+                                </p>
 
-        <!-- Quick Actions -->
+                            </div>
 
-        <div class="col-xl-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="fw-bold mb-1">
-                    Quick Actions
-                </h5>
-
-                <small class="text-muted">
-                    Common dealer operations
-                </small>
-
-
-                <div class="d-flex flex-wrap gap-2 mt-3">
-
-
-                    <a href="AddOrder.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-cart-plus"></i>
-
-                        <span>
-                            Create Order
-                        </span>
-
-                    </a>
-
-
-                    <a href="AddShop.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-shop"></i>
-
-                        <span>
-                            Add Shop
-                        </span>
-
-                    </a>
-
-
-                    <a href="AddSalesman.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-person-plus"></i>
-
-                        <span>
-                            Add Salesman
-                        </span>
-
-                    </a>
-
-
-                    <a href="Vehicles.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-truck"></i>
-
-                        <span>
-                            Manage Vehicle
-                        </span>
-
-                    </a>
-
-
-                    <a href="Inventory.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-box-seam"></i>
-
-                        <span>
-                            Check Inventory
-                        </span>
-
-                    </a>
-
-
-                    <a href="Reconciliations.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-arrow-repeat"></i>
-
-                        <span>
-                            Stock Reconciliation
-                        </span>
-
-                    </a>
-
-
-                    <!--
-                      PART 12 / PART 13 modules. The shared master page is
-                      frozen, so the newer modules are reachable from the
-                      dashboard quick-action bar instead of the sidebar.
-                    -->
-                    <a href="CompanyReceipts.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-box-arrow-in-down"></i>
-
-                        <span>
-                            Company Receipts
-                        </span>
-
-                    </a>
-
-
-                    <a href="VehicleLoading.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-truck"></i>
-
-                        <span>
-                            Vehicle Loading
-                        </span>
-
-                    </a>
-
-
-                    <a href="Dispatches.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-send"></i>
-
-                        <span>
-                            Dispatches
-                        </span>
-
-                    </a>
-
-
-                    <a href="Returns.aspx"
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-arrow-return-left"></i>
-
-                        <span>
-                            Returns
-                        </span>
-
-                    </a>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================================
-         FIFTH ROW
-         ========================================= -->
-
-    <div class="row g-4 mt-1">
-
-
-        <!-- Recent Operational Activity -->
-
-        <div class="col-xl-8">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                    <div>
-
-                        <h5 class="fw-bold mb-1">
-                            Recent Activity
-                        </h5>
-
-                        <small class="text-muted">
-                            Latest orders, stock movements and company receipts
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="table-responsive">
-
-                    <asp:GridView
-                        ID="gvActivity"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table align-middle"
-                        GridLines="None"
-                        EmptyDataText="No activity recorded yet." AllowPaging="true" OnPageIndexChanging="gvActivity_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                        <Columns>
-
-                            <asp:BoundField
-                                DataField="ActivityAtText"
-                                HeaderText="When" />
-
-                            <asp:BoundField
-                                DataField="ActivityType"
-                                HeaderText="Type" />
-
-                            <asp:BoundField
-                                DataField="Reference"
-                                HeaderText="Reference" />
-
-                            <asp:BoundField
-                                DataField="Details"
-                                HeaderText="Details" />
-
-                        </Columns>
-
-                    </asp:GridView>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Low Stock Alerts -->
-
-        <div class="col-xl-4">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                    <div>
-
-                        <h5 class="fw-bold mb-1">
-                            Low Stock Alerts
-                        </h5>
-
-                        <small class="text-muted">
-                            At or below reorder level
-                        </small>
-
-                    </div>
-
-
-                    <asp:Label
-                        ID="lblLowStockCount"
-                        runat="server"
-                        CssClass="badge bg-warning text-dark"
-                        Text="0">
-                    </asp:Label>
-
-                </div>
-
-
-                <div class="table-responsive">
-
-                    <asp:GridView
-                        ID="gvLowStock"
-                        runat="server"
-                        AutoGenerateColumns="False"
-                        CssClass="table align-middle mb-0"
-                        GridLines="None"
-                        EmptyDataText="No low-stock alerts. All items are above their reorder level." AllowPaging="true" OnPageIndexChanging="gvLowStock_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                        <Columns>
-
-                            <asp:BoundField
-                                DataField="ItemName"
-                                HeaderText="Item" />
-
-                            <asp:BoundField
-                                DataField="QuantityPackets"
-                                HeaderText="Packets" />
-
-                            <asp:BoundField
-                                DataField="ReorderLevel"
-                                HeaderText="Reorder" />
-
-                        </Columns>
+                        </EmptyDataTemplate>
 
                     </asp:GridView>
 
