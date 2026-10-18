@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Text;
-using System.Web.UI.WebControls;
 using BWDMS.Data;
 
 namespace BWDMS.Dealer
@@ -14,23 +10,21 @@ namespace BWDMS.Dealer
     //
     // Every figure on this page is a live SQL aggregate scoped to
     // the logged-in dealer (Session["UserId"] == DealerId).
-    //
-    // Nothing here invents a column: where the reference design
-    // asks for a figure the schema cannot answer, the tile shows
-    // the closest real number instead (see Today's Dispatched and
-    // the Vehicle Status breakdown below).
     // ============================================================
 
     public partial class Dashboard : System.Web.UI.Page
     {
-        // Indian grouping (1,24,500) is what the design uses.
-        private static readonly CultureInfo Indian =
-            new CultureInfo("en-IN");
-
-
         private int DealerId
         {
             get { return Convert.ToInt32(Session["UserId"]); }
+        }
+
+
+        // English weekday name exactly as stored in
+        // Routes.DayOfWeek / RouteSchedules.DayOfWeek.
+        private static string TodayName
+        {
+            get { return DateTime.Now.DayOfWeek.ToString(); }
         }
 
 
@@ -82,35 +76,30 @@ namespace BWDMS.Dealer
 
 
         // ============================================================
-        // LOAD EVERY PANEL
+        // LOAD EVERY TILE
         // ============================================================
 
         private void LoadDashboard()
         {
-            LoadHeadlineTiles();
-
-            LoadSalesChart();
-
-            LoadTopProducts();
-
+            LoadHeadlineCounts();
+            LoadSalesSummary();
+            LoadOrdersByStatus();
+            LoadStockSummary();
+            LoadStockItems();
+            LoadLowStock();
+            LoadTodaySchedules();
             LoadVehicleStatus();
-
-            LoadStockValue();
-
+            LoadRecentActivity();
             LoadRecentOrders();
         }
 
 
         // ============================================================
-        // HEADLINE TILES
+        // STAT CARDS
         // ============================================================
 
-        private void LoadHeadlineTiles()
+        private void LoadHeadlineCounts()
         {
-            // "Today's Collections" has no source: BWDMS records no
-            // shop payments anywhere, so the fourth tile reports the
-            // value of the orders that actually left for delivery
-            // today, which is a real, computable figure.
             string query = @"
                 SELECT
                     ShopCount =
@@ -120,29 +109,27 @@ namespace BWDMS.Dealer
                              WHERE DealerId = @DealerId
                                AND IsActive = 1),
                             0),
+                    SalesmanCount =
+                        ISNULL(
+                            (SELECT COUNT(*)
+                             FROM Users
+                             WHERE DealerId = @DealerId
+                               AND Role = 'Salesman'
+                               AND IsActive = 1),
+                            0),
+                    VehicleCount =
+                        ISNULL(
+                            (SELECT COUNT(*)
+                             FROM Vehicles
+                             WHERE DealerId = @DealerId
+                               AND IsActive = 1),
+                            0),
                     TodayOrderCount =
                         ISNULL(
                             (SELECT COUNT(*)
                              FROM Orders
                              WHERE DealerId = @DealerId
                                AND OrderDate = @Today),
-                            0),
-                    TodaySales =
-                        ISNULL(
-                            (SELECT SUM(GrandTotal)
-                             FROM Orders
-                             WHERE DealerId = @DealerId
-                               AND OrderDate = @Today
-                               AND Status <> 'Cancelled'),
-                            0),
-                    TodayDispatched =
-                        ISNULL(
-                            (SELECT SUM(GrandTotal)
-                             FROM Orders
-                             WHERE DealerId = @DealerId
-                               AND OrderDate = @Today
-                               AND Status IN
-                                   ('Dispatched', 'Delivered')),
                             0)";
 
             using (SqlConnection con =
@@ -160,7 +147,7 @@ namespace BWDMS.Dealer
                     cmd.Parameters.Add(
                         "@Today",
                         SqlDbType.Date).Value =
-                            DateTime.Today;
+                        DateTime.Today;
 
                     using (SqlDataReader reader =
                         cmd.ExecuteReader())
@@ -168,26 +155,16 @@ namespace BWDMS.Dealer
                         if (reader.Read())
                         {
                             lblShopCount.Text =
-                                Convert.ToInt32(
-                                    reader["ShopCount"])
-                                .ToString("N0");
+                                reader["ShopCount"].ToString();
+
+                            lblSalesmanCount.Text =
+                                reader["SalesmanCount"].ToString();
+
+                            lblVehicleCount.Text =
+                                reader["VehicleCount"].ToString();
 
                             lblTodayOrders.Text =
-                                Convert.ToInt32(
-                                    reader["TodayOrderCount"])
-                                .ToString("N0");
-
-                            lblTodaySales.Text =
-                                "&#8377;" +
-                                Convert.ToDecimal(
-                                    reader["TodaySales"])
-                                .ToString("N2", Indian);
-
-                            lblTodayDispatched.Text =
-                                "&#8377;" +
-                                Convert.ToDecimal(
-                                    reader["TodayDispatched"])
-                                .ToString("N2", Indian);
+                                reader["TodayOrderCount"].ToString();
                         }
                     }
                 }
@@ -196,299 +173,101 @@ namespace BWDMS.Dealer
 
 
         // ============================================================
-        // SALES OVERVIEW - ONE POINT PER DAY THIS MONTH
-        //
-        // Rendered as a self-contained SVG so the page needs no
-        // chart library and no client script.
+        // SALES SUMMARY - ORDERS BY STATUS FOR A PERIOD
         // ============================================================
 
-        private void LoadSalesChart()
+        private void LoadSalesSummary()
         {
-            DateTime first = new DateTime(
-                DateTime.Today.Year,
-                DateTime.Today.Month,
-                1);
+            DateTime from;
+            DateTime to;
 
+            GetPeriod(out from, out to);
+
+            DataTable dt = StatusTable(from, to);
+
+            gvSalesSummary.DataSource = dt;
+            gvSalesSummary.DataBind();
+
+            int orders = 0;
+            decimal amount = 0m;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                orders += Convert.ToInt32(row["OrderCount"]);
+
+                amount += Convert.ToDecimal(row["Amount"]);
+            }
+
+            lblSalesPeriod.Text =
+                from.ToString("dd MMM yyyy") + " - " +
+                to.AddDays(-1).ToString("dd MMM yyyy");
+
+            lblSalesPeriodOrders.Text =
+                orders + (orders == 1 ? " order" : " orders");
+
+            lblSalesPeriodTotal.Text =
+                amount.ToString("N2");
+        }
+
+
+        private void GetPeriod(
+            out DateTime from,
+            out DateTime to)
+        {
+            DateTime today = DateTime.Today;
+
+            string period = ddlPeriod.SelectedValue;
+
+            if (period == "Week")
+            {
+                // Week starts on Monday.
+                int offset =
+                    ((int)today.DayOfWeek + 6) % 7;
+
+                from = today.AddDays(-offset);
+                to = from.AddDays(7);
+            }
+            else if (period == "Year")
+            {
+                from = new DateTime(today.Year, 1, 1);
+                to = from.AddYears(1);
+            }
+            else
+            {
+                from = new DateTime(today.Year, today.Month, 1);
+                to = from.AddMonths(1);
+            }
+        }
+
+
+        // All four statuses, always four rows, never a fake row.
+        private DataTable StatusTable(
+            DateTime from,
+            DateTime to)
+        {
             string query = @"
                 SELECT
-                    SaleDate = CAST(OrderDate AS DATE),
-                    Amount   = SUM(GrandTotal)
-                FROM Orders
-                WHERE DealerId = @DealerId
-                  AND OrderDate >= @First
-                  AND OrderDate <= @Today
-                  AND Status <> 'Cancelled'
-                GROUP BY CAST(OrderDate AS DATE)
-                ORDER BY CAST(OrderDate AS DATE)";
+                    x.Status,
+                    OrderCount =
+                        ISNULL(COUNT(o.OrderId), 0),
+                    Amount =
+                        ISNULL(SUM(o.GrandTotal), 0)
+                FROM
+                (
+                    SELECT Status = 'Pending', SortOrder = 1
+                    UNION ALL SELECT 'Confirmed', 2
+                    UNION ALL SELECT 'Dispatched', 3
+                    UNION ALL SELECT 'Cancelled', 4
+                ) x
+                LEFT JOIN Orders o
+                    ON o.DealerId = @DealerId
+                   AND o.Status = x.Status
+                   AND o.OrderDate >= @From
+                   AND o.OrderDate < @To
+                GROUP BY x.Status, x.SortOrder
+                ORDER BY x.SortOrder";
 
-            Dictionary<int, decimal> byDay =
-                new Dictionary<int, decimal>();
-
-            using (SqlConnection con =
-                DatabaseHelper.GetConnection())
-            {
-                con.Open();
-
-                using (SqlCommand cmd =
-                    new SqlCommand(query, con))
-                {
-                    cmd.Parameters.Add(
-                        "@DealerId",
-                        SqlDbType.Int).Value = DealerId;
-
-                    cmd.Parameters.Add(
-                        "@First",
-                        SqlDbType.Date).Value = first;
-
-                    cmd.Parameters.Add(
-                        "@Today",
-                        SqlDbType.Date).Value =
-                            DateTime.Today;
-
-                    using (SqlDataReader reader =
-                        cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            DateTime day =
-                                Convert.ToDateTime(
-                                    reader["SaleDate"]);
-
-                            byDay[day.Day] =
-                                Convert.ToDecimal(
-                                    reader["Amount"]);
-                        }
-                    }
-                }
-            }
-
-            litChart.Text = BuildChart(byDay);
-        }
-
-
-        private string BuildChart(Dictionary<int, decimal> byDay)
-        {
-            int lastDay = DateTime.Today.Day;
-
-            if (lastDay < 2)
-            {
-                return "<p class=\"text-muted small mb-0\">" +
-                       "Not enough days yet to plot this month.</p>";
-            }
-
-            List<decimal> values = new List<decimal>();
-
-            decimal max = 0;
-
-            for (int day = 1; day <= lastDay; day++)
-            {
-                decimal amount;
-
-                if (!byDay.TryGetValue(day, out amount))
-                {
-                    amount = 0;
-                }
-
-                values.Add(amount);
-
-                if (amount > max)
-                {
-                    max = amount;
-                }
-            }
-
-
-            // --- geometry -------------------------------------------------
-            const int W = 760;
-            const int H = 250;
-
-            const int PadLeft = 66;
-            const int PadRight = 16;
-            const int PadTop = 14;
-            const int PadBottom = 30;
-
-            int plotW = W - PadLeft - PadRight;
-            int plotH = H - PadTop - PadBottom;
-
-            if (max <= 0)
-            {
-                max = 1000;
-            }
-
-            // round the top of the scale up to something readable
-            max = RoundUp(max);
-
-            StringBuilder svg = new StringBuilder();
-
-            svg.Append("<svg viewBox=\"0 0 ")
-               .Append(W).Append(' ').Append(H)
-               .Append("\" role=\"img\" ")
-               .Append("aria-label=\"Sales by day this month\" ")
-               .Append("preserveAspectRatio=\"none\">");
-
-
-            // --- gridlines + y labels ------------------------------------
-            for (int i = 0; i <= 4; i++)
-            {
-                double y = PadTop + (plotH * i / 4.0);
-
-                decimal label = max - (max * i / 4m);
-
-                svg.Append("<line x1=\"").Append(PadLeft)
-                   .Append("\" y1=\"").Append(y.ToString("0.##"))
-                   .Append("\" x2=\"").Append(W - PadRight)
-                   .Append("\" y2=\"").Append(y.ToString("0.##"))
-                   .Append("\" class=\"grid\" />");
-
-                svg.Append("<text x=\"").Append(PadLeft - 10)
-                   .Append("\" y=\"")
-                   .Append((y + 4).ToString("0.##"))
-                   .Append("\" class=\"axis\" text-anchor=\"end\">")
-                   .Append(ShortMoney(label))
-                   .Append("</text>");
-            }
-
-
-            // --- the line ------------------------------------------------
-            StringBuilder points = new StringBuilder();
-
-            for (int i = 0; i < values.Count; i++)
-            {
-                double x = PadLeft +
-                           (plotW * i / (double)(values.Count - 1));
-
-                double y = PadTop + plotH -
-                           (double)(values[i] / max * (decimal)plotH);
-
-                if (i > 0)
-                {
-                    points.Append(' ');
-                }
-
-                points.Append(x.ToString("0.##"))
-                      .Append(',')
-                      .Append(y.ToString("0.##"));
-            }
-
-            svg.Append("<polyline fill=\"none\" ")
-               .Append("stroke=\"#2563eb\" stroke-width=\"2.5\" ")
-               .Append("stroke-linejoin=\"round\" ")
-               .Append("stroke-linecap=\"round\" ")
-               .Append("points=\"")
-               .Append(points)
-               .Append("\" />");
-
-
-            // --- points --------------------------------------------------
-            int everyN = values.Count > 12 ? 2 : 1;
-
-            for (int i = 0; i < values.Count; i++)
-            {
-                double x = PadLeft +
-                           (plotW * i / (double)(values.Count - 1));
-
-                double y = PadTop + plotH -
-                           (double)(values[i] / max * (decimal)plotH);
-
-                svg.Append("<circle cx=\"").Append(x.ToString("0.##"))
-                   .Append("\" cy=\"").Append(y.ToString("0.##"))
-                   .Append("\" r=\"3.5\" class=\"dot\" />");
-
-                if (i % everyN == 0 || i == values.Count - 1)
-                {
-                    svg.Append("<text x=\"")
-                       .Append(x.ToString("0.##"))
-                       .Append("\" y=\"").Append(H - 10)
-                       .Append("\" class=\"axis\" ")
-                       .Append("text-anchor=\"middle\">")
-                       .Append(i + 1)
-                       .Append("</text>");
-                }
-            }
-
-            svg.Append("</svg>");
-
-            return svg.ToString();
-        }
-
-
-        private static decimal RoundUp(decimal value)
-        {
-            decimal[] steps =
-            {
-                1000, 5000, 10000, 25000, 50000,
-                100000, 250000, 500000, 1000000,
-                2500000, 5000000, 10000000
-            };
-
-            foreach (decimal step in steps)
-            {
-                if (value <= step)
-                {
-                    return step;
-                }
-            }
-
-            return Math.Ceiling(value / 1000000m) * 1000000m;
-        }
-
-
-        private static string ShortMoney(decimal value)
-        {
-            if (value >= 10000000m)
-            {
-                return "&#8377;" +
-                       (value / 10000000m).ToString("0.#") + "Cr";
-            }
-
-            if (value >= 100000m)
-            {
-                return "&#8377;" +
-                       (value / 100000m).ToString("0.#") + "L";
-            }
-
-            if (value >= 1000m)
-            {
-                return "&#8377;" +
-                       (value / 1000m).ToString("0.#") + "K";
-            }
-
-            return "&#8377;" + value.ToString("N0");
-        }
-
-
-        // ============================================================
-        // TOP PRODUCTS
-        // ============================================================
-
-        private void LoadTopProducts()
-        {
-            DateTime first = new DateTime(
-                DateTime.Today.Year,
-                DateTime.Today.Month,
-                1);
-
-            string query = @"
-                SELECT TOP (5)
-                    p.ProductName,
-                    Packets = ISNULL(
-                                  SUM(od.QuantityPackets), 0)
-                FROM OrderDetails od
-                INNER JOIN Orders o
-                    ON o.OrderId = od.OrderId
-                INNER JOIN ProductVariants pv
-                    ON pv.ProductVariantId =
-                       od.ProductVariantId
-                INNER JOIN Products p
-                    ON p.ProductId = pv.ProductId
-                WHERE o.DealerId = @DealerId
-                  AND o.OrderDate >= @First
-                  AND o.OrderDate <= @Today
-                  AND o.Status <> 'Cancelled'
-                GROUP BY p.ProductId, p.ProductName
-                ORDER BY SUM(od.QuantityPackets) DESC";
-
-            DataTable table = new DataTable();
+            DataTable dt = new DataTable();
 
             using (SqlConnection con =
                 DatabaseHelper.GetConnection())
@@ -503,171 +282,83 @@ namespace BWDMS.Dealer
                         SqlDbType.Int).Value = DealerId;
 
                     cmd.Parameters.Add(
-                        "@First",
-                        SqlDbType.Date).Value = first;
+                        "@From",
+                        SqlDbType.Date).Value = from;
 
                     cmd.Parameters.Add(
-                        "@Today",
-                        SqlDbType.Date).Value =
-                            DateTime.Today;
+                        "@To",
+                        SqlDbType.Date).Value = to;
 
-                    using (SqlDataAdapter adapter =
+                    using (SqlDataAdapter da =
                         new SqlDataAdapter(cmd))
                     {
-                        adapter.Fill(table);
+                        da.Fill(dt);
                     }
                 }
             }
 
-            if (!table.Columns.Contains("QuantityText"))
+            if (!dt.Columns.Contains("StatusCss"))
             {
-                table.Columns.Add(
-                    "QuantityText",
-                    typeof(string));
+                dt.Columns.Add("StatusCss", typeof(string));
+                dt.Columns.Add("AmountText", typeof(string));
             }
 
-            foreach (DataRow row in table.Rows)
+            foreach (DataRow row in dt.Rows)
             {
-                row["QuantityText"] =
-                    Convert.ToInt32(row["Packets"])
-                        .ToString("N0");
+                row["StatusCss"] = Orders.StatusCss(
+                    row["Status"].ToString());
+
+                row["AmountText"] =
+                    Convert.ToDecimal(row["Amount"])
+                        .ToString("N2");
             }
 
-            bool empty = table.Rows.Count == 0;
-
-            rptTopProducts.Visible = !empty;
-
-            lblNoProducts.Visible = empty;
-
-            rptTopProducts.DataSource = table;
-
-            rptTopProducts.DataBind();
+            return dt;
         }
 
 
         // ============================================================
-        // VEHICLE STATUS
-        //
-        // Available  - active vehicles with no dispatch today
-        // Loading    - dispatches still being loaded
-        // Running    - dispatches out on the road
-        // Returning  - vehicles that have brought stock back today
+        // ORDERS BY STATUS - ALL TIME
         // ============================================================
 
-        private void LoadVehicleStatus()
+        private void LoadOrdersByStatus()
         {
-            string query = @"
-                SELECT
-                    TotalVehicles =
-                        ISNULL(
-                            (SELECT COUNT(*)
-                             FROM Vehicles
-                             WHERE DealerId = @DealerId
-                               AND IsActive = 1),
-                            0),
-                    BusyToday =
-                        ISNULL(
-                            (SELECT COUNT(DISTINCT VehicleId)
-                             FROM Dispatches
-                             WHERE DealerId = @DealerId
-                               AND DispatchDate = @Today
-                               AND VehicleId IS NOT NULL),
-                            0),
-                    LoadingToday =
-                        ISNULL(
-                            (SELECT COUNT(DISTINCT VehicleId)
-                             FROM Dispatches
-                             WHERE DealerId = @DealerId
-                               AND DispatchDate = @Today
-                               AND Status = 'Loading'
-                               AND VehicleId IS NOT NULL),
-                            0),
-                    RunningToday =
-                        ISNULL(
-                            (SELECT COUNT(DISTINCT VehicleId)
-                             FROM Dispatches
-                             WHERE DealerId = @DealerId
-                               AND DispatchDate = @Today
-                               AND Status = 'Dispatched'
-                               AND VehicleId IS NOT NULL),
-                            0),
-                    ReturningToday =
-                        ISNULL(
-                            (SELECT COUNT(DISTINCT VehicleId)
-                             FROM VehicleStock
-                             WHERE DealerId = @DealerId
-                               AND StockDate = @Today
-                               AND ReturnedPackets > 0),
-                            0)";
+            DataTable dt = StatusTable(
+                new DateTime(1, 1, 1),
+                new DateTime(9999, 12, 31));
 
-            using (SqlConnection con =
-                DatabaseHelper.GetConnection())
-            {
-                con.Open();
-
-                using (SqlCommand cmd =
-                    new SqlCommand(query, con))
-                {
-                    cmd.Parameters.Add(
-                        "@DealerId",
-                        SqlDbType.Int).Value = DealerId;
-
-                    cmd.Parameters.Add(
-                        "@Today",
-                        SqlDbType.Date).Value =
-                            DateTime.Today;
-
-                    using (SqlDataReader reader =
-                        cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int total =
-                                Convert.ToInt32(
-                                    reader["TotalVehicles"]);
-
-                            int busy =
-                                Convert.ToInt32(
-                                    reader["BusyToday"]);
-
-                            lblVsAvailable.Text =
-                                Math.Max(0, total - busy)
-                                    .ToString("N0");
-
-                            lblVsRunning.Text =
-                                Convert.ToInt32(
-                                    reader["RunningToday"])
-                                .ToString("N0");
-
-                            lblVsLoading.Text =
-                                Convert.ToInt32(
-                                    reader["LoadingToday"])
-                                .ToString("N0");
-
-                            lblVsReturning.Text =
-                                Convert.ToInt32(
-                                    reader["ReturningToday"])
-                                .ToString("N0");
-                        }
-                    }
-                }
-            }
+            gvOrdersByStatus.DataSource = dt;
+            gvOrdersByStatus.DataBind();
         }
 
 
         // ============================================================
-        // WAREHOUSE STOCK VALUE
+        // WAREHOUSE STOCK SUMMARY
         // ============================================================
 
-        private void LoadStockValue()
+        private void LoadStockSummary()
         {
             string query = @"
                 SELECT
+                    VariantCount =
+                        ISNULL(COUNT(i.ProductVariantId), 0),
+                    TotalPackets =
+                        ISNULL(SUM(i.QuantityPackets), 0),
                     StockValue =
                         ISNULL(
                             SUM(
                                 i.QuantityPackets *
                                 ISNULL(p.Price, 0)),
+                            0),
+                    LowStockCount =
+                        ISNULL(
+                            SUM(
+                                CASE
+                                    WHEN i.QuantityPackets
+                                         <= i.ReorderLevel
+                                    THEN 1
+                                    ELSE 0
+                                END),
                             0)
                 FROM Inventory i
                 OUTER APPLY
@@ -681,15 +372,8 @@ namespace BWDMS.Dealer
                     INNER JOIN ProductPrices pp
                         ON pp.ProductOptionId =
                            uo.ProductOptionId
-                       -- Same rule the order screens use
-                       -- (AddOrder / CreateOrder / OrderSync):
-                       -- the newest row already in force. The
-                       -- IsActive flag alone is not enough --
-                       -- in this data the only active PKT row
-                       -- is dated 2030, which would blank the
-                       -- tile out.
-                       AND pp.EffectiveFrom <=
-                           CAST(GETDATE() AS DATE)
+                       AND pp.IsActive = 1
+                       AND pp.EffectiveFrom <= CAST(GETDATE() AS DATE)
                     WHERE uo.ProductVariantId =
                           i.ProductVariantId
                       AND uo.IsActive = 1
@@ -716,14 +400,390 @@ namespace BWDMS.Dealer
                     {
                         if (reader.Read())
                         {
+                            lblStockVariants.Text =
+                                reader["VariantCount"].ToString();
+
+                            lblStockPackets.Text =
+                                Convert.ToInt32(
+                                    reader["TotalPackets"])
+                                .ToString("N0");
+
                             lblStockValue.Text =
                                 Convert.ToDecimal(
                                     reader["StockValue"])
-                                .ToString("N2", Indian);
+                                .ToString("N2");
+
+                            lblLowStockCount.Text =
+                                reader["LowStockCount"].ToString();
                         }
                     }
                 }
             }
+        }
+
+
+        // ============================================================
+        // STOCK ITEMS - LOW STOCK FIRST
+        // ============================================================
+
+        private void LoadStockItems()
+        {
+            string query = @"
+                SELECT TOP (10)
+                    ItemName =
+                        p.ProductName + ' - ' + v.VariantName,
+                    PacketsText =
+                        CONVERT(NVARCHAR(20), i.QuantityPackets)
+                        + ' packets (reorder '
+                        + CONVERT(NVARCHAR(20), i.ReorderLevel)
+                        + ')',
+                    StockState =
+                        CASE
+                            WHEN i.QuantityPackets
+                                 <= i.ReorderLevel
+                            THEN 'Low'
+                            ELSE 'Good'
+                        END
+                FROM Inventory i
+                INNER JOIN ProductVariants v
+                    ON v.ProductVariantId = i.ProductVariantId
+                INNER JOIN Products p
+                    ON p.ProductId = v.ProductId
+                WHERE i.DealerId = @DealerId
+                ORDER BY
+                    CASE
+                        WHEN i.QuantityPackets
+                             <= i.ReorderLevel
+                        THEN 0
+                        ELSE 1
+                    END,
+                    i.QuantityPackets";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            if (!dt.Columns.Contains("StockStateCss"))
+            {
+                dt.Columns.Add(
+                    "StockStateCss",
+                    typeof(string));
+            }
+
+            foreach (DataRow row in dt.Rows)
+            {
+                row["StockStateCss"] =
+                    row["StockState"].ToString() == "Low"
+                        ? "badge bg-warning text-dark"
+                        : "badge bg-success";
+            }
+
+            repStockItems.DataSource = dt;
+            repStockItems.DataBind();
+
+            // Repeater cannot render its own empty template, so the
+            // caption next to it is toggled here instead.
+            lblNoStockItems.Visible = dt.Rows.Count == 0;
+        }
+
+
+        // ============================================================
+        // LOW STOCK ALERTS
+        // ============================================================
+
+        private void LoadLowStock()
+        {
+            string query = @"
+                SELECT TOP (10)
+                    ItemName =
+                        p.ProductName + ' - ' + v.VariantName,
+                    i.QuantityPackets,
+                    i.ReorderLevel
+                FROM Inventory i
+                INNER JOIN ProductVariants v
+                    ON v.ProductVariantId = i.ProductVariantId
+                INNER JOIN Products p
+                    ON p.ProductId = v.ProductId
+                WHERE i.DealerId = @DealerId
+                  AND i.QuantityPackets <= i.ReorderLevel
+                ORDER BY
+                    (i.QuantityPackets - i.ReorderLevel),
+                    i.QuantityPackets";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            gvLowStock.DataSource = dt;
+            gvLowStock.DataBind();
+        }
+
+
+        // ============================================================
+        // TODAY'S SCHEDULES
+        // ============================================================
+
+        private void LoadTodaySchedules()
+        {
+            string today = TodayName;
+
+            lblTodayName.Text = today;
+
+            string query = @"
+                SELECT
+                    r.RouteName,
+                    rs.DayOfWeek,
+                    VehicleNumber =
+                        ISNULL(v.VehicleNumber, '-')
+                FROM RouteSchedules rs
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                   AND r.DealerId = @DealerId
+                LEFT JOIN Vehicles v
+                    ON v.VehicleId = rs.VehicleId
+                WHERE rs.DayOfWeek = @Today
+                  AND rs.IsActive = 1
+                ORDER BY r.RouteName";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
+
+                    cmd.Parameters.Add(
+                        "@Today",
+                        SqlDbType.NVarChar,
+                        40).Value = today;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            gvSchedules.DataSource = dt;
+            gvSchedules.DataBind();
+        }
+
+
+        // ============================================================
+        // VEHICLE LOADING AND RECONCILIATION STATUS
+        // ============================================================
+
+        private void LoadVehicleStatus()
+        {
+            string query = @"
+                SELECT
+                    LoadedToday =
+                        ISNULL(
+                            (SELECT SUM(LoadedPackets)
+                             FROM VehicleStock
+                             WHERE DealerId = @DealerId
+                               AND StockDate = @Today),
+                            0),
+                    ReconciliationComplete =
+                        ISNULL(
+                            (SELECT COUNT(*)
+                             FROM VehicleReconciliations
+                             WHERE DealerId = @DealerId
+                               AND ReconciliationDate = @Today
+                               AND ISNULL(IsApproved, 0) = 1),
+                            0),
+                    ReconciliationPending =
+                        ISNULL(
+                            (SELECT COUNT(*)
+                             FROM VehicleReconciliations
+                             WHERE DealerId = @DealerId
+                               AND ReconciliationDate = @Today
+                               AND ISNULL(IsApproved, 0) = 0),
+                            0)";
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
+
+                    cmd.Parameters.Add(
+                        "@Today",
+                        SqlDbType.Date).Value =
+                        DateTime.Today;
+
+                    using (SqlDataReader reader =
+                        cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            lblLoadedToday.Text =
+                                Convert.ToInt32(
+                                    reader["LoadedToday"])
+                                .ToString("N0") + " packets";
+
+                            lblReconComplete.Text =
+                                reader[
+                                    "ReconciliationComplete"]
+                                .ToString();
+
+                            lblReconPending.Text =
+                                reader[
+                                    "ReconciliationPending"]
+                                .ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // ============================================================
+        // RECENT OPERATIONAL ACTIVITY
+        //
+        // Latest rows by CreatedAt across the three dealer-owned
+        // transactional tables: orders, stock, company receipts.
+        // ============================================================
+
+        private void LoadRecentActivity()
+        {
+            string query = @"
+                SELECT TOP (10)
+                    ActivityAt,
+                    ActivityType,
+                    Reference,
+                    Details
+                FROM
+                (
+                    SELECT
+                        ActivityAt = o.CreatedAt,
+                        ActivityType = 'Order',
+                        Reference = o.OrderNumber,
+                        Details =
+                            o.Status
+                            + ' | ' + ISNULL(s.ShopName, '-')
+                    FROM Orders o
+                    LEFT JOIN Shops s
+                        ON s.ShopId = o.ShopId
+                    WHERE o.DealerId = @DealerId
+
+                    UNION ALL
+
+                    SELECT
+                        ActivityAt = st.CreatedAt,
+                        ActivityType = 'Stock',
+                        Reference =
+                            ISNULL(st.ReferenceNo, '-'),
+                        Details =
+                            st.TransactionType
+                    FROM StockTransactions st
+                    WHERE st.DealerId = @DealerId
+
+                    UNION ALL
+
+                    SELECT
+                        ActivityAt = c.CreatedAt,
+                        ActivityType = 'Receipt',
+                        Reference = c.ReceiptNumber,
+                        Details =
+                            ISNULL(c.Status, '-')
+                            + ' | '
+                            + CONVERT(
+                                NVARCHAR(20),
+                                c.TotalCost)
+                    FROM CompanyStockReceipts c
+                    WHERE c.DealerId = @DealerId
+                ) a
+                ORDER BY ActivityAt DESC, Reference DESC";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value = DealerId;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            if (!dt.Columns.Contains("ActivityAtText"))
+            {
+                dt.Columns.Add(
+                    "ActivityAtText",
+                    typeof(string));
+            }
+
+            foreach (DataRow row in dt.Rows)
+            {
+                row["ActivityAtText"] =
+                    Convert.ToDateTime(row["ActivityAt"])
+                        .ToString("dd MMM HH:mm");
+            }
+
+            gvActivity.DataSource = dt;
+            gvActivity.DataBind();
         }
 
 
@@ -783,16 +843,61 @@ namespace BWDMS.Dealer
                     row["Status"].ToString());
 
                 row["GrandTotalText"] =
-                    "&#8377;" +
                     Convert.ToDecimal(row["GrandTotal"])
-                        .ToString("N2", Indian);
+                        .ToString("N2");
             }
 
             gvRecentOrders.DataSource = dt;
-
             gvRecentOrders.DataBind();
         }
 
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvActivity_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvActivity.PageIndex = e.NewPageIndex;
+
+            LoadRecentActivity();
+        }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvLowStock_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvLowStock.PageIndex = e.NewPageIndex;
+
+            LoadLowStock();
+        }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvOrdersByStatus_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvOrdersByStatus.PageIndex = e.NewPageIndex;
+
+            LoadOrdersByStatus();
+        }
 
         // ------------------------------------------------------------
         // PAGING
@@ -803,11 +908,44 @@ namespace BWDMS.Dealer
 
         protected void gvRecentOrders_PageIndexChanging(
             object sender,
-            GridViewPageEventArgs e)
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
             gvRecentOrders.PageIndex = e.NewPageIndex;
 
             LoadRecentOrders();
         }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvSalesSummary_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvSalesSummary.PageIndex = e.NewPageIndex;
+
+            LoadSalesSummary();
+        }
+
+        // ------------------------------------------------------------
+        // PAGING
+        //
+        // The new index has to be applied before the grid is rebound,
+        // otherwise the postback lands back on the page it came from.
+        // ------------------------------------------------------------
+
+        protected void gvSchedules_PageIndexChanging(
+            object sender,
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvSchedules.PageIndex = e.NewPageIndex;
+
+            LoadTodaySchedules();
+        }
+
     }
 }

@@ -24,11 +24,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 New Dispatch
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Load a vehicle - the selected orders go out and the packets leave the godown
             </p>
 
@@ -277,7 +277,7 @@
         <hr class="my-4" />
 
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mt-3">
 
             <a href="Dispatches.aspx"
                class="btn btn-light border">

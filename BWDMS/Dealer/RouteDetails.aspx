@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Route Details
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Manage All Routes
             </p>
 
@@ -59,36 +59,30 @@
     </asp:Label>
 
 
-    <div class="row">
+    <div class="row g-4 mb-4">
 
 
         <!-- Route Information -->
 
-        <div class="col-md-6">
+        <div class="col-lg-4">
 
-            <div class="dashboard-card mb-4">
+            <div class="profile-card text-center">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="profile-avatar">
+                    <i class="bi bi-signpost-2"></i>
+                </div>
 
-                    <div>
+                <p class="profile-name">
 
-                        <small class="text-muted d-block">
-                            Route
-                        </small>
+                    <asp:Label
+                        ID="lblRouteName"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
 
+                </p>
 
-                        <strong>
-
-                            <asp:Label
-                                ID="lblRouteName"
-                                runat="server"
-                                Text="-">
-                            </asp:Label>
-
-                        </strong>
-
-                    </div>
-
+                <p class="profile-state mb-0">
 
                     <asp:Label
                         ID="lblStatus"
@@ -97,120 +91,85 @@
                         Text="Active">
                     </asp:Label>
 
-                </div>
+                </p>
 
+                <div class="profile-list text-start">
 
-                <div class="row g-4">
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Route Code
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblRouteCode"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Route Code</span>
+                        <span>
+                            <asp:Label
+                                ID="lblRouteCode"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Route Type
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblRouteType"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Route Type</span>
+                        <span>
+                            <asp:Label
+                                ID="lblRouteType"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Days
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblDays"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Days</span>
+                        <span>
+                            <asp:Label
+                                ID="lblDays"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Preferred Salesman
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblSalesman"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Preferred Salesman</span>
+                        <span>
+                            <asp:Label
+                                ID="lblSalesman"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Default Vehicle
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblVehicle"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Default Vehicle</span>
+                        <span>
+                            <asp:Label
+                                ID="lblVehicle"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Village Count
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblVillageCount"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
+                    <div>
+                        <span>Village Count</span>
+                        <span>
+                            <asp:Label
+                                ID="lblVillageCount"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Added On
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblCreatedAt"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Added On</span>
+                        <span>
+                            <asp:Label
+                                ID="lblCreatedAt"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
                 </div>
@@ -222,11 +181,11 @@
 
         <!-- Shops In This Route -->
 
-        <div class="col-md-6">
+        <div class="col-lg-8">
 
-            <div class="dashboard-card">
+            <div class="summary-box mb-4">
 
-                <h5 class="fw-bold mb-1">
+                <h5>
                     Shops in this Route
                 </h5>
 
@@ -235,7 +194,7 @@
                 </small>
 
 
-                <div class="table-responsive">
+                <div class="table-responsive mb-4">
 
                     <asp:GridView
                         ID="gvShops"

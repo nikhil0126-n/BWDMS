@@ -28,11 +28,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Vehicles
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Trucks and tempos used for route dispatch
             </p>
 
@@ -72,51 +72,37 @@
 
 
     <!-- ============================================================
+         SEARCH
+         ============================================================ -->
+
+    <div class="grid-search-box mb-4">
+
+        <i class="bi bi-search search-icon"></i>
+
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search vehicle..."
+            ClientIDMode="Static">
+        </asp:TextBox>
+
+    </div>
+
+
+
+    <!-- ============================================================
          VEHICLE LIST CARD
          ============================================================ -->
 
-    <div class="dashboard-card">
-
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Vehicle List
-                </h5>
-
-                <small class="text-muted">
-                    Vehicles available to your dealership
-                </small>
-
-            </div>
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search vehicle..."
-                    ClientIDMode="Static">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="table-responsive">
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvVehicles"
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table route-table align-middle mb-0"
+                CssClass="table table-hover align-middle"
                 GridLines="None"
                 EmptyDataText="No vehicles found. Click &quot;Add Vehicle&quot; to create the first one." AllowPaging="true" OnPageIndexChanging="gvVehicles_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
@@ -176,27 +162,25 @@
                         <ItemTemplate>
 
                             <asp:HyperLink
-                                ID="lnkEdit"
+                                ID="lnkDetails"
                                 runat="server"
-                                CssClass="btn btn-outline-danger btn-sm"
-                                NavigateUrl='<%# "~/Dealer/AddVehicle.aspx?id=" + Eval("VehicleId") %>'>
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/VehicleDetails.aspx?id=" + Eval("VehicleId") %>'>
 
-                                <i class="bi bi-pencil me-1"></i>
-
-                                Edit
+                                <i class="bi bi-eye"></i>
 
                             </asp:HyperLink>
 
 
                             <asp:HyperLink
-                                ID="lnkDetails"
+                                ID="lnkEdit"
                                 runat="server"
-                                CssClass="btn btn-outline-primary btn-sm"
-                                NavigateUrl='<%# "~/Dealer/VehicleDetails.aspx?id=" + Eval("VehicleId") %>'>
+                                CssClass="btn btn-sm btn-outline-danger"
+                                NavigateUrl='<%# "~/Dealer/AddVehicle.aspx?id=" + Eval("VehicleId") %>'>
 
-                                <i class="bi bi-eye me-1"></i>
+                                <i class="bi bi-pencil"></i>
 
-                                Details
+                                Edit
 
                             </asp:HyperLink>
 
@@ -207,9 +191,6 @@
                 </Columns>
 
             </asp:GridView>
-
-        </div>
-
 
     </div>
 

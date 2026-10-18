@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Inventory
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Stock held at your godown, counted in base packets
             </p>
 
@@ -73,72 +73,59 @@
     </asp:Label>
 
 
+    <!-- Search -->
+
+    <div class="grid-search-box mb-4">
+
+        <i class="bi bi-search search-icon"></i>
+
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search product or variant..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
+
+    </div>
+
+
+    <!-- Stock Filter -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+
+            <asp:DropDownList
+                ID="ddlStockFilter"
+                runat="server"
+                CssClass="form-select"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="FilterChanged">
+
+                <asp:ListItem Text="All Stock" Value="" Selected="True">
+                </asp:ListItem>
+
+                <asp:ListItem Text="Low / Out of Stock" Value="low">
+                </asp:ListItem>
+
+                <asp:ListItem Text="Out of Stock" Value="out">
+                </asp:ListItem>
+
+                <asp:ListItem Text="In Stock" Value="ok">
+                </asp:ListItem>
+
+            </asp:DropDownList>
+
+        </div>
+
+    </div>
+
+
     <!-- Stock List -->
 
-    <div class="dashboard-card">
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Current Stock
-                </h5>
-
-                <small class="text-muted">
-                    Items at or below the reorder level are flagged
-                </small>
-
-            </div>
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search product or variant..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
-
-
-        <div class="row g-2 mb-3">
-
-            <div class="col-md-4">
-
-                <asp:DropDownList
-                    ID="ddlStockFilter"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="FilterChanged">
-
-                    <asp:ListItem Text="All Stock" Value="" Selected="True">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Low / Out of Stock" Value="low">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Out of Stock" Value="out">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="In Stock" Value="ok">
-                    </asp:ListItem>
-
-                </asp:DropDownList>
-
-            </div>
-
-        </div>
-
-
-        <div class="table-responsive">
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvInventory"
@@ -233,8 +220,6 @@
                 </EmptyDataTemplate>
 
             </asp:GridView>
-
-        </div>
 
     </div>
 

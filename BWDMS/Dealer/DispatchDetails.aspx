@@ -20,15 +20,17 @@
     runat="server">
 
 
+    <!-- Page Header -->
+
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Dispatch Details
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Header, lines and the shops this vehicle load covered
             </p>
 
@@ -47,6 +49,8 @@
     </div>
 
 
+    <!-- Message -->
+
     <asp:Label
         ID="lblMessage"
         runat="server"
@@ -60,18 +64,22 @@
         runat="server">
 
 
-        <div class="dashboard-card mb-4">
+        <!-- Identity + Summary -->
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="row g-4 mb-4">
 
-                <div>
+            <div class="col-lg-4">
 
-                    <small class="text-muted d-block">
-                        Dispatch Number
-                    </small>
+                <div class="profile-card">
+
+                    <div class="profile-avatar">
+
+                        <i class="bi bi-truck"></i>
+
+                    </div>
 
 
-                    <strong>
+                    <p class="profile-name mb-1">
 
                         <asp:Label
                             ID="lblDispatchNumber"
@@ -79,119 +87,170 @@
                             Text="-">
                         </asp:Label>
 
-                    </strong>
+                    </p>
+
+
+                    <div class="profile-state">
+
+                        <asp:Label
+                            ID="lblStatus"
+                            runat="server"
+                            CssClass="badge bg-success"
+                            Text="Dispatched">
+                        </asp:Label>
+
+                    </div>
+
+
+                    <div class="profile-list">
+
+                        <div>
+
+                            <span>Dispatch Date</span>
+
+                            <asp:Label
+                                ID="lblDispatchDate"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>Vehicle</span>
+
+                            <asp:Label
+                                ID="lblVehicle"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>Salesman</span>
+
+                            <asp:Label
+                                ID="lblSalesman"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>Route Schedule</span>
+
+                            <asp:Label
+                                ID="lblRouteSchedule"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>Created</span>
+
+                            <asp:Label
+                                ID="lblCreatedAt"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>Remarks</span>
+
+                            <asp:Label
+                                ID="lblRemarks"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
 
                 </div>
-
-
-                <asp:Label
-                    ID="lblStatus"
-                    runat="server"
-                    CssClass="badge bg-success"
-                    Text="Dispatched">
-                </asp:Label>
 
             </div>
 
 
-            <div class="row g-4">
+            <div class="col-lg-8">
 
-                <div class="col-md-3">
+                <div class="summary-box">
 
-                    <small class="text-muted d-block">
-                        Dispatch Date
-                    </small>
-
-
-                    <asp:Label
-                        ID="lblDispatchDate"
-                        runat="server"
-                        CssClass="fw-semibold"
-                        Text="-">
-                    </asp:Label>
-
-                </div>
+                    <h5>
+                        Dispatch Summary
+                    </h5>
 
 
-                <div class="col-md-3">
+                    <div class="stat-grid">
 
-                    <small class="text-muted d-block">
-                        Vehicle
-                    </small>
+                        <div class="stat-tile">
 
+                            <i class="bi bi-box-seam"></i>
 
-                    <asp:Label
-                        ID="lblVehicle"
-                        runat="server"
-                        CssClass="fw-semibold"
-                        Text="-">
-                    </asp:Label>
+                            <div>
 
-                </div>
+                                <span class="stat-label">
+                                    Total Qty
+                                </span>
 
 
-                <div class="col-md-3">
+                                <span class="stat-value">
 
-                    <small class="text-muted d-block">
-                        Salesman
-                    </small>
+                                    <asp:Label
+                                        ID="lblTotalQty"
+                                        runat="server"
+                                        Text="0">
+                                    </asp:Label>
 
+                                </span>
 
-                    <asp:Label
-                        ID="lblSalesman"
-                        runat="server"
-                        CssClass="fw-semibold"
-                        Text="-">
-                    </asp:Label>
+                            </div>
 
-                </div>
+                        </div>
 
 
-                <div class="col-md-3">
+                        <div class="stat-tile">
 
-                    <small class="text-muted d-block">
-                        Route Schedule
-                    </small>
+                            <i class="bi bi-boxes"></i>
 
+                            <div>
 
-                    <asp:Label
-                        ID="lblRouteSchedule"
-                        runat="server"
-                        CssClass="fw-semibold"
-                        Text="-">
-                    </asp:Label>
-
-                </div>
+                                <span class="stat-label">
+                                    Total Packets
+                                </span>
 
 
-                <div class="col-md-3">
+                                <span class="stat-value">
 
-                    <small class="text-muted d-block">
-                        Created
-                    </small>
+                                    <asp:Label
+                                        ID="lblTotalPackets"
+                                        runat="server"
+                                        Text="0">
+                                    </asp:Label>
 
+                                </span>
 
-                    <asp:Label
-                        ID="lblCreatedAt"
-                        runat="server"
-                        Text="-">
-                    </asp:Label>
+                            </div>
 
-                </div>
+                        </div>
 
-
-                <div class="col-md-9">
-
-                    <small class="text-muted d-block">
-                        Remarks
-                    </small>
-
-
-                    <asp:Label
-                        ID="lblRemarks"
-                        runat="server"
-                        Text="-">
-                    </asp:Label>
+                    </div>
 
                 </div>
 
@@ -200,170 +259,128 @@
         </div>
 
 
-        <div class="dashboard-card mb-4">
+        <!-- Lines -->
 
-            <h5 class="fw-bold mb-1">
-                Lines
-            </h5>
+        <h5 class="fw-bold mb-1">
+            Lines
+        </h5>
 
-            <small class="text-muted d-block mb-3">
-                Packets that left the godown for this dispatch
-            </small>
-
-
-            <div class="table-responsive">
-
-                <asp:GridView
-                    ID="gvLines"
-                    runat="server"
-                    AutoGenerateColumns="False"
-                    CssClass="table table-hover align-middle mb-0"
-                    GridLines="None" AllowPaging="true" OnPageIndexChanging="gvLines_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                    <Columns>
-
-                        <asp:BoundField
-                            DataField="ProductName"
-                            HeaderText="Product" />
-
-                        <asp:BoundField
-                            DataField="VariantName"
-                            HeaderText="Variant" />
-
-                        <asp:BoundField
-                            DataField="UnitCode"
-                            HeaderText="Unit" />
-
-                        <asp:BoundField
-                            DataField="Quantity"
-                            HeaderText="Qty"
-                            ItemStyle-CssClass="text-end"
-                            HeaderStyle-CssClass="text-end" />
-
-                        <asp:BoundField
-                            DataField="QuantityPackets"
-                            HeaderText="Packets"
-                            ItemStyle-CssClass="text-end"
-                            HeaderStyle-CssClass="text-end" />
-
-                    </Columns>
+        <small class="text-muted d-block mb-3">
+            Packets that left the godown for this dispatch
+        </small>
 
 
-                    <EmptyDataTemplate>
+        <div class="table-responsive mb-4">
 
-                        <div class="text-center py-4">
+            <asp:GridView
+                ID="gvLines"
+                runat="server"
+                AutoGenerateColumns="False"
+                CssClass="table table-hover align-middle mb-0"
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvLines_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
-                            <p class="text-muted mb-0">
-                                This dispatch has no lines.
-                            </p>
+                <Columns>
 
-                        </div>
+                    <asp:BoundField
+                        DataField="ProductName"
+                        HeaderText="Product" />
 
-                    </EmptyDataTemplate>
+                    <asp:BoundField
+                        DataField="VariantName"
+                        HeaderText="Variant" />
 
-                </asp:GridView>
+                    <asp:BoundField
+                        DataField="UnitCode"
+                        HeaderText="Unit" />
 
-            </div>
+                    <asp:BoundField
+                        DataField="Quantity"
+                        HeaderText="Qty"
+                        ItemStyle-CssClass="text-end"
+                        HeaderStyle-CssClass="text-end" />
 
+                    <asp:BoundField
+                        DataField="QuantityPackets"
+                        HeaderText="Packets"
+                        ItemStyle-CssClass="text-end"
+                        HeaderStyle-CssClass="text-end" />
 
-            <div class="d-flex justify-content-end py-2 border-top mt-3">
-
-                <span class="text-muted pe-3">
-
-                    Total Qty
-
-                    <strong>
-
-                        <asp:Label
-                            ID="lblTotalQty"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
-                    </strong>
-
-                </span>
+                </Columns>
 
 
-                <span class="text-muted ps-3">
+                <EmptyDataTemplate>
 
-                    Total Packets
+                    <div class="text-center py-4">
 
-                    <strong>
+                        <p class="text-muted mb-0">
+                            This dispatch has no lines.
+                        </p>
 
-                        <asp:Label
-                            ID="lblTotalPackets"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
+                    </div>
 
-                    </strong>
+                </EmptyDataTemplate>
 
-                </span>
-
-            </div>
+            </asp:GridView>
 
         </div>
 
 
-        <div class="dashboard-card">
+        <!-- Orders Covered -->
 
-            <h5 class="fw-bold mb-1">
-                Orders Covered
-            </h5>
+        <h5 class="fw-bold mb-1">
+            Orders Covered
+        </h5>
 
-            <small class="text-muted d-block mb-3">
-                Shops that went out on this vehicle
-            </small>
-
-
-            <div class="table-responsive">
-
-                <asp:GridView
-                    ID="gvOrders"
-                    runat="server"
-                    AutoGenerateColumns="False"
-                    CssClass="table table-hover align-middle mb-0"
-                    GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                    <Columns>
-
-                        <asp:BoundField
-                            DataField="OrderNumber"
-                            HeaderText="Order No." />
-
-                        <asp:BoundField
-                            DataField="ShopName"
-                            HeaderText="Shop" />
-
-                        <asp:BoundField
-                            DataField="Status"
-                            HeaderText="Status" />
-
-                        <asp:BoundField
-                            DataField="GrandTotalText"
-                            HeaderText="Grand Total"
-                            ItemStyle-CssClass="text-end"
-                            HeaderStyle-CssClass="text-end" />
-
-                    </Columns>
+        <small class="text-muted d-block mb-3">
+            Shops that went out on this vehicle
+        </small>
 
 
-                    <EmptyDataTemplate>
+        <div class="table-responsive">
 
-                        <div class="text-center py-4">
+            <asp:GridView
+                ID="gvOrders"
+                runat="server"
+                AutoGenerateColumns="False"
+                CssClass="table table-hover align-middle mb-0"
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
-                            <p class="text-muted mb-0">
-                                No orders are linked to this dispatch.
-                            </p>
+                <Columns>
 
-                        </div>
+                    <asp:BoundField
+                        DataField="OrderNumber"
+                        HeaderText="Order No." />
 
-                    </EmptyDataTemplate>
+                    <asp:BoundField
+                        DataField="ShopName"
+                        HeaderText="Shop" />
 
-                </asp:GridView>
+                    <asp:BoundField
+                        DataField="Status"
+                        HeaderText="Status" />
 
-            </div>
+                    <asp:BoundField
+                        DataField="GrandTotalText"
+                        HeaderText="Grand Total"
+                        ItemStyle-CssClass="text-end"
+                        HeaderStyle-CssClass="text-end" />
+
+                </Columns>
+
+
+                <EmptyDataTemplate>
+
+                    <div class="text-center py-4">
+
+                        <p class="text-muted mb-0">
+                            No orders are linked to this dispatch.
+                        </p>
+
+                    </div>
+
+                </EmptyDataTemplate>
+
+            </asp:GridView>
 
         </div>
 

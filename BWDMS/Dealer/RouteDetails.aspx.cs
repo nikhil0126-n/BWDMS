@@ -84,25 +84,24 @@ namespace BWDMS.Dealer
             }
 
 
-            if (RouteId <= 0)
-            {
-                Response.Redirect("~/Dealer/Routes.aspx");
-
-                return;
-            }
-
-            routeLoaded = LoadRouteHeader();
-
-            if (!routeLoaded)
-            {
-                Response.Redirect("~/Dealer/Routes.aspx");
-
-                return;
-            }
-
-
             if (!IsPostBack)
             {
+                if (RouteId <= 0)
+                {
+                    Response.Redirect("~/Dealer/Routes.aspx");
+
+                    return;
+                }
+
+                routeLoaded = LoadRouteHeader();
+
+                if (!routeLoaded)
+                {
+                    Response.Redirect("~/Dealer/Routes.aspx");
+
+                    return;
+                }
+
                 LoadShops();
             }
         }

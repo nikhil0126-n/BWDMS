@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Stock Ledger
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Every stock movement recorded for this dealership
             </p>
 
@@ -73,63 +73,54 @@
     </asp:Label>
 
 
-    <!-- Ledger -->
+    <!-- Search -->
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <i class="bi bi-search search-icon"></i>
 
-            <div>
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search reference or remarks..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
 
-                <h5 class="fw-bold mb-1">
-                    Transactions
-                </h5>
-
-                <small class="text-muted">
-                    Newest first, with the variants that moved
-                </small>
-
-            </div>
-
-
-            <div class="d-flex gap-2">
-
-                <div class="grid-search-box">
-
-                    <asp:TextBox
-                        ID="txtSearch"
-                        runat="server"
-                        CssClass="form-control"
-                        placeholder="Search reference or remarks..."
-                        AutoPostBack="true"
-                        OnTextChanged="txtSearch_TextChanged">
-                    </asp:TextBox>
-
-                </div>
+    </div>
 
 
-                <asp:DropDownList
-                    ID="ddlType"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="FilterChanged">
+    <!-- Type Filter -->
 
-                    <asp:ListItem Text="All Types" Value="" Selected="True">
-                    </asp:ListItem>
+    <div class="row g-3 mb-4">
 
-                    <asp:ListItem Text="Stock In" Value="Stock In">
-                    </asp:ListItem>
+        <div class="col-md-4">
 
-                    <asp:ListItem Text="Stock Out" Value="Stock Out">
-                    </asp:ListItem>
+            <asp:DropDownList
+                ID="ddlType"
+                runat="server"
+                CssClass="form-select"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="FilterChanged">
 
-                </asp:DropDownList>
+                <asp:ListItem Text="All Types" Value="" Selected="True">
+                </asp:ListItem>
 
-            </div>
+                <asp:ListItem Text="Stock In" Value="Stock In">
+                </asp:ListItem>
+
+                <asp:ListItem Text="Stock Out" Value="Stock Out">
+                </asp:ListItem>
+
+            </asp:DropDownList>
 
         </div>
 
+    </div>
+
+
+    <!-- Ledger -->
 
         <asp:Repeater
             ID="repTransactions"
@@ -280,8 +271,6 @@
             </div>
 
         </asp:Panel>
-
-    </div>
 
 
 </asp:Content>

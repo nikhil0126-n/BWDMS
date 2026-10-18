@@ -28,11 +28,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Salesmen
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Field accounts assigned to your dealership
             </p>
 
@@ -71,52 +71,31 @@
 
 
 
-    <!-- ============================================================
-         ACCOUNT LIST CARD
-         ============================================================ -->
+    <!-- Search -->
+    <div class="grid-search-box mb-4">
 
-    <div class="dashboard-card">
+        <i class="bi bi-search search-icon"></i>
 
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search name, email or phone..."
+            ClientIDMode="Static">
+        </asp:TextBox>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Account List
-                </h5>
-
-                <small class="text-muted">
-                    Salesmen who can be picked in route schedules
-                </small>
-
-            </div>
+    </div>
 
 
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search name, email or phone..."
-                    ClientIDMode="Static">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="table-responsive">
+    <!-- Account List -->
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvSalesmen"
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table route-table align-middle mb-0"
+                CssClass="table table-hover align-middle"
                 GridLines="None"
                 EmptyDataText="No salesman accounts yet. Click &quot;Add Account&quot; to create one." AllowPaging="true" OnPageIndexChanging="gvSalesmen_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
@@ -176,27 +155,23 @@
                         <ItemTemplate>
 
                             <asp:HyperLink
-                                ID="lnkEdit"
+                                ID="lnkDetails"
                                 runat="server"
-                                CssClass="btn btn-outline-danger btn-sm"
-                                NavigateUrl='<%# "~/Dealer/AddSalesman.aspx?id=" + Eval("UserId") %>'>
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/SalesmanDetails.aspx?id=" + Eval("UserId") %>'>
 
-                                <i class="bi bi-pencil me-1"></i>
-
-                                Edit
+                                <i class="bi bi-eye"></i>
 
                             </asp:HyperLink>
 
 
                             <asp:HyperLink
-                                ID="lnkDetails"
+                                ID="lnkEdit"
                                 runat="server"
-                                CssClass="btn btn-outline-primary btn-sm"
-                                NavigateUrl='<%# "~/Dealer/SalesmanDetails.aspx?id=" + Eval("UserId") %>'>
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/AddSalesman.aspx?id=" + Eval("UserId") %>'>
 
-                                <i class="bi bi-eye me-1"></i>
-
-                                Details
+                                <i class="bi bi-pencil"></i>
 
                             </asp:HyperLink>
 
@@ -209,9 +184,6 @@
             </asp:GridView>
 
         </div>
-
-
-    </div>
 
 
 </asp:Content>

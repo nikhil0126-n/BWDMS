@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Vehicle Details
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Manage All Vehicles
             </p>
 
@@ -59,36 +59,30 @@
     </asp:Label>
 
 
-    <div class="row">
+    <div class="row g-4 mb-4">
 
 
         <!-- Vehicle Information -->
 
-        <div class="col-md-6">
+        <div class="col-lg-4">
 
-            <div class="dashboard-card mb-4">
+            <div class="profile-card text-center">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="profile-avatar">
+                    <i class="bi bi-truck"></i>
+                </div>
 
-                    <div>
+                <p class="profile-name">
 
-                        <small class="text-muted d-block">
-                            Vehicle
-                        </small>
+                    <asp:Label
+                        ID="lblVehicleNumber"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
 
+                </p>
 
-                        <strong>
-
-                            <asp:Label
-                                ID="lblVehicleNumber"
-                                runat="server"
-                                Text="-">
-                            </asp:Label>
-
-                        </strong>
-
-                    </div>
-
+                <p class="profile-state mb-0">
 
                     <asp:Label
                         ID="lblStatus"
@@ -97,72 +91,52 @@
                         Text="Active">
                     </asp:Label>
 
-                </div>
+                </p>
 
+                <div class="profile-list text-start">
 
-                <div class="row g-4">
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Vehicle Name
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblVehicleName"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Vehicle Name</span>
+                        <span>
+                            <asp:Label
+                                ID="lblVehicleName"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Vehicle Type
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblVehicleType"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Vehicle Type</span>
+                        <span>
+                            <asp:Label
+                                ID="lblVehicleType"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Owned By
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblOwnerText"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Owned By</span>
+                        <span>
+                            <asp:Label
+                                ID="lblOwnerText"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
-
-                    <div class="col-md-6">
-
-                        <small class="text-muted d-block">
-                            Added On
-                        </small>
-
-
-                        <asp:Label
-                            ID="lblCreatedAt"
-                            runat="server"
-                            Text="-">
-                        </asp:Label>
-
+                    <div>
+                        <span>Added On</span>
+                        <span>
+                            <asp:Label
+                                ID="lblCreatedAt"
+                                runat="server"
+                                Text="-">
+                            </asp:Label>
+                        </span>
                     </div>
 
                 </div>
@@ -174,11 +148,11 @@
 
         <!-- This Month Summary -->
 
-        <div class="col-md-6">
+        <div class="col-lg-8">
 
-            <div class="dashboard-card">
+            <div class="summary-box mb-4">
 
-                <h5 class="fw-bold mb-1">
+                <h5>
                     This Month Summary
                 </h5>
 
@@ -187,64 +161,73 @@
                 </small>
 
 
-                <div class="row g-4">
+                <div class="stat-grid">
 
-                    <div class="col-md-4">
+                    <div class="stat-tile">
 
-                        <small class="text-muted d-block">
-                            Total Trips
-                        </small>
+                        <i class="bi bi-signpost-split"></i>
 
+                        <div>
 
-                        <strong>
+                            <span class="stat-label">Total Trips</span>
 
-                            <asp:Label
-                                ID="lblTrips"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
+                            <span class="stat-value">
 
-                        </strong>
+                                <asp:Label
+                                    ID="lblTrips"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
 
-                    </div>
+                            </span>
 
-
-                    <div class="col-md-4">
-
-                        <small class="text-muted d-block">
-                            Total Sales
-                        </small>
-
-
-                        <strong>
-
-                            <asp:Label
-                                ID="lblSales"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-
-                        </strong>
+                        </div>
 
                     </div>
 
 
-                    <div class="col-md-4">
+                    <div class="stat-tile">
 
-                        <small class="text-muted d-block">
-                            Total Orders
-                        </small>
+                        <i class="bi bi-graph-up"></i>
+
+                        <div>
+
+                            <span class="stat-label">Total Sales</span>
+
+                            <span class="stat-value">
+
+                                <asp:Label
+                                    ID="lblSales"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+
+                            </span>
+
+                        </div>
+
+                    </div>
 
 
-                        <strong>
+                    <div class="stat-tile">
 
-                            <asp:Label
-                                ID="lblOrders"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
+                        <i class="bi bi-cart-check"></i>
 
-                        </strong>
+                        <div>
+
+                            <span class="stat-label">Total Orders</span>
+
+                            <span class="stat-value">
+
+                                <asp:Label
+                                    ID="lblOrders"
+                                    runat="server"
+                                    Text="0">
+                                </asp:Label>
+
+                            </span>
+
+                        </div>
 
                     </div>
 

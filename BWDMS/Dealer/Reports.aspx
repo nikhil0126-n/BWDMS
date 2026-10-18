@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Reports
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Stock, sales and order reports for your dealership
             </p>
 
@@ -45,16 +45,6 @@
                 <i class="bi bi-box-seam"></i>
 
                 Inventory
-
-            </a>
-
-
-            <a href="RouteHistory.aspx"
-               class="btn btn-outline-secondary">
-
-                <i class="bi bi-clock-history"></i>
-
-                Route History
 
             </a>
 
@@ -85,94 +75,98 @@
 
     <!-- KPI Tiles -->
 
-    <div class="row g-3 mb-4">
+    <div class="summary-box mb-4">
 
-        <div class="col-md-3">
+        <div class="stat-grid">
 
-            <div class="dashboard-card">
+            <div class="stat-tile">
 
-                <div class="card-title">
-                    Total Products
+                <i class="bi bi-box-seam"></i>
+
+                <div>
+
+                    <span class="stat-label">Total Products</span>
+
+                    <span class="stat-value">
+
+                        <asp:Label
+                            ID="lblKpiProducts"
+                            runat="server"
+                            Text="0">
+                        </asp:Label>
+
+                    </span>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiProducts"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
-        </div>
 
+            <div class="stat-tile">
 
-        <div class="col-md-3">
+                <i class="bi bi-exclamation-triangle"></i>
 
-            <div class="dashboard-card">
+                <div>
 
-                <div class="card-title">
-                    Low / Out of Stock
+                    <span class="stat-label">Low / Out of Stock</span>
+
+                    <span class="stat-value">
+
+                        <asp:Label
+                            ID="lblKpiLowStock"
+                            runat="server"
+                            Text="0">
+                        </asp:Label>
+
+                    </span>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiLowStock"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
-        </div>
 
+            <div class="stat-tile">
 
-        <div class="col-md-3">
+                <i class="bi bi-cart3"></i>
 
-            <div class="dashboard-card">
+                <div>
 
-                <div class="card-title">
-                    Orders
+                    <span class="stat-label">Orders</span>
+
+                    <span class="stat-value">
+
+                        <asp:Label
+                            ID="lblKpiOrders"
+                            runat="server"
+                            Text="0">
+                        </asp:Label>
+
+                    </span>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiOrders"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
-        </div>
 
+            <div class="stat-tile">
 
-        <div class="col-md-3">
+                <i class="bi bi-currency-rupee"></i>
 
-            <div class="dashboard-card">
+                <div>
 
-                <div class="card-title">
-                    Total Sales Value
+                    <span class="stat-label">Total Sales Value</span>
+
+                    <span class="stat-value">
+
+                        <asp:Label
+                            ID="lblKpiSales"
+                            runat="server"
+                            Text="0.00">
+                        </asp:Label>
+
+                    </span>
+
                 </div>
-
-                <h4 class="fw-bold mb-0">
-
-                    <asp:Label
-                        ID="lblKpiSales"
-                        runat="server"
-                        Text="0.00">
-                    </asp:Label>
-
-                </h4>
 
             </div>
 
@@ -181,9 +175,9 @@
     </div>
 
 
-    <!-- Report -->
+    <!-- Report Header + Filters -->
 
-    <div class="dashboard-card">
+    <div class="summary-box mb-4">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -341,31 +335,35 @@
         </div>
 
 
-        <p class="text-muted small mb-3">
+        <p class="text-muted small mb-0">
             From / To dates apply to "Orders by Date", the sales reports, receipts, reconciliation and returns. Leave them blank for no date limit.
         </p>
 
+    </div>
 
-        <div class="table-responsive">
 
-            <asp:GridView
-                ID="gvReport"
-                runat="server"
-                AutoGenerateColumns="False"
-                CssClass="table table-hover align-middle"
-                GridLines="None"
-                OnRowDataBound="gvReport_RowDataBound" AllowPaging="true" OnPageIndexChanging="gvReport_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-            </asp:GridView>
+    <div class="table-responsive mb-4">
 
-        </div>
+        <asp:GridView
+            ID="gvReport"
+            runat="server"
+            AutoGenerateColumns="False"
+            CssClass="table table-hover align-middle"
+            GridLines="None"
+            OnRowDataBound="gvReport_RowDataBound" AllowPaging="true" OnPageIndexChanging="gvReport_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+        </asp:GridView>
 
+    </div>
+
+
+    <div class="summary-box">
 
         <asp:Panel
             ID="pnlEmpty"
             runat="server"
             Visible="false">
 
-            <div class="text-center py-5">
+            <div class="text-center py-4 mb-0">
 
                 <i class="bi bi-bar-chart fs-1 text-muted"></i>
 

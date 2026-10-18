@@ -32,7 +32,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
 
                 <asp:Label
                     ID="lblHeading"
@@ -43,7 +43,7 @@
             </h3>
 
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
 
                 <asp:Label
                     ID="lblSubHeading"
@@ -126,7 +126,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Route Name
 
@@ -161,7 +161,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Route Number
 
@@ -191,7 +191,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Route Type
 
@@ -246,7 +246,7 @@
 
             <div class="col-md-12">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Order / Dispatch Days
 
@@ -323,7 +323,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Preferred Salesperson
 
@@ -352,7 +352,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Preferred Driver
 
@@ -381,7 +381,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Default Truck
 
@@ -410,7 +410,7 @@
 
             <div class="col-md-6">
 
-                <label class="form-label fw-semibold">
+                <label class="form-label">
 
                     Status
 
@@ -470,11 +470,11 @@
              BUTTONS
              ======================================================== -->
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mt-3">
 
 
             <a href="Routes.aspx"
-               class="btn btn-light border">
+               class="btn btn-outline-secondary">
 
                 <i class="bi bi-x-lg me-1"></i>
 

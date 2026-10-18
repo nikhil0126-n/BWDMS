@@ -24,7 +24,7 @@
     <div class="page-header d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 <asp:Label
                     ID="lblPageTitle"
                     runat="server"
@@ -32,7 +32,7 @@
                 </asp:Label>
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Create and manage your weekly route planning
             </p>
         </div>
@@ -48,12 +48,27 @@
     </div>
 
 
-    <div class="dashboard-card">
+    <!-- Message -->
 
-        <div class="form-section-title">
-            <i class="bi bi-calendar-week me-2"></i>
-            Weekly Plan Information
-        </div>
+    <asp:Label
+        ID="lblMessage"
+        runat="server"
+        Visible="false"
+        CssClass="d-block mt-3">
+    </asp:Label>
+
+
+    <div class="row g-4">
+
+
+        <div class="col-lg-4">
+
+            <div class="summary-box">
+
+                <h5>
+                    <i class="bi bi-calendar-week me-2"></i>
+                    Weekly Plan Information
+                </h5>
 
 
         <div class="row g-4">
@@ -155,17 +170,23 @@
         </div>
 
 
-        <hr class="my-4" />
+            </div>
 
-
-        <div class="form-section-title">
-            <i class="bi bi-geo-alt me-2"></i>
-            Select Villages
         </div>
 
-        <p class="text-muted small">
-            Select the villages that belong to this weekly route plan.
-        </p>
+
+        <div class="col-lg-8">
+
+            <div class="summary-box">
+
+                <h5>
+                    <i class="bi bi-geo-alt me-2"></i>
+                    Select Villages
+                </h5>
+
+                <p class="text-muted small">
+                    Select the villages that belong to this weekly route plan.
+                </p>
 
 
         <div class="village-search-wrapper mb-3">
@@ -213,33 +234,32 @@
         </asp:CustomValidator>
 
 
-        <div class="form-actions mt-4 pt-4">
-
-            <asp:Button
-                ID="btnSavePlan"
-                runat="server"
-                Text="Save Weekly Plan"
-                CssClass="btn btn-primary px-4"
-                OnClick="btnSavePlan_Click"
-                CausesValidation="true" />
-
-
-            <a href="WeeklyRoutePlans.aspx"
-               class="btn btn-outline-secondary ms-2">
-
-                Cancel
-
-            </a>
+            </div>
 
         </div>
 
+    </div>
 
-        <asp:Label
-            ID="lblMessage"
+
+    <!-- Actions -->
+
+    <div class="form-actions d-flex justify-content-end gap-2 mt-4 pt-4">
+
+        <asp:Button
+            ID="btnSavePlan"
             runat="server"
-            Visible="false"
-            CssClass="d-block mt-3">
-        </asp:Label>
+            Text="Save Weekly Plan"
+            CssClass="btn btn-primary px-4"
+            OnClick="btnSavePlan_Click"
+            CausesValidation="true" />
+
+
+        <a href="WeeklyRoutePlans.aspx"
+           class="btn btn-outline-secondary">
+
+            Cancel
+
+        </a>
 
     </div>
 

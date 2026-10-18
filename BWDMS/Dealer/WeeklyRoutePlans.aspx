@@ -25,11 +25,11 @@
     <div class="page-header d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Weekly Route Plans
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Plan your weekly routes and assign villages
             </p>
         </div>
@@ -45,37 +45,23 @@
     </div>
 
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
-        <div class="route-plan-header d-flex justify-content-between align-items-center mb-3">
+        <i class="bi bi-search search-icon"></i>
 
-            <div>
-                <h5 class="fw-bold mb-1">
-                    Weekly Plan List
-                </h5>
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            ClientIDMode="Static"
+            CssClass="form-control"
+            placeholder="Search route or date..."
+            autocomplete="off">
+        </asp:TextBox>
 
-                <small class="text-muted">
-                    Manage your weekly route planning
-                </small>
-            </div>
-
-            <div class="search-container">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    ClientIDMode="Static"
-                    CssClass="form-control"
-                    placeholder="Search route or date..."
-                    autocomplete="off">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <div class="table-responsive">
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvWeeklyPlans"
@@ -156,8 +142,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
     <script src="../Scripts/WeeklyRoutePlans.js"></script>

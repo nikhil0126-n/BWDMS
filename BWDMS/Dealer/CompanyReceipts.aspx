@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Company Receipts
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Goods received from Balaji Wafers - posting a receipt raises godown stock
             </p>
 
@@ -73,53 +73,40 @@
     </asp:Label>
 
 
-    <!-- Receipt List -->
+    <!-- Search -->
 
-    <div class="dashboard-card">
+    <div class="d-flex align-items-center gap-2 mb-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="grid-search-box">
 
-            <div>
+            <i class="bi bi-search search-icon"></i>
 
-                <h5 class="fw-bold mb-1">
-                    All Receipts
-                </h5>
-
-                <small class="text-muted">
-                    Newest first
-                </small>
-
-            </div>
-
-
-            <div class="d-flex gap-2 align-items-center">
-
-                <div class="grid-search-box">
-
-                    <asp:TextBox
-                        ID="txtSearch"
-                        runat="server"
-                        CssClass="form-control"
-                        placeholder="Search receipt or invoice...">
-                    </asp:TextBox>
-
-                </div>
-
-
-                <asp:Button
-                    ID="btnSearch"
-                    runat="server"
-                    Text="Search"
-                    CssClass="btn btn-outline-secondary"
-                    OnClick="btnSearch_Click">
-                </asp:Button>
-
-            </div>
+            <asp:TextBox
+                ID="txtSearch"
+                runat="server"
+                CssClass="form-control"
+                placeholder="Search receipt or invoice...">
+            </asp:TextBox>
 
         </div>
 
 
-        <div class="row g-2 mb-3">
+        <asp:Button
+            ID="btnSearch"
+            runat="server"
+            Text="Search"
+            CssClass="btn btn-outline-secondary"
+            OnClick="btnSearch_Click">
+        </asp:Button>
+
+    </div>
+
+
+    <!-- Filters -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="row g-2">
 
             <div class="col-md-4">
 
@@ -145,8 +132,12 @@
 
         </div>
 
+    </div>
 
-        <div class="table-responsive">
+
+    <!-- Receipt List -->
+
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvReceipts"
@@ -254,8 +245,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
 </asp:Content>

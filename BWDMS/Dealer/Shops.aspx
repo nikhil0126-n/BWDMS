@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Shops
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Retail shops served by your dealership
             </p>
 
@@ -63,42 +63,25 @@
     </asp:Label>
 
 
-    <!-- Shop List -->
+    <!-- Search -->
+    <div class="grid-search-box mb-4">
 
-    <div class="dashboard-card">
+        <i class="bi bi-search search-icon"></i>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search shop, owner or phone..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
 
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Shop List
-                </h5>
-
-                <small class="text-muted">
-                    Shops assigned to your routes and villages
-                </small>
-
-            </div>
+    </div>
 
 
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search shop, owner or phone..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
-
-
-        <div class="row g-2 mb-3">
+    <!-- Filters -->
+    <div class="row g-2 mb-4">
 
             <div class="col-md-4">
 
@@ -210,19 +193,6 @@
                             <div class="d-flex gap-2">
 
                                 <asp:HyperLink
-                                    ID="lnkEdit"
-                                    runat="server"
-                                    CssClass="btn btn-sm btn-outline-danger"
-                                    NavigateUrl='<%# "~/Dealer/AddShop.aspx?id=" + Eval("ShopId") %>'>
-
-                                    <i class="bi bi-pencil"></i>
-
-                                    Edit
-
-                                </asp:HyperLink>
-
-
-                                <asp:HyperLink
                                     ID="lnkDetails"
                                     runat="server"
                                     CssClass="btn btn-sm btn-outline-primary"
@@ -230,7 +200,16 @@
 
                                     <i class="bi bi-eye"></i>
 
-                                    Details
+                                </asp:HyperLink>
+
+
+                                <asp:HyperLink
+                                    ID="lnkEdit"
+                                    runat="server"
+                                    CssClass="btn btn-sm btn-outline-primary"
+                                    NavigateUrl='<%# "~/Dealer/AddShop.aspx?id=" + Eval("ShopId") %>'>
+
+                                    <i class="bi bi-pencil"></i>
 
                                 </asp:HyperLink>
 
@@ -238,12 +217,10 @@
                                 <asp:HyperLink
                                     ID="lnkOrderHistory"
                                     runat="server"
-                                    CssClass="btn btn-sm btn-outline-danger"
+                                    CssClass="btn btn-sm btn-outline-secondary"
                                     NavigateUrl='<%# "~/Dealer/ShopOrders.aspx?shopId=" + Eval("ShopId") %>'>
 
                                     <i class="bi bi-clock-history"></i>
-
-                                    Order History
 
                                 </asp:HyperLink>
 
@@ -273,8 +250,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
 </asp:Content>

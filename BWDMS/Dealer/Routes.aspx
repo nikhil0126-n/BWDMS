@@ -28,25 +28,15 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Routes
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Manage your delivery and sales routes
             </p>
 
         </div>
-
-
-        <a href="RouteHistory.aspx"
-           class="btn btn-outline-secondary">
-
-            <i class="bi bi-clock-history"></i>
-
-            Route History
-
-        </a>
 
 
         <a href="AddRoute.aspx"
@@ -63,57 +53,28 @@
 
 
     <!-- ============================================================
-         ROUTE LIST CARD
+         LIVE SEARCH
          ============================================================ -->
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
+        <i class="bi bi-search search-icon"></i>
 
-        <!-- ========================================================
-             CARD HEADER
-             ======================================================== -->
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search route..."
+            ClientIDMode="Static">
+        </asp:TextBox>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Route List
-                </h5>
-
-                <small class="text-muted">
-                    Routes assigned to your dealership
-                </small>
-
-            </div>
+    </div>
 
 
 
-            <!-- ====================================================
-                 LIVE SEARCH
-                 ==================================================== -->
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search route..."
-                    ClientIDMode="Static">
-                </asp:TextBox>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- ========================================================
-             ROUTE TABLE
-             ======================================================== -->
+    <!-- ============================================================
+         ROUTE TABLE
+         ============================================================ -->
 
         <div class="table-responsive">
 
@@ -123,7 +84,7 @@
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table route-table align-middle mb-0"
+                CssClass="table table-hover align-middle"
                 GridLines="None" AllowPaging="true" OnPageIndexChanging="gvRoutes_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
@@ -289,29 +250,25 @@
 
 
                             <asp:HyperLink
-                                ID="lnkEdit"
+                                ID="lnkDetails"
                                 runat="server"
-                                CssClass="btn btn-outline-danger btn-sm"
-                                NavigateUrl='<%# "~/Dealer/AddRoute.aspx?id=" + Eval("RouteId") %>'>
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/RouteDetails.aspx?id=" + Eval("RouteId") %>'>
 
-
-                                <i class="bi bi-pencil me-1"></i>
-
-                                Edit
-
+                                <i class="bi bi-eye"></i>
 
                             </asp:HyperLink>
 
 
                             <asp:HyperLink
-                                ID="lnkDetails"
+                                ID="lnkEdit"
                                 runat="server"
-                                CssClass="btn btn-outline-primary btn-sm"
-                                NavigateUrl='<%# "~/Dealer/RouteDetails.aspx?id=" + Eval("RouteId") %>'>
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/AddRoute.aspx?id=" + Eval("RouteId") %>'>
 
-                                <i class="bi bi-eye me-1"></i>
 
-                                Details
+                                <i class="bi bi-pencil"></i>
+
 
                             </asp:HyperLink>
 
@@ -319,13 +276,11 @@
                             <asp:HyperLink
                                 ID="lnkAssignVillages"
                                 runat="server"
-                                CssClass="btn btn-outline-secondary btn-sm ms-1"
+                                CssClass="btn btn-sm btn-outline-secondary ms-1"
                                 NavigateUrl='<%# "~/Dealer/RouteVillageAssignment.aspx?route=" + Eval("RouteId") %>'>
 
 
-                                <i class="bi bi-geo-alt me-1"></i>
-
-                                Villages
+                                <i class="bi bi-geo-alt"></i>
 
 
                             </asp:HyperLink>
@@ -344,9 +299,6 @@
 
 
         </div>
-
-
-    </div>
 
 
 

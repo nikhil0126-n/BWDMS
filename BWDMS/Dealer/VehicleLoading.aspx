@@ -28,7 +28,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
 
                 <asp:Label
                     ID="lblHeading"
@@ -39,7 +39,7 @@
             </h3>
 
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
 
                 <asp:Label
                     ID="lblSubHeading"
@@ -72,69 +72,19 @@
     </asp:Label>
 
 
-    <!-- Load form -->
+    <!-- Two panel working area: select on the left, products on the right -->
 
-    <div class="dashboard-card">
-
-
-        <!-- Already loaded for the selected vehicle -->
-
-        <div class="mb-4">
-
-            <h5 class="fw-bold mb-1">
-                Already Loaded
-            </h5>
+    <div class="row g-4">
 
 
-            <asp:Label
-                ID="lblSummaryHeading"
-                runat="server"
-                CssClass="text-muted small"
-                Text="Select a vehicle to see what has already been loaded.">
-            </asp:Label>
+        <div class="col-lg-4">
 
-        </div>
+            <div class="summary-box">
+
+                <h5>Select</h5>
 
 
-        <div class="table-responsive mb-4">
-
-            <asp:GridView
-                ID="gvTodayLoaded"
-                runat="server"
-                AutoGenerateColumns="False"
-                CssClass="table table-hover align-middle mb-0"
-                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvTodayLoaded_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-
-                <Columns>
-
-                    <asp:BoundField
-                        DataField="VariantLabel"
-                        HeaderText="Product Variant" />
-
-                    <asp:BoundField
-                        DataField="LoadedPackets"
-                        HeaderText="Loaded Packets" />
-
-                </Columns>
-
-
-                <EmptyDataTemplate>
-
-                    <p class="text-muted py-2 mb-0">
-                        Nothing has been loaded for this vehicle on that date yet.
-                    </p>
-
-                </EmptyDataTemplate>
-
-            </asp:GridView>
-
-        </div>
-
-
-        <hr class="my-4" />
-
-
-        <!-- Vehicle + date -->
+                <!-- Vehicle + date -->
 
         <div class="row g-4 mb-3">
 
@@ -289,19 +239,31 @@
         </asp:Label>
 
 
-        <!-- Line builder -->
-
-        <div class="mb-3">
-
-            <h5 class="fw-bold mb-1">
-                Load Lines
-            </h5>
-
-            <small class="text-muted">
-                Stock is counted in base packets - every line is checked against the godown before the load is applied.
-            </small>
+            </div>
 
         </div>
+
+
+        <div class="col-lg-8">
+
+            <div class="summary-box">
+
+                <h5>Load Products</h5>
+
+
+                <!-- Line builder -->
+
+                <div class="mb-3">
+
+                    <h5 class="fw-bold mb-1">
+                        Load Lines
+                    </h5>
+
+                    <small class="text-muted">
+                        Stock is counted in base packets - every line is checked against the godown before the load is applied.
+                    </small>
+
+                </div>
 
 
         <div class="row g-3 align-items-end mb-3">
@@ -498,38 +460,93 @@
         </div>
 
 
-        <hr class="my-4" />
-
-
-        <div class="d-flex justify-content-end gap-2">
-
-            <a href="Inventory.aspx"
-               class="btn btn-light border">
-
-                <i class="bi bi-x-lg"></i>
-
-                Cancel
-
-            </a>
-
-
-            <asp:Button
-                ID="btnLoad"
-                ValidationGroup="Load"
-                runat="server"
-                Text="Load Vehicle"
-                CssClass="btn btn-primary px-4"
-                OnClick="btnLoad_Click" />
+            </div>
 
         </div>
 
+    </div>
+
+
+    <!-- Actions -->
+
+    <div class="d-flex justify-content-end gap-2 mt-3">
+
+        <a href="Inventory.aspx"
+           class="btn btn-light border">
+
+            <i class="bi bi-x-lg"></i>
+
+            Cancel
+
+        </a>
+
+
+        <asp:Button
+            ID="btnLoad"
+            ValidationGroup="Load"
+            runat="server"
+            Text="Load Vehicle"
+            CssClass="btn btn-primary px-4"
+            OnClick="btnLoad_Click" />
+
+    </div>
+
+
+    <!-- Already loaded for the selected vehicle -->
+
+    <div class="summary-box mt-4">
+
+        <h5>Already Loaded</h5>
+
+
+        <asp:Label
+            ID="lblSummaryHeading"
+            runat="server"
+            CssClass="text-muted small"
+            Text="Select a vehicle to see what has already been loaded.">
+        </asp:Label>
+
+
+        <div class="table-responsive mt-3">
+
+            <asp:GridView
+                ID="gvTodayLoaded"
+                runat="server"
+                AutoGenerateColumns="False"
+                CssClass="table table-hover align-middle mb-0"
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvTodayLoaded_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+
+                <Columns>
+
+                    <asp:BoundField
+                        DataField="VariantLabel"
+                        HeaderText="Product Variant" />
+
+                    <asp:BoundField
+                        DataField="LoadedPackets"
+                        HeaderText="Loaded Packets" />
+
+                </Columns>
+
+
+                <EmptyDataTemplate>
+
+                    <p class="text-muted py-2 mb-0">
+                        Nothing has been loaded for this vehicle on that date yet.
+                    </p>
+
+                </EmptyDataTemplate>
+
+            </asp:GridView>
+
+        </div>
 
     </div>
 
 
     <!-- Load history -->
 
-    <div class="dashboard-card mt-4">
+    <div class="summary-box mt-4">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 

@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Route History
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Every run of every route: loading, orders and whether the day was closed
             </p>
 
@@ -75,24 +75,20 @@
 
     <!-- Route Runs -->
 
-    <div class="dashboard-card">
+    <div class="summary-box mb-4">
 
-        <div class="mb-3">
+        <h5>
+            Route runs
+        </h5>
 
-            <h5 class="fw-bold mb-1">
-                Route runs
-            </h5>
-
-            <small class="text-muted">
-                One row for each date a route loaded, took orders or was closed
-            </small>
-
-        </div>
+        <p class="text-muted small mb-3">
+            One row for each date a route loaded, took orders or was closed
+        </p>
 
 
         <!-- Filters -->
 
-        <div class="row g-2 mb-3">
+        <div class="row g-2 mb-0">
 
             <div class="col-md-3">
 
@@ -179,8 +175,10 @@
 
         </div>
 
+    </div>
 
-        <div class="table-responsive">
+
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvRouteHistory"
@@ -276,8 +274,6 @@
                 </EmptyDataTemplate>
 
             </asp:GridView>
-
-        </div>
 
     </div>
 
