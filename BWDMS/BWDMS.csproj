@@ -110,10 +110,12 @@
     <Content Include="Dealer\AddVillage.aspx" />
     <Content Include="Dealer\AddWeeklyRoutePlan.aspx" />
     <Content Include="Dealer\CompanyReceipts.aspx" />
+    <Content Include="Dealer\DailyClosing.aspx" />
     <Content Include="Dealer\Dashboard.aspx" />
     <Content Include="Dealer\DispatchDetails.aspx" />
     <Content Include="Dealer\Dispatches.aspx" />
     <Content Include="Dealer\Inventory.aspx" />
+    <Content Include="Dealer\OrderDetails.aspx" />
     <Content Include="Dealer\Orders.aspx" />
     <Content Include="Dealer\Reconciliations.aspx" />
     <Content Include="Dealer\Reports.aspx" />
@@ -130,6 +132,7 @@
     <Content Include="Dealer\StockTransactions.aspx" />
     <Content Include="Dealer\VehicleDetails.aspx" />
     <Content Include="Dealer\VehicleLoading.aspx" />
+    <Content Include="Dealer\VehicleStock.aspx" />
     <Content Include="Dealer\Vehicles.aspx" />
     <Content Include="Dealer\Villages.aspx" />
     <Content Include="Dealer\WeeklyRoutePlans.aspx" />
@@ -364,6 +367,13 @@
     <Compile Include="Dealer\CompanyReceipts.aspx.designer.cs">
       <DependentUpon>CompanyReceipts.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dealer\DailyClosing.aspx.cs">
+      <DependentUpon>DailyClosing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\DailyClosing.aspx.designer.cs">
+      <DependentUpon>DailyClosing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dealer\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -391,6 +401,13 @@
     </Compile>
     <Compile Include="Dealer\Inventory.aspx.designer.cs">
       <DependentUpon>Inventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
@@ -503,6 +520,13 @@
     </Compile>
     <Compile Include="Dealer\VehicleDetails.aspx.designer.cs">
       <DependentUpon>VehicleDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dealer\VehicleStock.aspx.cs">
+      <DependentUpon>VehicleStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dealer\VehicleStock.aspx.designer.cs">
+      <DependentUpon>VehicleStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dealer\Vehicles.aspx.cs">
       <DependentUpon>Vehicles.aspx</DependentUpon>

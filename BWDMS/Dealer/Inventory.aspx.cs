@@ -178,21 +178,50 @@ namespace BWDMS.Dealer
             }
 
 
+            // --------------------------------------------
+            // Display columns for the Warehouse Stock grid
+            // (Box / Panti / Packet). Derived from the
+            // packet count for display only.
+            // --------------------------------------------
+
+            if (!dt.Columns.Contains("BoxText"))
+            {
+                dt.Columns.Add("BoxText", typeof(string));
+                dt.Columns.Add("PantiText", typeof(string));
+                dt.Columns.Add("PacketText", typeof(string));
+            }
+
+            const int packetsPerPanti = 20;
+            const int pantisPerBox = 10;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int packets = Convert.ToInt32(row["StockNow"]);
+
+                int pantis = packets / packetsPerPanti;
+                int boxes = pantis / pantisPerBox;
+
+                row["BoxText"] = boxes + " Box";
+                row["PantiText"] = pantis.ToString();
+                row["PacketText"] = packets.ToString();
+            }
+
+
             if (filter == "out")
             {
                 dt = dt.Select("StatusText = 'Out of Stock'")
-                       .CopyToDataTableSafe();
+                       .CopyToDataTableSafe(dt);
             }
             else if (filter == "low")
             {
                 dt = dt.Select(
                            "(StatusText = 'Low Stock' OR StatusText = 'Out of Stock')")
-                       .CopyToDataTableSafe();
+                       .CopyToDataTableSafe(dt);
             }
             else if (filter == "ok")
             {
                 dt = dt.Select("StatusText = 'In Stock'")
-                       .CopyToDataTableSafe();
+                       .CopyToDataTableSafe(dt);
             }
 
             gvInventory.DataSource = dt;
@@ -249,11 +278,17 @@ namespace BWDMS.Dealer
     internal static class DataTableExtensions
     {
         public static DataTable CopyToDataTableSafe(
-            this DataRow[] rows)
+            this DataRow[] rows,
+            DataTable source)
         {
+            // Keep the original columns even when nothing
+            // matches, otherwise DataBind() throws
+            // "field or property ... was not found".
             if (rows == null || rows.Length == 0)
             {
-                return new DataTable();
+                return source == null
+                    ? new DataTable()
+                    : source.Clone();
             }
 
             return rows.CopyToDataTable();

@@ -138,7 +138,7 @@
                 <div class="dash-kpi-text">
 
                     <div class="card-title">
-                        Today's Dispatched
+                        Today's Collections
                     </div>
 
                     <h3 class="fw-bold mb-0">
@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="kpi-icon kpi-teal">
-                    <i class="bi bi-truck"></i>
+                    <i class="bi bi-wallet2"></i>
                 </div>
 
             </div>
@@ -179,9 +179,8 @@
                     </h5>
 
                     <span class="dash-period">
-                        <i class="bi bi-calendar3"></i>
-
-                        This Month
+                        This Week
+                        <i class="bi bi-chevron-down ms-1"></i>
                     </span>
 
                 </div>
@@ -221,7 +220,7 @@
                             </span>
 
                             <span class="qty">
-                                <%# Eval("QuantityText") %> Packets
+                                <%# Eval("QuantityText") %> Box
                             </span>
 
                         </div>

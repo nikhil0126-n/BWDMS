@@ -177,8 +177,8 @@ namespace BWDMS.Dealer
                             isActive ? "Active" : "Inactive";
 
                         lblStatus.CssClass = isActive
-                            ? "badge bg-success"
-                            : "badge bg-secondary";
+                            ? "detail-status"
+                            : "detail-status is-inactive";
 
                         lblShopCode.Text =
                             TextOrDash(reader["ShopCode"]);

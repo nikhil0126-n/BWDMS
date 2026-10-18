@@ -33,7 +33,7 @@
             </h3>
 
             <p class="text-muted mb-0 page-subtitle">
-                Trucks and tempos used for route dispatch
+                Manage All Vehicles
             </p>
 
         </div>
@@ -44,7 +44,7 @@
 
             <i class="bi bi-plus-lg me-1"></i>
 
-            Add Vehicle
+            Add vehicles
 
         </a>
 
@@ -83,7 +83,7 @@
             ID="txtSearch"
             runat="server"
             CssClass="form-control"
-            placeholder="Search vehicle..."
+            placeholder="Search Vehicles"
             ClientIDMode="Static">
         </asp:TextBox>
 
@@ -104,52 +104,40 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                EmptyDataText="No vehicles found. Click &quot;Add Vehicle&quot; to create the first one." AllowPaging="true" OnPageIndexChanging="gvVehicles_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="VehicleId"
+                OnRowCommand="gvVehicles_RowCommand"
+                EmptyDataText="No vehicles found. Click &quot;Add vehicles&quot; to create the first one." AllowPaging="true" OnPageIndexChanging="gvVehicles_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 
                     <asp:BoundField
                         DataField="VehicleNumber"
-                        HeaderText="Vehicle Number" />
-
-                    <asp:BoundField
-                        DataField="VehicleName"
-                        HeaderText="Vehicle Name" />
+                        HeaderText="Vehicles no." />
 
                     <asp:BoundField
                         DataField="VehicleType"
                         HeaderText="Type" />
 
                     <asp:BoundField
+                        DataField="VehicleName"
+                        HeaderText="Vehicle Name" />
+
+                    <asp:BoundField
                         DataField="OwnerText"
                         HeaderText="Belongs To" />
+
+                    <asp:BoundField
+                        DataField="UsedByText"
+                        HeaderText="Used By" />
 
                     <asp:TemplateField
                         HeaderText="Status">
 
                         <ItemTemplate>
 
-                            <span class='<%# Convert.ToBoolean(Eval("IsActive"))
-                                ? "badge bg-success"
-                                : "badge bg-secondary" %>'>
-
-                                <%# Convert.ToBoolean(Eval("IsActive"))
-                                    ? "Active"
-                                    : "Inactive" %>
-
-                            </span>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-
-                    <asp:TemplateField
-                        HeaderText="Used By">
-
-                        <ItemTemplate>
-
-                            <%# Eval("UsedByText") %>
+                            <%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "Active"
+                                : "Inactive" %>
 
                         </ItemTemplate>
 
@@ -159,30 +147,38 @@
                     <asp:TemplateField
                         HeaderText="Action">
 
+                        <HeaderStyle CssClass="text-end text-muted" />
+
                         <ItemTemplate>
 
-                            <asp:HyperLink
-                                ID="lnkDetails"
-                                runat="server"
-                                CssClass="btn btn-sm btn-outline-primary"
-                                NavigateUrl='<%# "~/Dealer/VehicleDetails.aspx?id=" + Eval("VehicleId") %>'>
+                            <div class="row-actions justify-content-end">
 
-                                <i class="bi bi-eye"></i>
+                                <asp:HyperLink
+                                    ID="lnkEdit"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    Title="Edit"
+                                    NavigateUrl='<%# "~/Dealer/AddVehicle.aspx?id=" + Eval("VehicleId") %>'>
 
-                            </asp:HyperLink>
+                                    <i class="bi bi-pencil-square"></i>
+
+                                </asp:HyperLink>
 
 
-                            <asp:HyperLink
-                                ID="lnkEdit"
-                                runat="server"
-                                CssClass="btn btn-sm btn-outline-danger"
-                                NavigateUrl='<%# "~/Dealer/AddVehicle.aspx?id=" + Eval("VehicleId") %>'>
+                                <asp:LinkButton
+                                    ID="lnkDelete"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    Title="Delete"
+                                    CommandName="DeleteVehicle"
+                                    CommandArgument='<%# Eval("VehicleId") %>'
+                                    OnClientClick="return confirm('Delete this vehicle?');">
 
-                                <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-trash"></i>
 
-                                Edit
+                                </asp:LinkButton>
 
-                            </asp:HyperLink>
+                            </div>
 
                         </ItemTemplate>
 

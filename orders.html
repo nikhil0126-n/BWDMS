@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders - BALAJI DMS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Arial, sans-serif; }
+  body { display:flex; min-height:100vh; background:#111; }
+  .topbar { position:absolute; top:0; left:0; right:0; height:34px; background:#000; color:#aaa; font-size:13px; display:flex; align-items:center; padding:0 12px; }
+
+  /* Sidebar */
+  .sidebar { width:180px; background:#0b1f5e; padding:14px 10px; display:flex; flex-direction:column; gap:4px; margin-top:34px; min-height:calc(100vh - 34px); }
+  .brand { background:#2f4ff0; color:#fff; border-radius:8px; padding:10px 12px; display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; margin-bottom:14px; }
+  .brand .logo { width:26px; height:26px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#0b1f5e; font-weight:800; }
+  .nav-item { display:flex; align-items:center; gap:10px; color:#dbe3ff; padding:10px 12px; border-radius:8px; font-size:14px; cursor:pointer; }
+  .nav-item:hover, .nav-item.active { background:#1b3280; color:#fff; }
+  .nav-item .ico { width:20px; text-align:center; font-size:15px; }
+
+  /* Main */
+  .main { flex:1; background:#fff; margin-top:34px; padding:26px 30px; border-top-left-radius:4px; }
+  .header h1 { font-size:24px; color:#111; }
+  .breadcrumb { font-size:11px; color:#999; margin-top:4px; }
+
+  /* Search */
+  .search { display:flex; align-items:center; gap:10px; border:1px solid #ccc; border-radius:8px; padding:12px 16px; width:390px; max-width:100%; margin:22px 0 26px; }
+  .search .s-ico { font-size:17px; color:#555; }
+  .search input { border:none; outline:none; font-size:14px; width:100%; color:#333; background:transparent; }
+
+  /* Table */
+  .table-card { border:1px solid #ccc; border-radius:8px; overflow:hidden; }
+  table { width:100%; border-collapse:collapse; }
+  thead th { background:#e6e6e6; text-align:left; font-size:14px; font-weight:600; color:#222; padding:16px 22px; }
+  tbody td { padding:18px 22px; font-size:14px; color:#333; border-top:1px solid #f0f0f0; }
+  tbody td.id { font-weight:700; color:#111; font-size:15px; }
+
+  /* Pagination */
+  .pager { display:flex; justify-content:center; gap:8px; margin:24px 0 6px; }
+  .pg { width:30px; height:30px; border:1px solid #ccc; border-radius:6px; background:#fff; font-size:13px; color:#333; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .pg.active { background:#5b6ef5; border-color:#5b6ef5; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="topbar">Dealer</div>
+
+  <aside class="sidebar">
+    <div class="brand"><span class="logo">B</span> BALAJI DMS</div>
+    <div class="nav-item"><span class="ico">&#127968;</span> Dashboard</div>
+    <div class="nav-item"><span class="ico">&#127979;</span> Shop</div>
+    <div class="nav-item"><span class="ico">&#128100;</span> Salesmen</div>
+    <div class="nav-item"><span class="ico">&#128506;</span> Routes</div>
+    <div class="nav-item"><span class="ico">&#128663;</span> Vehicles</div>
+    <div class="nav-item"><span class="ico">&#128666;</span> Vehicle Movement</div>
+    <div class="nav-item"><span class="ico">&#127970;</span> Warehouse Stock</div>
+    <div class="nav-item"><span class="ico">&#128667;</span> Vehicle Stock</div>
+    <div class="nav-item active"><span class="ico">&#128202;</span> Orders</div>
+    <div class="nav-item"><span class="ico">&#9881;</span> Daily Closing</div>
+    <div class="nav-item"><span class="ico">&#128196;</span> Reports</div>
+    <div class="nav-item"><span class="ico">&#128682;</span> Logout</div>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <div>
+        <h1>Orders</h1>
+        <div class="breadcrumb">Manage all vehicles</div>
+      </div>
+    </div>
+
+    <div class="search">
+      <span class="s-ico">&#128269;</span>
+      <input type="text" placeholder="Search Orders" id="searchBox">
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Shop Name</th>
+            <th>Salesman</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </div>
+
+    <div class="pager">
+      <button class="pg">&#8249;</button>
+      <button class="pg active">1</button>
+      <button class="pg">2</button>
+      <button class="pg">&#8250;</button>
+    </div>
+  </main>
+
+<script>
+  const orders = [
+    { id:'ORD1024', date:'12-3-26', shop:'Sharma Store',  salesman:'Nikhil',  amount:2000 },
+    { id:'ORD1025', date:'12-3-26', shop:'Mitesh Store',  salesman:'Mitesh',  amount:3000 },
+    { id:'ORD1026', date:'12-3-26', shop:'Jainik Kirana', salesman:'jainik',  amount:3000 },
+    { id:'ORD1027', date:'12-3-26', shop:'Nikhil Mart',   salesman:'Nikhil',  amount:3000 },
+    { id:'ORD1028', date:'12-3-26', shop:'Dinesh Dairy',  salesman:'Mitesh',  amount:3000 }
+  ];
+
+  function render(list){
+    document.getElementById('ordersBody').innerHTML = list.map(o => `
+      <tr>
+        <td class="id">${o.id}</td>
+        <td>${o.date}</td>
+        <td>${o.shop}</td>
+        <td>${o.salesman}</td>
+        <td>${o.amount}</td>
+      </tr>`).join('');
+  }
+  render(orders);
+
+  document.getElementById('searchBox').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase();
+    render(orders.filter(o =>
+      o.id.toLowerCase().includes(q) || o.shop.toLowerCase().includes(q) ||
+      o.salesman.toLowerCase().includes(q) || String(o.amount).includes(q)));
+  });
+</script>
+</body>
+</html>

@@ -185,8 +185,8 @@ namespace BWDMS.Dealer
                             isActive ? "Active" : "Inactive";
 
                         lblStatus.CssClass = isActive
-                            ? "badge bg-success"
-                            : "badge bg-secondary";
+                            ? "text-success"
+                            : "text-secondary";
 
                         lblStatusText.Text =
                             isActive ? "Active" : "Inactive";

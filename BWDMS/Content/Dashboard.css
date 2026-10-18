@@ -1459,6 +1459,62 @@ a.row-action:hover,
 }
 
 
+/* --- DETAIL PAGES --------------------------------------------------------- */
+
+.detail-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 19px;
+    line-height: 1;
+    text-decoration: none;
+    transition: .15s;
+}
+
+
+.detail-back:hover,
+.detail-back:focus {
+    background: var(--bw-blue-50, #eef2ff);
+    border-color: var(--bw-blue-200, #c7d2fe);
+    color: var(--bw-blue-700, #4338ca);
+    text-decoration: none;
+}
+
+
+.detail-status {
+    color: #16a34a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.detail-status.is-inactive {
+    color: #9ca3af;
+}
+
+
+.detail-section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 14px;
+}
+
+
 /* --- PAGER ---------------------------------------------------------------- */
 
 td[colspan] > table > tbody > tr > td {
@@ -1626,3 +1682,17 @@ td[colspan] > table span {
     font-weight: 700;
     color: #111827;
 }
+
+
+/* Sidebar brand logo image */
+.sidebar-logo-img {
+    max-width: 165px;
+    max-height: 46px;
+    object-fit: contain;
+    display: block;
+}
+
+.sidebar-logo {
+    padding: 0 14px;
+}
+

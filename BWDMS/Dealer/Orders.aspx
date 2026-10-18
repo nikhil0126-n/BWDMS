@@ -20,45 +20,97 @@
     runat="server">
 
 
+    <style>
+        /* Page shell matching the Orders screen design */
+        .orders-card {
+            background: #ffffff;
+            border: 1px solid #d5d5da;
+            border-radius: 10px;
+        }
+
+        .orders-card table {
+            margin-bottom: 0;
+        }
+
+        .orders-card thead th {
+            background: #e6e6e6;
+            color: #222222;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 15px 22px;
+            border-bottom: none;
+        }
+
+        .orders-card tbody td {
+            padding: 18px 22px;
+            font-size: 14px;
+            color: #333333;
+            border-top: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+
+        .orders-card tbody tr:first-child td {
+            border-top: none;
+        }
+
+        .order-id,
+        .orders-card tbody td:first-child {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        /* Compact pager row under the table */
+        .orders-pager td {
+            text-align: center;
+            padding: 12px 0;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .orders-pager a {
+            min-width: 30px;
+            height: 30px;
+            margin: 0 3px;
+            padding: 0 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d5d5da;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #333333;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .orders-pager span {
+            min-width: 30px;
+            height: 30px;
+            margin: 0 3px;
+            padding: 0 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #5b6ef5;
+            border-radius: 6px;
+            background: #5b6ef5;
+            color: #ffffff;
+            font-size: 13px;
+        }
+    </style>
+
+
     <!-- Page Header -->
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="mb-4">
 
-        <div>
+        <h3 class="fw-bold mb-1 page-title">
+            Orders
+        </h3>
 
-            <h3 class="fw-bold mb-1 page-title">
-                Orders
-            </h3>
-
-            <p class="text-muted mb-0 page-subtitle">
-                Shop orders taken for your dealership
-            </p>
-
-        </div>
-
-
-        <div class="d-flex gap-2">
-
-            <a href="Reports.aspx"
-               class="btn btn-outline-secondary">
-
-                <i class="bi bi-bar-chart"></i>
-
-                Reports
-
-            </a>
-
-
-            <a href="AddOrder.aspx"
-               class="btn btn-primary">
-
-                <i class="bi bi-plus-lg"></i>
-
-                New Order
-
-            </a>
-
-        </div>
+        <p class="text-muted mb-0 page-subtitle">
+            Manage all vehicles
+        </p>
 
     </div>
 
@@ -83,7 +135,7 @@
             ID="txtSearch"
             runat="server"
             CssClass="form-control"
-            placeholder="Search order number or shop..."
+            placeholder="Search Orders"
             AutoPostBack="true"
             OnTextChanged="txtSearch_TextChanged">
         </asp:TextBox>
@@ -91,77 +143,67 @@
     </div>
 
 
-    <!-- Filters -->
+    <!-- Filters (kept for behaviour, hidden to match the design) -->
 
-    <div class="row g-2 mb-4">
+    <div class="d-none">
 
-            <div class="col-md-4">
+        <asp:DropDownList
+            ID="ddlStatus"
+            runat="server"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="FilterChanged">
 
-                <asp:DropDownList
-                    ID="ddlStatus"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="FilterChanged">
+            <asp:ListItem Text="All Statuses" Value="" Selected="True">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="All Statuses" Value="" Selected="True">
-                    </asp:ListItem>
+            <asp:ListItem Text="Pending" Value="Pending">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Pending" Value="Pending">
-                    </asp:ListItem>
+            <asp:ListItem Text="Confirmed" Value="Confirmed">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Confirmed" Value="Confirmed">
-                    </asp:ListItem>
+            <asp:ListItem Text="Dispatched" Value="Dispatched">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Dispatched" Value="Dispatched">
-                    </asp:ListItem>
+            <asp:ListItem Text="Cancelled" Value="Cancelled">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Cancelled" Value="Cancelled">
-                    </asp:ListItem>
-
-                </asp:DropDownList>
-
-            </div>
+        </asp:DropDownList>
 
 
-            <div class="col-md-4">
+        <asp:DropDownList
+            ID="ddlSource"
+            runat="server"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="FilterChanged">
 
-                <asp:DropDownList
-                    ID="ddlSource"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="FilterChanged">
+            <asp:ListItem Text="All Sources" Value="" Selected="True">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="All Sources" Value="" Selected="True">
-                    </asp:ListItem>
+            <asp:ListItem Text="Beat" Value="Beat">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Beat" Value="Beat">
-                    </asp:ListItem>
+            <asp:ListItem Text="Telephone" Value="Telephone">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Telephone" Value="Telephone">
-                    </asp:ListItem>
+            <asp:ListItem Text="Counter" Value="Counter">
+            </asp:ListItem>
 
-                    <asp:ListItem Text="Counter" Value="Counter">
-                    </asp:ListItem>
+        </asp:DropDownList>
 
-                </asp:DropDownList>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive orders-card">
 
             <asp:GridView
                 ID="gvOrders"
                 runat="server"
                 AutoGenerateColumns="False"
-                CssClass="table table-hover align-middle"
+                CssClass="table orders-grid align-middle mb-0"
                 GridLines="None"
                 OnRowCommand="gvOrders_RowCommand"
-                DataKeyNames="OrderId" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                DataKeyNames="OrderId" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="Bottom" PagerStyle-CssClass="orders-pager">
 
                 <Columns>
 
@@ -214,6 +256,19 @@
                         HeaderText="Action">
 
                         <ItemTemplate>
+
+                            <asp:HyperLink
+                                ID="lnkView"
+                                runat="server"
+                                CssClass="btn btn-sm btn-outline-primary"
+                                NavigateUrl='<%# "~/Dealer/OrderDetails.aspx?id=" + Eval("OrderId") %>'>
+
+                                <i class="bi bi-eye"></i>
+
+                                View
+
+                            </asp:HyperLink>
+
 
                             <asp:HyperLink
                                 ID="lnkEdit"

@@ -165,21 +165,9 @@
 
         <div class="sidebar-logo">
 
-
-            <div class="logo-icon">
-
-                B
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    BALAJI DMS
-                </strong>
-
-            </div>
+            <img class="sidebar-logo-img"
+                 src="<%= ResolveUrl("~/Content/Images/balaji-dms-logo.png") %>"
+                 alt="BALAJI DMS" />
 
         </div>
 
@@ -418,7 +406,7 @@
 
                 </asp:HyperLink>
 
-
+<!--
                 <asp:HyperLink
                     ID="lnkRouteVillageAssignment"
                     runat="server"
@@ -432,6 +420,8 @@
                     </span>
 
                 </asp:HyperLink>
+
+    -->
 
 
                 <asp:HyperLink
@@ -513,7 +503,7 @@
                     ID="lnkDealerReconciliation"
                     runat="server"
                     CssClass="menu-item"
-                    NavigateUrl="~/Dealer/Reconciliations.aspx">
+                    NavigateUrl="~/Dealer/DailyClosing.aspx">
 
                     <i class="bi bi-arrow-repeat"></i>
 

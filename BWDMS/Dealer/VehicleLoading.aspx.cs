@@ -43,6 +43,7 @@ namespace BWDMS.Dealer
             dt.Columns.Add("Index", typeof(int));
             dt.Columns.Add("ProductVariantId", typeof(int));
             dt.Columns.Add("VariantLabel", typeof(string));
+            dt.Columns.Add("UnitLabel", typeof(string));
             dt.Columns.Add("Quantity", typeof(int));
 
             return dt;
@@ -94,6 +95,7 @@ namespace BWDMS.Dealer
                 LoadSchedules();
                 LoadVehicles();
                 LoadVariants();
+                LoadUiFields();
 
                 txtStockDate.Text =
                     DateTime.Today.ToString("yyyy-MM-dd");
@@ -102,6 +104,35 @@ namespace BWDMS.Dealer
                 LoadTodaySummary();
                 LoadHistory();
             }
+        }
+
+
+        // Date + salesman dropdowns used by the loading slip
+        private void LoadUiFields()
+        {
+            ddlDate.Items.Clear();
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = DateTime.Today.AddDays(-i);
+
+                System.Web.UI.WebControls.ListItem item =
+                    new System.Web.UI.WebControls.ListItem(
+                        day.ToString("dd MMM yyyy"),
+                        day.ToString("yyyy-MM-dd"));
+
+                ddlDate.Items.Add(item);
+            }
+
+            txtStockDate.Text = ddlDate.SelectedValue;
+
+
+            ddlSalesman.Items.Clear();
+            ddlSalesman.Items.Insert(
+                0,
+                new System.Web.UI.WebControls.ListItem(
+                    "-- Select Salesman --",
+                    ""));
         }
 
 
@@ -902,6 +933,7 @@ namespace BWDMS.Dealer
                 row["Index"] = dt.Rows.Count;
                 row["ProductVariantId"] = variantId;
                 row["VariantLabel"] = VariantLabel(variantId);
+                row["UnitLabel"] = "Box";
                 row["Quantity"] = quantity;
 
                 dt.Rows.Add(row);

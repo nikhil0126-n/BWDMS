@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
 using BWDMS.Data;
 
 namespace BWDMS.Dealer
@@ -13,11 +11,6 @@ namespace BWDMS.Dealer
         {
             get { return Convert.ToInt32(Session["UserId"]); }
         }
-
-
-        // Header rows keyed so the nested line repeater can find
-        // its own transaction id.
-        private DataTable _headers;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -74,31 +67,45 @@ namespace BWDMS.Dealer
         }
 
 
+        // One row per movement line so the grid matches the
+        // reference design: date / type / ref / product / unit / qty.
         private void LoadTransactions()
         {
             string search = txtSearch.Text.Trim();
-            string type = ddlType.SelectedValue;
 
             string query = @"
                 SELECT
-                    st.StockTransactionId,
+                    st.TransactionDate,
                     st.TransactionType,
                     st.ReferenceNo,
-                    st.Remarks,
-                    TransactionDateText =
-                        CONVERT(NVARCHAR(16), st.TransactionDate, 120)
+                    p.ProductName,
+                    su.UnitName,
+                    SignedQty =
+                        CASE WHEN st.TransactionType = 'Stock Out'
+                             THEN -d.Quantity
+                             ELSE d.Quantity
+                        END
                 FROM StockTransactions st
+                INNER JOIN StockTransactionDetails d
+                    ON d.StockTransactionId = st.StockTransactionId
+                INNER JOIN ProductVariants v
+                    ON v.ProductVariantId = d.ProductVariantId
+                INNER JOIN Products p
+                    ON p.ProductId = v.ProductId
+                INNER JOIN SellingUnits su
+                    ON su.UnitId = d.UnitId
                 WHERE st.DealerId = @DealerId
                   AND
                   (
                     ISNULL(st.ReferenceNo, '') LIKE @Search
                     OR ISNULL(st.Remarks, '') LIKE @Search
+                    OR p.ProductName LIKE @Search
                   )
-                  AND (@Type = '' OR st.TransactionType = @Type)
                 ORDER BY st.TransactionDate DESC,
-                         st.StockTransactionId DESC";
+                         st.StockTransactionId DESC,
+                         d.StockTransactionDetailId";
 
-            _headers = new DataTable();
+            DataTable dt = new DataTable();
 
             using (SqlConnection con =
                 DatabaseHelper.GetConnection())
@@ -114,112 +121,6 @@ namespace BWDMS.Dealer
                         "@Search",
                         "%" + search + "%");
 
-                    cmd.Parameters.AddWithValue(
-                        "@Type",
-                        type);
-
-                    using (SqlDataAdapter da =
-                        new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(_headers);
-                    }
-                }
-            }
-
-            if (_headers.Rows.Count == 0)
-            {
-                pnlEmpty.Visible = true;
-                repTransactions.Visible = false;
-                return;
-            }
-
-            pnlEmpty.Visible = false;
-            repTransactions.Visible = true;
-
-            // Type badge colour
-            if (!_headers.Columns.Contains("TypeCss"))
-            {
-                _headers.Columns.Add(
-                    "TypeCss",
-                    typeof(string));
-            }
-
-            foreach (DataRow row in _headers.Rows)
-            {
-                row["TypeCss"] =
-                    row["TransactionType"].ToString()
-                        .Equals(
-                            "Stock Out",
-                            StringComparison.OrdinalIgnoreCase)
-                        ? "badge bg-danger"
-                        : "badge bg-success";
-            }
-
-            repTransactions.DataSource = _headers;
-            repTransactions.DataBind();
-        }
-
-
-        protected void repTransactions_ItemDataBound(
-            object sender,
-            RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType != ListItemType.Item &&
-                e.Item.ItemType != ListItemType.AlternatingItem)
-            {
-                return;
-            }
-
-            if (_headers == null)
-            {
-                return;
-            }
-
-            DataRowView view =
-                e.Item.DataItem as DataRowView;
-
-            if (view == null)
-            {
-                return;
-            }
-
-            int transactionId =
-                Convert.ToInt32(
-                    view["StockTransactionId"]);
-
-            var lines =
-                (Repeater)e.Item.FindControl("repLines");
-
-            if (lines == null)
-            {
-                return;
-            }
-
-            string query = @"
-                SELECT
-                    d.QuantityPackets,
-                    p.ProductName,
-                    v.VariantName
-                FROM StockTransactionDetails d
-                INNER JOIN ProductVariants v
-                    ON v.ProductVariantId = d.ProductVariantId
-                INNER JOIN Products p
-                    ON p.ProductId = v.ProductId
-                WHERE d.StockTransactionId = @StockTransactionId
-                ORDER BY d.StockTransactionDetailId";
-
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con =
-                DatabaseHelper.GetConnection())
-            {
-                using (SqlCommand cmd =
-                    new SqlCommand(query, con))
-                {
-                    cmd.Parameters.Add(
-                        "@StockTransactionId",
-                        SqlDbType.Int).Value = transactionId;
-
                     using (SqlDataAdapter da =
                         new SqlDataAdapter(cmd))
                     {
@@ -228,8 +129,8 @@ namespace BWDMS.Dealer
                 }
             }
 
-            lines.DataSource = dt;
-            lines.DataBind();
+            gvTransactions.DataSource = dt;
+            gvTransactions.DataBind();
         }
 
 
@@ -241,10 +142,12 @@ namespace BWDMS.Dealer
         }
 
 
-        protected void FilterChanged(
+        protected void gvTransactions_PageIndexChanging(
             object sender,
-            EventArgs e)
+            System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
+            gvTransactions.PageIndex = e.NewPageIndex;
+
             LoadTransactions();
         }
 

@@ -178,3 +178,349 @@ Stack: System.Web.HttpException (0x80004005): The ID 'rfv_ayFilter' is already u
    at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
 ===
 
+=== 2026-10-15T03:42:47.650Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The file '/Dealer/VehicleStock.aspx' does not exist.
+Stack: System.Web.HttpException (0x80004005): The file '/Dealer/VehicleStock.aspx' does not exist.
+   at System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:42:50.435Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The file '/Dealer/VehicleStock.aspx' does not exist.
+Stack: System.Web.HttpException (0x80004005): The file '/Dealer/VehicleStock.aspx' does not exist.
+   at System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-15T03:43:46.889Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.VehicleStock'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.VehicleStock'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-15T03:44:26.041Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.VehicleStock'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.VehicleStock'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-15T03:48:50.300Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.VehicleStock'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.VehicleStock'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-15T03:52:26.846Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.VehicleStock'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.VehicleStock'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-15T03:53:35.579Z
+URL: /Dealer/VehicleStock.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.VehicleStock'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.VehicleStock'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-17T11:26:26.160Z
+URL: /Dealer/Dashboard.aspx
+User: 2
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Dealer.Dashboard.LoadStockSummary() in C:\ASP.NET\BWDMS\BWDMS\Dealer\Dashboard.aspx.cs:line 389
+   at BWDMS.Dealer.Dashboard.LoadDashboard() in C:\ASP.NET\BWDMS\BWDMS\Dealer\Dashboard.aspx.cs:line 78
+   at BWDMS.Dealer.Dashboard.Page_Load(Object sender, EventArgs e) in C:\ASP.NET\BWDMS\BWDMS\Dealer\Dashboard.aspx.cs:line 66
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-17T12:01:27.539Z
+URL: /Salesman/Orders.aspx?saved=1
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Orders.LoadOrders() in C:\ASP.NET\BWDMS\BWDMS\Salesman\Orders.aspx.cs:line 154
+   at BWDMS.Salesman.Orders.Page_Load(Object sender, EventArgs e) in C:\ASP.NET\BWDMS\BWDMS\Salesman\Orders.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-17T13:04:50.617Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-17T13:06:24.057Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-17T13:08:26.620Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-17T13:08:29.835Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-17T13:11:58.978Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-17T13:13:45.327Z
+URL: /Dealer/Dashboard.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lnkDashboard' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lnkDashboard' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-18T14:39:13.037Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T14:39:17.069Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T14:39:19.792Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T15:05:36.319Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T15:05:39.558Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T15:05:41.865Z
+URL: /Dealer/RouteDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.RouteDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.RouteDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-10-18T17:22:11.514Z
+URL: /Dealer/Salesmen.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-18T17:23:55.605Z
+URL: /Dealer/Salesmen.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-18T17:24:19.972Z
+URL: /Dealer/Salesmen.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-18T17:24:21.969Z
+URL: /Dealer/Salesmen.aspx
+User: anonymous
+Type: System.Web.HttpCompileException
+Message: C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+Stack: System.Web.HttpCompileException (0x80004005): C:\ASP.NET\BWDMS\BWDMS\Dealer\Salesmen.aspx(93): error CS1061: 'dealer_salesmen_aspx' does not contain a definition for 'gvSalesmen_RowCommand' and no accessible extension method 'gvSalesmen_RowCommand' accepting a first argument of type 'dealer_salesmen_aspx' could be found (are you missing a using directive or an assembly reference?)
+   at System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-18T17:25:34.323Z
+URL: /Dealer/VehicleDetailss.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The file '/Dealer/VehicleDetailss.aspx' does not exist.
+Stack: System.Web.HttpException (0x80004005): The file '/Dealer/VehicleDetailss.aspx' does not exist.
+   at System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+===
+
+=== 2026-10-18T17:27:00.433Z
+URL: /Dealer/OrderDetails.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Dealer.OrderDetails'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Dealer.OrderDetails'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+

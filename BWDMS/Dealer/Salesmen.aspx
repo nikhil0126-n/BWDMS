@@ -33,7 +33,7 @@
             </h3>
 
             <p class="text-muted mb-0 page-subtitle">
-                Field accounts assigned to your dealership
+                Manage All salesmen
             </p>
 
         </div>
@@ -44,7 +44,7 @@
 
             <i class="bi bi-plus-lg me-1"></i>
 
-            Add Account
+            Add salesmen
 
         </a>
 
@@ -80,14 +80,14 @@
             ID="txtSearch"
             runat="server"
             CssClass="form-control"
-            placeholder="Search name, email or phone..."
+            placeholder="Search salesmen...."
             ClientIDMode="Static">
         </asp:TextBox>
 
     </div>
 
 
-    <!-- Account List -->
+    <!-- Salesmen List -->
     <div class="table-responsive">
 
             <asp:GridView
@@ -97,52 +97,47 @@
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
                 GridLines="None"
-                EmptyDataText="No salesman accounts yet. Click &quot;Add Account&quot; to create one." AllowPaging="true" OnPageIndexChanging="gvSalesmen_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No salesmen found. Click &quot;Add salesmen&quot; to create one."
+                AllowPaging="true"
+                OnPageIndexChanging="gvSalesmen_PageIndexChanging"
+                OnRowCommand="gvSalesmen_RowCommand"
+                PageSize="25"
+                PagerSettings-Mode="NumericFirstLast"
+                PagerSettings-PageButtonCount="10"
+                PagerSettings-Position="Bottom">
 
                 <Columns>
 
                     <asp:BoundField
-                        DataField="FullName"
-                        HeaderText="Full Name" />
+                        DataField="SalesmanCode"
+                        HeaderText="Code" />
 
                     <asp:BoundField
-                        DataField="Email"
-                        HeaderText="Email" />
+                        DataField="FullName"
+                        HeaderText="Salesman Name" />
 
                     <asp:BoundField
                         DataField="Phone"
-                        HeaderText="Phone" />
+                        HeaderText="Mobile" />
 
                     <asp:BoundField
-                        DataField="Role"
-                        HeaderText="Role" />
+                        DataField="VehicleNumber"
+                        HeaderText="Vehicle" />
 
                     <asp:TemplateField
                         HeaderText="Status">
 
                         <ItemTemplate>
 
-                            <span class='<%# Convert.ToBoolean(Eval("IsActive"))
-                                ? "badge bg-success"
-                                : "badge bg-secondary" %>'>
+                            <small class='<%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "detail-status"
+                                : "text-muted" %>'>
 
                                 <%# Convert.ToBoolean(Eval("IsActive"))
                                     ? "Active"
                                     : "Inactive" %>
 
-                            </span>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-
-                    <asp:TemplateField
-                        HeaderText="Route Schedules">
-
-                        <ItemTemplate>
-
-                            <%# Eval("ScheduleCount") %>
+                            </small>
 
                         </ItemTemplate>
 
@@ -154,26 +149,47 @@
 
                         <ItemTemplate>
 
-                            <asp:HyperLink
-                                ID="lnkDetails"
-                                runat="server"
-                                CssClass="btn btn-sm btn-outline-primary"
-                                NavigateUrl='<%# "~/Dealer/SalesmanDetails.aspx?id=" + Eval("UserId") %>'>
+                            <div class="row-actions">
 
-                                <i class="bi bi-eye"></i>
+                                <asp:HyperLink
+                                    ID="lnkDetails"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    ToolTip="View Details"
+                                    NavigateUrl='<%# "~/Dealer/SalesmanDetails.aspx?id=" + Eval("UserId") %>'>
 
-                            </asp:HyperLink>
+                                    <i class="bi bi-eye"></i>
+
+                                </asp:HyperLink>
 
 
-                            <asp:HyperLink
-                                ID="lnkEdit"
-                                runat="server"
-                                CssClass="btn btn-sm btn-outline-primary"
-                                NavigateUrl='<%# "~/Dealer/AddSalesman.aspx?id=" + Eval("UserId") %>'>
+                                <asp:LinkButton
+                                    ID="lnkEdit"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    CommandName="EditSalesman"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    ToolTip="Edit">
 
-                                <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil-square"></i>
 
-                            </asp:HyperLink>
+                                </asp:LinkButton>
+
+
+                                <asp:LinkButton
+                                    ID="lnkDelete"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    CommandName="DeleteSalesman"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    ToolTip="Delete"
+                                    OnClientClick="return confirm('Delete this salesman?');">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </asp:LinkButton>
+
+                            </div>
 
                         </ItemTemplate>
 

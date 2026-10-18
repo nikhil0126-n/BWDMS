@@ -19,363 +19,310 @@
     ContentPlaceHolderID="MainContent"
     runat="server">
 
+    <style>
+        .vl-shell { max-width: 980px; margin: 0 auto; }
+        .vl-head { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+        .vl-head h3 { margin: 0; font-size: 1.55rem; font-weight: 700; color: #111827; }
+        .vl-grid { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: start; }
+        .vl-card { background: #fff; border: 1px solid #e3e6ec; border-radius: 10px; padding: 26px 24px; box-shadow: 0 1px 3px rgba(16,24,40,.05); }
+        .vl-card h5 { margin: 0 0 22px; font-size: 1.1rem; font-weight: 600; color: #1f2937; }
+        .vl-field { margin-bottom: 20px; }
+        .vl-field:last-child { margin-bottom: 0; }
+        .vl-field label { display: block; font-size: .95rem; color: #374151; margin-bottom: 8px; }
+        .vl-field .form-select, .vl-field .form-control { width: 100%; border: 1px solid #cfd4dc; border-radius: 7px; padding: .45rem 2.1rem .45rem .75rem; font-size: .95rem; color: #374151; background-color: #fff; background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m2 5 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .65rem center; background-size: 14px 14px; appearance: auto; }
+        .vl-table { width: 100%; border-collapse: collapse; }
+        .vl-table thead th { background: #fff; border-bottom: 1px solid #e5e7eb; color: #1f2937; font-size: 1.05rem; font-weight: 600; padding: 12px 18px; }
+        .vl-table tbody td { padding: 15px 18px; font-size: 1.05rem; color: #1f2937; }
+        .vl-table th:nth-child(2), .vl-table td:nth-child(2) { text-align: center; }
+        .vl-table th:last-child, .vl-table td:last-child { text-align: right; }
+        .vl-total { display: flex; justify-content: flex-end; align-items: center; gap: 46px; padding: 10px 18px 0; }
+        .vl-total span { font-size: 1.05rem; color: #1f2937; }
+        .vl-total strong { font-size: 1.05rem; color: #111827; border-top: 1px solid #9aa1ad; padding-top: 6px; min-width: 86px; text-align: right; display: inline-block; }
+        .vl-actions { display: flex; justify-content: flex-end; gap: 14px; margin-top: 22px; }
+        .vl-actions .btn { min-width: 150px; border-radius: 8px; padding: .55rem 1.4rem; font-size: .98rem; }
+        .btn-vl-primary { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+        .btn-vl-primary:hover { background: #4338ca; border-color: #4338ca; color: #fff; }
+        .vl-filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+        .vl-filters .form-select, .vl-filters .form-control { border: 1px solid #cfd4dc; border-radius: 7px; padding: .4rem .6rem; font-size: .88rem; }
+        .vl-empty { text-align: center; color: #8b94a8; padding: 26px 0; }
+    </style>
 
-    <!-- Page Header -->
+    <div class="vl-shell">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Title -->
+        <div class="vl-head">
 
-        <div>
-
-            <h3 class="fw-bold mb-1 page-title">
-                Reports
-            </h3>
-
-            <p class="text-muted mb-0 page-subtitle">
-                Stock, sales and order reports for your dealership
-            </p>
-
-        </div>
-
-
-        <div class="d-flex gap-2">
-
-            <a href="Inventory.aspx"
-               class="btn btn-outline-secondary">
-
-                <i class="bi bi-box-seam"></i>
-
-                Inventory
-
-            </a>
-
-
-            <a href="Orders.aspx"
-               class="btn btn-primary">
-
-                <i class="bi bi-cart3"></i>
-
-                Orders
-
-            </a>
+            <h3>reports</h3>
 
         </div>
 
-    </div>
+
+        <asp:Label
+            ID="lblMessage"
+            runat="server"
+            Visible="false"
+            CssClass="alert d-block">
+        </asp:Label>
 
 
-    <!-- Message -->
-
-    <asp:Label
-        ID="lblMessage"
-        runat="server"
-        Visible="false"
-        CssClass="alert d-block">
-    </asp:Label>
+        <div class="vl-grid">
 
 
-    <!-- KPI Tiles -->
+            <!-- Left: filters -->
+            <div class="vl-card">
 
-    <div class="summary-box mb-4">
+                <div class="vl-field">
 
-        <div class="stat-grid">
+                    <label>Vehicle</label>
 
-            <div class="stat-tile">
+                    <asp:DropDownList
+                        ID="ddlVehicle"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
 
-                <i class="bi bi-box-seam"></i>
+                </div>
 
-                <div>
 
-                    <span class="stat-label">Total Products</span>
+                <div class="vl-field">
 
-                    <span class="stat-value">
+                    <label>Route</label>
 
-                        <asp:Label
-                            ID="lblKpiProducts"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
+                    <asp:DropDownList
+                        ID="ddlRoute"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
 
-                    </span>
+                </div>
+
+
+                <div class="vl-field">
+
+                    <label>Salesman</label>
+
+                    <asp:DropDownList
+                        ID="ddlSalesman"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
+
+                </div>
+
+
+                <div class="vl-field">
+
+                    <label>Date</label>
+
+                    <asp:DropDownList
+                        ID="ddlDate"
+                        runat="server"
+                        CssClass="form-select">
+                    </asp:DropDownList>
 
                 </div>
 
             </div>
 
 
-            <div class="stat-tile">
+            <!-- Right: report table -->
+            <div class="vl-card">
 
-                <i class="bi bi-exclamation-triangle"></i>
-
-                <div>
-
-                    <span class="stat-label">Low / Out of Stock</span>
-
-                    <span class="stat-value">
-
-                        <asp:Label
-                            ID="lblKpiLowStock"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-tile">
-
-                <i class="bi bi-cart3"></i>
-
-                <div>
-
-                    <span class="stat-label">Orders</span>
-
-                    <span class="stat-value">
-
-                        <asp:Label
-                            ID="lblKpiOrders"
-                            runat="server"
-                            Text="0">
-                        </asp:Label>
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-tile">
-
-                <i class="bi bi-currency-rupee"></i>
-
-                <div>
-
-                    <span class="stat-label">Total Sales Value</span>
-
-                    <span class="stat-value">
-
-                        <asp:Label
-                            ID="lblKpiSales"
-                            runat="server"
-                            Text="0.00">
-                        </asp:Label>
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Report Header + Filters -->
-
-    <div class="summary-box mb-4">
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
+                <h5>
 
                     <asp:Label
                         ID="lblReportTitle"
                         runat="server"
-                        Text="Stock Summary">
+                        Text="Unload Products">
                     </asp:Label>
 
                 </h5>
 
-                <small class="text-muted">
-                    Pick a report below, all numbers are scoped to your dealership
-                </small>
 
-            </div>
+                <!-- Existing report filters kept functional -->
+                <div class="vl-filters">
 
-
-            <div>
-
-                <span class="text-muted">
-
-                    <asp:Label
-                        ID="lblRecordCount"
+                    <asp:DropDownList
+                        ID="ddlReport"
                         runat="server"
-                        Text="records: 0">
-                    </asp:Label>
+                        CssClass="form-select"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlReport_SelectedIndexChanged">
 
-                </span>
+                        <asp:ListItem Text="Stock Summary" Value="stock" Selected="True">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Low Stock" Value="low">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Orders by Status" Value="orderstatus">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Sales by Shop" Value="shop">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Stock Movement" Value="movement">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Orders by Date" Value="orderdate">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Sales by Product" Value="salesproduct">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Sales by Salesman" Value="salesbysalesman">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Sales by Route / Village" Value="salesbyroute">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Orders by Source" Value="ordersource">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Company Receipts" Value="receipts">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Vehicle Reconciliation" Value="recon">
+                        </asp:ListItem>
+
+                        <asp:ListItem Text="Returns &amp; Damaged" Value="returns">
+                        </asp:ListItem>
+
+                    </asp:DropDownList>
+
+                    <asp:TextBox
+                        ID="txtFromDate"
+                        runat="server"
+                        CssClass="form-control"
+                        placeholder="From (yyyy-MM-dd)"
+                        AutoPostBack="true"
+                        OnTextChanged="DateFilterChanged">
+                    </asp:TextBox>
+
+                    <asp:RegularExpressionValidator
+                        ID="revFromDate"
+                        runat="server"
+                        ControlToValidate="txtFromDate"
+                        ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                        ErrorMessage="Use yyyy-MM-dd."
+                        CssClass="text-danger small"
+                        Display="Dynamic">
+                    </asp:RegularExpressionValidator>
+
+                    <asp:TextBox
+                        ID="txtToDate"
+                        runat="server"
+                        CssClass="form-control"
+                        placeholder="To (yyyy-MM-dd)"
+                        AutoPostBack="true"
+                        OnTextChanged="DateFilterChanged">
+                    </asp:TextBox>
+
+                    <asp:RegularExpressionValidator
+                        ID="revToDate"
+                        runat="server"
+                        ControlToValidate="txtToDate"
+                        ValidationExpression="^\d{4}-\d{2}-\d{2}$"
+                        ErrorMessage="Use yyyy-MM-dd."
+                        CssClass="text-danger small"
+                        Display="Dynamic">
+                    </asp:RegularExpressionValidator>
+
+                    <asp:Button
+                        ID="btnExport"
+                        runat="server"
+                        Text="Export CSV"
+                        CssClass="btn btn-outline-secondary"
+                        OnClick="btnExport_Click">
+                    </asp:Button>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <asp:GridView
+                        ID="gvReport"
+                        runat="server"
+                        AutoGenerateColumns="False"
+                        CssClass="vl-table"
+                        GridLines="None"
+                        OnRowDataBound="gvReport_RowDataBound"
+                        AllowPaging="true"
+                        OnPageIndexChanging="gvReport_PageIndexChanging"
+                        PageSize="25"
+                        PagerSettings-Mode="NumericFirstLast"
+                        PagerSettings-PageButtonCount="10"
+                        PagerSettings-Position="TopAndBottom">
+                    </asp:GridView>
+
+                </div>
+
+
+                <!-- KPI labels kept so the code-behind keeps working -->
+                <div class="d-none">
+
+                    <asp:Label ID="lblKpiProducts" runat="server" Text="0"></asp:Label>
+                    <asp:Label ID="lblKpiLowStock" runat="server" Text="0"></asp:Label>
+                    <asp:Label ID="lblKpiOrders" runat="server" Text="0"></asp:Label>
+                    <asp:Label ID="lblKpiSales" runat="server" Text="0.00"></asp:Label>
+                    <asp:Label ID="lblRecordCount" runat="server" Text="records: 0"></asp:Label>
+
+                </div>
+
+
+                <asp:Panel
+                    ID="pnlEmpty"
+                    runat="server"
+                    Visible="false">
+
+                    <div class="vl-empty">
+
+                        <i class="bi bi-bar-chart fs-1 text-muted"></i>
+
+                        <p class="text-muted mt-3 mb-0">
+                            No data for the selected filters.
+                        </p>
+
+                    </div>
+
+                </asp:Panel>
+
+
+                <!-- Total row -->
+                <div class="vl-total">
+
+                    <span>Total</span>
+
+                    <strong>
+
+                        <asp:Label
+                            ID="lblTotalRecords"
+                            runat="server"
+                            Text="0">
+                        </asp:Label>
+
+                    </strong>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <div class="row g-2 mb-2">
+        <!-- Actions -->
+        <div class="vl-actions">
 
-            <div class="col-md-4">
-
-                <asp:DropDownList
-                    ID="ddlReport"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlReport_SelectedIndexChanged">
-
-                    <asp:ListItem Text="Stock Summary" Value="stock" Selected="True">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Low Stock" Value="low">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Orders by Status" Value="orderstatus">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Sales by Shop" Value="shop">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Stock Movement" Value="movement">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Orders by Date" Value="orderdate">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Sales by Product" Value="salesproduct">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Sales by Salesman" Value="salesbysalesman">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Sales by Route / Village" Value="salesbyroute">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Orders by Source" Value="ordersource">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Company Receipts" Value="receipts">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Vehicle Reconciliation" Value="recon">
-                    </asp:ListItem>
-
-                    <asp:ListItem Text="Returns &amp; Damaged" Value="returns">
-                    </asp:ListItem>
-
-                </asp:DropDownList>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <asp:TextBox
-                    ID="txtFromDate"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="From date (yyyy-MM-dd)"
-                    AutoPostBack="true"
-                    OnTextChanged="DateFilterChanged">
-                </asp:TextBox>
-
-                <asp:RegularExpressionValidator
-                    ID="revFromDate"
-                    runat="server"
-                    ControlToValidate="txtFromDate"
-                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
-                    ErrorMessage="Use yyyy-MM-dd format."
-                    CssClass="text-danger small"
-                    Display="Dynamic">
-                </asp:RegularExpressionValidator>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <asp:TextBox
-                    ID="txtToDate"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="To date (yyyy-MM-dd)"
-                    AutoPostBack="true"
-                    OnTextChanged="DateFilterChanged">
-                </asp:TextBox>
-
-                <asp:RegularExpressionValidator
-                    ID="revToDate"
-                    runat="server"
-                    ControlToValidate="txtToDate"
-                    ValidationExpression="^\d{4}-\d{2}-\d{2}$"
-                    ErrorMessage="Use yyyy-MM-dd format."
-                    CssClass="text-danger small"
-                    Display="Dynamic">
-                </asp:RegularExpressionValidator>
-
-            </div>
-
-
-            <div class="col-md-2">
-
-                <asp:Button
-                    ID="btnExport"
-                    runat="server"
-                    Text="Export CSV"
-                    CssClass="btn btn-outline-secondary w-100"
-                    OnClick="btnExport_Click">
-                </asp:Button>
-
-            </div>
+            <asp:Button
+                ID="btnOk"
+                runat="server"
+                Text="OK"
+                CssClass="btn btn-vl-primary"
+                OnClick="btnOk_Click" />
 
         </div>
 
-
-        <p class="text-muted small mb-0">
-            From / To dates apply to "Orders by Date", the sales reports, receipts, reconciliation and returns. Leave them blank for no date limit.
-        </p>
-
     </div>
-
-
-    <div class="table-responsive mb-4">
-
-        <asp:GridView
-            ID="gvReport"
-            runat="server"
-            AutoGenerateColumns="False"
-            CssClass="table table-hover align-middle"
-            GridLines="None"
-            OnRowDataBound="gvReport_RowDataBound" AllowPaging="true" OnPageIndexChanging="gvReport_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
-        </asp:GridView>
-
-    </div>
-
-
-    <div class="summary-box">
-
-        <asp:Panel
-            ID="pnlEmpty"
-            runat="server"
-            Visible="false">
-
-            <div class="text-center py-4 mb-0">
-
-                <i class="bi bi-bar-chart fs-1 text-muted"></i>
-
-                <p class="text-muted mt-3 mb-0">
-                    No data for the selected filters.
-                </p>
-
-            </div>
-
-        </asp:Panel>
-
-    </div>
-
 
 </asp:Content>

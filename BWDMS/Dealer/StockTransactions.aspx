@@ -1,4 +1,4 @@
-<%@ Page Title="Stock Ledger"
+<%@ Page Title="Stock Movement"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
@@ -10,7 +10,7 @@
     ContentPlaceHolderID="TitleContent"
     runat="server">
 
-    Stock Ledger
+    Stock Movement
 
 </asp:Content>
 
@@ -19,46 +19,168 @@
     ContentPlaceHolderID="MainContent"
     runat="server">
 
+    <style>
+
+        .vs-head
+        {
+            margin : 8px 0 24px 0;
+        }
+
+        .vs-title
+        {
+            font-size  : 24px;
+            font-weight: 700;
+            color      : #111827;
+            margin     : 0 0 4px 0;
+        }
+
+        .vs-subtitle
+        {
+            font-size : 13px;
+            color     : #9ca3af;
+            margin    : 0;
+        }
+
+
+        .vs-search
+        {
+            position     : relative;
+            margin       : 0 0 22px 0;
+            max-width    : 380px;
+        }
+
+        .vs-search i
+        {
+            position : absolute;
+            left     : 14px;
+            top      : 50%;
+            transform: translateY(-50%);
+            color    : #6b7280;
+        }
+
+        .vs-search input
+        {
+            width       : 100%;
+            padding     : 13px 16px 13px 44px;
+            font-size   : 15px;
+            color       : #111827;
+            border      : 1px solid #d1d5db;
+            border-radius: 8px;
+            background  : #fff;
+        }
+
+        .vs-search input:focus
+        {
+            outline      : none;
+            border-color : #6366f1;
+        }
+
+
+        .vs-table-wrap
+        {
+            border        : 1px solid #d1d5db;
+            border-radius : 6px;
+            overflow      : hidden;
+            background    : #fff;
+        }
+
+        .vs-table
+        {
+            width          : 100%;
+            border-collapse: collapse;
+        }
+
+        .vs-table th
+        {
+            background    : #d9d9d9;
+            font-size     : 17px;
+            font-weight   : 700;
+            color         : #111827;
+            text-align    : left;
+            padding       : 18px 24px;
+            border-bottom : 1px solid #c4c4c4;
+        }
+
+        .vs-table td
+        {
+            font-size     : 15px;
+            color         : #374151;
+            padding       : 20px 24px;
+            border-bottom : 1px solid #ececec;
+        }
+
+        .vs-num
+        {
+            text-align: center;
+        }
+
+
+        .vs-pill
+        {
+            display        : inline-block;
+            padding        : 6px 16px;
+            border-radius  : 999px;
+            background     : #f3f4f6;
+            color          : #374151;
+            font-size      : 13px;
+            font-weight    : 600;
+        }
+
+
+        .vs-pager
+        {
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            gap             : 10px;
+            margin          : 26px 0 10px 0;
+        }
+
+        .vs-pager table
+        {
+            margin : 0 auto;
+        }
+
+        .vs-page-btn
+        {
+            min-width      : 34px;
+            height         : 34px;
+            padding        : 0 10px;
+            display        : inline-flex;
+            align-items    : center;
+            justify-content: center;
+            border         : 1px solid #d1d5db;
+            border-radius  : 6px;
+            background     : #fff;
+            color          : #374151;
+            font-size      : 14px;
+            text-decoration: none;
+            cursor         : pointer;
+            margin         : 0 4px;
+        }
+
+        .vs-page-btn:hover
+        {
+            background: #f3f4f6;
+        }
+
+        .vs-page-btn.active
+        {
+            background  : #c7d2fe;
+            border-color: #c7d2fe;
+            color       : #111827;
+        }
+
+    </style>
+
 
     <!-- Page Header -->
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="vs-head">
 
-        <div>
+        <h3 class="vs-title">Stock Movement</h3>
 
-            <h3 class="fw-bold mb-1 page-title">
-                Stock Ledger
-            </h3>
-
-            <p class="text-muted mb-0 page-subtitle">
-                Every stock movement recorded for this dealership
-            </p>
-
-        </div>
-
-
-        <div class="d-flex gap-2">
-
-            <a href="Inventory.aspx"
-               class="btn btn-outline-secondary">
-
-                <i class="bi bi-arrow-left"></i>
-
-                Back to Inventory
-
-            </a>
-
-
-            <a href="AddInventory.aspx"
-               class="btn btn-primary">
-
-                <i class="bi bi-plus-lg"></i>
-
-                Add / Adjust Stock
-
-            </a>
-
-        </div>
+        <p class="vs-subtitle">Manage All Stock movement</p>
 
     </div>
 
@@ -69,21 +191,20 @@
         ID="lblMessage"
         runat="server"
         Visible="false"
-        CssClass="alert d-block">
+        CssClass="alert d-block mb-3">
     </asp:Label>
 
 
     <!-- Search -->
 
-    <div class="grid-search-box mb-4">
+    <div class="vs-search">
 
-        <i class="bi bi-search search-icon"></i>
+        <i class="bi bi-search"></i>
 
         <asp:TextBox
             ID="txtSearch"
             runat="server"
-            CssClass="form-control"
-            placeholder="Search reference or remarks..."
+            placeholder="Search Stock"
             AutoPostBack="true"
             OnTextChanged="txtSearch_TextChanged">
         </asp:TextBox>
@@ -91,186 +212,90 @@
     </div>
 
 
-    <!-- Type Filter -->
+    <!-- Ledger -->
 
-    <div class="row g-3 mb-4">
+    <div class="vs-table-wrap">
 
-        <div class="col-md-4">
+        <div class="table-responsive">
 
-            <asp:DropDownList
-                ID="ddlType"
+            <asp:GridView
+                ID="gvTransactions"
                 runat="server"
-                CssClass="form-select"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="FilterChanged">
+                ClientIDMode="Static"
+                AutoGenerateColumns="False"
+                CssClass="vs-table"
+                GridLines="None"
+                EmptyDataText="No stock transactions yet."
+                AllowPaging="true"
+                OnPageIndexChanging="gvTransactions_PageIndexChanging"
+                PageSize="10"
+                PagerSettings-Mode="NumericFirstLast"
+                PagerSettings-PageButtonCount="10"
+                PagerSettings-Position="Bottom"
+                PagerStyle-CssClass="vs-pager">
 
-                <asp:ListItem Text="All Types" Value="" Selected="True">
-                </asp:ListItem>
+                <Columns>
 
-                <asp:ListItem Text="Stock In" Value="Stock In">
-                </asp:ListItem>
+                    <asp:BoundField
+                        DataField="TransactionDateText"
+                        HeaderText="Dates"
+                        DataFormatString="{0:dd MMM yyyy}" />
 
-                <asp:ListItem Text="Stock Out" Value="Stock Out">
-                </asp:ListItem>
+                    <asp:TemplateField
+                        HeaderText="Type">
 
-            </asp:DropDownList>
+                        <ItemTemplate>
+
+                            <span class="vs-pill">
+
+                                <%# Eval("TransactionType") %>
+
+                            </span>
+
+                        </ItemTemplate>
+
+                    </asp:TemplateField>
+
+                    <asp:BoundField
+                        DataField="ReferenceNo"
+                        HeaderText="Ref.No" />
+
+                    <asp:BoundField
+                        DataField="ProductName"
+                        HeaderText="Product" />
+
+                    <asp:BoundField
+                        DataField="UnitName"
+                        HeaderText="Unit" />
+
+                    <asp:TemplateField
+                        HeaderText="Qty">
+
+                        <HeaderStyle CssClass="vs-num" />
+                        <ItemStyle CssClass="vs-num" />
+
+                        <ItemTemplate>
+
+                            <span class='<%# Convert.ToInt32(Eval("SignedQty")) >= 0
+                                ? "text-success"
+                                : "text-danger" %>'>
+
+                                <%# Convert.ToInt32(Eval("SignedQty")) >= 0
+                                    ? "+" + Eval("SignedQty")
+                                    : Eval("SignedQty") %>
+
+                            </span>
+
+                        </ItemTemplate>
+
+                    </asp:TemplateField>
+
+                </Columns>
+
+            </asp:GridView>
 
         </div>
 
     </div>
-
-
-    <!-- Ledger -->
-
-        <asp:Repeater
-            ID="repTransactions"
-            runat="server"
-            OnItemDataBound="repTransactions_ItemDataBound">
-
-            <HeaderTemplate>
-
-                <div class="table-responsive">
-
-                    <table class="table table-hover align-middle mb-0">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Date</th>
-
-                                <th>Type</th>
-
-                                <th>Reference</th>
-
-                                <th>Remarks</th>
-
-                                <th>Movements</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-            </HeaderTemplate>
-
-
-            <ItemTemplate>
-
-                <tr>
-
-                    <td class="text-nowrap">
-
-                        <%# Eval("TransactionDateText") %>
-
-                    </td>
-
-
-                    <td>
-
-                        <span class='<%# Eval("TypeCss") %>'>
-
-                            <%# Eval("TransactionType") %>
-
-                        </span>
-
-                    </td>
-
-
-                    <td>
-
-                        <%# string.IsNullOrEmpty(
-                            Convert.ToString(Eval("ReferenceNo")))
-                                ? "-"
-                                : Eval("ReferenceNo") %>
-
-                    </td>
-
-
-                    <td>
-
-                        <%# string.IsNullOrEmpty(
-                            Convert.ToString(Eval("Remarks")))
-                                ? "-"
-                                : Eval("Remarks") %>
-
-                    </td>
-
-
-                    <td>
-
-                        <asp:Repeater
-                            ID="repLines"
-                            runat="server">
-
-                            <ItemTemplate>
-
-                                <div class="small">
-
-                                    <strong>
-
-                                        <%# Eval("ProductName") %>
-
-                                    </strong>
-
-                                    &ndash;
-
-                                    <%# Eval("VariantName") %>
-
-                                    &nbsp;
-
-                                    <span class='<%# Convert.ToInt32(Eval("QuantityPackets")) >= 0
-                                        ? "text-success"
-                                        : "text-danger" %>'>
-
-                                        <%# Convert.ToInt32(Eval("QuantityPackets")) >= 0 ? "+" : "" %><%# Eval("QuantityPackets") %> pkt
-
-                                    </span>
-
-                                </div>
-
-                            </ItemTemplate>
-
-                        </asp:Repeater>
-
-                    </td>
-
-                </tr>
-
-            </ItemTemplate>
-
-
-            <FooterTemplate>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </FooterTemplate>
-
-        </asp:Repeater>
-
-
-        <asp:Panel
-            ID="pnlEmpty"
-            runat="server"
-            Visible="false">
-
-            <div class="text-center py-5">
-
-                <i class="bi bi-journal-text fs-1 text-muted"></i>
-
-                <p class="text-muted mt-3 mb-0">
-                    No stock transactions yet.
-                </p>
-
-            </div>
-
-        </asp:Panel>
-
 
 </asp:Content>
