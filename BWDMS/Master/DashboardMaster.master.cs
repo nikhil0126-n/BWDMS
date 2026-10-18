@@ -40,25 +40,6 @@ namespace BWDMS.Master
 
 
             // ==========================================
-            // ROLE CLASS ON <body>
-            //
-            // The sidebar look is shared by every role. The page
-            // content styling -- bigger titles, pill search boxes,
-            // grey table headers, indigo buttons -- is dealer only
-            // and is scoped by this class, so it is set on every
-            // request (a postback must not lose it).
-            // ==========================================
-
-            bodyTag.Attributes["class"] =
-                "role-" +
-                (Session["UserRole"] == null
-                    ? "user"
-                    : Session["UserRole"].ToString()
-                        .Trim()
-                        .ToLowerInvariant());
-
-
-            // ==========================================
             // LOAD USER INFORMATION
             // ==========================================
 
