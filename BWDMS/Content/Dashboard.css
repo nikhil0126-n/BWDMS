@@ -1235,15 +1235,19 @@ hr {
 
 /* --- SHELL ---------------------------------------------------------------- */
 
-@media (min-width: 992px) {
+/* The reference shell has no top header; keep it only for the drawer mode
+   (below 768px), where the hamburger lives. */
+@media (min-width: 768px) {
     .top-header {
         display: none;
     }
 }
 
 
-.main-content {
-    padding: 32px 34px 80px;
+@media (min-width: 768px) {
+    .main-content {
+        padding: 32px 34px 80px;
+    }
 }
 
 
@@ -1390,27 +1394,28 @@ hr {
 }
 
 
-.table-responsive > .table {
+.table-responsive table {
     margin-bottom: 0;
+    min-width: 500px;
 }
 
 
-.table thead th {
+.table-responsive th {
     background-color: #f1f1f3;
     color: #1f2937;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     border-bottom: 1px solid #e4e4e7;
     border-top: none;
-    padding: 16px 18px;
-    white-space: nowrap;
+    padding: 16px 14px;
+    white-space: normal;
 }
 
 
 .table tbody td {
     font-size: 15px;
     color: #1f2937;
-    padding: 18px;
+    padding: 16px 14px;
     vertical-align: middle;
 }
 
