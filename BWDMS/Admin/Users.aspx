@@ -163,7 +163,7 @@
                 DataKeyNames="UserId"
                 OnRowCommand="gvUsers_RowCommand"
                 OnPageIndexChanging="gvUsers_PageIndexChanging"
-                AllowPaging="true" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                AllowPaging="true" PageSize="10" PagerSettings-Visible="false" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
                 <Columns>
 
@@ -279,6 +279,12 @@
             </asp:GridView>
 
         </div>
+
+
+        <asp:Literal
+            ID="litPager"
+            runat="server">
+        </asp:Literal>
 
     </div>
 

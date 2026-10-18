@@ -78,6 +78,7 @@
     <Content Include="Admin\Categories.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Dealers.aspx" />
+    <Content Include="Admin\DealerDetails.aspx" />
     <Content Include="Admin\Orders.aspx" />
     <Content Include="Admin\ProductVariants.aspx" />
     <Content Include="Admin\Products.aspx" />
@@ -97,6 +98,8 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\RouteVillageAssignment.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
+    <Content Include="Content\images\logo-mark.png" />
+    <Content Include="Content\images\logo-mark-navy.png" />
     <Content Include="Dealer\AddCompanyReceipt.aspx" />
     <Content Include="Dealer\AddDispatch.aspx" />
     <Content Include="Dealer\AddInventory.aspx" />
@@ -137,6 +140,7 @@
     <Content Include="Dealer\Villages.aspx" />
     <Content Include="Dealer\WeeklyRoutePlans.aspx" />
     <Content Include="Handlers\OrderSync.ashx" />
+    <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Salesman\Bill.aspx" />
@@ -235,6 +239,13 @@
     <Compile Include="Admin\Dealers.aspx.designer.cs">
       <DependentUpon>Dealers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\DealerDetails.aspx.cs">
+      <DependentUpon>DealerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DealerDetails.aspx.designer.cs">
+      <DependentUpon>DealerDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -273,6 +284,7 @@
     <Compile Include="Data\AppAuth.cs" />
     <Compile Include="Data\CsvExport.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\GridPager.cs" />
     <Compile Include="Data\InventoryPdfParser.cs" />
     <Compile Include="Data\PasswordHelper.cs" />
     <Compile Include="Data\RouteScheduleSync.cs" />
@@ -548,6 +560,13 @@
     </Compile>
     <Compile Include="Dealer\WeeklyRoutePlans.aspx.designer.cs">
       <DependentUpon>WeeklyRoutePlans.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>

@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Web.UI.WebControls;
 using BWDMS.Data;
 
@@ -61,7 +62,20 @@ namespace BWDMS.Admin
 
             if (!IsPostBack)
             {
+                // The range opens on the last 30 days so the panel
+                // has something to show on a first visit.
+                txtFromDate.Text =
+                    DateTime.Today.AddDays(-29).ToString(
+                        "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture);
+
+                txtToDate.Text =
+                    DateTime.Today.ToString(
+                        "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture);
+
                 LoadKpis();
+                LoadTopProducts();
                 RunReport();
             }
         }
@@ -117,6 +131,147 @@ namespace BWDMS.Admin
                     }
                 }
             }
+        }
+
+
+        // ------------------------------------------------------------
+        // TOP PRODUCTS
+        //
+        // Packet counts rather than money, because "Sales Qty" is
+        // read as how many packets left the warehouse.
+        // ------------------------------------------------------------
+
+        private void LoadTopProducts()
+        {
+            DateTime from;
+            DateTime to;
+
+            if (!TryGetRange(out from, out to))
+            {
+                ClearMessage();
+
+                lblMessage.Visible = true;
+                lblMessage.Text =
+                    "The date range is not valid. Pick both dates again.";
+                lblMessage.CssClass = "alert alert-danger d-block";
+
+                rptTopProducts.DataSource = null;
+                rptTopProducts.DataBind();
+
+                pnlNoTopProducts.Visible = true;
+
+                lblTopProductsRange.Text =
+                    "Best selling products by packets sold";
+
+                return;
+            }
+
+            string query = @"
+                SELECT TOP (5)
+                    Product = p.ProductName,
+                    SalesQty =
+                        SUM(ISNULL(od.QuantityPackets, 0))
+                FROM OrderDetails od
+                INNER JOIN Orders o
+                    ON o.OrderId = od.OrderId
+                INNER JOIN ProductVariants v
+                    ON v.ProductVariantId = od.ProductVariantId
+                INNER JOIN Products p
+                    ON p.ProductId = v.ProductId
+                WHERE o.OrderDate >= @FromDate
+                  AND o.OrderDate <= @ToDate
+                GROUP BY p.ProductName
+                ORDER BY
+                    SUM(ISNULL(od.QuantityPackets, 0)) DESC,
+                    p.ProductName";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@FromDate",
+                        SqlDbType.Date).Value = from;
+
+                    cmd.Parameters.Add(
+                        "@ToDate",
+                        SqlDbType.Date).Value = to;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            rptTopProducts.DataSource = dt;
+            rptTopProducts.DataBind();
+
+            pnlNoTopProducts.Visible = dt.Rows.Count == 0;
+
+            lblTopProductsRange.Text =
+                "Packets sold from " +
+                from.ToString("dd MMM yyyy", CultureInfo.InvariantCulture) +
+                " to " +
+                to.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+        }
+
+
+        // An empty box means the range is open at that end. Only an
+        // unparseable value is an error, and the caller reports it.
+        private bool TryGetRange(
+            out DateTime from,
+            out DateTime to)
+        {
+            from = DateTime.MinValue;
+            to = DateTime.MaxValue;
+
+            string rawFrom = txtFromDate.Text.Trim();
+            string rawTo = txtToDate.Text.Trim();
+
+            if (rawFrom.Length > 0 &&
+                !DateTime.TryParse(
+                    rawFrom,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out from))
+            {
+                return false;
+            }
+
+            if (rawTo.Length > 0 &&
+                !DateTime.TryParse(
+                    rawTo,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out to))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private void ClearMessage()
+        {
+            lblMessage.Visible = false;
+            lblMessage.Text = "";
+        }
+
+
+        protected void btnApplyRange_Click(
+            object sender,
+            EventArgs e)
+        {
+            ClearMessage();
+
+            LoadTopProducts();
         }
 
 

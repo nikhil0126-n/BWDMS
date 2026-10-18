@@ -114,6 +114,24 @@ namespace BWDMS.Admin
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
+        /// fuProductImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuProductImage;
+
+        /// <summary>
+        /// hfRemoveImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfRemoveImage;
+
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

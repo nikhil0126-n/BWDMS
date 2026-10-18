@@ -80,7 +80,13 @@
                 </h5>
 
                 <small class="text-muted">
-                    Newest first
+
+                    <asp:Label
+                        ID="lblCount"
+                        runat="server"
+                        Text="Newest first">
+                    </asp:Label>
+
                 </small>
 
             </div>
@@ -132,6 +138,7 @@
 
             </div>
 
+
         </div>
 
 
@@ -142,7 +149,7 @@
                 runat="server"
                 AutoGenerateColumns="False"
                 CssClass="table table-hover align-middle"
-                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvOrders_PageIndexChanging" PageSize="10" PagerSettings-Visible="false" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="Bottom">
 
                 <Columns>
 
@@ -206,6 +213,12 @@
             </asp:GridView>
 
         </div>
+
+
+        <asp:Literal
+            ID="litPager"
+            runat="server">
+        </asp:Literal>
 
     </div>
 

@@ -61,44 +61,32 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Orders Taken
-                </div>
+                <div class="d-flex align-items-center gap-3">
 
+                    <span class="stat-icon bg-primary-subtle text-primary-emphasis">
+                        <i class="bi bi-cart-check"></i>
+                    </span>
 
-                <div class="fw-bold fs-4">
+                    <div>
 
-                    <asp:Label
-                        ID="lblKpiOrders"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
-
-                </div>
-
-            </div>
-
-        </div>
+                        <div class="text-muted small">
+                            Orders Taken
+                        </div>
 
 
-        <div class="col-md-3">
+                        <div class="fw-bold fs-4">
 
-            <div class="dashboard-card text-center">
+                            <asp:Label
+                                ID="lblKpiOrders"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
 
-                <div class="text-muted small">
-                    Order Value
-                </div>
+                        </div>
 
-
-                <div class="fw-bold fs-4 text-danger">
-
-                    <asp:Label
-                        ID="lblKpiValue"
-                        runat="server"
-                        Text="0.00">
-                    </asp:Label>
+                    </div>
 
                 </div>
 
@@ -109,20 +97,32 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Shops Served
-                </div>
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-success-subtle text-success-emphasis">
+                        <i class="bi bi-currency-rupee"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Order Value
+                        </div>
 
 
-                <div class="fw-bold fs-4">
+                        <div class="fw-bold fs-4 text-danger">
 
-                    <asp:Label
-                        ID="lblKpiShops"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
+                            <asp:Label
+                                ID="lblKpiValue"
+                                runat="server"
+                                Text="0.00">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -133,20 +133,68 @@
 
         <div class="col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="dashboard-card">
 
-                <div class="text-muted small">
-                    Routes
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-warning-subtle text-warning-emphasis">
+                        <i class="bi bi-shop"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Shops Served
+                        </div>
+
+
+                        <div class="fw-bold fs-4">
+
+                            <asp:Label
+                                ID="lblKpiShops"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
+            </div>
 
-                <div class="fw-bold fs-4">
+        </div>
 
-                    <asp:Label
-                        ID="lblKpiRoutes"
-                        runat="server"
-                        Text="0">
-                    </asp:Label>
+
+        <div class="col-md-3">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <span class="stat-icon bg-info-subtle text-info-emphasis">
+                        <i class="bi bi-signpost-split"></i>
+                    </span>
+
+                    <div>
+
+                        <div class="text-muted small">
+                            Routes
+                        </div>
+
+
+                        <div class="fw-bold fs-4">
+
+                            <asp:Label
+                                ID="lblKpiRoutes"
+                                runat="server"
+                                Text="0">
+                            </asp:Label>
+
+                        </div>
+
+                    </div>
 
                 </div>
 

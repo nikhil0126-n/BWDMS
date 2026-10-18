@@ -41,11 +41,25 @@
         }
     </style>
 
+    <style type="text/css">
+        /* Primary action buttons - kept in step with the dashboard palette. */
+        .btn-primary {
+            background-color: #686ce5;
+            border-color: #686ce5;
+        }
+
+            .btn-primary:hover,
+            .btn-primary:focus {
+                background-color: #5a5ed8;
+                border-color: #5a5ed8;
+            }
+    </style>
+
 </head>
 
 <body>
 
-<form id="form1" runat="server">
+<form id="form1" runat="server" novalidate>
 
     <div class="container py-4">
 

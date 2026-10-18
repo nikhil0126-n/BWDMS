@@ -127,6 +127,9 @@ namespace BWDMS.Admin
                             table;
 
                         gvDealers.DataBind();
+
+                        litPager.Text =
+                            GridPager.Html(gvDealers);
                     }
                 }
             }
@@ -141,6 +144,8 @@ namespace BWDMS.Admin
             object sender,
             EventArgs e)
         {
+            gvDealers.PageIndex = 0;
+
             LoadDealers();
         }
 
@@ -220,6 +225,18 @@ namespace BWDMS.Admin
             gvDealers.PageIndex = e.NewPageIndex;
 
             LoadDealers();
+        }
+
+
+        // The pager bar under the grid links back to the grid with a
+        // "Page$N" argument. Event validation only accepts arguments that
+        // were registered while rendering, which the grid's own (hidden)
+        // pager would normally do, so register them here.
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            GridPager.RegisterForEventValidation(gvDealers);
+
+            base.Render(writer);
         }
 
     }

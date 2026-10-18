@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true"
+<%@ Master Language="C#" AutoEventWireup="true"
     CodeBehind="DashboardMaster.master.cs"
     Inherits="BWDMS.Master.DashboardMaster" %>
 
@@ -50,7 +50,7 @@
 
 <body>
 
-<form id="form1" runat="server">
+<form id="form1" runat="server" novalidate>
 
 
     <!-- =====================================================
@@ -165,9 +165,19 @@
 
         <div class="sidebar-logo">
 
-            <img class="sidebar-logo-img"
-                 src="<%= ResolveUrl("~/Content/Images/balaji-dms-logo.png") %>"
+
+            <img class="logo-icon"
+                 src="<%= ResolveUrl("~/Content/images/logo-mark.png") %>"
                  alt="BALAJI DMS" />
+
+
+            <div>
+
+                <strong>
+                    BALAJI DMS
+                </strong>
+
+            </div>
 
         </div>
 

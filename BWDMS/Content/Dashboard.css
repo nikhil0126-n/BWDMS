@@ -23,6 +23,14 @@
     --bw-blue-100: #e0e7ff;
     --bw-blue-050: #eef2ff;
 
+    /* --- Brand: primary action ------------------------------------------
+       Every main action button (Save / Add / Create / Update) and the
+       "current page" pill use this indigo, taken from the approved mockup.
+       Cancel and Delete/Deactivate buttons deliberately keep their own
+       neutral / red styling. */
+    --bw-primary: #686ce5;
+    --bw-primary-hover: #5a5ed8;
+
     /* --- Neutrals ------------------------------------------------------- */
     --bw-canvas: #eef1f6;
     --bw-surface: #ffffff;
@@ -194,8 +202,10 @@ body {
     top: 0;
     bottom: 0;
     width: 250px;
-    background: linear-gradient(180deg, var(--bw-navy-900) 0%, var(--bw-navy-950) 100%);
-    border-right: 1px solid rgba(255, 255, 255, .06);
+    /* Palette taken from the supplied reference: flat deep navy body,
+       a 1px slate-blue seam down the right edge. */
+    background: #041252;
+    border-right: 1px solid #424d7d;
     z-index: 1100;
     display: flex;
     flex-direction: column;
@@ -206,23 +216,22 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 0 22px;
+    /* Reference header: navy on the left sweeping into a bright blue
+       on the right, so the two shades meet the body seamlessly. */
+    background: linear-gradient(90deg, #041252 0%, #1930c3 100%);
     border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--bw-blue-500), var(--bw-blue-700));
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, .38);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+    height: 42px;
+    width: auto;
+    flex: none;
+    /* White line-art emblem lifted from the supplied reference; the PNG
+       carries its own transparency so it sits on the gradient cleanly. */
+    display: block;
 }
 
 
@@ -230,13 +239,7 @@ body {
     display: block;
     font-size: 17px;
     color: #ffffff;
-}
-
-
-.sidebar-logo small {
-    display: block;
-    color: rgba(219, 228, 243, .58);
-    font-size: 10px;
+    white-space: nowrap;
 }
 
 
@@ -263,29 +266,43 @@ body {
     padding: 11px 14px;
     margin-bottom: 3px;
     border-radius: var(--bw-radius-sm);
-    color: rgba(226, 232, 244, .80);
+    color: rgba(255, 255, 255, .82);
     text-decoration: none;
     font-size: 14px;
     transition: .2s;
 }
 
 
+    /* Reference: muted slate-blue glyphs against the navy body. */
     .menu-item i {
         font-size: 17px;
+        color: #9298b4;
     }
 
 
     .menu-item:hover {
-        background: rgba(255, 255, 255, .08);
+        background: rgba(255, 255, 255, .07);
         color: #ffffff;
     }
 
 
+        .menu-item:hover i {
+            color: #ffffff;
+        }
+
+
+    /* Reference: the selected row is a solid slate panel, not a
+       glowing blue pill - flat fill, inset by the list padding. */
     .menu-item.active {
-        background: linear-gradient(135deg, var(--bw-blue-600), var(--bw-blue-700));
+        background: #394373;
         color: #ffffff;
-        box-shadow: 0 6px 18px rgba(37, 99, 235, .38);
+        box-shadow: none;
     }
+
+
+        .menu-item.active i {
+            color: #ffffff;
+        }
 
 
 .sidebar-bottom {
@@ -380,6 +397,26 @@ body {
     font-size: 28px;
     font-weight: 700;
     color: var(--bw-navy-900);
+}
+
+
+/* ============================================================================
+   STAT CARD ICON
+   ----------------------------------------------------------------------------
+   Soft tinted tile that sits in the top-right corner of the headline stat
+   cards. The tint itself comes from Bootstrap's bg-*-subtle / text-*-emphasis
+   utilities in the markup; this rule only sets the shape.
+   ============================================================================ */
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex: 0 0 auto;
 }
 
 
@@ -772,29 +809,63 @@ body {
 
 
 .btn-primary {
-    background-color: var(--bw-blue-600);
-    border-color: var(--bw-blue-600);
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
 }
 
 
     .btn-primary:hover,
     .btn-primary:focus {
-        background-color: var(--bw-blue-700);
-        border-color: var(--bw-blue-700);
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
         box-shadow: var(--bw-focus);
     }
 
 
+/* Dealers list: the "+ Add Dealer" action is a primary button, so it simply
+   follows the shared primary indigo (#686ce5). */
+
+.btn-add-dealer {
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
+}
+
+
+    .btn-add-dealer:hover,
+    .btn-add-dealer:focus {
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
+    }
+
+
+/* Add Dealer form: the "Create Dealer" action is a primary button as well, and
+   keeps an explicit white label. */
+
+.btn-dealer-save {
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
+    color: #ffffff;
+}
+
+
+    .btn-dealer-save:hover,
+    .btn-dealer-save:focus {
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
+        color: #ffffff;
+    }
+
+
 .btn-outline-primary {
-    color: var(--bw-blue-600);
-    border-color: var(--bw-blue-600);
+    color: var(--bw-primary);
+    border-color: var(--bw-primary);
 }
 
 
     .btn-outline-primary:hover,
     .btn-outline-primary:focus {
-        background-color: var(--bw-blue-600);
-        border-color: var(--bw-blue-600);
+        background-color: var(--bw-primary);
+        border-color: var(--bw-primary);
         box-shadow: var(--bw-focus);
     }
 
@@ -1062,6 +1133,71 @@ td[colspan] > table a {
         }
 
 
+/* --- Always-visible grid pager -------------------------------------------
+   Built by BWDMS.Data.GridPager and drawn under the table rather than as a
+   GridView pager row, so a list with a single page still shows the control.
+   Shares the look of the built-in pager above: current page is a filled
+   blue pill, the rest are outlined. -------------------------------------- */
+
+.grid-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--bw-border);
+}
+
+
+.grid-pager .pager-step,
+.grid-pager .pager-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background-color: var(--bw-surface);
+    color: var(--bw-text-soft);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+
+.grid-pager a.pager-step:hover,
+.grid-pager a.pager-step:focus,
+.grid-pager a.pager-page:hover,
+.grid-pager a.pager-page:focus {
+    background-color: var(--bw-blue-050);
+    border-color: var(--bw-blue-500);
+    color: var(--bw-blue-700);
+    text-decoration: none;
+    outline: none;
+}
+
+
+.grid-pager .pager-page.is-active {
+    background-color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: default;
+}
+
+
+.grid-pager .is-disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+
 /* --- Badges ------------------------------------------------------------- */
 
 .badge {
@@ -1212,6 +1348,162 @@ a {
 
 hr {
     border-color: var(--bw-border-soft);
+}
+
+
+/* ============================================================================
+   PRODUCT IMAGE DROP ZONE
+   ============================================================================ */
+
+.image-drop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    padding: 16px;
+    border: 2px dashed var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface-2);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .15s ease, background .15s ease;
+}
+
+
+.image-drop:hover,
+.image-drop.dragging {
+    border-color: var(--bw-blue-600);
+    background: var(--bw-blue-050);
+}
+
+
+.image-drop.has-image {
+    border-style: solid;
+}
+
+
+.image-drop-inner {
+    padding: 8px;
+}
+
+
+.image-drop-icon {
+    display: block;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--bw-blue-600);
+    margin-bottom: 10px;
+}
+
+
+.image-drop-preview {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+
+.image-drop-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+
+/* ============================================================================
+   TOP PRODUCTS LIST
+   ============================================================================ */
+
+.top-products-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 4px;
+    border-bottom: 1px solid var(--bw-border-soft);
+}
+
+
+.top-products-head {
+    padding-top: 0;
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--bw-text-muted);
+    border-bottom: 1px solid var(--bw-border);
+}
+
+
+.top-products-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+.top-products-name {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-weight: 600;
+    color: var(--bw-text);
+}
+
+
+.top-products-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bw-blue-050);
+    color: var(--bw-blue-600);
+    font-size: .74rem;
+    font-weight: 700;
+}
+
+
+/* ============================================================================
+   REPORT DATE RANGE
+   ============================================================================ */
+
+.report-range {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px 4px 12px;
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface);
+    box-shadow: var(--bw-shadow-sm);
+}
+
+
+.report-range > i {
+    color: var(--bw-text-muted);
+    font-size: .95rem;
+}
+
+
+.report-range input[type="date"] {
+    width: auto;
+    min-width: 132px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 2px 2px;
+}
+
+
+.report-range input[type="date"]:focus {
+    box-shadow: none;
+    background: var(--bw-blue-050);
+    border-radius: 6px;
 }
 
 

@@ -77,7 +77,10 @@ namespace BWDMS.Admin
             {
                 LoadCategoryDropdown();
 
-                LoadImportDropdowns();
+                // DISABLED - the inventory PDF import card is
+                // commented out in AddProduct.aspx, so its dropdowns
+                // are no longer filled.
+                // LoadImportDropdowns();
 
                 if (ProductId > 0)
                 {
@@ -90,30 +93,32 @@ namespace BWDMS.Admin
                 }
             }
 
-            // Bulk import creates products, so it has no meaning
-            // while an existing one is being edited.
-            pnlImport.Visible = (ProductId == 0);
-
-            // The preview and its Import button follow the rows
+            // DISABLED - the import panel, its preview grid, its
+            // Import button and its summary label are all commented
+            // out in AddProduct.aspx, so they are null here and must
+            // not be touched. Kept for reference.
+            //
+            // Bulk import creates products, so it had no meaning
+            // while an existing one was being edited.
+            // pnlImport.Visible = (ProductId == 0);
+            //
+            // The preview and its Import button followed the rows
             // held in ViewState rather than a Visible flag, so
-            // neither is lost on the postback that reads the
-            // sheet.
-            List<InventoryPdfRow> pending =
-                ViewState[ImportRowsKey]
-                    as List<InventoryPdfRow>;
-
-            pnlPreview.Visible =
-                pending != null && pending.Count > 0;
-
-            btnImportRows.Visible = pnlPreview.Visible;
-
-            string summary =
-                ViewState[ImportSummaryKey] as string;
-
-            if (summary != null)
-            {
-                litSummary.Text = summary;
-            }
+            // neither was lost on the postback that reads the sheet.
+            // List<InventoryPdfRow> pending =
+            //     ViewState[ImportRowsKey] as List<InventoryPdfRow>;
+            //
+            // pnlPreview.Visible =
+            //     pending != null && pending.Count > 0;
+            //
+            // btnImportRows.Visible = pnlPreview.Visible;
+            //
+            // string summary = ViewState[ImportSummaryKey] as string;
+            //
+            // if (summary != null)
+            // {
+            //     litSummary.Text = summary;
+            // }
         }
 
 
@@ -181,7 +186,8 @@ namespace BWDMS.Admin
                         ProductCode,
                         Description,
                         CategoryId,
-                        IsActive
+                        IsActive,
+                        ImagePath
                     FROM Products
                     WHERE ProductId = @ProductId";
 
@@ -226,6 +232,14 @@ namespace BWDMS.Admin
                             SetSelectedValue(
                                 ddlCategory,
                                 reader["CategoryId"].ToString());
+
+                            // Held in ViewState so the preview tile
+                            // can still show the stored image on the
+                            // postback that saves the form.
+                            ViewState["ImagePath"] =
+                                reader["ImagePath"] == DBNull.Value
+                                    ? null
+                                    : reader["ImagePath"].ToString();
 
                             ddlStatus.SelectedValue =
                                 Convert.ToBoolean(reader["IsActive"])
@@ -285,6 +299,28 @@ namespace BWDMS.Admin
                 ddlStatus.SelectedValue == "1";
 
             bool isEdit = ProductId > 0;
+
+            // The image is written to disk before the row so the
+            // path can go straight into the statement. A failed
+            // transaction can only leave an unused file behind, it
+            // can never leave a row pointing at a missing one.
+            string imagePath;
+
+            try
+            {
+                imagePath = ApplyImageChange(
+                    ViewState["ImagePath"] as string);
+            }
+            catch (Exception imageError)
+            {
+                ShowMessage(
+                    "Error saving image: " + imageError.Message,
+                    false);
+
+                return;
+            }
+
+            ViewState["ImagePath"] = imagePath;
 
 
             try
@@ -363,7 +399,8 @@ namespace BWDMS.Admin
                                     productCode,
                                     description,
                                     categoryId,
-                                    isActive);
+                                    isActive,
+                                    imagePath);
                             }
                             else
                             {
@@ -374,7 +411,8 @@ namespace BWDMS.Admin
                                     productCode,
                                     description,
                                     categoryId,
-                                    isActive);
+                                    isActive,
+                                    imagePath);
                             }
 
                             tx.Commit();
@@ -409,7 +447,8 @@ namespace BWDMS.Admin
             string productCode,
             string description,
             int categoryId,
-            bool isActive)
+            bool isActive,
+            string imagePath)
         {
             string query = @"
                 INSERT INTO Products
@@ -419,6 +458,7 @@ namespace BWDMS.Admin
                     Description,
                     CategoryId,
                     IsActive,
+                    ImagePath,
                     CreatedBy,
                     CreatedAt
                 )
@@ -429,6 +469,7 @@ namespace BWDMS.Admin
                     @Description,
                     @CategoryId,
                     @IsActive,
+                    @ImagePath,
                     @CreatedBy,
                     GETDATE()
                 );
@@ -444,7 +485,8 @@ namespace BWDMS.Admin
                     productCode,
                     description,
                     categoryId,
-                    isActive);
+                    isActive,
+                    imagePath);
 
                 cmd.Parameters.Add(
                     "@CreatedBy",
@@ -462,7 +504,8 @@ namespace BWDMS.Admin
             string productCode,
             string description,
             int categoryId,
-            bool isActive)
+            bool isActive,
+            string imagePath)
         {
             string query = @"
                 UPDATE Products
@@ -472,6 +515,7 @@ namespace BWDMS.Admin
                     Description = @Description,
                     CategoryId = @CategoryId,
                     IsActive = @IsActive,
+                    ImagePath = @ImagePath,
                     UpdatedBy = @UpdatedBy,
                     UpdatedAt = GETDATE()
                 WHERE ProductId = @ProductId";
@@ -485,7 +529,8 @@ namespace BWDMS.Admin
                     productCode,
                     description,
                     categoryId,
-                    isActive);
+                    isActive,
+                    imagePath);
 
                 cmd.Parameters.Add(
                     "@UpdatedBy",
@@ -512,7 +557,8 @@ namespace BWDMS.Admin
             string productCode,
             string description,
             int categoryId,
-            bool isActive)
+            bool isActive,
+            string imagePath)
         {
             cmd.Parameters.Add(
                 "@ProductName",
@@ -542,17 +588,35 @@ namespace BWDMS.Admin
             cmd.Parameters.Add(
                 "@IsActive",
                 SqlDbType.Bit).Value = isActive;
+
+            cmd.Parameters.Add(
+                "@ImagePath",
+                SqlDbType.NVarChar,
+                300).Value =
+                string.IsNullOrWhiteSpace(imagePath)
+                    ? (object)DBNull.Value
+                    : imagePath;
         }
 
 
-        // ============================================================
-        // BULK IMPORT FROM AN INVENTORY PDF
-        //
-        // The sheet is always read first and shown as a preview.
-        // Nothing is written until the Import button is pressed,
-        // and every row the import touches is created inside one
-        // transaction, so a half imported sheet cannot happen.
-        // ============================================================
+        /* ============================================================
+           DISABLED - BULK IMPORT FROM AN INVENTORY PDF
+
+           The import card is commented out in AddProduct.aspx, so
+           every control it used (fuInventoryPdf, ddlGodown,
+           ddlFallbackCategory, btnReadSheet, btnImportRows,
+           pnlPreview, gvPreview, litSummary, lblImportMessage) is
+           null at run time. The region is kept for reference and
+           stays inside this block comment until those controls come
+           back. Delete this opener and the matching closer after
+           ShowImport at the bottom of the region to restore the
+           feature.
+
+           The sheet is always read first and shown as a preview.
+           Nothing is written until the Import button is pressed,
+           and every row the import touches is created inside one
+           transaction, so a half imported sheet cannot happen.
+           ============================================================
 
         private const string ImportRowsKey = "ImportRows";
 
@@ -1797,6 +1861,143 @@ namespace BWDMS.Admin
             lblImportMessage.CssClass = success
                 ? "alert alert-success d-block"
                 : "alert alert-danger d-block";
+        }
+
+           ============================================================ */
+
+
+        // ============================================================
+        // PRODUCT IMAGE
+        //
+        // The image travels on the same postback as the form, so it
+        // is written to disk first and only the relative path is
+        // stored. Any file that either the file input or the Remove
+        // button replaces is deleted afterwards.
+        // ============================================================
+
+        private const int MaxImageBytes = 2 * 1024 * 1024;
+
+        private static readonly string[] AllowedImageExtensions =
+        {
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".webp"
+        };
+
+
+        // Read by the markup so the tile can come back painted after
+        // a validation error.
+        protected bool HasImage
+        {
+            get
+            {
+                if (hfRemoveImage.Value == "1" &&
+                    !fuProductImage.HasFile)
+                {
+                    return false;
+                }
+
+                return !string.IsNullOrEmpty(
+                    ViewState["ImagePath"] as string);
+            }
+        }
+
+
+        protected string PreviewUrl
+        {
+            get
+            {
+                string path = ViewState["ImagePath"] as string;
+
+                return string.IsNullOrEmpty(path)
+                    ? ""
+                    : ResolveUrl(path);
+            }
+        }
+
+
+        private string ApplyImageChange(string currentPath)
+        {
+            // Remove was pressed and no replacement was chosen.
+            if (hfRemoveImage.Value == "1" &&
+                !fuProductImage.HasFile)
+            {
+                DeleteImage(currentPath);
+
+                return null;
+            }
+
+            if (!fuProductImage.HasFile)
+            {
+                return currentPath;
+            }
+
+            return SaveUploadedImage(currentPath);
+        }
+
+
+        private string SaveUploadedImage(string currentPath)
+        {
+            if (fuProductImage.PostedFile.ContentLength >
+                MaxImageBytes)
+            {
+                throw new InvalidOperationException(
+                    "the image is larger than 2 MB.");
+            }
+
+            string extension = Path
+                .GetExtension(fuProductImage.FileName ?? "")
+                .ToLowerInvariant();
+
+            if (Array.IndexOf(
+                    AllowedImageExtensions,
+                    extension) < 0)
+            {
+                throw new InvalidOperationException(
+                    "only PNG, JPG and WEBP images are allowed.");
+            }
+
+            string folder =
+                Server.MapPath("~/Uploads/Products/");
+
+            Directory.CreateDirectory(folder);
+
+            string fileName =
+                Guid.NewGuid().ToString("N") + extension;
+
+            fuProductImage.SaveAs(
+                Path.Combine(folder, fileName));
+
+            // The replaced file is only dropped once the new one is
+            // safely on disk.
+            DeleteImage(currentPath);
+
+            return "~/Uploads/Products/" + fileName;
+        }
+
+
+        private void DeleteImage(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            try
+            {
+                string full = Server.MapPath(path);
+
+                if (File.Exists(full))
+                {
+                    File.Delete(full);
+                }
+            }
+            catch
+            {
+                // A file left behind is not worth failing a save
+                // over.
+            }
         }
 
 

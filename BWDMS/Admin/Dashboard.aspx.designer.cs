@@ -51,6 +51,55 @@ namespace BWDMS.Admin
         protected global::System.Web.UI.WebControls.Label lblOrderCount;
 
         /// <summary>
+        /// lblOverviewMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOverviewMessage;
+
+        /// <summary>
+        /// divOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOverview;
+
+        /// <summary>
+        /// lblOverviewTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOverviewTotal;
+
+        /// <summary>
+        /// rptOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptOverview;
+
+        /// <summary>
+        /// gvRecentDealers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRecentDealers;
+
+        /* Recent Dealer Activity is hidden on the page but kept for
+           later; the markup and the code-behind are commented out too.
+           Restore this declaration together with them.
+
+        /// <summary>
         /// gvRecentActivity control.
         /// </summary>
         /// <remarks>
@@ -59,22 +108,6 @@ namespace BWDMS.Admin
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRecentActivity;
 
-        /// <summary>
-        /// lblStatusTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatusTotal;
-
-        /// <summary>
-        /// gvStatusSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStatusSummary;
+        */
     }
 }
