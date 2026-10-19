@@ -191,7 +191,6 @@ body {
         font-size: 12px;
     }
 
-
 /* ============================================================================
    SIDEBAR — dark navy navigation shell
    ============================================================================ */
@@ -341,7 +340,6 @@ body {
 .sidebar-backdrop {
     display: none;
 }
-
 
 /* ============================================================================
    SEARCH / TOOLBAR BOX IN CARD HEADERS
@@ -1549,39 +1547,6 @@ hr {
 }
 
 
-/* --- LOGO ----------------------------------------------------------------- */
-
-.sidebar-logo {
-    height: auto;
-    margin: 14px 14px 8px;
-    padding: 11px 14px;
-    gap: 11px;
-    background: #ffffff;
-    border: none;
-    border-bottom: none;
-    border-radius: 12px;
-}
-
-
-.logo-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    font-size: 16px;
-    background: var(--bw-navy-900);
-    color: #ffffff;
-    box-shadow: none;
-    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-}
-
-
-.sidebar-logo strong {
-    color: var(--bw-navy-900);
-    font-size: 16px;
-    letter-spacing: .2px;
-}
-
-
 /* --- ACTIVE MENU ITEM ----------------------------------------------------- */
 
 .menu-item.active,
@@ -1976,15 +1941,5 @@ td[colspan] > table span {
 }
 
 
-/* Sidebar brand logo image */
-.sidebar-logo-img {
-    max-width: 165px;
-    max-height: 46px;
-    object-fit: contain;
-    display: block;
-}
-
-.sidebar-logo {
-    padding: 0 14px;
-}
+/* (sidebar logo sizing handled by .logo-icon in the LOGO section) */
 

@@ -157,29 +157,29 @@
          SIDEBAR
          ===================================================== -->
 
-    <aside class="sidebar"
-           id="sidebar">
+   <aside class="sidebar"
+        id="sidebar">
 
 
-        <!-- SIDEBAR LOGO -->
+     <!-- SIDEBAR LOGO -->
 
-        <div class="sidebar-logo">
-
-
-            <img class="logo-icon"
-                 src="<%= ResolveUrl("~/Content/images/logo-mark.png") %>"
-                 alt="BALAJI DMS" />
+     <div class="sidebar-logo">
 
 
-            <div>
+         <img class="logo-icon"
+              src="<%= ResolveUrl("~/Content/images/logo-mark.png") %>"
+              alt="BALAJI DMS" />
 
-                <strong>
-                    BALAJI DMS
-                </strong>
 
-            </div>
+         <div>
 
-        </div>
+             <strong>
+                 BALAJI DMS
+             </strong>
+
+         </div>
+
+     </div>
 
 
 
