@@ -647,11 +647,11 @@ namespace BWDMS.Salesman
                 discount = 0m;
             }
 
-            lblSubTotal.Text = subTotal.ToString("N2");
-            lblDiscount.Text = discount.ToString("N2");
+            lblSubTotal.Text = subTotal.ToString("0.##");
+            lblDiscount.Text = discount.ToString("0.##");
             lblGrandTotal.Text =
                 Math.Max(0m, subTotal - discount)
-                    .ToString("N2");
+                    .ToString("0.##");
         }
 
 

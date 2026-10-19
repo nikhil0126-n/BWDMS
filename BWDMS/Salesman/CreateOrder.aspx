@@ -166,21 +166,30 @@
             margin-bottom: .6rem;
         }
 
+        .co-prod-card {
+            border: 1px solid #d5d5da;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 1rem;
+        }
+
         .co-table thead th {
-            background: #e9edf3;
+            background: #e6e6e6;
             font-weight: 700;
-            font-size: .9rem;
-            padding: .75rem 1rem;
+            font-size: .95rem;
+            color: #111;
+            padding: 1rem 1.2rem;
             border: none;
             white-space: nowrap;
         }
 
         .co-table thead tr th:first-child {
-            border-radius: 8px 0 0 8px;
+            border-radius: 10px 0 0 0;
         }
 
         .co-table thead tr th:last-child {
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 0 0;
         }
 
         .co-table tbody td {
@@ -211,17 +220,18 @@
         }
 
         .co-step a {
-            width: 26px;
+            width: 22px;
             height: 26px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--bw-border);
+            border: none;
             border-radius: 6px;
-            background: #fff;
+            background: transparent;
             color: var(--bw-text-soft);
             text-decoration: none;
             font-weight: 700;
+            font-size: .85rem;
             line-height: 1;
         }
 
@@ -268,35 +278,43 @@
         }
 
         .co-totals {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
             gap: 1.5rem;
-            border: 1px solid var(--bw-border);
+            border: 1px solid #d5d5da;
             border-radius: 10px;
-            background: #fbfcfe;
-            padding: .85rem 1.2rem;
+            background: #fff;
+            padding: 1rem 1.4rem;
             margin-top: 1rem;
         }
 
         .co-totals .co-t > span {
             display: block;
             font-size: .75rem;
-            color: var(--bw-text-muted);
+            color: #6b7280;
             margin-bottom: .15rem;
         }
 
         .co-totals .co-t strong {
             font-size: 1.05rem;
-            color: var(--bw-text);
+            color: #111;
             white-space: nowrap;
         }
 
+        .co-totals .co-t:nth-child(1) {
+            text-align: left;
+        }
+
         .co-totals .co-t:nth-child(2) {
-            margin-left: auto;
+            text-align: center;
+        }
+
+        .co-totals .co-t:nth-child(3) {
+            text-align: right;
         }
 
         .co-t-amount {
-            margin-left: auto;
             text-align: right;
         }
 
@@ -348,28 +366,50 @@
         }
 
         .co-sum-table thead th {
-            background: #d7d7d7;
+            background: #e6e6e6;
             font-weight: 700;
             font-size: .95rem;
             color: #111;
             text-align: center;
-            padding: .85rem 1rem;
+            padding: 1.05rem 1.2rem;
+        }
+
+        .co-sum-table thead th:nth-child(1),
+        .co-sum-table thead th:nth-child(2) {
+            text-align: left;
+        }
+
+        .co-sum-table thead th:last-child {
+            text-align: right;
         }
 
         .co-sum-table thead tr th:first-child {
-            border-radius: 8px 0 0 0;
+            border-radius: 10px 0 0 0;
         }
 
         .co-sum-table thead tr th:last-child {
-            border-radius: 0 8px 0 0;
+            border-radius: 0 10px 0 0;
         }
 
         .co-sum-table tbody td {
-            padding: 1rem;
+            padding: 1.35rem 1.2rem;
             font-size: .95rem;
             font-weight: 700;
             color: #111;
             text-align: center;
+        }
+
+        .co-sum-table tbody td:nth-child(1),
+        .co-sum-table tbody td:nth-child(2) {
+            text-align: left;
+        }
+
+        .co-sum-table tbody td:last-child {
+            text-align: right;
+        }
+
+        #btnAddBack {
+            display: none;
         }
 
         .co-sum-totals {
@@ -988,6 +1028,8 @@
 
         <!-- Lines grid -->
 
+        <div class="co-prod-card">
+
         <asp:Panel
             ID="pnlLines"
             runat="server">
@@ -1055,7 +1097,7 @@
 
                             <td>
 
-                                <%# Eval("QuantityPackets") %>
+                                <%# Eval("QuantityPackets") %> <%# Eval("UnitCode") %>
 
                             </td>
 
@@ -1094,7 +1136,7 @@
 
                             <td class="text-end">
 
-                                &#8377;<%# Convert.ToDecimal(Eval("UnitPrice")).ToString("N2") %>
+                                &#8377;<%# Convert.ToDecimal(Eval("UnitPrice")).ToString("0.##") %>
 
                             </td>
 
@@ -1103,7 +1145,7 @@
 
                                 <span class="co-money">
 
-                                    &#8377;<%# Convert.ToDecimal(Eval("LineTotal")).ToString("N2") %>
+                                    &#8377;<%# Convert.ToDecimal(Eval("LineTotal")).ToString("0.##") %>
 
                                 </span>
 
@@ -1201,6 +1243,7 @@
             + Add Products
         </button>
 
+        </div><!-- /co-prod-card -->
 
         <!-- Totals -->
         <div class="co-totals">

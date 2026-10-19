@@ -198,11 +198,11 @@ body.sw-body {
     text-decoration: none;
 }
 
-.sw-menu-item.active {
-    background: var(--sw-navy-active);
-    color: #fff;
-    box-shadow: inset 3px 0 0 var(--sw-primary-2);
-}
+    .sw-menu-item.active {
+        background: var(--sw-navy-active);
+        color: #fff;
+        box-shadow: inset 3px 0 0 var(--sw-primary-2);
+    }
 
 .sw-side-bottom {
     padding: 14px;
@@ -258,7 +258,7 @@ body.sw-body {
 }
 
 .sw-logout:hover {
-    background: rgba(239, 68, 68, .18);
+    background: rgba(255, 255, 255, .07);
     color: #fff;
     text-decoration: none;
 }
