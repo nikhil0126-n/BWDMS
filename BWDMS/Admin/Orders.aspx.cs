@@ -131,6 +131,57 @@ namespace BWDMS.Admin
 
             gvOrders.DataSource = dt;
             gvOrders.DataBind();
+
+            UpdateCount(dt.Rows.Count);
+
+            litPager.Text = GridPager.Html(gvOrders);
+        }
+
+
+        // "Showing 5-8 of 8" while the pager itself only knows the
+        // page numbers.
+        private void UpdateCount(int total)
+        {
+            int size = gvOrders.PageSize;
+
+            if (size < 1)
+            {
+                size = 10;
+            }
+
+            int pages = total == 0
+                ? 1
+                : (int)Math.Ceiling((double)total / size);
+
+            int pageIndex = gvOrders.PageIndex;
+
+            if (pageIndex > pages - 1)
+            {
+                pageIndex = pages - 1;
+            }
+
+            if (pageIndex < 0)
+            {
+                pageIndex = 0;
+            }
+
+            gvOrders.PageIndex = pageIndex;
+
+            if (total == 0)
+            {
+                lblCount.Text = "Newest first · No orders";
+
+                return;
+            }
+
+            int first = pageIndex * size + 1;
+            int last = Math.Min((pageIndex + 1) * size, total);
+
+            lblCount.Text = string.Format(
+                "Newest first · Showing {0}-{1} of {2}",
+                first,
+                last,
+                total);
         }
 
 
@@ -157,6 +208,9 @@ namespace BWDMS.Admin
             object sender,
             EventArgs e)
         {
+            // A new search starts at the top of the results.
+            gvOrders.PageIndex = 0;
+
             LoadOrders();
         }
 
@@ -165,6 +219,8 @@ namespace BWDMS.Admin
             object sender,
             EventArgs e)
         {
+            gvOrders.PageIndex = 0;
+
             LoadOrders();
         }
 
@@ -182,6 +238,18 @@ namespace BWDMS.Admin
             gvOrders.PageIndex = e.NewPageIndex;
 
             LoadOrders();
+        }
+
+
+        // The pager bar under the grid links back to the grid with a
+        // "Page$N" argument. Event validation only accepts arguments that
+        // were registered while rendering, which the grid's own (hidden)
+        // pager would normally do, so register them here.
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            GridPager.RegisterForEventValidation(gvOrders);
+
+            base.Render(writer);
         }
 
     }

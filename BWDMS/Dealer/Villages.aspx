@@ -25,11 +25,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Villages
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Manage villages used in your route planning
             </p>
 
@@ -50,45 +50,29 @@
 
 
 
-    <div class="dashboard-card">
+    <!-- ============================================================
+         LIVE SEARCH
+         ============================================================ -->
+
+    <div class="grid-search-box mb-4">
+
+        <i class="bi bi-search search-icon"></i>
+
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search village..."
+            ClientIDMode="Static">
+        </asp:TextBox>
+
+    </div>
 
 
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Village List
-                </h5>
-
-                <small class="text-muted">
-                    All villages available for route planning
-                </small>
-
-            </div>
-
-
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search village..."
-                    ClientIDMode="Static">
-                </asp:TextBox>
-
-            </div>
-
-
-        </div>
-
-
-
+    <!-- ============================================================
+         VILLAGE TABLE
+         ============================================================ -->
 
         <div class="table-responsive">
 
@@ -98,7 +82,7 @@
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table align-middle mb-0"
+                CssClass="table table-hover align-middle"
                 GridLines="None" AllowPaging="true" OnPageIndexChanging="gvVillages_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
 
 
@@ -199,13 +183,11 @@
                             <asp:HyperLink
                                 ID="lnkEdit"
                                 runat="server"
-                                CssClass="btn btn-outline-danger btn-sm"
+                                CssClass="btn btn-sm btn-outline-primary"
                                 NavigateUrl='<%# "~/Dealer/AddVillage.aspx?id=" + Eval("VillageId") %>'>
 
 
-                                <i class="bi bi-pencil me-1"></i>
-
-                                Edit
+                                <i class="bi bi-pencil"></i>
 
 
                             </asp:HyperLink>
@@ -224,9 +206,6 @@
 
 
         </div>
-
-
-    </div>
 
 
 

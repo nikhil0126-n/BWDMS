@@ -43,6 +43,7 @@ namespace BWDMS.Dealer
             dt.Columns.Add("Index", typeof(int));
             dt.Columns.Add("ProductVariantId", typeof(int));
             dt.Columns.Add("VariantLabel", typeof(string));
+            dt.Columns.Add("UnitLabel", typeof(string));
             dt.Columns.Add("Quantity", typeof(int));
 
             return dt;
@@ -94,6 +95,7 @@ namespace BWDMS.Dealer
                 LoadSchedules();
                 LoadVehicles();
                 LoadVariants();
+                LoadUiFields();
 
                 txtStockDate.Text =
                     DateTime.Today.ToString("yyyy-MM-dd");
@@ -102,6 +104,35 @@ namespace BWDMS.Dealer
                 LoadTodaySummary();
                 LoadHistory();
             }
+        }
+
+
+        // Date + salesman dropdowns used by the loading slip
+        private void LoadUiFields()
+        {
+            ddlDate.Items.Clear();
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = DateTime.Today.AddDays(-i);
+
+                System.Web.UI.WebControls.ListItem item =
+                    new System.Web.UI.WebControls.ListItem(
+                        day.ToString("dd MMM yyyy"),
+                        day.ToString("yyyy-MM-dd"));
+
+                ddlDate.Items.Add(item);
+            }
+
+            txtStockDate.Text = ddlDate.SelectedValue;
+
+
+            ddlSalesman.Items.Clear();
+            ddlSalesman.Items.Insert(
+                0,
+                new System.Web.UI.WebControls.ListItem(
+                    "-- Select Salesman --",
+                    ""));
         }
 
 
@@ -120,15 +151,19 @@ namespace BWDMS.Dealer
                 return false;
             }
 
+            // A route-day repeats every week: the closure is stored
+            // against ONE date (StockDate), so only that date is
+            // closed. The next occurrence of the same weekday is
+            // open again.
             string query = @"
-                SELECT TOP (1) IsClosed
+                SELECT CASE
+                           WHEN IsClosed = 1
+                                AND StockDate = @StockDate
+                           THEN 1
+                           ELSE 0
+                       END
                 FROM RouteSchedules
-                WHERE RouteScheduleId = @RouteScheduleId
-                ORDER BY
-                    CASE
-                        WHEN StockDate = @StockDate THEN 0
-                        ELSE 1
-                    END";
+                WHERE RouteScheduleId = @RouteScheduleId";
 
             using (SqlConnection con =
                 DatabaseHelper.GetConnection())
@@ -151,6 +186,194 @@ namespace BWDMS.Dealer
                     return result != null &&
                            result != DBNull.Value &&
                            Convert.ToBoolean(result);
+                }
+            }
+        }
+
+
+        // ============================================================
+        // MAY THIS ROUTE BE LOADED YET?
+        //
+        // Routes repeat every week, so loading follows the order of
+        // that week instead of a calendar date: the next route may
+        // only be loaded once the route before it has finished.
+        //
+        //   Tuesday today   -> Tuesday's vehicle loads as usual,
+        //                      Wednesday's vehicle waits until
+        //                      Tuesday's route is closed
+        //   Monday's route  -> Sunday has nothing to wait for, so it
+        //                      loads whenever the dealer needs it
+        // ============================================================
+
+        private bool RouteDayIsReady(
+            int scheduleId,
+            out string message)
+        {
+            message = "";
+
+            string day = RouteDayOfWeek(scheduleId);
+
+            DayOfWeek runsOn;
+
+            if (day.Length == 0 ||
+                !Enum.TryParse(day, true, out runsOn))
+            {
+                return true;
+            }
+
+            DateTime today = DateTime.Today;
+
+            // Days until this route runs again. 0 = today.
+            int ahead =
+                ((int)runsOn - (int)today.DayOfWeek + 7) % 7;
+
+            if (ahead == 0)
+            {
+                return true;
+            }
+
+            // The route immediately before this one.
+            DateTime previous =
+                today.AddDays(ahead - 1);
+
+            int days;
+            int finished;
+
+            RouteDayCounts(
+                previous.DayOfWeek.ToString(),
+                previous,
+                out days,
+                out finished);
+
+            if (days == 0 || days == finished)
+            {
+                return true;
+            }
+
+            message =
+                previous.DayOfWeek.ToString() +
+                "'s route is still running. Close it under Stock " +
+                "Reconciliation before " + day +
+                "'s vehicle can be loaded.";
+
+            return false;
+        }
+
+
+        // The weekday a route runs on, read straight from the
+        // schedule so a crafted postback cannot skip the gate.
+        private string RouteDayOfWeek(int scheduleId)
+        {
+            const string query = @"
+                SELECT ISNULL(rs.DayOfWeek, '')
+                FROM RouteSchedules rs
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                WHERE rs.RouteScheduleId = @RouteScheduleId
+                  AND r.DealerId = @DealerId";
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@RouteScheduleId",
+                        SqlDbType.Int).Value =
+                        scheduleId;
+
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value =
+                        DealerId;
+
+                    object result = cmd.ExecuteScalar();
+
+                    return result == null ||
+                           result == DBNull.Value
+                        ? ""
+                        : Convert.ToString(result).Trim();
+                }
+            }
+        }
+
+
+        // How many route-days this dealer runs on a weekday, and
+        // how many of them are already closed for that date.
+        private void RouteDayCounts(
+            string day,
+            DateTime date,
+            out int days,
+            out int finished)
+        {
+            days = 0;
+            finished = 0;
+
+            const string query = @"
+                SELECT
+                    COUNT(*),
+                    ISNULL
+                    (
+                        SUM
+                        (
+                            CASE
+                                WHEN rs.IsClosed = 1
+                                     AND rs.StockDate = @StockDate
+                                THEN 1
+                                ELSE 0
+                            END
+                        ),
+                        0
+                    )
+                FROM RouteSchedules rs
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                WHERE r.DealerId = @DealerId
+                  AND r.IsActive = 1
+                  AND rs.IsActive = 1
+                  AND rs.DayOfWeek = @DayOfWeek";
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                con.Open();
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@DealerId",
+                        SqlDbType.Int).Value =
+                        DealerId;
+
+                    cmd.Parameters.Add(
+                        "@DayOfWeek",
+                        SqlDbType.NVarChar,
+                        40).Value =
+                        day;
+
+                    cmd.Parameters.Add(
+                        "@StockDate",
+                        SqlDbType.Date).Value =
+                        date;
+
+                    using (SqlDataReader reader =
+                        cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            days = reader.IsDBNull(0)
+                                ? 0
+                                : Convert.ToInt32(reader[0]);
+
+                            finished = reader.IsDBNull(1)
+                                ? 0
+                                : Convert.ToInt32(reader[1]);
+                        }
+                    }
                 }
             }
         }
@@ -710,6 +933,7 @@ namespace BWDMS.Dealer
                 row["Index"] = dt.Rows.Count;
                 row["ProductVariantId"] = variantId;
                 row["VariantLabel"] = VariantLabel(variantId);
+                row["UnitLabel"] = "Box";
                 row["Quantity"] = quantity;
 
                 dt.Rows.Add(row);
@@ -858,6 +1082,17 @@ namespace BWDMS.Dealer
                     "Un-approve the reconciliation on Dealer > Stock " +
                     "Reconciliation if the count needs to be reopened.",
                     false);
+
+                return;
+            }
+
+            // The next route in the week waits its turn: it can be
+            // loaded once the route before it has finished.
+            string gateMessage;
+
+            if (!RouteDayIsReady(scheduleId, out gateMessage))
+            {
+                ShowMessage(gateMessage, false);
 
                 return;
             }

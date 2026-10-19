@@ -16,12 +16,20 @@
     --bw-navy-800: #123059;
     --bw-navy-700: #1b3a68;
 
-    /* --- Brand: blue accent -------------------------------------------- */
-    --bw-blue-700: #1a4fd0;
-    --bw-blue-600: #2563eb;
-    --bw-blue-500: #3b82f6;
-    --bw-blue-100: #dbe7fe;
-    --bw-blue-050: #eef4ff;
+    /* --- Brand: indigo accent ------------------------------------------ */
+    --bw-blue-700: #4338ca;
+    --bw-blue-600: #4f46e5;
+    --bw-blue-500: #6366f1;
+    --bw-blue-100: #e0e7ff;
+    --bw-blue-050: #eef2ff;
+
+    /* --- Brand: primary action ------------------------------------------
+       Every main action button (Save / Add / Create / Update) and the
+       "current page" pill use this indigo, taken from the approved mockup.
+       Cancel and Delete/Deactivate buttons deliberately keep their own
+       neutral / red styling. */
+    --bw-primary: #686ce5;
+    --bw-primary-hover: #5a5ed8;
 
     /* --- Neutrals ------------------------------------------------------- */
     --bw-canvas: #eef1f6;
@@ -194,8 +202,10 @@ body {
     top: 0;
     bottom: 0;
     width: 250px;
-    background: linear-gradient(180deg, var(--bw-navy-900) 0%, var(--bw-navy-950) 100%);
-    border-right: 1px solid rgba(255, 255, 255, .06);
+    /* Palette taken from the supplied reference: flat deep navy body,
+       a 1px slate-blue seam down the right edge. */
+    background: #041252;
+    border-right: 1px solid #424d7d;
     z-index: 1100;
     display: flex;
     flex-direction: column;
@@ -206,23 +216,22 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 0 22px;
+    /* Reference header: navy on the left sweeping into a bright blue
+       on the right, so the two shades meet the body seamlessly. */
+    background: linear-gradient(90deg, #041252 0%, #1930c3 100%);
     border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--bw-blue-500), var(--bw-blue-700));
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, .38);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+    height: 42px;
+    width: auto;
+    flex: none;
+    /* White line-art emblem lifted from the supplied reference; the PNG
+       carries its own transparency so it sits on the gradient cleanly. */
+    display: block;
 }
 
 
@@ -230,13 +239,7 @@ body {
     display: block;
     font-size: 17px;
     color: #ffffff;
-}
-
-
-.sidebar-logo small {
-    display: block;
-    color: rgba(219, 228, 243, .58);
-    font-size: 10px;
+    white-space: nowrap;
 }
 
 
@@ -263,29 +266,43 @@ body {
     padding: 11px 14px;
     margin-bottom: 3px;
     border-radius: var(--bw-radius-sm);
-    color: rgba(226, 232, 244, .80);
+    color: rgba(255, 255, 255, .82);
     text-decoration: none;
     font-size: 14px;
     transition: .2s;
 }
 
 
+    /* Reference: muted slate-blue glyphs against the navy body. */
     .menu-item i {
         font-size: 17px;
+        color: #9298b4;
     }
 
 
     .menu-item:hover {
-        background: rgba(255, 255, 255, .08);
+        background: rgba(255, 255, 255, .07);
         color: #ffffff;
     }
 
 
+        .menu-item:hover i {
+            color: #ffffff;
+        }
+
+
+    /* Reference: the selected row is a solid slate panel, not a
+       glowing blue pill - flat fill, inset by the list padding. */
     .menu-item.active {
-        background: linear-gradient(135deg, var(--bw-blue-600), var(--bw-blue-700));
+        background: #394373;
         color: #ffffff;
-        box-shadow: 0 6px 18px rgba(37, 99, 235, .38);
+        box-shadow: none;
     }
+
+
+        .menu-item.active i {
+            color: #ffffff;
+        }
 
 
 .sidebar-bottom {
@@ -380,6 +397,26 @@ body {
     font-size: 28px;
     font-weight: 700;
     color: var(--bw-navy-900);
+}
+
+
+/* ============================================================================
+   STAT CARD ICON
+   ----------------------------------------------------------------------------
+   Soft tinted tile that sits in the top-right corner of the headline stat
+   cards. The tint itself comes from Bootstrap's bg-*-subtle / text-*-emphasis
+   utilities in the markup; this rule only sets the shape.
+   ============================================================================ */
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex: 0 0 auto;
 }
 
 
@@ -772,29 +809,63 @@ body {
 
 
 .btn-primary {
-    background-color: var(--bw-blue-600);
-    border-color: var(--bw-blue-600);
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
 }
 
 
     .btn-primary:hover,
     .btn-primary:focus {
-        background-color: var(--bw-blue-700);
-        border-color: var(--bw-blue-700);
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
         box-shadow: var(--bw-focus);
     }
 
 
+/* Dealers list: the "+ Add Dealer" action is a primary button, so it simply
+   follows the shared primary indigo (#686ce5). */
+
+.btn-add-dealer {
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
+}
+
+
+    .btn-add-dealer:hover,
+    .btn-add-dealer:focus {
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
+    }
+
+
+/* Add Dealer form: the "Create Dealer" action is a primary button as well, and
+   keeps an explicit white label. */
+
+.btn-dealer-save {
+    background-color: var(--bw-primary);
+    border-color: var(--bw-primary);
+    color: #ffffff;
+}
+
+
+    .btn-dealer-save:hover,
+    .btn-dealer-save:focus {
+        background-color: var(--bw-primary-hover);
+        border-color: var(--bw-primary-hover);
+        color: #ffffff;
+    }
+
+
 .btn-outline-primary {
-    color: var(--bw-blue-600);
-    border-color: var(--bw-blue-600);
+    color: var(--bw-primary);
+    border-color: var(--bw-primary);
 }
 
 
     .btn-outline-primary:hover,
     .btn-outline-primary:focus {
-        background-color: var(--bw-blue-600);
-        border-color: var(--bw-blue-600);
+        background-color: var(--bw-primary);
+        border-color: var(--bw-primary);
         box-shadow: var(--bw-focus);
     }
 
@@ -1062,6 +1133,71 @@ td[colspan] > table a {
         }
 
 
+/* --- Always-visible grid pager -------------------------------------------
+   Built by BWDMS.Data.GridPager and drawn under the table rather than as a
+   GridView pager row, so a list with a single page still shows the control.
+   Shares the look of the built-in pager above: current page is a filled
+   blue pill, the rest are outlined. -------------------------------------- */
+
+.grid-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--bw-border);
+}
+
+
+.grid-pager .pager-step,
+.grid-pager .pager-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background-color: var(--bw-surface);
+    color: var(--bw-text-soft);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+
+.grid-pager a.pager-step:hover,
+.grid-pager a.pager-step:focus,
+.grid-pager a.pager-page:hover,
+.grid-pager a.pager-page:focus {
+    background-color: var(--bw-blue-050);
+    border-color: var(--bw-blue-500);
+    color: var(--bw-blue-700);
+    text-decoration: none;
+    outline: none;
+}
+
+
+.grid-pager .pager-page.is-active {
+    background-color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: default;
+}
+
+
+.grid-pager .is-disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+
 /* --- Badges ------------------------------------------------------------- */
 
 .badge {
@@ -1213,3 +1349,642 @@ a {
 hr {
     border-color: var(--bw-border-soft);
 }
+
+
+/* ============================================================================
+   PRODUCT IMAGE DROP ZONE
+   ============================================================================ */
+
+.image-drop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    padding: 16px;
+    border: 2px dashed var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface-2);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .15s ease, background .15s ease;
+}
+
+
+.image-drop:hover,
+.image-drop.dragging {
+    border-color: var(--bw-blue-600);
+    background: var(--bw-blue-050);
+}
+
+
+.image-drop.has-image {
+    border-style: solid;
+}
+
+
+.image-drop-inner {
+    padding: 8px;
+}
+
+
+.image-drop-icon {
+    display: block;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--bw-blue-600);
+    margin-bottom: 10px;
+}
+
+
+.image-drop-preview {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+
+.image-drop-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+
+/* ============================================================================
+   TOP PRODUCTS LIST
+   ============================================================================ */
+
+.top-products-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 4px;
+    border-bottom: 1px solid var(--bw-border-soft);
+}
+
+
+.top-products-head {
+    padding-top: 0;
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--bw-text-muted);
+    border-bottom: 1px solid var(--bw-border);
+}
+
+
+.top-products-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+.top-products-name {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-weight: 600;
+    color: var(--bw-text);
+}
+
+
+.top-products-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bw-blue-050);
+    color: var(--bw-blue-600);
+    font-size: .74rem;
+    font-weight: 700;
+}
+
+
+/* ============================================================================
+   REPORT DATE RANGE
+   ============================================================================ */
+
+.report-range {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px 4px 12px;
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius-sm);
+    background: var(--bw-surface);
+    box-shadow: var(--bw-shadow-sm);
+}
+
+
+.report-range > i {
+    color: var(--bw-text-muted);
+    font-size: .95rem;
+}
+
+
+.report-range input[type="date"] {
+    width: auto;
+    min-width: 132px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 2px 2px;
+}
+
+
+.report-range input[type="date"]:focus {
+    box-shadow: none;
+    background: var(--bw-blue-050);
+    border-radius: 6px;
+}
+
+
+/* ============================================================================
+   BALAJI DMS — DEALER UI KIT
+   ----------------------------------------------------------------------------
+   The reference design every Dealer page follows:
+
+     • no top bar; the content starts level with the BALAJI DMS logo
+     • a large page title with a tiny grey subtitle underneath
+     • one big rounded search field, indigo "+ Add ..." button on the right
+     • tables in a rounded card: soft grey header row, tall rows, hairlines
+     • square pager buttons with an indigo active page
+     • detail pages: profile card on the left, summary / stat tiles on the right
+
+   Shared classes introduced here for the pages:
+     .page-title  .page-subtitle  .search-icon
+     .profile-card .summary-box .stat-grid .stat-tile
+   ============================================================================ */
+
+
+/* --- SHELL ---------------------------------------------------------------- */
+
+/* The reference shell has no top header; keep it only for the drawer mode
+   (below 768px), where the hamburger lives. */
+@media (min-width: 768px) {
+    .top-header {
+        display: none;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .main-content {
+        padding: 32px 34px 80px;
+    }
+}
+
+
+/* The reference shell is a flatter indigo-navy than the original gradient. */
+.sidebar {
+    background: linear-gradient(180deg, #141d55 0%, #0d1440 100%);
+}
+
+
+/* --- LOGO ----------------------------------------------------------------- */
+
+.sidebar-logo {
+    height: auto;
+    margin: 14px 14px 8px;
+    padding: 11px 14px;
+    gap: 11px;
+    background: #ffffff;
+    border: none;
+    border-bottom: none;
+    border-radius: 12px;
+}
+
+
+.logo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--bw-navy-900);
+    color: #ffffff;
+    box-shadow: none;
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+}
+
+
+.sidebar-logo strong {
+    color: var(--bw-navy-900);
+    font-size: 16px;
+    letter-spacing: .2px;
+}
+
+
+/* --- ACTIVE MENU ITEM ----------------------------------------------------- */
+
+.menu-item.active,
+.menu-item.is-active {
+    background: #414f9c;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+
+/* --- PAGE HEADER ---------------------------------------------------------- */
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+    color: #111827;
+}
+
+
+.page-subtitle {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+
+/* --- BIG SEARCH BOX ------------------------------------------------------- */
+
+.grid-search-box {
+    position: relative;
+    width: 410px;
+    max-width: 100%;
+}
+
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 17px;
+    color: #9aa3b2;
+    pointer-events: none;
+    z-index: 2;
+}
+
+
+.grid-search-box .form-control {
+    height: 50px;
+    padding: 0 16px 0 44px;
+    font-size: 15px;
+    background-color: #ffffff;
+    border: 1px solid #d5d5da;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+
+.grid-search-box .form-control::placeholder {
+    color: #9aa3b2;
+}
+
+
+/* --- BUTTONS -------------------------------------------------------------- */
+
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 9px 18px;
+}
+
+
+.btn-primary {
+    background-color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+}
+
+
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-danger,
+.btn-outline-success {
+    border-radius: 10px;
+}
+
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+
+/* --- TABLE CARD ----------------------------------------------------------- */
+
+.table-responsive {
+    background-color: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+
+
+.table-responsive table {
+    margin-bottom: 0;
+    min-width: 500px;
+}
+
+
+.table-responsive th {
+    background-color: #f1f1f3;
+    color: #1f2937;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #e4e4e7;
+    border-top: none;
+    padding: 16px 14px;
+    white-space: normal;
+}
+
+
+.table tbody td {
+    font-size: 15px;
+    color: #1f2937;
+    padding: 16px 14px;
+    vertical-align: middle;
+}
+
+
+.table tbody tr:not(:last-child) > td {
+    border-bottom: 1px solid #f1f2f4;
+}
+
+
+.table-hover > tbody > tr:hover {
+    background-color: #fafbfc;
+}
+
+
+/* --- ROW ACTION ICONS ----------------------------------------------------- */
+
+.row-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+
+.row-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    color: #3f3f46;
+    opacity: .85;
+    transition: .15s;
+}
+
+
+a.row-action:hover,
+.row-action:focus {
+    color: var(--bw-blue-600);
+    opacity: 1;
+    text-decoration: none;
+}
+
+
+/* --- DETAIL PAGES --------------------------------------------------------- */
+
+.detail-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 19px;
+    line-height: 1;
+    text-decoration: none;
+    transition: .15s;
+}
+
+
+.detail-back:hover,
+.detail-back:focus {
+    background: var(--bw-blue-50, #eef2ff);
+    border-color: var(--bw-blue-200, #c7d2fe);
+    color: var(--bw-blue-700, #4338ca);
+    text-decoration: none;
+}
+
+
+.detail-status {
+    color: #16a34a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.detail-status.is-inactive {
+    color: #9ca3af;
+}
+
+
+.detail-section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 14px;
+}
+
+
+/* --- PAGER ---------------------------------------------------------------- */
+
+td[colspan] > table > tbody > tr > td {
+    padding: 14px 4px;
+}
+
+
+td[colspan] > table a,
+td[colspan] > table span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    margin: 0 4px;
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #374151;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+
+td[colspan] > table a:hover {
+    background-color: var(--bw-blue-050);
+    border-color: var(--bw-blue-500);
+    color: var(--bw-blue-700);
+    text-decoration: none;
+}
+
+
+td[colspan] > table span {
+    background-color: var(--bw-blue-600);
+    border-color: var(--bw-blue-600);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+
+/* --- FORMS ---------------------------------------------------------------- */
+
+.form-control,
+.form-select {
+    border: 1px solid #d7dbe3;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background-color: #ffffff;
+}
+
+
+.form-label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+
+/* --- DETAIL PAGES --------------------------------------------------------- */
+
+.profile-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px 28px;
+}
+
+
+.profile-avatar {
+    font-size: 58px;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+
+.profile-state {
+    color: var(--bw-success);
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 22px;
+}
+
+
+.profile-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+
+.profile-list > div {
+    display: flex;
+    gap: 8px;
+    font-size: 15px;
+    color: #1f2937;
+}
+
+
+.profile-list > div > span:first-child {
+    color: #9ca3af;
+}
+
+
+.summary-box {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+
+.summary-box > h5 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 18px;
+}
+
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+
+.stat-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+
+.stat-tile i {
+    font-size: 20px;
+    color: var(--bw-blue-600);
+}
+
+
+.stat-label {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+.stat-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+/* Sidebar brand logo image */
+.sidebar-logo-img {
+    max-width: 165px;
+    max-height: 46px;
+    object-fit: contain;
+    display: block;
+}
+
+.sidebar-logo {
+    padding: 0 14px;
+}
+

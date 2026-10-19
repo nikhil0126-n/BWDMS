@@ -484,15 +484,18 @@ namespace BWDMS.Handlers
             }
 
             // ---- route day closed? ----
+            // A route-day repeats weekly: only the date it was
+            // closed on (StockDate) blocks, the next occurrence of
+            // the same weekday is open.
             string closedQuery = @"
-                SELECT TOP (1) IsClosed
+                SELECT CASE
+                           WHEN IsClosed = 1
+                                AND StockDate = @StockDate
+                           THEN 1
+                           ELSE 0
+                       END
                 FROM RouteSchedules
-                WHERE RouteScheduleId = @RouteScheduleId
-                ORDER BY
-                    CASE
-                        WHEN StockDate = @StockDate THEN 0
-                        ELSE 1
-                    END";
+                WHERE RouteScheduleId = @RouteScheduleId";
 
             using (SqlCommand cmd =
                 new SqlCommand(closedQuery, con, tx))

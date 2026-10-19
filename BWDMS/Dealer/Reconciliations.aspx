@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Stock Reconciliation
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Daily vehicle stock counts and their variances
             </p>
 
@@ -73,42 +73,29 @@
     </asp:Label>
 
 
-    <!-- Reconciliation List -->
+    <!-- Search -->
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <i class="bi bi-search search-icon"></i>
 
-            <div>
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search vehicle number or remarks..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
 
-                <h5 class="fw-bold mb-1">
-                    Reconciliations
-                </h5>
-
-                <small class="text-muted">
-                    One reconciliation per vehicle, per day
-                </small>
-
-            </div>
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search vehicle number or remarks..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <div class="row g-2 mb-3">
+    <!-- Approved filter -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="row g-2">
 
             <div class="col-md-4">
 
@@ -134,8 +121,12 @@
 
         </div>
 
+    </div>
 
-        <div class="table-responsive">
+
+    <!-- Reconciliation List -->
+
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvReconciliations"
@@ -232,8 +223,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
 </asp:Content>

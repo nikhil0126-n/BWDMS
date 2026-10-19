@@ -28,7 +28,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
 
                 <asp:Label
                     ID="lblHeading"
@@ -39,7 +39,7 @@
             </h3>
 
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
 
                 <asp:Label
                     ID="lblSubHeading"
@@ -223,7 +223,7 @@
 
 
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mt-3">
 
 
             <a href="Vehicles.aspx"

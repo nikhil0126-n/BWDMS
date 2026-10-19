@@ -44,12 +44,12 @@
 }
 
 .btn-primary {
-    background: #2563eb;
+    background: #686ce5;
     color: #fff;
 }
 
     .btn-primary:hover {
-        background: #1a4fd0;
+        background: #5a5ed8;
         color: #fff;
     }
 
@@ -66,12 +66,12 @@
 
 .btn-edit {
     padding: 7px 13px;
-    background: #eef4ff;
-    color: #1a4fd0;
+    background: #eeeffe;
+    color: #5a5ed8;
 }
 
     .btn-edit:hover {
-        background: #2563eb;
+        background: #686ce5;
         color: #fff;
     }
 

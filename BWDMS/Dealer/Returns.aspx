@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Sales Returns
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Goods sent back by shops against dispatched orders
             </p>
 
@@ -73,42 +73,29 @@
     </asp:Label>
 
 
-    <!-- Return List -->
+    <!-- Search -->
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <i class="bi bi-search search-icon"></i>
 
-            <div>
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search return number or order number..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
 
-                <h5 class="fw-bold mb-1">
-                    All Returns
-                </h5>
-
-                <small class="text-muted">
-                    Newest first
-                </small>
-
-            </div>
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search return number or order number..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <div class="row g-2 mb-3">
+    <!-- Filters -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="row g-2">
 
             <div class="col-md-4">
 
@@ -134,8 +121,12 @@
 
         </div>
 
+    </div>
 
-        <div class="table-responsive">
+
+    <!-- Return List -->
+
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvReturns"
@@ -236,8 +227,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
 </asp:Content>

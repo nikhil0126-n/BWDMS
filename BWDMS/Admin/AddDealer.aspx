@@ -25,11 +25,23 @@
         <div>
 
             <h3 class="fw-bold mb-1">
-                Add Dealer
+
+                <asp:Label
+                    ID="lblHeading"
+                    runat="server"
+                    Text="Add Dealer">
+                </asp:Label>
+
             </h3>
 
             <p class="text-muted mb-0">
-                Create a new dealer account
+
+                <asp:Label
+                    ID="lblSubHeading"
+                    runat="server"
+                    Text="Create a new dealer account">
+                </asp:Label>
+
             </p>
 
         </div>
@@ -108,6 +120,151 @@
             </div>
 
 
+            <!-- Owner Name -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Owner Name
+
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <asp:TextBox
+                    ID="txtOwnerName"
+                    runat="server"
+                    CssClass="form-control"
+                    MaxLength="200"
+                    placeholder="Enter owner name">
+                </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvOwnerName"
+                    runat="server"
+                    ControlToValidate="txtOwnerName"
+                    ErrorMessage="Owner name is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+            </div>
+
+
+            <!-- Mobile Number -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+                    Mobile Number
+                    <span class="text-danger">*</span>
+                </label>
+
+                <asp:TextBox
+                    ID="txtPhone"
+                    runat="server"
+                    CssClass="form-control"
+                    MaxLength="10"
+                    placeholder="Example: 9876543210">
+                </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ErrorMessage="Mobile number is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ValidationExpression="^(\d{10})?$"
+                    ErrorMessage="Enter a 10-digit mobile number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
+            </div>
+
+
+            <!-- City -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    City
+
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <asp:TextBox
+                    ID="txtCity"
+                    runat="server"
+                    CssClass="form-control"
+                    MaxLength="100"
+                    placeholder="Enter city">
+                </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvCity"
+                    runat="server"
+                    ControlToValidate="txtCity"
+                    ErrorMessage="City is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revCity"
+                    runat="server"
+                    ControlToValidate="txtCity"
+                    ValidationExpression="^[A-Za-z][A-Za-z .\-']{1,99}$"
+                    ErrorMessage="Enter a valid city name."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+
+            </div>
+
+
+            <!-- Address -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Address
+
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <asp:TextBox
+                    ID="txtAddress"
+                    runat="server"
+                    CssClass="form-control"
+                    MaxLength="500"
+                    placeholder="Enter full address">
+                </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvAddress"
+                    runat="server"
+                    ControlToValidate="txtAddress"
+                    ErrorMessage="Address is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+            </div>
+
+
             <!-- Email -->
 
             <div class="col-md-6">
@@ -155,50 +312,128 @@
             </div>
 
 
-            <!-- Phone -->
+            <!-- State -->
 
             <div class="col-md-6">
 
                 <label class="form-label fw-semibold">
-                    Phone Number
+
+                    State
+
+                    <span class="text-danger">*</span>
+
                 </label>
 
                 <asp:TextBox
-                    ID="txtPhone"
+                    ID="txtState"
                     runat="server"
                     CssClass="form-control"
-                    MaxLength="15"
-                    placeholder="Example: 9876543210">
+                    MaxLength="100"
+                    placeholder="Enter state">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvState"
+                    runat="server"
+                    ControlToValidate="txtState"
+                    ErrorMessage="State is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revState"
+                    runat="server"
+                    ControlToValidate="txtState"
+                    ValidationExpression="^[A-Za-z][A-Za-z .\-']{1,99}$"
+                    ErrorMessage="Enter a valid state name."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 
 
-            <!-- Status -->
+            <!-- Pincode -->
 
             <div class="col-md-6">
 
                 <label class="form-label fw-semibold">
-                    Account Status
+
+                    Pincode
+
+                    <span class="text-danger">*</span>
+
                 </label>
 
-                <asp:DropDownList
-                    ID="ddlStatus"
+                <asp:TextBox
+                    ID="txtPincode"
                     runat="server"
-                    CssClass="form-select">
+                    CssClass="form-control"
+                    MaxLength="6"
+                    placeholder="Enter pincode">
+                </asp:TextBox>
 
-                    <asp:ListItem
-                        Text="Active"
-                        Value="1"
-                        Selected="True">
-                    </asp:ListItem>
+                <asp:RequiredFieldValidator
+                    ID="rfvPincode"
+                    runat="server"
+                    ControlToValidate="txtPincode"
+                    ErrorMessage="Pincode is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
-                    <asp:ListItem
-                        Text="Inactive"
-                        Value="0">
-                    </asp:ListItem>
+                <asp:RegularExpressionValidator
+                    ID="revPincode"
+                    runat="server"
+                    ControlToValidate="txtPincode"
+                    ValidationExpression="^\d{6}$"
+                    ErrorMessage="Enter a 6-digit pincode."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
-                </asp:DropDownList>
+            </div>
+
+
+            <!-- Username -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Username
+
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <asp:TextBox
+                    ID="txtUsername"
+                    runat="server"
+                    CssClass="form-control"
+                    MaxLength="100"
+                    placeholder="Enter dealer username">
+                </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvUsername"
+                    runat="server"
+                    ControlToValidate="txtUsername"
+                    ErrorMessage="Username is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revUsername"
+                    runat="server"
+                    ControlToValidate="txtUsername"
+                    ValidationExpression="^[A-Za-z0-9._\-]{3,50}$"
+                    ErrorMessage="Use 3-50 letters, numbers, dot, underscore or hyphen."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 
@@ -212,6 +447,13 @@
                     Password
 
                     <span class="text-danger">*</span>
+
+                    <small
+                        ID="lblPasswordHint"
+                        runat="server"
+                        class="text-muted fw-normal">
+                        minimum 6 characters
+                    </small>
 
                 </label>
 
@@ -242,6 +484,39 @@
                     CssClass="text-danger small"
                     Display="Dynamic">
                 </asp:RegularExpressionValidator>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-semibold">
+
+                    Account Status
+
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <asp:DropDownList
+                    ID="ddlStatus"
+                    runat="server"
+                    CssClass="form-select">
+
+                    <asp:ListItem
+                        Text="Active"
+                        Value="1"
+                        Selected="True">
+                    </asp:ListItem>
+
+                    <asp:ListItem
+                        Text="Inactive"
+                        Value="0">
+                    </asp:ListItem>
+
+                </asp:DropDownList>
 
             </div>
 
@@ -313,7 +588,7 @@
                 ID="btnCreateDealer"
                 runat="server"
                 Text="Create Dealer"
-                CssClass="btn btn-danger px-4"
+                CssClass="btn btn-dealer-save px-4"
                 OnClick="btnCreateDealer_Click" />
 
         </div>

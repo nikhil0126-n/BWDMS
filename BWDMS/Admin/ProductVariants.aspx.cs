@@ -221,6 +221,8 @@ namespace BWDMS.Admin
 
                         gvVariants.DataSource = dt;
                         gvVariants.DataBind();
+
+                        litPager.Text = GridPager.Html(gvVariants);
                     }
                 }
             }
@@ -252,6 +254,18 @@ namespace BWDMS.Admin
             gvVariants.PageIndex = e.NewPageIndex;
 
             LoadVariants();
+        }
+
+
+        // The pager bar under the grid links back to the grid with a
+        // "Page$N" argument. Event validation only accepts arguments that
+        // were registered while rendering, which the grid's own (hidden)
+        // pager would normally do, so register them here.
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            GridPager.RegisterForEventValidation(gvVariants);
+
+            base.Render(writer);
         }
 
     }

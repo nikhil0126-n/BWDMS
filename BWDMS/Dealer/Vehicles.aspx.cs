@@ -157,6 +157,67 @@ namespace BWDMS.Dealer
 
 
         // ============================================================
+        // ROW COMMAND - DELETE VEHICLE (soft delete)
+        // ============================================================
+
+        protected void gvVehicles_RowCommand(
+            object sender,
+            System.Web.UI.WebControls.GridViewCommandEventArgs e)
+        {
+            if (e.CommandName != "DeleteVehicle")
+            {
+                return;
+            }
+
+            try
+            {
+                int vehicleId =
+                    Convert.ToInt32(e.CommandArgument);
+
+                int dealerId =
+                    Convert.ToInt32(Session["UserId"]);
+
+                string query = @"
+                    UPDATE Vehicles
+                    SET IsActive = 0
+                    WHERE VehicleId = @VehicleId
+                      AND DealerId = @DealerId";
+
+                using (SqlConnection con =
+                    DatabaseHelper.GetConnection())
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd =
+                        new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.Add(
+                            "@VehicleId",
+                            SqlDbType.Int).Value = vehicleId;
+
+                        cmd.Parameters.Add(
+                            "@DealerId",
+                            SqlDbType.Int).Value = dealerId;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                ShowMessage("Vehicle deleted.", true);
+
+                LoadVehicles();
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(
+                    "Error deleting vehicle: " +
+                    ex.Message,
+                    false);
+            }
+        }
+
+
+        // ============================================================
         // SHOW MESSAGE
         // ============================================================
 

@@ -159,51 +159,6 @@ namespace BWDMS.Master
         protected global::System.Web.UI.WebControls.Panel pnlDealerMenu;
 
         /// <summary>
-        /// lnkDealerRoutes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkDealerRoutes;
-
-        /// <summary>
-        /// lnkRouteVillageAssignment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRouteVillageAssignment;
-
-        /// <summary>
-        /// lnkDealerVillages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVillages;
-
-        /// <summary>
-        /// lnkRouteSchedules control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRouteSchedules;
-
-        /// <summary>
-        /// lnkWeeklyRoutePlans control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkWeeklyRoutePlans;
-
-        /// <summary>
         /// lnkDealerShops control.
         /// </summary>
         /// <remarks>
@@ -222,6 +177,33 @@ namespace BWDMS.Master
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerSalesmen;
 
         /// <summary>
+        /// lnkDealerRoutes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerRoutes;
+
+        /// <summary>
+        /// lnkDealerVillages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVillages;
+
+        /// <summary>
+        /// lnkRouteVillageAssignment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkRouteVillageAssignment;
+
+        /// <summary>
         /// lnkDealerVehicles control.
         /// </summary>
         /// <remarks>
@@ -231,6 +213,15 @@ namespace BWDMS.Master
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicles;
 
         /// <summary>
+        /// lnkDealerVehicleMovement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicleMovement;
+
+        /// <summary>
         /// lnkDealerInventory control.
         /// </summary>
         /// <remarks>
@@ -238,6 +229,15 @@ namespace BWDMS.Master
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkDealerInventory;
+
+        /// <summary>
+        /// lnkDealerVehicleStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkDealerVehicleStock;
 
         /// <summary>
         /// lnkDealerOrders control.

@@ -31,11 +31,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Route Village Assignment
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Permanently assign villages to a route and set their visit order
             </p>
 
@@ -157,7 +157,9 @@
         </p>
 
 
-        <div class="village-search-wrapper mb-3">
+        <div class="grid-search-box mb-4">
+
+            <i class="bi bi-search search-icon"></i>
 
             <input
                 type="text"
@@ -255,7 +257,15 @@
              BUTTONS
              ======================================================== -->
 
-        <div class="form-actions mt-4 pt-4">
+        <div class="d-flex justify-content-end gap-2 mt-3">
+
+            <a href="Routes.aspx"
+               class="btn btn-outline-secondary">
+
+                Cancel
+
+            </a>
+
 
             <asp:Button
                 ID="btnSave"
@@ -265,14 +275,6 @@
                 CausesValidation="true"
                 OnClick="btnSave_Click">
             </asp:Button>
-
-
-            <a href="Routes.aspx"
-               class="btn btn-outline-secondary ms-2">
-
-                Cancel
-
-            </a>
 
         </div>
 

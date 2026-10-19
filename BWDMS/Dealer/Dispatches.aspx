@@ -26,11 +26,11 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Dispatches
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 Vehicle loads that moved packets out of the godown
             </p>
 
@@ -73,42 +73,27 @@
     </asp:Label>
 
 
-    <!-- Dispatch List -->
+    <!-- Search -->
 
-    <div class="dashboard-card">
+    <div class="grid-search-box mb-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <i class="bi bi-search search-icon"></i>
 
-            <div>
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search dispatch number..."
+            AutoPostBack="true"
+            OnTextChanged="txtSearch_TextChanged">
+        </asp:TextBox>
 
-                <h5 class="fw-bold mb-1">
-                    All Dispatches
-                </h5>
-
-                <small class="text-muted">
-                    Newest first
-                </small>
-
-            </div>
-
-
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search dispatch number..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <div class="row g-2 mb-3">
+    <!-- Filters -->
+
+    <div class="row g-2 mb-4">
 
             <div class="col-md-3">
 
@@ -280,8 +265,6 @@
             </asp:GridView>
 
         </div>
-
-    </div>
 
 
 </asp:Content>

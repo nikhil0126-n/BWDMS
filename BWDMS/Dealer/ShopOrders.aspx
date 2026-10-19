@@ -26,7 +26,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 <asp:Label
                     ID="lblShopName"
                     runat="server"
@@ -34,7 +34,7 @@
                 </asp:Label>
             </h3>
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
                 <asp:Label
                     ID="lblShopMeta"
                     runat="server"
@@ -87,73 +87,56 @@
         ID="pnlContent"
         runat="server">
 
-        <div class="dashboard-card">
+        <div class="grid-search-box mb-4">
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <i class="bi bi-search search-icon"></i>
 
-                <div>
+            <asp:TextBox
+                ID="txtSearch"
+                runat="server"
+                CssClass="form-control"
+                placeholder="Search order number..."
+                AutoPostBack="true"
+                OnTextChanged="txtSearch_TextChanged">
+            </asp:TextBox>
 
-                    <h5 class="fw-bold mb-1">
-                        Order History
-                    </h5>
-
-                    <small class="text-muted">
-                        Newest first
-                    </small>
-
-                </div>
-
-
-                <div class="grid-search-box">
-
-                    <asp:TextBox
-                        ID="txtSearch"
-                        runat="server"
-                        CssClass="form-control"
-                        placeholder="Search order number..."
-                        AutoPostBack="true"
-                        OnTextChanged="txtSearch_TextChanged">
-                    </asp:TextBox>
-
-                </div>
-
-            </div>
+        </div>
 
 
-            <div class="row g-2 mb-3">
+        <div class="row g-2 mb-4">
 
-                <div class="col-md-4">
+            <div class="col-md-4">
 
-                    <asp:DropDownList
-                        ID="ddlStatus"
-                        runat="server"
-                        CssClass="form-select"
-                        AutoPostBack="true"
-                        OnSelectedIndexChanged="FilterChanged">
+                <asp:DropDownList
+                    ID="ddlStatus"
+                    runat="server"
+                    CssClass="form-select"
+                    AutoPostBack="true"
+                    OnSelectedIndexChanged="FilterChanged">
 
-                        <asp:ListItem Text="All Statuses" Value="" Selected="True">
-                        </asp:ListItem>
+                    <asp:ListItem Text="All Statuses" Value="" Selected="True">
+                    </asp:ListItem>
 
-                        <asp:ListItem Text="Pending" Value="Pending">
-                        </asp:ListItem>
+                    <asp:ListItem Text="Pending" Value="Pending">
+                    </asp:ListItem>
 
-                        <asp:ListItem Text="Confirmed" Value="Confirmed">
-                        </asp:ListItem>
+                    <asp:ListItem Text="Confirmed" Value="Confirmed">
+                    </asp:ListItem>
 
-                        <asp:ListItem Text="Dispatched" Value="Dispatched">
-                        </asp:ListItem>
+                    <asp:ListItem Text="Dispatched" Value="Dispatched">
+                    </asp:ListItem>
 
-                        <asp:ListItem Text="Cancelled" Value="Cancelled">
-                        </asp:ListItem>
+                    <asp:ListItem Text="Cancelled" Value="Cancelled">
+                    </asp:ListItem>
 
-                    </asp:DropDownList>
-
-                </div>
+                </asp:DropDownList>
 
             </div>
 
+        </div>
 
-            <div class="table-responsive">
+
+        <div class="table-responsive">
 
                 <asp:GridView
                     ID="gvOrders"
@@ -243,8 +226,6 @@
                 </asp:GridView>
 
             </div>
-
-        </div>
 
     </asp:Panel>
 

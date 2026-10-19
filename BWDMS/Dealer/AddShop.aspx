@@ -28,7 +28,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
 
                 <asp:Label
                     ID="lblHeading"
@@ -39,7 +39,7 @@
             </h3>
 
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
 
                 <asp:Label
                     ID="lblSubHeading"
@@ -163,6 +163,7 @@
 
                 <label class="form-label fw-semibold">
                     Phone
+                    <span class="text-danger">*</span>
                 </label>
 
 
@@ -170,9 +171,28 @@
                     ID="txtPhone"
                     runat="server"
                     CssClass="form-control"
-                    MaxLength="80"
-                    placeholder="Contact number">
+                    MaxLength="15"
+                    placeholder="Example: 9876543210">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ErrorMessage="Phone number is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ValidationExpression="^[\d\s\-+()]{0,15}$"
+                    ErrorMessage="Enter a valid contact number (digits, - + () only)."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 
@@ -373,10 +393,10 @@
         <hr class="my-4" />
 
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mt-3">
 
             <a href="Shops.aspx"
-               class="btn btn-light border">
+               class="btn btn-outline-secondary">
 
                 <i class="bi bi-x-lg"></i>
 

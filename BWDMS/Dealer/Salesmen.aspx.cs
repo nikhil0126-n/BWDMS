@@ -69,11 +69,23 @@ namespace BWDMS.Dealer
                 string query = @"
                     SELECT
                         u.UserId,
+                        SalesmanCode =
+                            'SLM' + RIGHT('000' + CAST(u.UserId AS VARCHAR(10)), 3),
                         u.FullName,
                         u.Email,
                         u.Phone,
                         u.Role,
                         u.IsActive,
+                        VehicleNumber =
+                        (
+                            SELECT TOP 1 v.VehicleNumber
+                            FROM RouteSchedules rs
+                            INNER JOIN Vehicles v
+                                ON v.VehicleId = rs.VehicleId
+                            WHERE rs.SalesmanId = u.UserId
+                               OR rs.DriverId = u.UserId
+                            ORDER BY rs.RouteScheduleId DESC
+                        ),
                         ScheduleCount =
                         (
                             SELECT COUNT(*)
@@ -84,6 +96,7 @@ namespace BWDMS.Dealer
                     FROM Users u
                     WHERE u.DealerId = @DealerId
                     AND u.Role = 'Salesman'
+                    AND u.IsActive = 1
                     ORDER BY u.FullName";
 
                 using (SqlConnection con =
@@ -149,6 +162,72 @@ namespace BWDMS.Dealer
             gvSalesmen.PageIndex = e.NewPageIndex;
 
             LoadSalesmen();
+        }
+
+
+        // ------------------------------------------------------------
+        // ROW COMMANDS (EDIT / DELETE)
+        // ------------------------------------------------------------
+
+        protected void gvSalesmen_RowCommand(
+            object sender,
+            System.Web.UI.WebControls.GridViewCommandEventArgs e)
+        {
+            if (e.CommandArgument == null)
+            {
+                return;
+            }
+
+            int userId = Convert.ToInt32(e.CommandArgument);
+
+            if (e.CommandName == "EditSalesman")
+            {
+                Response.Redirect(
+                    "~/Dealer/AddSalesman.aspx?id=" + userId);
+            }
+            else if (e.CommandName == "DeleteSalesman")
+            {
+                DeleteSalesman(userId);
+            }
+        }
+
+
+        private void DeleteSalesman(int userId)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Users
+                    SET IsActive = 0
+                    WHERE UserId = @UserId";
+
+                using (SqlConnection con =
+                    DatabaseHelper.GetConnection())
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd =
+                        new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.Add(
+                            "@UserId",
+                            SqlDbType.Int).Value = userId;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                ShowMessage("Salesman deleted successfully.", true);
+
+                LoadSalesmen();
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(
+                    "Error deleting salesman: " +
+                    ex.Message,
+                    false);
+            }
         }
 
     }

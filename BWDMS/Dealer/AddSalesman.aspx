@@ -28,7 +28,7 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
 
                 <asp:Label
                     ID="lblHeading"
@@ -39,7 +39,7 @@
             </h3>
 
 
-            <p class="text-muted mb-0">
+            <p class="text-muted mb-0 page-subtitle">
 
                 <asp:Label
                     ID="lblSubHeading"
@@ -198,6 +198,8 @@
 
                     Phone
 
+                    <span class="text-danger">*</span>
+
                 </label>
 
 
@@ -208,6 +210,25 @@
                     MaxLength="40"
                     placeholder="Example: 9876543210">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ErrorMessage="Phone number is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
+                <asp:RegularExpressionValidator
+                    ID="revPhone"
+                    runat="server"
+                    ControlToValidate="txtPhone"
+                    ValidationExpression="^(\d{10})?$"
+                    ErrorMessage="Enter a 10-digit mobile number."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
 
             </div>
 
@@ -337,11 +358,11 @@
 
 
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mt-3">
 
 
             <a href="Salesmen.aspx"
-               class="btn btn-light border">
+               class="btn btn-outline-secondary">
 
                 <i class="bi bi-x-lg me-1"></i>
 

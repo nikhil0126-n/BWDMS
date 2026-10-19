@@ -121,8 +121,46 @@ namespace BWDMS.Dealer
 
             if (!IsPostBack)
             {
+                LoadUiFields();
                 LoadDashboard();
             }
+        }
+
+
+        private void LoadUiFields()
+        {
+            ddlDate.Items.Clear();
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = DateTime.Today.AddDays(-i);
+
+                System.Web.UI.WebControls.ListItem item =
+                    new System.Web.UI.WebControls.ListItem(
+                        day.ToString("dd MMM yyyy"),
+                        day.ToString("yyyy-MM-dd"));
+
+                ddlDate.Items.Add(item);
+            }
+
+
+            ddlVehicle.Items.Clear();
+            ddlVehicle.Items.Insert(0,
+                new System.Web.UI.WebControls.ListItem("-- Select Vehicle --", ""));
+
+            ddlRoute.Items.Clear();
+            ddlRoute.Items.Insert(0,
+                new System.Web.UI.WebControls.ListItem("-- Select Route --", ""));
+
+            ddlSalesman.Items.Clear();
+            ddlSalesman.Items.Insert(0,
+                new System.Web.UI.WebControls.ListItem("-- Select Salesman --", ""));
+        }
+
+
+        protected void btnOk_Click(object sender, EventArgs e)
+        {
+            LoadDashboard();
         }
 
 
@@ -1050,6 +1088,8 @@ namespace BWDMS.Dealer
             lblReportTitle.Text = title;
             lblRecordCount.Text =
                 "records: " + dt.Rows.Count.ToString();
+
+            lblTotalRecords.Text = dt.Rows.Count.ToString();
 
             _currentTable = dt;
 

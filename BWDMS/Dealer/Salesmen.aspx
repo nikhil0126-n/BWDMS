@@ -28,12 +28,12 @@
 
         <div>
 
-            <h3 class="fw-bold mb-1">
+            <h3 class="fw-bold mb-1 page-title">
                 Salesmen
             </h3>
 
-            <p class="text-muted mb-0">
-                Field accounts assigned to your dealership
+            <p class="text-muted mb-0 page-subtitle">
+                Manage All salesmen
             </p>
 
         </div>
@@ -44,7 +44,7 @@
 
             <i class="bi bi-plus-lg me-1"></i>
 
-            Add Account
+            Add salesmen
 
         </a>
 
@@ -71,99 +71,73 @@
 
 
 
-    <!-- ============================================================
-         ACCOUNT LIST CARD
-         ============================================================ -->
+    <!-- Search -->
+    <div class="grid-search-box mb-4">
 
-    <div class="dashboard-card">
+        <i class="bi bi-search search-icon"></i>
 
+        <asp:TextBox
+            ID="txtSearch"
+            runat="server"
+            CssClass="form-control"
+            placeholder="Search salesmen...."
+            ClientIDMode="Static">
+        </asp:TextBox>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
-            <div>
-
-                <h5 class="fw-bold mb-1">
-                    Account List
-                </h5>
-
-                <small class="text-muted">
-                    Salesmen who can be picked in route schedules
-                </small>
-
-            </div>
+    </div>
 
 
-            <div class="grid-search-box">
-
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search name, email or phone..."
-                    ClientIDMode="Static">
-                </asp:TextBox>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="table-responsive">
+    <!-- Salesmen List -->
+    <div class="table-responsive">
 
             <asp:GridView
                 ID="gvSalesmen"
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table route-table align-middle mb-0"
+                CssClass="table table-hover align-middle"
                 GridLines="None"
-                EmptyDataText="No salesman accounts yet. Click &quot;Add Account&quot; to create one." AllowPaging="true" OnPageIndexChanging="gvSalesmen_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No salesmen found. Click &quot;Add salesmen&quot; to create one."
+                AllowPaging="true"
+                OnPageIndexChanging="gvSalesmen_PageIndexChanging"
+                OnRowCommand="gvSalesmen_RowCommand"
+                PageSize="25"
+                PagerSettings-Mode="NumericFirstLast"
+                PagerSettings-PageButtonCount="10"
+                PagerSettings-Position="Bottom">
 
                 <Columns>
 
                     <asp:BoundField
-                        DataField="FullName"
-                        HeaderText="Full Name" />
+                        DataField="SalesmanCode"
+                        HeaderText="Code" />
 
                     <asp:BoundField
-                        DataField="Email"
-                        HeaderText="Email" />
+                        DataField="FullName"
+                        HeaderText="Salesman Name" />
 
                     <asp:BoundField
                         DataField="Phone"
-                        HeaderText="Phone" />
+                        HeaderText="Mobile" />
 
                     <asp:BoundField
-                        DataField="Role"
-                        HeaderText="Role" />
+                        DataField="VehicleNumber"
+                        HeaderText="Vehicle" />
 
                     <asp:TemplateField
                         HeaderText="Status">
 
                         <ItemTemplate>
 
-                            <span class='<%# Convert.ToBoolean(Eval("IsActive"))
-                                ? "badge bg-success"
-                                : "badge bg-secondary" %>'>
+                            <small class='<%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "detail-status"
+                                : "text-muted" %>'>
 
                                 <%# Convert.ToBoolean(Eval("IsActive"))
                                     ? "Active"
                                     : "Inactive" %>
 
-                            </span>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-
-                    <asp:TemplateField
-                        HeaderText="Route Schedules">
-
-                        <ItemTemplate>
-
-                            <%# Eval("ScheduleCount") %>
+                            </small>
 
                         </ItemTemplate>
 
@@ -175,17 +149,47 @@
 
                         <ItemTemplate>
 
-                            <asp:HyperLink
-                                ID="lnkEdit"
-                                runat="server"
-                                CssClass="btn btn-outline-danger btn-sm"
-                                NavigateUrl='<%# "~/Dealer/AddSalesman.aspx?id=" + Eval("UserId") %>'>
+                            <div class="row-actions">
 
-                                <i class="bi bi-pencil me-1"></i>
+                                <asp:HyperLink
+                                    ID="lnkDetails"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    ToolTip="View Details"
+                                    NavigateUrl='<%# "~/Dealer/SalesmanDetails.aspx?id=" + Eval("UserId") %>'>
 
-                                Edit
+                                    <i class="bi bi-eye"></i>
 
-                            </asp:HyperLink>
+                                </asp:HyperLink>
+
+
+                                <asp:LinkButton
+                                    ID="lnkEdit"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    CommandName="EditSalesman"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    ToolTip="Edit">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                </asp:LinkButton>
+
+
+                                <asp:LinkButton
+                                    ID="lnkDelete"
+                                    runat="server"
+                                    CssClass="row-action"
+                                    CommandName="DeleteSalesman"
+                                    CommandArgument='<%# Eval("UserId") %>'
+                                    ToolTip="Delete"
+                                    OnClientClick="return confirm('Delete this salesman?');">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </asp:LinkButton>
+
+                            </div>
 
                         </ItemTemplate>
 
@@ -196,9 +200,6 @@
             </asp:GridView>
 
         </div>
-
-
-    </div>
 
 
 </asp:Content>

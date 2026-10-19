@@ -1412,6 +1412,10 @@ namespace BWDMS.Salesman
         // A route day closed by the dealer cannot be billed against. The
         // schedule's StockDate is set the first time a day is closed, so a
         // recurring schedule is only blocked for that specific day.
+        // A route day closed by the dealer cannot be billed against.
+        // The closure is stored against ONE date (StockDate), so only
+        // that day is blocked -- the same weekday the following week
+        // is a fresh occurrence and is open again.
         private static bool IsRouteDayClosed(
             SqlConnection con,
             SqlTransaction tx,
@@ -1419,14 +1423,14 @@ namespace BWDMS.Salesman
             DateTime date)
         {
             string query = @"
-                SELECT TOP (1) IsClosed
+                SELECT CASE
+                           WHEN IsClosed = 1
+                                AND StockDate = @StockDate
+                           THEN 1
+                           ELSE 0
+                       END
                 FROM RouteSchedules
-                WHERE RouteScheduleId = @RouteScheduleId
-                ORDER BY
-                    CASE
-                        WHEN StockDate = @StockDate THEN 0
-                        ELSE 1
-                    END";
+                WHERE RouteScheduleId = @RouteScheduleId";
 
             using (SqlCommand cmd =
                 new SqlCommand(query, con, tx))

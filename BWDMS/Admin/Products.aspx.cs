@@ -173,6 +173,8 @@ namespace BWDMS.Admin
 
                         gvProducts.DataSource = dt;
                         gvProducts.DataBind();
+
+                        litPager.Text = GridPager.Html(gvProducts);
                     }
                 }
             }
@@ -183,6 +185,8 @@ namespace BWDMS.Admin
             object sender,
             EventArgs e)
         {
+            gvProducts.PageIndex = 0;
+
             LoadProducts();
         }
 
@@ -191,6 +195,8 @@ namespace BWDMS.Admin
             object sender,
             EventArgs e)
         {
+            gvProducts.PageIndex = 0;
+
             LoadProducts();
         }
 
@@ -221,6 +227,18 @@ namespace BWDMS.Admin
             gvProducts.PageIndex = e.NewPageIndex;
 
             LoadProducts();
+        }
+
+
+        // The pager bar under the grid links back to the grid with a
+        // "Page$N" argument. Event validation only accepts arguments that
+        // were registered while rendering, which the grid's own (hidden)
+        // pager would normally do, so register them here.
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            GridPager.RegisterForEventValidation(gvProducts);
+
+            base.Render(writer);
         }
     }
 }
