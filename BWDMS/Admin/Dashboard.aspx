@@ -20,6 +20,28 @@
     runat="server">
 
 
+    <!-- Admin Dashboard Top Bar (this page only) -->
+    <div class="admin-topbar">
+        <div class="admin-topbar-left">
+            <button type="button" class="admin-topbar-toggle" id="adminTopbarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+        <div class="admin-topbar-right">
+            <div class="admin-topbar-search">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search here...." />
+            </div>
+            <div class="admin-topbar-notification">
+                <i class="bi bi-bell"></i>
+            </div>
+            <div class="admin-topbar-profile">
+                <i class="bi bi-person-circle"></i>
+                <span>Admin</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Page Heading -->
 
     <div class="d-flex justify-content-between align-items-center mb-4">

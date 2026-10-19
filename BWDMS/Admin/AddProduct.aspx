@@ -158,6 +158,8 @@
 
                 <label class="form-label fw-semibold">
                     Product Code
+                    <span class="text-danger">*</span>
+
                 </label>
 
 
@@ -166,8 +168,17 @@
                     runat="server"
                     CssClass="form-control"
                     MaxLength="200"
-                    placeholder="Optional internal code">
+                    placeholder="Internal product code">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvProductCode"
+                    runat="server"
+                    ControlToValidate="txtProductCode"
+                    ErrorMessage="Product code is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 
@@ -199,6 +210,8 @@
 
                 <label class="form-label fw-semibold">
                     Description
+                    <span class="text-danger">*</span>
+
                 </label>
 
 
@@ -209,8 +222,17 @@
                     MaxLength="1000"
                     TextMode="MultiLine"
                     Rows="3"
-                    placeholder="Optional notes">
+                    placeholder="Product description">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvDescription"
+                    runat="server"
+                    ControlToValidate="txtDescription"
+                    ErrorMessage="Description is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

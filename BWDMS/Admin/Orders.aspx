@@ -94,6 +94,8 @@
 
             <div class="grid-search-box">
 
+                <i class="bi bi-search search-icon"></i>
+
                 <asp:TextBox
                     ID="txtSearch"
                     runat="server"
