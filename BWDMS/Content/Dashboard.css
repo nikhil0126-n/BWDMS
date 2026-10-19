@@ -419,6 +419,280 @@ body {
 
 
 /* ============================================================================
+   ADMIN DASHBOARD TOP BAR (Admin/Dashboard.aspx only)
+   ============================================================================ */
+
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.admin-topbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.admin-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-topbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--bw-border);
+    border-radius: 10px;
+    background: var(--bw-surface);
+    font-size: 22px;
+    color: var(--bw-text-soft);
+    cursor: pointer;
+    transition: .15s;
+}
+
+.admin-topbar-toggle:hover {
+    border-color: var(--bw-blue-500);
+    color: var(--bw-blue-600);
+    background: var(--bw-blue-050);
+}
+
+.admin-topbar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.admin-topbar-search > i {
+    position: absolute;
+    left: 16px;
+    font-size: 16px;
+    color: var(--bw-text-muted);
+    pointer-events: none;
+}
+
+.admin-topbar-search input {
+    height: 46px;
+    width: 320px;
+    padding: 0 18px 0 46px;
+    border: 1px solid var(--bw-border);
+    border-radius: 23px;
+    font-size: 15px;
+    background: var(--bw-surface);
+    color: var(--bw-text);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.admin-topbar-search input:focus {
+    border-color: var(--bw-blue-500);
+    box-shadow: var(--bw-focus);
+}
+
+.admin-topbar-search input::placeholder {
+    color: var(--bw-text-muted);
+}
+
+.admin-topbar-notification {
+    position: relative;
+    font-size: 24px;
+    color: var(--bw-text-soft);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.admin-topbar-notification:hover {
+    color: var(--bw-blue-600);
+}
+
+.admin-topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--bw-text);
+    cursor: pointer;
+}
+
+.admin-topbar-profile > i {
+    font-size: 26px;
+    color: var(--bw-text-soft);
+}
+
+.admin-topbar-profile:hover > i {
+    color: var(--bw-blue-600);
+}
+
+@media (max-width: 767.98px) {
+
+    .admin-topbar {
+        padding: 8px 12px;
+    }
+
+    .admin-topbar-right {
+        gap: 12px;
+    }
+
+    .admin-topbar-search input {
+        width: 160px;
+        height: 40px;
+    }
+
+    .admin-topbar-toggle {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* ============================================================================
+   ADMIN DASHBOARD HEADER (Admin/Dashboard.aspx only)
+   ============================================================================ */
+
+.admin-page-header {
+    display: flex;
+    align-items: stretch;
+    background: var(--bw-surface);
+    border: 1px solid var(--bw-border);
+    border-radius: var(--bw-radius);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.admin-header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #041252;
+    padding: 16px 28px;
+    flex: 0 0 auto;
+}
+
+.admin-header-brand-text {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+.admin-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+    padding: 12px 24px;
+    flex: 1 1 auto;
+}
+
+.admin-header-hamburger {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--bw-text-soft);
+    padding: 4px;
+    line-height: 1;
+}
+
+.admin-header-hamburger:hover {
+    color: var(--bw-blue-600);
+}
+
+.admin-header-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.admin-header-search i {
+    position: absolute;
+    left: 14px;
+    font-size: 15px;
+    color: var(--bw-text-muted);
+    pointer-events: none;
+}
+
+.admin-header-search input {
+    height: 42px;
+    width: 280px;
+    padding: 0 16px 0 42px;
+    border: 1px solid var(--bw-border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: var(--bw-surface);
+    color: var(--bw-text);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.admin-header-search input:focus {
+    border-color: var(--bw-blue-500);
+    box-shadow: var(--bw-focus);
+}
+
+.admin-header-search input::placeholder {
+    color: var(--bw-text-muted);
+}
+
+.admin-header-notification {
+    position: relative;
+    font-size: 22px;
+    color: var(--bw-text-soft);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.admin-header-notification:hover {
+    color: var(--bw-blue-600);
+}
+
+.admin-header-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--bw-text);
+    cursor: pointer;
+}
+
+.admin-header-user i {
+    font-size: 24px;
+    color: var(--bw-text-soft);
+}
+
+.admin-header-user:hover i {
+    color: var(--bw-blue-600);
+}
+
+@media (max-width: 767.98px) {
+
+    .admin-header-search input {
+        width: 180px;
+    }
+
+    .admin-header-actions {
+        gap: 14px;
+        padding: 0 16px;
+    }
+
+    .admin-header-brand-text {
+        font-size: 16px;
+    }
+}
+
+
+/* ============================================================================
    FOOTER
    ============================================================================ */
 
