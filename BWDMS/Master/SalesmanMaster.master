@@ -53,35 +53,34 @@
 <form id="form1" runat="server">
 
 
-    <!-- =====================================================
-         SIDEBAR
-         ===================================================== -->
+     <!-- =====================================================
+      SIDEBAR
+      ===================================================== -->
 
-    <aside class="sw-sidebar"
-           id="swSidebar">
+<aside class="sidebar"
+     id="sidebar">
 
 
-        <!-- BRAND -->
+  <!-- SIDEBAR LOGO -->
 
-        <div class="sw-brand">
+  <div class="sidebar-logo">
 
-            <div class="sw-brand-mark">
-                BW
-            </div>
 
-            <div class="sw-brand-text">
+      <img class="logo-icon"
+           src="<%= ResolveUrl("~/Content/images/logo-mark.png") %>"
+           alt="BALAJI DMS" />
 
-                <strong>
-                    BWDMS
-                </strong>
 
-                <small>
-                    Salesman
-                </small>
+      <div>
 
-            </div>
+          <strong>
+              BALAJI DMS
+          </strong>
 
-        </div>
+      </div>
+
+  </div>
+
 
 
 

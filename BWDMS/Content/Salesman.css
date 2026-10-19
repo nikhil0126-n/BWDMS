@@ -62,18 +62,62 @@ body.sw-body {
 }
 
 /* ============================================================================
-   SIDEBAR
+   SIDEBAR — dark navy navigation shell
    ============================================================================ */
 
-.sw-sidebar {
+.sidebar {
     position: fixed;
-    inset: 0 auto 0 0;
-    width: var(--sw-sidebar-w);
-    background: linear-gradient(180deg, var(--sw-navy) 0%, #030d3c 100%);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    /* Palette taken from the supplied reference: flat deep navy body,
+       a 1px slate-blue seam down the right edge. */
+    background: #041252;
+    border-right: 1px solid #424d7d;
+    z-index: 1100;
     display: flex;
     flex-direction: column;
-    z-index: 1100;
 }
+
+
+.sidebar-logo {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 22px;
+    /* Reference header: navy on the left sweeping into a bright blue
+       on the right, so the two shades meet the body seamlessly. */
+    background: linear-gradient(90deg, #041252 0%, #1930c3 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+
+.logo-icon {
+    height: 42px;
+    width: auto;
+    flex: none;
+    /* White line-art emblem lifted from the supplied reference; the PNG
+       carries its own transparency so it sits on the gradient cleanly. */
+    display: block;
+}
+
+
+.sidebar-logo strong {
+    display: block;
+    font-size: 17px;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+
+.sidebar-menu {
+    flex: 1;
+    padding: 18px 12px;
+    overflow-y: auto;
+}
+
 
 .sw-brand {
     display: flex;
