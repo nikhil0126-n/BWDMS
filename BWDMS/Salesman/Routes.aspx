@@ -1,6 +1,6 @@
-<%@ Page Title="My Routes"
+<%@ Page Title="My Route"
     Language="C#"
-    MasterPageFile="~/Master/DashboardMaster.master"
+    MasterPageFile="~/Master/SalesmanMaster.master"
     AutoEventWireup="true"
     CodeBehind="Routes.aspx.cs"
     Inherits="BWDMS.Salesman.Routes" %>
@@ -10,7 +10,7 @@
     ContentPlaceHolderID="TitleContent"
     runat="server">
 
-    My Routes
+    My Route
 
 </asp:Content>
 
@@ -20,29 +20,23 @@
     runat="server">
 
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- ============================================================
+         PAGE HEADER
+         ============================================================ -->
+
+    <div class="sw-page-head">
 
         <div>
 
-            <h3 class="fw-bold mb-1">
-                My Routes
+            <h3>
+                My Route
             </h3>
 
-            <p class="text-muted mb-0">
-                The schedules assigned to you
+            <p>
+                Your assigned beat and stop list
             </p>
 
         </div>
-
-
-        <a href="Dashboard.aspx"
-           class="btn btn-outline-secondary">
-
-            <i class="bi bi-arrow-left"></i>
-
-            Back to Dashboard
-
-        </a>
 
     </div>
 
@@ -55,62 +49,125 @@
     </asp:Label>
 
 
-    <div class="dashboard-card">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- ============================================================
+         ROUTE SUMMARY
+         ============================================================ -->
 
-            <div>
+    <div class="sw-card mb-4">
 
-                <h5 class="fw-bold mb-1">
-                    Routes
-                </h5>
+        <div class="sw-route-head">
 
-                <small class="text-muted">
-                    Villages are listed in visit order
-                </small>
+            <div class="sw-stat-icon sw-tint-blue">
+
+                <i class="bi bi-signpost-split"></i>
 
             </div>
 
 
-            <div class="grid-search-box">
+            <div>
 
-                <asp:TextBox
-                    ID="txtSearch"
-                    runat="server"
-                    CssClass="form-control"
-                    placeholder="Search route name or code..."
-                    AutoPostBack="true"
-                    OnTextChanged="txtSearch_TextChanged">
-                </asp:TextBox>
+                <div class="sw-route-name">
+
+                    <asp:Label
+                        ID="lblRouteName"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
+
+                </div>
+
+
+                <div class="sw-route-meta">
+
+                    <span class="sw-pill sw-pill-teal">
+
+                        <asp:Label
+                            ID="lblRouteStatus"
+                            runat="server"
+                            Text="On Route">
+                        </asp:Label>
+
+                    </span>
+
+
+                    <asp:Label
+                        ID="lblVillages"
+                        runat="server"
+                        Text="0 villages">
+                    </asp:Label>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <div class="row g-2 mb-3">
+        <div class="sw-route-stats">
 
-            <div class="col-md-4">
+            <div class="sw-route-stat">
 
-                <asp:DropDownList
-                    ID="ddlStatus"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="FilterChanged">
+                <div class="sw-route-stat-lbl">
+                    Vehicle
+                </div>
 
-                    <asp:ListItem Text="All Statuses" Value="" Selected="True">
-                    </asp:ListItem>
+                <div class="sw-route-stat-val">
 
-                    <asp:ListItem Text="Active" Value="1">
-                    </asp:ListItem>
+                    <asp:Label
+                        ID="lblVehicle"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
 
-                    <asp:ListItem Text="Inactive" Value="0">
-                    </asp:ListItem>
-
-                </asp:DropDownList>
+                </div>
 
             </div>
+
+
+            <div class="sw-route-stat">
+
+                <div class="sw-route-stat-lbl">
+                    Loaded
+                </div>
+
+                <div class="sw-route-stat-val">
+                    &mdash;
+                </div>
+
+            </div>
+
+
+            <div class="sw-route-stat">
+
+                <div class="sw-route-stat-lbl">
+                    Remaining
+                </div>
+
+                <div class="sw-route-stat-val">
+                    &mdash;
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================================================
+         ROUTE STOPS
+         ============================================================ -->
+
+    <div class="sw-card">
+
+        <div class="sw-card-title">
+
+            Route Stops (<asp:Label
+                ID="lblStopCount"
+                runat="server"
+                Text="0" />)
 
         </div>
 
@@ -121,48 +178,46 @@
                 ID="gvRoutes"
                 runat="server"
                 AutoGenerateColumns="False"
-                CssClass="table table-hover align-middle"
-                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvRoutes_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                CssClass="sw-table"
+                GridLines="None"
+                AllowPaging="true"
+                OnPageIndexChanging="gvRoutes_PageIndexChanging"
+                PageSize="25"
+                PagerSettings-Mode="NumericFirstLast"
+                PagerSettings-PageButtonCount="10"
+                PagerSettings-Position="Bottom">
 
                 <Columns>
 
-                    <asp:BoundField
-                        DataField="RouteName"
-                        HeaderText="Route" />
+                    <asp:TemplateField HeaderText="#">
+
+                        <ItemTemplate>
+
+                            <span class="sw-num">
+                                <%# Container.DataItemIndex + 1 %>
+                            </span>
+
+                        </ItemTemplate>
+
+                    </asp:TemplateField>
+
 
                     <asp:BoundField
-                        DataField="RouteCode"
-                        HeaderText="Code" />
+                        DataField="ShopName"
+                        HeaderText="Shop Name" />
 
                     <asp:BoundField
-                        DataField="DayOfWeek"
-                        HeaderText="Day" />
+                        DataField="VillageName"
+                        HeaderText="Location" />
 
-                    <asp:BoundField
-                        DataField="OrderDispatchDays"
-                        HeaderText="Dispatch Days" />
-
-                    <asp:BoundField
-                        DataField="RouteType"
-                        HeaderText="Type" />
-
-                    <asp:BoundField
-                        DataField="VillageCount"
-                        HeaderText="Villages" />
-
-                    <asp:BoundField
-                        DataField="VehicleNumber"
-                        HeaderText="Vehicle" />
 
                     <asp:TemplateField
                         HeaderText="Status">
 
                         <ItemTemplate>
 
-                            <span class='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge bg-success" : "badge bg-secondary" %>'>
-
-                                <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
-
+                            <span class="sw-badge sw-badge-warning">
+                                Pending
                             </span>
 
                         </ItemTemplate>
@@ -175,14 +230,13 @@
 
                         <ItemTemplate>
 
-                            <a class="btn btn-sm btn-outline-danger"
-                               href='<%# ResolveUrl("~/Dealer/ScheduleVillages.aspx?id=" + Eval("RouteScheduleId")) %>'>
+                            <button type="button"
+                                    class="sw-icon-btn"
+                                    title="Open stop">
 
-                                <i class="bi bi-geo-alt"></i>
+                                <i class="bi bi-chevron-right"></i>
 
-                                Villages
-
-                            </a>
+                            </button>
 
                         </ItemTemplate>
 
@@ -198,7 +252,7 @@
                         <i class="bi bi-signpost-split fs-1 text-muted"></i>
 
                         <p class="text-muted mt-3 mb-0">
-                            No routes are assigned to you yet.
+                            No stops on your routes yet.
                         </p>
 
                     </div>

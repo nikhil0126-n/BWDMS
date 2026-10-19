@@ -1,0 +1,322 @@
+<%@ Master Language="C#" AutoEventWireup="true"
+    CodeBehind="SalesmanMaster.master.cs"
+    Inherits="BWDMS.Master.SalesmanMaster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent"
+            runat="server">
+            BWDMS
+        </asp:ContentPlaceHolder>
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+
+    <!-- Bootstrap Icons -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+          rel="stylesheet" />
+
+
+    <!-- Salesman Theme -->
+
+    <link href="<%= ResolveUrl("~/Content/Salesman.css") %>"
+          rel="stylesheet" />
+
+
+    <!-- Page-specific Head Content -->
+
+    <asp:ContentPlaceHolder ID="HeadContent"
+        runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+
+
+<body class="sw-body">
+
+<form id="form1" runat="server">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sw-sidebar"
+           id="swSidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="sw-brand">
+
+            <div class="sw-brand-mark">
+                BW
+            </div>
+
+            <div class="sw-brand-text">
+
+                <strong>
+                    BWDMS
+                </strong>
+
+                <small>
+                    Salesman
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MENU -->
+
+        <nav class="sw-menu">
+
+
+            <div class="sw-menu-title">
+                Main Menu
+            </div>
+
+
+            <asp:HyperLink
+                ID="lnkDashboard"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Dashboard.aspx">
+
+                <i class="bi bi-grid-1x2-fill"></i>
+
+                <span>Dashboard</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkRoutes"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Routes.aspx">
+
+                <i class="bi bi-signpost-2"></i>
+
+                <span>My Route</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkShops"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Shops.aspx">
+
+                <i class="bi bi-shop"></i>
+
+                <span>My Shops</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkCreateOrder"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/CreateOrder.aspx">
+
+                <i class="bi bi-cart-plus"></i>
+
+                <span>Create Orders</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkOrders"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Orders.aspx">
+
+                <i class="bi bi-cart-check"></i>
+
+                <span>My Orders</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkStock"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/VehicleStock.aspx">
+
+                <i class="bi bi-box-seam"></i>
+
+                <span>Vehicle Stock</span>
+
+            </asp:HyperLink>
+
+
+            <div class="sw-menu-title">
+                Operations
+            </div>
+
+
+            <asp:HyperLink
+                ID="lnkClosing"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Collection.aspx">
+
+                <i class="bi bi-cash-stack"></i>
+
+                <span>Daily Closing</span>
+
+            </asp:HyperLink>
+
+
+            <asp:HyperLink
+                ID="lnkReports"
+                runat="server"
+                CssClass="sw-menu-item"
+                NavigateUrl="~/Salesman/Reports.aspx">
+
+                <i class="bi bi-bar-chart"></i>
+
+                <span>Reports</span>
+
+            </asp:HyperLink>
+
+        </nav>
+
+
+
+        <!-- PROFILE + LOGOUT -->
+
+        <div class="sw-side-bottom">
+
+            <div class="sw-profile">
+
+                <div class="sw-profile-avatar">
+
+                    <asp:Label
+                        ID="lblUserInitial"
+                        runat="server">
+                        S
+                    </asp:Label>
+
+                </div>
+
+
+                <div>
+
+                    <div class="sw-profile-name">
+
+                        <asp:Label
+                            ID="lblUserName"
+                            runat="server">
+                            Salesman
+                        </asp:Label>
+
+                    </div>
+
+                    <div class="sw-profile-role">
+
+                        <asp:Label
+                            ID="lblUserRole"
+                            runat="server">
+                            Salesman
+                        </asp:Label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <asp:LinkButton
+                ID="btnLogout"
+                runat="server"
+                CssClass="sw-logout"
+                OnClick="btnLogout_Click">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>Logout</span>
+
+            </asp:LinkButton>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MOBILE BACKDROP -->
+
+    <div id="swBackdrop"
+         class="sw-sidebar-backdrop">
+    </div>
+
+
+
+    <!-- MODILE TOP BUTTON -->
+
+    <button type="button"
+            class="btn btn-primary d-md-none sw-mobile-toggle"
+            id="swToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="sw-main">
+
+        <asp:ContentPlaceHolder
+            ID="MainContent"
+            runat="server">
+
+        </asp:ContentPlaceHolder>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOOTSTRAP JS
+         ===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <script src="<%= ResolveUrl("~/Scripts/Salesman.js") %>">
+    </script>
+
+
+</form>
+
+</body>
+
+</html>

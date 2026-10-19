@@ -231,7 +231,7 @@
                         </label>
 
 
-                        <a href="#"
+                        <a href="ForgotPassword.aspx"
                            class="forgot-password">
 
                             Forgot Password?

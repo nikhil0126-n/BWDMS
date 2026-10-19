@@ -79,3 +79,107 @@ Stack: System.Web.HttpException (0x80004005): The GridView 'gvInventory' fired e
    at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
 ===
 
+=== 2026-10-15T04:02:00.361Z
+URL: /Salesman/Routes.aspx?t=1792036916959
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:02:16.162Z
+URL: /Salesman/Routes.aspx?t=1792036916959
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:02:17.324Z
+URL: /Salesman/Routes.aspx?t=1792036916959
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:03:59.548Z
+URL: /Salesman/Routes.aspx?t=1792037039523
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:06:59.869Z
+URL: /Salesman/Routes.aspx
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:07:52.215Z
+URL: /Salesman/Routes.aspx
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:07:55.844Z
+URL: /Salesman/Routes.aspx?t=1792037275819
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
+=== 2026-10-15T04:09:20.638Z
+URL: /Salesman/Routes.aspx
+User: 3
+Type: System.NullReferenceException
+Message: Object reference not set to an instance of an object.
+Stack: System.NullReferenceException: Object reference not set to an instance of an object.
+   at BWDMS.Salesman.Routes.LoadRoutes() in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 79
+   at BWDMS.Salesman.Routes.Page_Load(Object sender, EventArgs e) in C:\final ASPNET\BWDMS\Salesman\Routes.aspx.cs:line 59
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+===
+
