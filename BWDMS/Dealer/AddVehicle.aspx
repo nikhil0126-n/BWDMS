@@ -159,6 +159,15 @@
                     placeholder="Example: Tata 407">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtVehicleName"
+                    runat="server"
+                    ControlToValidate="txtVehicleName"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -180,6 +189,15 @@
                     MaxLength="100"
                     placeholder="Example: Truck / Tempo / Auto">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtVehicleType"
+                    runat="server"
+                    ControlToValidate="txtVehicleType"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 
@@ -210,6 +228,15 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlStatus"
+                    runat="server"
+                    ControlToValidate="ddlStatus"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

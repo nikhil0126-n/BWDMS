@@ -158,6 +158,15 @@
                     placeholder="Example: Rajkot">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtTaluka"
+                    runat="server"
+                    ControlToValidate="txtTaluka"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -176,6 +185,15 @@
                     MaxLength="100"
                     placeholder="Example: Rajkot">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtDistrict"
+                    runat="server"
+                    ControlToValidate="txtDistrict"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 
@@ -235,6 +253,15 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlStatus"
+                    runat="server"
+                    ControlToValidate="ddlStatus"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

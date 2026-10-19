@@ -157,6 +157,16 @@
 
                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlOrderType"
+                    runat="server"
+                    ControlToValidate="ddlOrderType"
+                    ValidationGroup="Order"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -189,6 +199,16 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlStatus"
+                    runat="server"
+                    ControlToValidate="ddlStatus"
+                    ValidationGroup="Order"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
 
                 <small class="text-muted d-block mt-1">
@@ -329,6 +349,16 @@
                     CssClass="form-select">
                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlSchedule"
+                    runat="server"
+                    ControlToValidate="ddlSchedule"
+                    ValidationGroup="Order"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -344,6 +374,16 @@
                     runat="server"
                     CssClass="form-select">
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlSalesman"
+                    runat="server"
+                    ControlToValidate="ddlSalesman"
+                    ValidationGroup="Order"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 
@@ -364,6 +404,16 @@
                     Rows="2"
                     placeholder="Delivery instructions, notes...">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtRemarks"
+                    runat="server"
+                    ControlToValidate="txtRemarks"
+                    ValidationGroup="Order"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

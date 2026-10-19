@@ -184,6 +184,16 @@
                     placeholder="Balaji Wafers invoice / challan no.">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtCompanyInvoiceNo"
+                    runat="server"
+                    ControlToValidate="txtCompanyInvoiceNo"
+                    ValidationGroup="Receipt"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -203,6 +213,16 @@
                     Rows="2"
                     placeholder="Vehicle, challan or anything worth remembering">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtNotes"
+                    runat="server"
+                    ControlToValidate="txtNotes"
+                    ValidationGroup="Receipt"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

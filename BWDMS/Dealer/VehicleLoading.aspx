@@ -149,6 +149,15 @@
                         CssClass="form-select">
                     </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlSalesman"
+                    runat="server"
+                    ControlToValidate="ddlSalesman"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
                 </div>
 
 
@@ -161,6 +170,15 @@
                         runat="server"
                         CssClass="form-select">
                     </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlDate"
+                    runat="server"
+                    ControlToValidate="ddlDate"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
                     <asp:TextBox
                         ID="txtStockDate"
