@@ -1,6 +1,6 @@
 <%@ Page Title="Vehicle Stock"
     Language="C#"
-    MasterPageFile="~/Master/DashboardMaster.master"
+    MasterPageFile="~/Master/Salesmanmaster.master"
     AutoEventWireup="true"
     CodeBehind="VehicleStock.aspx.cs"
     Inherits="BWDMS.Salesman.VehicleStock" %>
@@ -21,90 +21,121 @@
 
     <style>
 
-        .vs-head
-        {
-            margin  : 8px 0 24px 0;
-        }
+        /* ---------- Page header ---------- */
 
-        .vs-title
-        {
-            font-size  : 24px;
-            font-weight : 700;
-            color      : #111827;
-            margin     : 0 0 4px 0;
-        }
-
-        .vs-subtitle
-        {
-            font-size : 13px;
-            color     : #9ca3af;
-            margin    : 0;
-        }
-
-
-        .vs-filter
+        .vs-topbar
         {
             display        : flex;
-            flex-wrap      : wrap;
-            gap            : 12px;
-            align-items    : flex-end;
+            align-items    : center;
+            gap            : 16px;
+            padding        : 2px 0 16px 0;
             margin         : 0 0 22px 0;
+            border-bottom  : 1px solid #e5e7eb;
         }
 
-        .vs-field
+        .vs-back
         {
-            display   : flex;
-            flex-direction : column;
-            gap       : 5px;
-        }
-
-        .vs-field-label
-        {
-            font-size : 12px;
-            color     : #6b7280;
-        }
-
-        .vs-dropdown,
-        .vs-input
-        {
-            min-width   : 240px;
-            padding     : 12px 40px 12px 16px;
-            font-size   : 15px;
             color       : #111827;
-            border      : 1px solid #d1d5db;
-            border-radius: 6px;
-            background  : #fff;
+            font-size   : 20px;
+            line-height : 1;
+            text-decoration : none;
+            display     : inline-flex;
+            align-items : center;
         }
 
-        .vs-dropdown
+        .vs-back:hover
         {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%236b7280' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            appearance    : none;
-            -webkit-appearance: none;
-            padding-right : 40px;
+            color : #111827;
         }
 
-        .vs-input
+        .vs-topbar h3
         {
-            padding-right : 16px;
+            margin      : 0;
+            font-size   : 21px;
+            font-weight : 700;
+            color       : #111827;
         }
 
-        .vs-dropdown:focus,
-        .vs-input:focus
+
+        /* ---------- Vehicle summary card ---------- */
+
+        .vs-card
         {
-            outline      : none;
-            border-color : #6366f1;
+            background     : #fff;
+            border         : 1px solid #d9d9d9;
+            border-radius  : 8px;
+            padding        : 22px 30px 24px 30px;
+            margin         : 0 0 24px 0;
         }
 
+        .vs-vehicle
+        {
+            display     : flex;
+            align-items : center;
+            gap         : 22px;
+            margin      : 0 0 22px 0;
+        }
+
+        .vs-truck
+        {
+            width  : 66px;
+            height : 50px;
+            flex   : 0 0 auto;
+        }
+
+        .vs-plate
+        {
+            margin     : 0 0 10px 0;
+            font-size  : 20px;
+            font-weight: 700;
+            color      : #111827;
+        }
+
+        .vs-beat
+        {
+            display         : inline-block;
+            padding         : 5px 16px;
+            font-size       : 13px;
+            color           : #374151;
+            background      : #fff;
+            border          : 1px solid #d1d5db;
+            border-radius   : 6px;
+        }
+
+        .vs-stats
+        {
+            display : flex;
+        }
+
+        .vs-stat
+        {
+            flex     : 1;
+            text-align: center;
+        }
+
+        .vs-stat-lbl
+        {
+            font-size  : 17px;
+            color      : #111827;
+            margin     : 0 0 12px 0;
+        }
+
+        .vs-stat-val
+        {
+            font-size  : 17px;
+            font-weight: 700;
+            color      : #111827;
+        }
+
+
+        /* ---------- Stock table ---------- */
 
         .vs-table-wrap
         {
-            border         : 1px solid #d1d5db;
-            border-radius  : 6px;
-            overflow       : hidden;
-            background     : #fff;
+            border        : 1px solid #d9d9d9;
+            border-radius : 8px;
+            overflow      : hidden;
+            background    : #fff;
         }
 
         .vs-table
@@ -115,166 +146,50 @@
 
         .vs-table th
         {
-            background     : #d9d9d9;
-            font-size      : 17px;
-            font-weight    : 700;
-            color          : #111827;
-            text-align     : left;
-            padding        : 18px 24px;
-            border-bottom  : 1px solid #c4c4c4;
+            background    : #fff;
+            font-size     : 15px;
+            font-weight   : 700;
+            color         : #111827;
+            text-align    : left;
+            padding       : 17px 22px;
+            border-bottom : 1px solid #e5e7eb;
         }
 
         .vs-table td
         {
-            font-size      : 15px;
-            color          : #374151;
-            padding        : 16px 24px;
-            border-bottom  : 1px solid #ececec;
+            font-size     : 15px;
+            font-weight   : 600;
+            color         : #111827;
+            padding       : 16px 22px;
+            border-bottom : 1px solid #ececec;
         }
 
         .vs-table tr:last-child td
         {
-            border-bottom: none;
+            border-bottom : none;
         }
 
         .vs-num
         {
-            text-align: center;
-        }
-
-
-        .vs-pager
-        {
-            display         : flex;
-            justify-content : center;
-            align-items     : center;
-            gap             : 10px;
-            margin          : 26px 0 10px 0;
-        }
-
-        .vs-page-btn
-        {
-            min-width     : 34px;
-            height        : 34px;
-            padding       : 0 10px;
-            display       : inline-flex;
-            align-items   : center;
-            justify-content: center;
-            border        : 1px solid #d1d5db;
-            border-radius : 6px;
-            background    : #fff;
-            color         : #374151;
-            font-size     : 14px;
-            text-decoration: none;
-            cursor        : pointer;
-        }
-
-        .vs-page-btn:hover
-        {
-            background: #f3f4f6;
-        }
-
-        .vs-page-btn.active
-        {
-            background: #c7d2fe;
-            border-color: #c7d2fe;
-            color     : #111827;
-        }
-
-        .vs-table > tbody > tr > td
-        {
-            border-bottom: 1px solid #ececec;
+            text-align : center;
         }
 
     </style>
 
 
-    <!-- Header -->
+    <!-- Page header -->
 
-    <div class="vs-head">
+    <div class="vs-topbar">
 
-        <h3 class="vs-title">Vehicle Stock</h3>
+        <a class="vs-back"
+           href="Dashboard.aspx"
+           title="Back">
 
-        <p class="vs-subtitle">Manage All Stock movement</p>
+            <i class="bi bi-arrow-left"></i>
 
-    </div>
+        </a>
 
-
-    <!-- Filters -->
-
-    <div class="vs-filter">
-
-        <div class="vs-field">
-
-            <label class="vs-field-label">From</label>
-
-            <asp:TextBox
-                ID="txtFromDate"
-                runat="server"
-                CssClass="vs-input"
-                placeholder="YYYY-MM-DD"
-                AutoPostBack="true"
-                OnTextChanged="FilterChanged">
-            </asp:TextBox>
-
-        </div>
-
-
-        <div class="vs-field">
-
-            <label class="vs-field-label">To</label>
-
-            <asp:TextBox
-                ID="txtToDate"
-                runat="server"
-                CssClass="vs-input"
-                placeholder="YYYY-MM-DD"
-                AutoPostBack="true"
-                OnTextChanged="FilterChanged">
-            </asp:TextBox>
-
-        </div>
-
-
-        <div class="vs-field">
-
-            <label class="vs-field-label">Reconciled</label>
-
-            <asp:DropDownList
-                ID="ddlReconciled"
-                runat="server"
-                CssClass="vs-dropdown"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="FilterChanged">
-
-                <asp:ListItem Text="All" Value="" Selected="True">
-                </asp:ListItem>
-
-                <asp:ListItem Text="Pending" Value="0">
-                </asp:ListItem>
-
-                <asp:ListItem Text="Reconciled" Value="1">
-                </asp:ListItem>
-
-            </asp:DropDownList>
-
-        </div>
-
-
-        <div class="vs-field">
-
-            <label class="vs-field-label">Search</label>
-
-            <asp:TextBox
-                ID="txtSearch"
-                runat="server"
-                CssClass="vs-input"
-                placeholder="Search vehicle or product..."
-                AutoPostBack="true"
-                OnTextChanged="FilterChanged">
-            </asp:TextBox>
-
-        </div>
+        <h3>Vehicle Stock</h3>
 
     </div>
 
@@ -289,132 +204,180 @@
     </asp:Label>
 
 
-    <!-- Stock table -->
+    <!-- Vehicle summary -->
 
-    <div class="vs-table-wrap">
+    <div class="vs-card">
 
-        <div class="table-responsive">
+        <div class="vs-vehicle">
 
-            <asp:GridView
-                ID="gvStock"
-                runat="server"
-                AutoGenerateColumns="False"
-                CssClass="vs-table"
-                GridLines="None"
-                AllowPaging="true"
-                OnPageIndexChanging="gvStock_PageIndexChanging"
-                PageSize="25"
-                PagerSettings-Mode="NumericFirstLast"
-                PagerSettings-PageButtonCount="10"
-                PagerSettings-Position="Bottom"
-                PagerStyle-CssClass="vs-pager"
-                PagerStyle-HorizontalAlign="Center">
+            <svg class="vs-truck"
+                 viewBox="0 0 64 48"
+                 xmlns="http://www.w3.org/2000/svg"
+                 aria-hidden="true">
 
-                <Columns>
+                <rect x="2" y="10" width="34" height="24" rx="4" fill="#4aa3e8" />
 
-                    <asp:BoundField
-                        DataField="StockDateText"
-                        HeaderText="Date" />
+                <path d="M36 16 h9 l11 10 v8 H36 z" fill="#63b3ed" />
 
-                    <asp:BoundField
-                        DataField="VehicleNumber"
-                        HeaderText="Vehicle" />
+                <path d="M39 18 h5 l6 6 H39 z" fill="#dbeafe" />
 
-                    <asp:BoundField
-                        DataField="ProductName"
-                        HeaderText="Product" />
+                <rect x="54" y="29" width="7" height="5" rx="1.5" fill="#f6c453" />
 
-                    <asp:BoundField
-                        DataField="VariantName"
-                        HeaderText="Variant" />
+                <rect x="0" y="30" width="5" height="5" rx="1.5" fill="#f6c453" />
 
-                    <asp:BoundField
-                        DataField="LoadedPackets"
-                        HeaderText="Loaded"
-                        HeaderStyle-CssClass="vs-num"
-                        ItemStyle-CssClass="vs-num" />
+                <rect x="6" y="14" width="10" height="7" rx="2" fill="#93c5fd" />
 
-                    <asp:BoundField
-                        DataField="SoldPackets"
-                        HeaderText="Sold"
-                        HeaderStyle-CssClass="vs-num"
-                        ItemStyle-CssClass="vs-num" />
+                <circle cx="17" cy="36" r="6.5" fill="#1f2937" />
+                <circle cx="17" cy="36" r="2.6" fill="#9ca3af" />
 
-                    <asp:BoundField
-                        DataField="ReturnedPackets"
-                        HeaderText="Return"
-                        HeaderStyle-CssClass="vs-num"
-                        ItemStyle-CssClass="vs-num" />
+                <circle cx="46" cy="36" r="6.5" fill="#1f2937" />
+                <circle cx="46" cy="36" r="2.6" fill="#9ca3af" />
 
-                    <asp:BoundField
-                        DataField="DamagedPackets"
-                        HeaderText="Damaged"
-                        HeaderStyle-CssClass="vs-num"
-                        ItemStyle-CssClass="vs-num" />
+            </svg>
 
-                    <asp:BoundField
-                        DataField="ActualClosingText"
-                        HeaderText="Current Stock"
-                        HeaderStyle-CssClass="vs-num"
-                        ItemStyle-CssClass="vs-num" />
+            <div>
 
-                    <asp:TemplateField
-                        HeaderText="Variance">
+                <p class="vs-plate">
 
-                        <HeaderStyle CssClass="vs-num" />
-                        <ItemStyle CssClass="vs-num" />
+                    <asp:Label
+                        ID="lblVehicleNumber"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
 
-                        <ItemTemplate>
+                </p>
 
-                            <%# Eval("VarianceText") %>
+                <span class="vs-beat">
 
-                        </ItemTemplate>
+                    <asp:Label
+                        ID="lblBeat"
+                        runat="server"
+                        Text="-">
+                    </asp:Label>
 
-                    </asp:TemplateField>
+                </span>
 
-
-                    <asp:TemplateField
-                        HeaderText="Status">
-
-                        <ItemTemplate>
-
-                            <span class='<%# Convert.ToBoolean(Eval("IsReconciled")) ? "badge bg-success" : "badge bg-warning text-dark" %>'>
-
-                                <%# Convert.ToBoolean(Eval("IsReconciled")) ? "Reconciled" : "Pending" %>
-
-                            </span>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-                </Columns>
-
-
-                <EmptyDataTemplate>
-
-                    <div class="text-center py-5">
-
-                        <p class="text-muted mb-0">
-
-                            No stock found for this vehicle.
-
-                        </p>
-
-                    </div>
-
-                </EmptyDataTemplate>
-
-            </asp:GridView>
+            </div>
 
         </div>
 
-        <asp:Label
-            ID="lblRecordCount"
+        <div class="vs-stats">
+
+            <div class="vs-stat">
+
+                <div class="vs-stat-lbl">Sold</div>
+
+                <div class="vs-stat-val">
+
+                    <asp:Label
+                        ID="lblSold"
+                        runat="server"
+                        Text="0 Box">
+                    </asp:Label>
+
+                </div>
+
+            </div>
+
+            <div class="vs-stat">
+
+                <div class="vs-stat-lbl">Loaded</div>
+
+                <div class="vs-stat-val">
+
+                    <asp:Label
+                        ID="lblLoaded"
+                        runat="server"
+                        Text="0 Box">
+                    </asp:Label>
+
+                </div>
+
+            </div>
+
+            <div class="vs-stat">
+
+                <div class="vs-stat-lbl">Remaining</div>
+
+                <div class="vs-stat-val">
+
+                    <asp:Label
+                        ID="lblRemaining"
+                        runat="server"
+                        Text="0 Box">
+                    </asp:Label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Product wise stock -->
+
+    <div class="vs-table-wrap">
+
+        <asp:GridView
+            ID="gvStock"
             runat="server"
-            Visible="false"
-            Text="records: 0">
-        </asp:Label>
+            AutoGenerateColumns="False"
+            CssClass="vs-table"
+            GridLines="None">
+
+            <Columns>
+
+                <asp:BoundField
+                    DataField="ProductName"
+                    HeaderText="Product" />
+
+                <asp:BoundField
+                    DataField="PackingText"
+                    HeaderText="Packing" />
+
+                <asp:BoundField
+                    DataField="OpeningText"
+                    HeaderText="opening"
+                    HeaderStyle-CssClass="vs-num"
+                    ItemStyle-CssClass="vs-num" />
+
+                <asp:BoundField
+                    DataField="LoadedText"
+                    HeaderText="Loaded"
+                    HeaderStyle-CssClass="vs-num"
+                    ItemStyle-CssClass="vs-num" />
+
+                <asp:BoundField
+                    DataField="SoldText"
+                    HeaderText="Sold"
+                    HeaderStyle-CssClass="vs-num"
+                    ItemStyle-CssClass="vs-num" />
+
+                <asp:BoundField
+                    DataField="RemainingText"
+                    HeaderText="Remaining"
+                    HeaderStyle-CssClass="vs-num"
+                    ItemStyle-CssClass="vs-num" />
+
+            </Columns>
+
+            <EmptyDataTemplate>
+
+                <div class="text-center py-5">
+
+                    <p class="text-muted mb-0">
+
+                        No stock found for this vehicle.
+
+                    </p>
+
+                </div>
+
+            </EmptyDataTemplate>
+
+        </asp:GridView>
 
     </div>
 

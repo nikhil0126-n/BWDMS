@@ -539,7 +539,9 @@ namespace BWDMS.Salesman
             object source,
             RepeaterCommandEventArgs e)
         {
-            if (e.CommandName != "Remove")
+            if (e.CommandName != "Remove" &&
+                e.CommandName != "Inc" &&
+                e.CommandName != "Dec")
             {
                 return;
             }
@@ -560,7 +562,41 @@ namespace BWDMS.Salesman
                 return;
             }
 
-            dt.Rows.RemoveAt(index);
+            if (e.CommandName == "Remove")
+            {
+                dt.Rows.RemoveAt(index);
+                Lines = dt;
+
+                BindLines();
+                return;
+            }
+
+            // +/- stepper on the line row: change the quantity and
+            // keep packets and line total in step with it.
+            DataRow line = dt.Rows[index];
+
+            int quantity =
+                Convert.ToInt32(line["Quantity"]);
+
+            int packetsPerUnit =
+                quantity > 0
+                    ? Convert.ToInt32(line["QuantityPackets"]) / quantity
+                    : 1;
+
+            quantity += e.CommandName == "Inc" ? 1 : -1;
+
+            if (quantity < 1)
+            {
+                quantity = 1;
+            }
+
+            line["Quantity"] = quantity;
+            line["QuantityPackets"] =
+                quantity * packetsPerUnit;
+            line["LineTotal"] =
+                quantity *
+                Convert.ToDecimal(line["UnitPrice"]);
+
             Lines = dt;
 
             BindLines();
@@ -585,12 +621,22 @@ namespace BWDMS.Salesman
             pnlLines.Visible = dt.Rows.Count > 0;
 
             decimal subTotal = 0m;
+            int totalQty = 0;
 
             foreach (DataRow row in dt.Rows)
             {
                 subTotal +=
                     Convert.ToDecimal(row["LineTotal"]);
+
+                totalQty +=
+                    Convert.ToInt32(row["Quantity"]);
             }
+
+            lblTotalItems.Text =
+                dt.Rows.Count.ToString();
+
+            lblTotalQty.Text =
+                totalQty.ToString();
 
             decimal discount;
 
@@ -754,6 +800,8 @@ namespace BWDMS.Salesman
 
             try
             {
+                int savedOrderId = 0;
+
                 using (SqlConnection con =
                     DatabaseHelper.GetConnection())
                 {
@@ -909,6 +957,8 @@ namespace BWDMS.Salesman
                                     cmd.ExecuteScalar());
                             }
 
+                            savedOrderId = orderId;
+
                             string detail = @"
                                 INSERT INTO OrderDetails
                                 (
@@ -1013,7 +1063,8 @@ namespace BWDMS.Salesman
                 }
 
                 Response.Redirect(
-                    "~/Salesman/Orders.aspx?saved=1");
+                    "~/Salesman/Orders.aspx?saved=1&orderId=" +
+                    savedOrderId);
             }
             catch (Exception ex)
             {

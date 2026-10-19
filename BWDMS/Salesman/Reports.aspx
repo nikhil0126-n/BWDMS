@@ -1,6 +1,6 @@
 <%@ Page Title="My Reports"
     Language="C#"
-    MasterPageFile="~/Master/DashboardMaster.master"
+    MasterPageFile="~/Master/SalesmanMaster.master"
     AutoEventWireup="true"
     CodeBehind="Reports.aspx.cs"
     Inherits="BWDMS.Salesman.Reports" %>

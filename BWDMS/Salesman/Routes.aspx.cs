@@ -57,6 +57,8 @@ namespace BWDMS.Salesman
             {
                 LoadRoute();
 
+                LoadStock();
+
                 LoadStops();
 
                 if (Request.QueryString["saved"] == "1")
@@ -120,6 +122,7 @@ namespace BWDMS.Salesman
                     {
                         lblRouteName.Text = "No route assigned";
                         lblRouteStatus.Text = "Unassigned";
+                        rtPill.Attributes["class"] = "rt-pill off";
                         lblVillages.Text = "0 villages";
                         lblVehicle.Text = "-";
 
@@ -143,12 +146,83 @@ namespace BWDMS.Salesman
                     lblRouteStatus.Text =
                         isActive ? "On Route" : "Inactive";
 
+                    rtPill.Attributes["class"] =
+                        isActive ? "rt-pill" : "rt-pill off";
+
                     lblVillages.Text =
                         villageCount == 1
                             ? "1 village"
                             : villageCount + " villages";
                 }
             }
+        }
+
+
+        // ============================================================
+        // VEHICLE STOCK — Loaded / Remaining boxes for the header card
+        // ============================================================
+
+        private void LoadStock()
+        {
+            string query = @"
+                SELECT TOP 1
+                    vs.LoadedPackets,
+                    vs.SoldPackets,
+                    vs.ReturnedPackets,
+                    vs.DamagedPackets
+                FROM VehicleStock vs
+                WHERE vs.SalesmanId = @SalesmanId
+                ORDER BY vs.StockDate DESC,
+                         vs.VehicleStockId DESC";
+
+            using (SqlConnection con = DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    DataTable dt = new DataTable();
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        lblLoaded.Text = "0 Box";
+                        lblRemaining.Text = "0 Box";
+
+                        return;
+                    }
+
+                    DataRow row = dt.Rows[0];
+
+                    int loaded = ToInt(row["LoadedPackets"]);
+                    int remaining = loaded
+                        - ToInt(row["SoldPackets"])
+                        - ToInt(row["ReturnedPackets"])
+                        - ToInt(row["DamagedPackets"]);
+
+                    if (remaining < 0)
+                    {
+                        remaining = 0;
+                    }
+
+                    lblLoaded.Text = loaded + " Box";
+                    lblRemaining.Text = remaining + " Box";
+                }
+            }
+        }
+
+
+        private static int ToInt(object value)
+        {
+            return value == null || value == DBNull.Value
+                ? 0
+                : Convert.ToInt32(value);
         }
 
 
@@ -165,7 +239,20 @@ namespace BWDMS.Salesman
                 SELECT
                     s.ShopId,
                     s.ShopName,
-                    ISNULL(vi.VillageName, '-') AS VillageName
+                    ISNULL(vi.VillageName, '-') AS VillageName,
+                    IsVisited =
+                        CASE
+                            WHEN EXISTS
+                            (
+                                SELECT 1
+                                FROM Orders o
+                                WHERE o.ShopId = s.ShopId
+                                  AND o.OrderDate =
+                                      CAST(GETDATE() AS DATE)
+                            )
+                            THEN 1
+                            ELSE 0
+                        END
                 FROM Shops s
                 LEFT JOIN Villages vi
                     ON vi.VillageId = s.VillageId

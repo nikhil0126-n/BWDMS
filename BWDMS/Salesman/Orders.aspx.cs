@@ -56,15 +56,113 @@ namespace BWDMS.Salesman
 
             if (!IsPostBack)
             {
-                LoadOrders();
+                bool orderPlaced =
+                    Request.QueryString["saved"] == "1" &&
+                    ShowOrderSuccess();
 
-                if (Request.QueryString["saved"] == "1")
+                if (!orderPlaced)
                 {
-                    ShowMessage(
-                        "Order saved successfully.",
-                        true);
+                    LoadOrders();
+
+                    if (Request.QueryString["saved"] == "1")
+                    {
+                        ShowMessage(
+                            "Order saved successfully.",
+                            true);
+                    }
                 }
             }
+        }
+
+
+        // Renders the "Placed Order Successful!" card for the
+        // order that was just saved. Returns false when the
+        // order cannot be found, so the normal list shows.
+        private bool ShowOrderSuccess()
+        {
+            int orderId;
+
+            if (!int.TryParse(
+                Request.QueryString["orderId"],
+                out orderId))
+            {
+                return false;
+            }
+
+            string query = @"
+                SELECT
+                    o.OrderNumber,
+                    OrderDateText =
+                        CONVERT(NVARCHAR(10), o.OrderDate, 106),
+                    o.GrandTotal,
+                    s.ShopName
+                FROM Orders o
+                INNER JOIN Shops s
+                    ON s.ShopId = o.ShopId
+                WHERE o.OrderId = @OrderId
+                  AND o.SalesmanId = @SalesmanId";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@OrderId",
+                        SqlDbType.Int).Value = orderId;
+
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            if (dt.Rows.Count == 0)
+            {
+                return false;
+            }
+
+            DataRow row = dt.Rows[0];
+
+            lblShopName.Text =
+                row["ShopName"].ToString();
+
+            lblPlacedOn.Text =
+                row["OrderDateText"].ToString();
+
+            lblTotalAmount.Text =
+                Convert.ToDecimal(
+                    row["GrandTotal"]).ToString("N2");
+
+            lblOrderNumber.Text =
+                row["OrderNumber"].ToString();
+
+            lblPaymentMethod.Text = "Cash";
+
+            lblCollatedBy.Text =
+                Session["FullName"] == null ||
+                string.IsNullOrWhiteSpace(
+                    Session["FullName"].ToString())
+                    ? "Salesman"
+                    : Session["FullName"].ToString();
+
+            lnkViewOrder.HRef =
+                ResolveUrl(
+                    "~/Salesman/Bill.aspx?orderId=" + orderId);
+
+            pnlSuccess.Visible = true;
+            pnlList.Visible = false;
+
+            return true;
         }
 
 
@@ -78,7 +176,7 @@ namespace BWDMS.Salesman
                     o.OrderId,
                     o.OrderNumber,
                     OrderDateText =
-                        CONVERT(NVARCHAR(10), o.OrderDate, 120),
+                        CONVERT(NVARCHAR(10), o.OrderDate, 106),
                     DeliveryDateText =
                         CASE
                             WHEN o.DeliveryDate IS NULL THEN '-'
@@ -139,6 +237,8 @@ namespace BWDMS.Salesman
             {
                 dt.Columns.Add("StatusCss", typeof(string));
                 dt.Columns.Add("GrandTotalText", typeof(string));
+                dt.Columns.Add("AmountText", typeof(string));
+                dt.Columns.Add("PaymentText", typeof(string));
             }
 
             foreach (DataRow row in dt.Rows)
@@ -149,6 +249,12 @@ namespace BWDMS.Salesman
                 row["GrandTotalText"] =
                     Convert.ToDecimal(row["GrandTotal"])
                         .ToString("N2");
+
+                row["AmountText"] =
+                    AmountOf(row["GrandTotal"]);
+
+                // Orders are settled in cash at delivery.
+                row["PaymentText"] = "Cash";
             }
 
             lblRecordCount.Text =
@@ -159,22 +265,46 @@ namespace BWDMS.Salesman
         }
 
 
+        // Plain coloured text (no pill) so the table matches
+        // the mock-up.
         private static string StatusCss(string status)
         {
-            switch (status)
+            switch (status.Trim().ToUpperInvariant())
             {
-                case "Dispatched":
-                    return "badge bg-success";
+                case "DELIVERED":
+                case "COMPLETE":
+                case "COMPLETED":
+                case "DISPATCHED":
+                    return "or-status ok";
 
-                case "Confirmed":
-                    return "badge bg-primary";
+                case "CONFIRMED":
+                case "APPROVED":
+                case "PREPARED":
+                    return "or-status info";
 
-                case "Cancelled":
-                    return "badge bg-secondary";
+                case "CANCELLED":
+                case "RETURNED":
+                    return "or-status bad";
 
                 default:
-                    return "badge bg-warning text-dark";
+                    return "or-status warn";
             }
+        }
+
+
+        // 270 -> 270, 270.50 -> 270.50
+        private static string AmountOf(object value)
+        {
+            decimal amount =
+                value == null || value == DBNull.Value
+                    ? 0
+                    : Convert.ToDecimal(value);
+
+            string text = amount % 1 == 0
+                ? amount.ToString("0")
+                : amount.ToString("N2");
+
+            return "\u20B9" + text;
         }
 
 

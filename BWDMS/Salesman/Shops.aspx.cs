@@ -78,6 +78,8 @@ namespace BWDMS.Salesman
         {
             string search = txtSearch.Text.Trim();
 
+            string status = ddlStatus.SelectedValue;
+
             string query = @"
                 SELECT
                     s.ShopId,
@@ -86,15 +88,31 @@ namespace BWDMS.Salesman
                     s.OwnerName,
                     s.Phone,
                     s.Address,
-                    VillageName = ISNULL(v.VillageName, '-'),
+                    Location = ISNULL(v.VillageName, '-'),
                     VisitText = ISNULL(
                         CASE
                             WHEN rs.DayOfWeek IS NOT NULL
                                 THEN rs.DayOfWeek
                             ELSE r.RouteName
                         END, '-'),
+                    LastOrderDate = lo.LastOrderDate,
+                    LastOrderText = ISNULL(
+                        CONVERT(NVARCHAR(10), lo.LastOrderDate, 106),
+                        '-'),
+                    Status = CASE
+                        WHEN lo.LastOrderDate >= DATEADD(DAY, -7, GETDATE())
+                            THEN 'Visited'
+                        ELSE 'Pending'
+                     END,
                     DealerId = s.DealerId
                 FROM Shops s
+                OUTER APPLY
+                (
+                    SELECT MAX(o.OrderDate) AS LastOrderDate
+                    FROM Orders o
+                    WHERE o.ShopId = s.ShopId
+
+                ) lo
                 LEFT JOIN Villages v
                     ON v.VillageId = s.VillageId
                 LEFT JOIN Routes r
@@ -124,6 +142,16 @@ namespace BWDMS.Salesman
                     OR ISNULL(s.OwnerName, '') LIKE @Search
                     OR ISNULL(s.Phone, '') LIKE @Search
                   )
+                  AND
+                  (
+                    @Status = ''
+                    OR
+                    CASE
+                        WHEN lo.LastOrderDate >= DATEADD(DAY, -7, GETDATE())
+                            THEN 'Visited'
+                        ELSE 'Pending'
+                    END = @Status
+                  )
                 ORDER BY s.ShopName";
 
             using (SqlConnection con =
@@ -139,6 +167,11 @@ namespace BWDMS.Salesman
                     cmd.Parameters.AddWithValue(
                         "@Search",
                         "%" + search + "%");
+
+                    cmd.Parameters.Add(
+                        "@Status",
+                        SqlDbType.NVarChar,
+                        20).Value = status;
 
                     using (SqlDataAdapter da =
                         new SqlDataAdapter(cmd))
@@ -159,6 +192,16 @@ namespace BWDMS.Salesman
             object sender,
             EventArgs e)
         {
+            LoadShops();
+        }
+
+
+        protected void ddlStatus_SelectedIndexChanged(
+            object sender,
+            EventArgs e)
+        {
+            gvShops.PageIndex = 0;
+
             LoadShops();
         }
 

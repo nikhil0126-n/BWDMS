@@ -24,49 +24,49 @@ namespace BWDMS.Salesman
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// lblRecordCount control.
+        /// lblVehicleNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecordCount;
+        protected global::System.Web.UI.WebControls.Label lblVehicleNumber;
 
         /// <summary>
-        /// txtSearch control.
+        /// lblBeat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.Label lblBeat;
 
         /// <summary>
-        /// txtFromDate control.
+        /// lblSold control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+        protected global::System.Web.UI.WebControls.Label lblSold;
 
         /// <summary>
-        /// txtToDate control.
+        /// lblLoaded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+        protected global::System.Web.UI.WebControls.Label lblLoaded;
 
         /// <summary>
-        /// ddlReconciled control.
+        /// lblRemaining control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReconciled;
+        protected global::System.Web.UI.WebControls.Label lblRemaining;
 
         /// <summary>
         /// gvStock control.

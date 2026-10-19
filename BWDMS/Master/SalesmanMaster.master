@@ -181,7 +181,7 @@
                 ID="lnkClosing"
                 runat="server"
                 CssClass="sw-menu-item"
-                NavigateUrl="~/Salesman/Collection.aspx">
+                NavigateUrl="~/Salesman/DailyClosing.aspx">
 
                 <i class="bi bi-cash-stack"></i>
 

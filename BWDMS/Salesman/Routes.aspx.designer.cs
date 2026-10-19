@@ -60,6 +60,33 @@ namespace BWDMS.Salesman
         protected global::System.Web.UI.WebControls.Label lblVehicle;
 
         /// <summary>
+        /// rtPill control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rtPill;
+
+        /// <summary>
+        /// lblLoaded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoaded;
+
+        /// <summary>
+        /// lblRemaining control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemaining;
+
+        /// <summary>
         /// lblStopCount control.
         /// </summary>
         /// <remarks>

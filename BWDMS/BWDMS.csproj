@@ -154,6 +154,8 @@
     <Content Include="Salesman\Orders.aspx" />
     <Content Include="Salesman\Reports.aspx" />
     <Content Include="Salesman\Routes.aspx" />
+    <Content Include="Salesman\DailyClosing.aspx" />
+    <Content Include="Salesman\ShopDetails.aspx" />
     <Content Include="Salesman\Shops.aspx" />
     <Content Include="Salesman\VehicleStock.aspx" />
     <Content Include="Scripts\AddWeeklyRoutePlan.js" />
@@ -642,6 +644,20 @@
     </Compile>
     <Compile Include="Salesman\Routes.aspx.designer.cs">
       <DependentUpon>Routes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\DailyClosing.aspx.cs">
+      <DependentUpon>DailyClosing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\DailyClosing.aspx.designer.cs">
+      <DependentUpon>DailyClosing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\ShopDetails.aspx.cs">
+      <DependentUpon>ShopDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\ShopDetails.aspx.designer.cs">
+      <DependentUpon>ShopDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Salesman\Shops.aspx.cs">
       <DependentUpon>Shops.aspx</DependentUpon>

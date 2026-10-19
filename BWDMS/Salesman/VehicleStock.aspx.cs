@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Web.UI.WebControls;
 using BWDMS.Data;
 
 namespace BWDMS.Salesman
@@ -57,70 +56,268 @@ namespace BWDMS.Salesman
 
             if (!IsPostBack)
             {
+                LoadVehicle();
+
                 LoadStock();
             }
         }
 
 
+        // ============================================================
+        // VEHICLE + BEAT — top card
+        // ============================================================
+
+        private void LoadVehicle()
+        {
+            string query = @"
+                SELECT TOP 1
+                    VehicleNumber = ISNULL(v.VehicleNumber, '-'),
+                    BeatName      = ISNULL(r.RouteName, '')
+                FROM RouteSchedules rs
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                LEFT JOIN Vehicles v
+                    ON v.VehicleId = rs.VehicleId
+                WHERE rs.SalesmanId = @SalesmanId
+                ORDER BY rs.RouteScheduleId";
+
+            DataTable dt = RunQuery(query);
+
+            // No schedule yet - fall back to the stock rows
+            // the dealer already loaded for this salesman.
+
+            if (dt.Rows.Count == 0 ||
+                string.IsNullOrWhiteSpace(
+                    Convert.ToString(dt.Rows[0]["BeatName"])))
+            {
+                string fallback = @"
+                    SELECT TOP 1
+                        VehicleNumber =
+                            ISNULL(v.VehicleNumber, '-'),
+                        BeatName = ''
+                    FROM VehicleStock vs
+                    LEFT JOIN Vehicles v
+                        ON v.VehicleId = vs.VehicleId
+                    WHERE vs.SalesmanId = @SalesmanId
+                    ORDER BY vs.StockDate DESC,
+                             vs.VehicleStockId DESC";
+
+                DataTable fb = RunQuery(fallback);
+
+                if (fb.Rows.Count == 0)
+                {
+                    lblVehicleNumber.Text = "-";
+                    lblBeat.Text = "No beat assigned";
+
+                    return;
+                }
+
+                dt = fb;
+            }
+
+            DataRow row = dt.Rows[0];
+
+            string number =
+                Convert.ToString(row["VehicleNumber"]);
+
+            string beat =
+                Convert.ToString(row["BeatName"]);
+
+            lblVehicleNumber.Text =
+                string.IsNullOrWhiteSpace(number)
+                    ? "-"
+                    : number;
+
+            lblBeat.Text =
+                string.IsNullOrWhiteSpace(beat)
+                    ? "No beat assigned"
+                    : beat;
+        }
+
+
+        // ============================================================
+        // PRODUCT WISE STOCK — summary + table
+        // ============================================================
+
+        // The product catalogue is always listed, so products
+        // show up even before the dealer has loaded the vehicle.
+        // Whatever the salesman's latest load contains is simply
+        // overlaid on top of the catalogue.
+
         private void LoadStock()
         {
-            string search = txtSearch.Text.Trim();
-            string reconciled = ddlReconciled.SelectedValue;
-
-            // Bad / unparsable dates are simply ignored rather
-            // than turning the page into an error.
-            DateTime fromDate;
-            DateTime toDate;
-
-            bool hasFrom = DateTime.TryParse(
-                txtFromDate.Text.Trim(),
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out fromDate);
-
-            bool hasTo = DateTime.TryParse(
-                txtToDate.Text.Trim(),
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out toDate);
-
             string query = @"
+                ;WITH Latest AS
+                (
+                    SELECT MAX(StockDate) AS StockDate
+                    FROM VehicleStock
+                    WHERE SalesmanId = @SalesmanId
+                ),
+                Stock AS
+                (
+                    SELECT
+                        vs.ProductVariantId,
+                        LoadedPackets =
+                            ISNULL(SUM(vs.LoadedPackets), 0),
+                        SoldPackets =
+                            ISNULL(SUM(vs.SoldPackets), 0),
+                        RemainingPackets =
+                            ISNULL
+                            (
+                                SUM
+                                (
+                                    vs.LoadedPackets
+                                    - vs.SoldPackets
+                                    - vs.ReturnedPackets
+                                    - vs.DamagedPackets
+                                ),
+                                0
+                            )
+                    FROM VehicleStock vs
+                    INNER JOIN Latest l
+                        ON l.StockDate = vs.StockDate
+                    WHERE vs.SalesmanId = @SalesmanId
+                    GROUP BY vs.ProductVariantId
+                )
                 SELECT
-                    StockDateText =
-                        CONVERT(NVARCHAR(10), vs.StockDate, 120),
-                    VehicleNumber = ISNULL(v.VehicleNumber, '-'),
-                    ProductName = ISNULL(p.ProductName, '-'),
-                    VariantName = ISNULL(vr.VariantName, '-'),
-                    vs.LoadedPackets,
-                    vs.SoldPackets,
-                    vs.ReturnedPackets,
-                    vs.DamagedPackets,
-                    vs.ActualClosingPackets,
-                    vs.IsReconciled
-                FROM VehicleStock vs
-                LEFT JOIN Vehicles v
-                    ON v.VehicleId = vs.VehicleId
+                    ProductName     = ISNULL(p.ProductName, '-'),
+                    vr.PacketWeight,
+                    vr.WeightUnit,
+                    UnitName        = ISNULL(su.UnitName, ''),
+                    PacketsPerUnit  = ISNULL(u.PacketsPerUnit, 0),
+                    LoadedPackets   = ISNULL(s.LoadedPackets, 0),
+                    SoldPackets     = ISNULL(s.SoldPackets, 0),
+                    RemainingPackets =
+                        ISNULL(s.RemainingPackets, 0)
+                FROM Products p
                 LEFT JOIN ProductVariants vr
-                    ON vr.ProductVariantId = vs.ProductVariantId
-                LEFT JOIN Products p
-                    ON p.ProductId = vr.ProductId
-                WHERE vs.SalesmanId = @SalesmanId
-                  AND
-                  (
-                    ISNULL(v.VehicleNumber, '') LIKE @Search
-                    OR ISNULL(p.ProductName, '') LIKE @Search
-                    OR ISNULL(vr.VariantName, '') LIKE @Search
-                  )
-                  AND (@HasFrom = 0 OR vs.StockDate >= @From)
-                  AND (@HasTo = 0 OR vs.StockDate <= @To)
-                  AND
-                  (
-                    @Reconciled = ''
-                    OR CONVERT(NVARCHAR(10), vs.IsReconciled) =
-                       @Reconciled
-                  )
-                ORDER BY vs.StockDate DESC, vs.VehicleStockId DESC";
+                    ON vr.ProductId = p.ProductId
+                   AND vr.IsActive = 1
+                LEFT JOIN Stock s
+                    ON s.ProductVariantId =
+                       vr.ProductVariantId
+                OUTER APPLY
+                (
+                    SELECT TOP 1
+                        pou.PacketsPerUnit,
+                        pou.UnitId
+                    FROM ProductUnitOptions pou
+                    WHERE pou.ProductVariantId =
+                          vr.ProductVariantId
+                      AND pou.IsActive = 1
+                    ORDER BY pou.PacketsPerUnit DESC
+                ) u
+                LEFT JOIN SellingUnits su
+                    ON su.UnitId = u.UnitId
+                WHERE p.IsActive = 1
+                ORDER BY p.ProductName, vr.VariantName";
 
+            DataTable dt = RunQuery(query);
+
+
+            dt.Columns.Add("PackingText", typeof(string));
+            dt.Columns.Add("OpeningText", typeof(string));
+            dt.Columns.Add("LoadedText", typeof(string));
+            dt.Columns.Add("SoldText", typeof(string));
+            dt.Columns.Add("RemainingText", typeof(string));
+
+            int totalLoaded = 0;
+            int totalSold = 0;
+            int totalRemaining = 0;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string unit = UnitOf(row);
+
+                int loaded = ToInt(row["LoadedPackets"]);
+                int sold = ToInt(row["SoldPackets"]);
+
+                int remaining = ToInt(row["RemainingPackets"]);
+
+                if (remaining < 0)
+                {
+                    remaining = 0;
+                }
+
+                totalLoaded += loaded;
+                totalSold += sold;
+                totalRemaining += remaining;
+
+                row["PackingText"] = PackingOf(row);
+                row["OpeningText"] = "0";
+                row["LoadedText"] = loaded + " " + unit;
+                row["SoldText"] = sold + " " + unit;
+                row["RemainingText"] = remaining + " " + unit;
+            }
+
+            lblLoaded.Text = totalLoaded + " Box";
+            lblSold.Text = totalSold + " Box";
+            lblRemaining.Text = totalRemaining + " Box";
+
+            gvStock.DataSource = dt;
+            gvStock.DataBind();
+        }
+
+
+        // "Box (40 Packet)" / "Patti (6 Packet)" / "Packet (20g)"
+        private static string PackingOf(DataRow row)
+        {
+            string unit = UnitOf(row);
+
+            int perUnit = ToInt(row["PacketsPerUnit"]);
+
+            if (perUnit > 1)
+            {
+                return unit + " (" + perUnit + " Packet)";
+            }
+
+            if (row["PacketWeight"] != DBNull.Value)
+            {
+                decimal weight =
+                    Convert.ToDecimal(row["PacketWeight"]);
+
+                string weightText = weight.ToString(
+                    "0.###",
+                    CultureInfo.InvariantCulture);
+
+                string weightUnit =
+                    Convert.ToString(row["WeightUnit"]);
+
+                return unit +
+                       " (" +
+                       weightText +
+                       weightUnit +
+                       ")";
+            }
+
+            return unit;
+        }
+
+
+        private static string UnitOf(DataRow row)
+        {
+            string unit =
+                Convert.ToString(row["UnitName"]);
+
+            return string.IsNullOrWhiteSpace(unit)
+                ? "Packet"
+                : unit;
+        }
+
+
+        private static int ToInt(object value)
+        {
+            if (value == null || value == DBNull.Value)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(value);
+        }
+
+
+        private DataTable RunQuery(string query)
+        {
             DataTable dt = new DataTable();
 
             using (SqlConnection con =
@@ -133,34 +330,6 @@ namespace BWDMS.Salesman
                         "@SalesmanId",
                         SqlDbType.Int).Value = SalesmanId;
 
-                    cmd.Parameters.AddWithValue(
-                        "@Search",
-                        "%" + search + "%");
-
-                    cmd.Parameters.Add(
-                        "@HasFrom",
-                        SqlDbType.Int).Value =
-                        hasFrom ? 1 : 0;
-
-                    cmd.Parameters.Add(
-                        "@From",
-                        SqlDbType.Date).Value =
-                        hasFrom ? (object)fromDate : DBNull.Value;
-
-                    cmd.Parameters.Add(
-                        "@HasTo",
-                        SqlDbType.Int).Value =
-                        hasTo ? 1 : 0;
-
-                    cmd.Parameters.Add(
-                        "@To",
-                        SqlDbType.Date).Value =
-                        hasTo ? (object)toDate : DBNull.Value;
-
-                    cmd.Parameters.AddWithValue(
-                        "@Reconciled",
-                        reconciled);
-
                     using (SqlDataAdapter da =
                         new SqlDataAdapter(cmd))
                     {
@@ -169,88 +338,7 @@ namespace BWDMS.Salesman
                 }
             }
 
-            dt.Columns.Add("VarianceText", typeof(string));
-
-            foreach (DataRow row in dt.Rows)
-            {
-                row["VarianceText"] = VarianceOf(row);
-            }
-
-            lblRecordCount.Text =
-                "records: " + dt.Rows.Count;
-
-            gvStock.DataSource = dt;
-            gvStock.DataBind();
-        }
-
-
-        // Variance only means something once a closing count
-        // has been entered, so '-' is shown until then.
-        private static string VarianceOf(DataRow row)
-        {
-            if (row["ActualClosingPackets"] == null ||
-                row["ActualClosingPackets"] == DBNull.Value)
-            {
-                return "-";
-            }
-
-            int loaded =
-                Convert.ToInt32(row["LoadedPackets"]);
-
-            int sold =
-                Convert.ToInt32(row["SoldPackets"]);
-
-            int returned =
-                Convert.ToInt32(row["ReturnedPackets"]);
-
-            int damaged =
-                Convert.ToInt32(row["DamagedPackets"]);
-
-            int actual =
-                Convert.ToInt32(row["ActualClosingPackets"]);
-
-            int variance =
-                actual - (loaded - sold - returned - damaged);
-
-            if (variance == 0)
-            {
-                return "<span class=\"badge bg-success\">0 OK</span>";
-            }
-
-            if (variance < 0)
-            {
-                return "<span class=\"badge bg-danger\">" +
-                       variance +
-                       " short</span>";
-            }
-
-            return "<span class=\"badge bg-warning text-dark\">+" +
-                   variance +
-                   " extra</span>";
-        }
-
-
-        protected void FilterChanged(
-            object sender,
-            EventArgs e)
-        {
-            LoadStock();
-        }
-
-        // ------------------------------------------------------------
-        // PAGING
-        //
-        // The new index has to be applied before the grid is rebound,
-        // otherwise the postback lands back on the page it came from.
-        // ------------------------------------------------------------
-
-        protected void gvStock_PageIndexChanging(
-            object sender,
-            System.Web.UI.WebControls.GridViewPageEventArgs e)
-        {
-            gvStock.PageIndex = e.NewPageIndex;
-
-            LoadStock();
+            return dt;
         }
 
     }
