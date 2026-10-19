@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\CreateAdmin.aspx" />
+    <Content Include="Account\ForgotPassword.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\AddCategory.aspx" />
     <Content Include="Admin\AddDealer.aspx" />
@@ -95,8 +96,10 @@
     <Content Include="Content\AddWeeklyRoutePlan.css" />
     <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Images\balaji-dms-logo.png" />
+    <Content Include="Content\ForgotPassword.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\RouteVillageAssignment.css" />
+    <Content Include="Content\Salesman.css" />
     <Content Include="Content\WeeklyRoutePlans.css" />
     <Content Include="Content\images\logo-mark.png" />
     <Content Include="Content\images\logo-mark-navy.png" />
@@ -155,6 +158,7 @@
     <Content Include="Salesman\VehicleStock.aspx" />
     <Content Include="Scripts\AddWeeklyRoutePlan.js" />
     <Content Include="Scripts\Dashboard.js" />
+    <Content Include="Scripts\Salesman.js" />
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\OfflineSync.js" />
     <Content Include="Scripts\RouteVillageAssignment.js" />
@@ -175,6 +179,13 @@
     </Compile>
     <Compile Include="Account\CreateAdmin.aspx.designer.cs">
       <DependentUpon>CreateAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -654,10 +665,18 @@
     <Compile Include="Master\DashboardMaster.master.designer.cs">
       <DependentUpon>DashboardMaster.master</DependentUpon>
     </Compile>
+    <Compile Include="Master\SalesmanMaster.master.cs">
+      <DependentUpon>SalesmanMaster.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\SalesmanMaster.master.designer.cs">
+      <DependentUpon>SalesmanMaster.master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master\DashboardMaster.master" />
+    <Content Include="Master\SalesmanMaster.master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

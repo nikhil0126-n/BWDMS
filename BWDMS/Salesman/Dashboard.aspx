@@ -1,6 +1,6 @@
-<%@ Page Title="Salesman Dashboard"
+<%@ Page Title="Dashboard"
     Language="C#"
-    MasterPageFile="~/Master/DashboardMaster.master"
+    MasterPageFile="~/Master/SalesmanMaster.master"
     AutoEventWireup="true"
     CodeBehind="Dashboard.aspx.cs"
     Inherits="BWDMS.Salesman.Dashboard" %>
@@ -10,7 +10,7 @@
     ContentPlaceHolderID="TitleContent"
     runat="server">
 
-    Salesman Dashboard
+    Dashboard
 
 </asp:Content>
 
@@ -24,21 +24,47 @@
          PAGE HEADER
          ============================================================ -->
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="sw-page-head">
 
         <div>
 
-            <h3 class="fw-bold mb-1">
-                Salesman Dashboard
-            </h3>
+            <h1 class="mb-1">
 
-            <p class="text-muted mb-0">
-                Your assigned routes, visits and orders
+                <%= DateTime.Now.Hour < 12
+                        ? "Good Morning"
+                        : (DateTime.Now.Hour < 17
+                            ? "Good Afternoon"
+                            : "Good Evening") %>,
+                <%= Server.HtmlEncode(
+                        Convert.ToString(Session["FullName"])) %>
+
+            </h1>
+
+            <p>
+                Here is your route summary for today.
             </p>
 
         </div>
 
+
+        <div class="sw-greeting-date">
+
+            <strong>
+
+                <%= DateTime.Now.ToString("dd MMM yyyy") %>
+
+            </strong>
+
+            <small>
+
+                <%= DateTime.Now.ToString("dddd") %>
+
+            </small>
+
+        </div>
+
     </div>
+
 
 
     <!-- ============================================================
@@ -47,68 +73,100 @@
 
     <div class="row g-4 mb-4">
 
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="sw-card sw-stat">
 
-                <h2 class="fw-bold mb-0">
-                    <asp:Label ID="lblRouteCount" runat="server" Text="0" />
-                </h2>
+                <div class="sw-stat-icon sw-tint-primary">
+                    <i class="bi bi-signpost-2"></i>
+                </div>
 
-                <small class="text-muted">
-                    Assigned Routes
-                </small>
+                <div>
 
-            </div>
+                    <div class="sw-stat-value">
+                        <asp:Label ID="lblRouteCount" runat="server" Text="0" />
+                    </div>
 
-        </div>
+                    <div class="sw-stat-label">
+                        Assigned Routes
+                    </div>
 
-
-        <div class="col-sm-6 col-xl-3">
-
-            <div class="dashboard-card text-center">
-
-                <h2 class="fw-bold mb-0">
-                    <asp:Label ID="lblScheduleCount" runat="server" Text="0" />
-                </h2>
-
-                <small class="text-muted">
-                    Today's Visits
-                </small>
+                </div>
 
             </div>
 
         </div>
 
 
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="sw-card sw-stat">
 
-                <h2 class="fw-bold mb-0">
-                    <asp:Label ID="lblVillageCount" runat="server" Text="0" />
-                </h2>
+                <div class="sw-stat-icon sw-tint-green">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
 
-                <small class="text-muted">
-                    Villages On Beat
-                </small>
+                <div>
+
+                    <div class="sw-stat-value">
+                        <asp:Label ID="lblScheduleCount" runat="server" Text="0" />
+                    </div>
+
+                    <div class="sw-stat-label">
+                        Today's Visits
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <div class="col-sm-6 col-xl-3">
+        <div class="col-6 col-md-3">
 
-            <div class="dashboard-card text-center">
+            <div class="sw-card sw-stat">
 
-                <h2 class="fw-bold mb-0">
-                    <asp:Label ID="lblVehicle" runat="server" Text="-" />
-                </h2>
+                <div class="sw-stat-icon sw-tint-cyan">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
 
-                <small class="text-muted">
-                    Assigned Vehicle
-                </small>
+                <div>
+
+                    <div class="sw-stat-value">
+                        <asp:Label ID="lblVillageCount" runat="server" Text="0" />
+                    </div>
+
+                    <div class="sw-stat-label">
+                        Villages On Beat
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-3">
+
+            <div class="sw-card sw-stat">
+
+                <div class="sw-stat-icon sw-tint-orange">
+                    <i class="bi bi-truck"></i>
+                </div>
+
+                <div>
+
+                    <div class="sw-stat-value">
+                        <asp:Label ID="lblVehicle" runat="server" Text="-" />
+                    </div>
+
+                    <div class="sw-stat-label">
+                        Assigned Vehicle
+                    </div>
+
+                </div>
 
             </div>
 
@@ -117,23 +175,203 @@
     </div>
 
 
+
+    <!-- ============================================================
+         TODAY'S SHOP STATUS + VEHICLE STOCK
+         ============================================================ -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-12 col-md-6">
+
+            <div class="sw-card h-100">
+
+                <div class="sw-card-title">
+                    Today's Shop Status
+                </div>
+
+                <div class="sw-status-row">
+
+                    <div class="sw-status-item">
+
+                        <div class="sw-status-num">
+                            8
+                        </div>
+
+                        <div class="sw-status-lbl">
+                            <span class="sw-dot" style="background:#16a34a"></span>
+                            Visited
+                        </div>
+
+                    </div>
+
+                    <div class="sw-status-item">
+
+                        <div class="sw-status-num">
+                            14
+                        </div>
+
+                        <div class="sw-status-lbl">
+                            <span class="sw-dot" style="background:#f59e0b"></span>
+                            Pending
+                        </div>
+
+                    </div>
+
+                    <div class="sw-status-item">
+
+                        <div class="sw-status-num">
+                            0
+                        </div>
+
+                        <div class="sw-status-lbl">
+                            <span class="sw-dot" style="background:#98a2b3"></span>
+                            Yet to visit
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-6">
+
+            <div class="sw-card h-100">
+
+                <div class="sw-card-title">
+                    Vehicle Stock
+                </div>
+
+                <div class="sw-stat">
+
+                    <div class="sw-stat-icon sw-tint-orange">
+                        <i class="bi bi-truck"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="sw-stat-value">
+                            100 Box
+                        </div>
+
+                        <div class="sw-stat-label">
+                            Remaining
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================================================
+         TODAY'S ROUTE + SUMMARY
+         ============================================================ -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-12 col-md-6">
+
+            <div class="sw-card h-100">
+
+                <div class="sw-card-title">
+                    Today's Route
+                </div>
+
+                <div class="sw-stat">
+
+                    <div class="sw-stat-icon sw-tint-primary">
+                        <i class="bi bi-signpost-split"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="sw-stat-value">
+                            Beat 01
+                        </div>
+
+                        <div class="sw-stat-label">
+                            Assigned beat
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-6">
+
+            <div class="sw-card h-100">
+
+                <div class="sw-card-title">
+                    Summary
+                </div>
+
+                <div class="sw-metric">
+
+                    <div class="sw-metric-val">
+                        &#8377;2,500
+                    </div>
+
+                    <div class="sw-metric-lbl">
+                        Today
+                    </div>
+
+                </div>
+
+                <div class="sw-metric">
+
+                    <div class="sw-metric-val">
+                        &#8377;2,300
+                    </div>
+
+                    <div class="sw-metric-lbl">
+                        Previous
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
     <!-- ============================================================
          TODAY'S BEAT
          ============================================================ -->
 
-    <div class="dashboard-card">
+    <div class="sw-card">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="sw-card-head">
 
             <div>
 
-                <h5 class="fw-bold mb-1">
+                <h5>
                     Today's Beat
                 </h5>
 
-                <small class="text-muted">
+                <small>
+
                     <asp:Label ID="lblTodayName" runat="server" Text="" />
-                    — villages in visit order
+                    &nbsp;- villages in visit order
+
                 </small>
 
             </div>
@@ -148,24 +386,24 @@
                 runat="server"
                 ClientIDMode="Static"
                 AutoGenerateColumns="False"
-                CssClass="table route-table align-middle mb-0"
+                CssClass="sw-table align-middle mb-0"
                 GridLines="None"
-                EmptyDataText="No villages are scheduled for today." AllowPaging="true" OnPageIndexChanging="gvBeat_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                EmptyDataText="No villages are scheduled for today."
+                AllowPaging="true"
+                OnPageIndexChanging="gvBeat_PageIndexChanging"
+                PageSize="25"
+                PagerSettings-Mode="NumericFirstLast"
+                PagerSettings-PageButtonCount="10"
+                PagerSettings-Position="TopAndBottom">
                 <Columns>
 
                     <asp:BoundField
                         DataField="VisitSequence"
-                        HeaderText="Seq">
-                        <HeaderStyle CssClass="route-code-col" />
-                        <ItemStyle CssClass="route-code-col" />
-                    </asp:BoundField>
+                        HeaderText="Seq" />
 
                     <asp:BoundField
                         DataField="VillageName"
-                        HeaderText="Village">
-                        <HeaderStyle CssClass="route-name-col" />
-                        <ItemStyle CssClass="route-name-col" />
-                    </asp:BoundField>
+                        HeaderText="Village" />
 
                     <asp:BoundField
                         DataField="Taluka"
@@ -184,6 +422,7 @@
                         HeaderText="Day" />
 
                 </Columns>
+
             </asp:GridView>
 
         </div>

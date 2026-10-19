@@ -1,7 +1,6 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI.WebControls;
 using BWDMS.Data;
 
 namespace BWDMS.Salesman
@@ -56,7 +55,9 @@ namespace BWDMS.Salesman
 
             if (!IsPostBack)
             {
-                LoadRoutes();
+                LoadRoute();
+
+                LoadStops();
 
                 if (Request.QueryString["saved"] == "1")
                 {
@@ -69,24 +70,18 @@ namespace BWDMS.Salesman
 
 
         // ============================================================
-        // ROUTE SCHEDULES THIS SALESMAN WORKS
+        // ROUTE SUMMARY
         //
+        // The salesman's first route schedule drives the header card.
         // Routes are permanent; a schedule is the repeatable visit.
         // ============================================================
 
-        private void LoadRoutes()
+        private void LoadRoute()
         {
-            string search = txtSearch.Text.Trim();
-            string status = ddlStatus.SelectedValue;
-
             string query = @"
-                SELECT
-                    rs.RouteScheduleId,
+                SELECT TOP 1
                     r.RouteName,
-                    ISNULL(r.RouteCode, '') AS RouteCode,
-                    ISNULL(rs.DayOfWeek, '-') AS DayOfWeek,
-                    ISNULL(r.OrderDispatchDays, '-') AS OrderDispatchDays,
-                    ISNULL(r.RouteType, '-') AS RouteType,
+                    ISNULL(v.VehicleNumber, '-') AS VehicleNumber,
                     VillageCount =
                         ISNULL(
                             (
@@ -97,7 +92,6 @@ namespace BWDMS.Salesman
                                   AND rvs.IsActive = 1
                             ),
                             0),
-                    VehicleNumber = ISNULL(v.VehicleNumber, '-'),
                     rs.IsActive
                 FROM RouteSchedules rs
                 INNER JOIN Routes r
@@ -105,37 +99,105 @@ namespace BWDMS.Salesman
                 LEFT JOIN Vehicles v
                     ON v.VehicleId = rs.VehicleId
                 WHERE rs.SalesmanId = @SalesmanId
-                  AND
-                  (
-                    r.RouteName LIKE @Search
-                    OR ISNULL(r.RouteCode, '') LIKE @Search
-                    OR ISNULL(rs.DayOfWeek, '') LIKE @Search
-                  )
-                  AND (@Status = '' OR CONVERT(NVARCHAR(10), rs.IsActive) = @Status)
                 ORDER BY r.RouteName, rs.RouteScheduleId";
 
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con =
-                DatabaseHelper.GetConnection())
+            using (SqlConnection con = DatabaseHelper.GetConnection())
             {
-                using (SqlCommand cmd =
-                    new SqlCommand(query, con))
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add(
                         "@SalesmanId",
                         SqlDbType.Int).Value = SalesmanId;
 
-                    cmd.Parameters.AddWithValue(
-                        "@Search",
-                        "%" + search + "%");
+                    DataTable dt = new DataTable();
 
-                    cmd.Parameters.AddWithValue(
-                        "@Status",
-                        status);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
 
-                    using (SqlDataAdapter da =
-                        new SqlDataAdapter(cmd))
+                    if (dt.Rows.Count == 0)
+                    {
+                        lblRouteName.Text = "No route assigned";
+                        lblRouteStatus.Text = "Unassigned";
+                        lblVillages.Text = "0 villages";
+                        lblVehicle.Text = "-";
+
+                        return;
+                    }
+
+                    DataRow row = dt.Rows[0];
+
+                    bool isActive =
+                        row["IsActive"] != DBNull.Value &&
+                        Convert.ToBoolean(row["IsActive"]);
+
+                    int villageCount = Convert.ToInt32(row["VillageCount"]);
+
+                    lblRouteName.Text =
+                        Convert.ToString(row["RouteName"]);
+
+                    lblVehicle.Text =
+                        Convert.ToString(row["VehicleNumber"]);
+
+                    lblRouteStatus.Text =
+                        isActive ? "On Route" : "Inactive";
+
+                    lblVillages.Text =
+                        villageCount == 1
+                            ? "1 village"
+                            : villageCount + " villages";
+                }
+            }
+        }
+
+
+        // ============================================================
+        // ROUTE STOPS
+        //
+        // Shops that sit on this salesman's routes / schedules.
+        // A shop can be tied to a route, a schedule, or both.
+        // ============================================================
+
+        private void LoadStops()
+        {
+            string query = @"
+                SELECT
+                    s.ShopId,
+                    s.ShopName,
+                    ISNULL(vi.VillageName, '-') AS VillageName
+                FROM Shops s
+                LEFT JOIN Villages vi
+                    ON vi.VillageId = s.VillageId
+                WHERE s.IsActive = 1
+                  AND
+                  (
+                    s.RouteScheduleId IN
+                    (
+                        SELECT rs2.RouteScheduleId
+                        FROM RouteSchedules rs2
+                        WHERE rs2.SalesmanId = @SalesmanId
+                    )
+                    OR s.RouteId IN
+                    (
+                        SELECT rs3.RouteId
+                        FROM RouteSchedules rs3
+                        WHERE rs3.SalesmanId = @SalesmanId
+                    )
+                  )
+                ORDER BY s.ShopName";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         da.Fill(dt);
                     }
@@ -144,22 +206,8 @@ namespace BWDMS.Salesman
 
             gvRoutes.DataSource = dt;
             gvRoutes.DataBind();
-        }
 
-
-        protected void txtSearch_TextChanged(
-            object sender,
-            EventArgs e)
-        {
-            LoadRoutes();
-        }
-
-
-        protected void FilterChanged(
-            object sender,
-            EventArgs e)
-        {
-            LoadRoutes();
+            lblStopCount.Text = dt.Rows.Count.ToString();
         }
 
 
@@ -187,7 +235,7 @@ namespace BWDMS.Salesman
         {
             gvRoutes.PageIndex = e.NewPageIndex;
 
-            LoadRoutes();
+            LoadStops();
         }
 
     }
