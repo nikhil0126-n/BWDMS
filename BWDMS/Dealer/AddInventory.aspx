@@ -147,6 +147,15 @@
                     placeholder="Invoice / challan no.">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtReference"
+                    runat="server"
+                    ControlToValidate="txtReference"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -243,6 +252,15 @@
                     Rows="2"
                     placeholder="Why this stock changed">
                 </asp:TextBox>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtRemarks"
+                    runat="server"
+                    ControlToValidate="txtRemarks"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

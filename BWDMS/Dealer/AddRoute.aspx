@@ -176,6 +176,15 @@
                     placeholder="Example: RKT-N01">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtRouteCode"
+                    runat="server"
+                    ControlToValidate="txtRouteCode"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
 
                 <div class="form-text">
 
@@ -230,6 +239,15 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlRouteType"
+                    runat="server"
+                    ControlToValidate="ddlRouteType"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
 
                 <div class="form-text">
@@ -337,6 +355,15 @@
                     CssClass="form-select">
                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlSalesman"
+                    runat="server"
+                    ControlToValidate="ddlSalesman"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
 
                 <div class="form-text">
 
@@ -366,6 +393,15 @@
                     CssClass="form-select">
                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlDriver"
+                    runat="server"
+                    ControlToValidate="ddlDriver"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
 
                 <div class="form-text">
 
@@ -394,6 +430,15 @@
                     AutoPostBack="false"
                     CssClass="form-select">
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlVehicle"
+                    runat="server"
+                    ControlToValidate="ddlVehicle"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
 
                 <div class="form-text">
@@ -434,6 +479,15 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlStatus"
+                    runat="server"
+                    ControlToValidate="ddlStatus"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

@@ -373,6 +373,16 @@
 
                                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlCondition"
+                    runat="server"
+                    ControlToValidate="ddlCondition"
+                    ValidationGroup="Return"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
                             </td>
 
                         </tr>

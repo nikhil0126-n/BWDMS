@@ -262,6 +262,15 @@
 
                 </asp:DropDownList>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvddlRole"
+                    runat="server"
+                    ControlToValidate="ddlRole"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
 
@@ -345,6 +354,15 @@
                     </asp:ListItem>
 
                 </asp:DropDownList>
+
+                <asp:RequiredFieldValidator
+                    ID="rfvddlStatus"
+                    runat="server"
+                    ControlToValidate="ddlStatus"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
 
             </div>
 

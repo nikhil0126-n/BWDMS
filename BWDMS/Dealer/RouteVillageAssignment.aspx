@@ -228,6 +228,15 @@
                     placeholder="Village name...">
                 </asp:TextBox>
 
+                <asp:RequiredFieldValidator
+                    ID="rfvtxtNewVillage"
+                    runat="server"
+                    ControlToValidate="txtNewVillage"
+                    ErrorMessage="This field is required."
+                    CssClass="text-danger small"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+
             </div>
 
             <div class="col-md-6">
