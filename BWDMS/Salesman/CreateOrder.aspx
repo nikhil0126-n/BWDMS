@@ -1344,7 +1344,7 @@
                   Offline capture. The button below is plain HTML on purpose:
                   it never posts back, it writes the draft straight into the
                   local queue so it works with no network at all.
-                -->
+                
                 <button
                     type="button"
                     id="btnSaveOffline"
@@ -1364,6 +1364,7 @@
                     <span id="offlineBadge" class="badge bg-danger d-none"></span>
 
                 </a>
+                    -->
 
             </div>
 
