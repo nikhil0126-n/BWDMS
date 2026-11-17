@@ -567,7 +567,7 @@
                 <button type="button"
                         id="btnDetails"
                         class="co-ghost-btn"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="coDetails">
                     Order details
                     <i class="bi bi-chevron-down"></i>
@@ -584,7 +584,7 @@
 
 
         <!-- Order details -->
-        <div class="co-details" id="coDetails">
+        <div class="co-details co-open" id="coDetails">
 
         <asp:Label
             ID="lblHeading"
@@ -878,7 +878,7 @@
 
 
         <!-- Line builder (toggled by + Add Products) -->
-        <div class="co-builder" id="coBuilder">
+        <div class="co-builder co-open" id="coBuilder">
 
             <div class="row g-3 align-items-end">
 
@@ -1238,9 +1238,9 @@
         <button type="button"
                 id="btnAddProducts"
                 class="co-btn-outline"
-                aria-expanded="false"
+                aria-expanded="true"
                 aria-controls="coBuilder">
-            + Add Products
+            &times;&nbsp; Close
         </button>
 
         </div><!-- /co-prod-card -->
@@ -1591,12 +1591,27 @@
                 toggleBuilder(true, true);
             }
 
+
+
             /* ------------------------------------------
                Orders Summary screen
                "Proceed to Summary" swaps the form for the
                summary; "Place Orders" does the real postback.
                ------------------------------------------ */
             var summaryOn = false;
+
+            // If the page already has lines (editing an existing draft),
+            // show the summary first so the user sees the order at a glance.
+            try {
+                var initialItems = parseInt((document.getElementById('MainContent_lblTotalItems') || {}).textContent, 10) || 0;
+                if (initialItems > 0) {
+                    if (showSummary()) {
+                        summaryOn = true;
+                    }
+                }
+            } catch (e) {
+                // swallow init errors
+            }
 
             function sumHide(id) {
                 var el = document.getElementById(id);

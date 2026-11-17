@@ -1360,6 +1360,11 @@ namespace BWDMS.Salesman
                   AND StockDate = @StockDate
                   AND ProductVariantId = @ProductVariantId";
 
+            // First pass: validate availability for all variants so we can
+            // report all shortfalls at once rather than aborting at the
+            // first failing line. This avoids partial updates.
+            var shortfalls = new List<string>();
+
             foreach (KeyValuePair<int, int> pair in needed)
             {
                 int variantId = pair.Key;
@@ -1384,45 +1389,37 @@ namespace BWDMS.Salesman
                     {
                         available = Convert.ToInt32(result);
                     }
+                    else
+                    {
+                        // No row at all for this variant -> nothing was loaded.
+                        shortfalls.Add("Nothing on the vehicle for " +
+                            VariantLabel(variantId) +
+                            " on this route today - nothing was loaded for it.");
+                        continue;
+                    }
                 }
 
                 if (available < want)
                 {
-                    throw new InvalidOperationException(
-                        "Not enough stock on the vehicle for " +
+                    shortfalls.Add("Not enough stock on the vehicle for " +
                         VariantLabel(variantId) +
                         ": only " + available +
-                        " packet(s) on board, this bill needs " + want +
-                        ". The rest of the bill was not saved.");
+                        " packet(s) on board, this bill needs " + want + ".");
                 }
+            }
 
-                using (SqlCommand cmd =
-                    new SqlCommand(upsert, con, tx))
-                {
-                    AddVehicleStockParameters(
-                        cmd,
-                        dealerId,
-                        vehicleId,
-                        scheduleId,
-                        orderDate,
-                        variantId);
+            if (shortfalls.Count > 0)
+            {
+                throw new InvalidOperationException(
+                    String.Join(" \n", shortfalls) +
+                    " The rest of the bill was not saved.");
+            }
 
-                    bool exists =
-                        cmd.ExecuteScalar() != null;
-
-                    if (!exists)
-                    {
-                        // A bill can only be raised against stock that
-                        // was loaded. No vehicle row for this variant and
-                        // day means it was never loaded, so this is a
-                        // shortfall of the whole quantity.
-                        throw new InvalidOperationException(
-                            "Nothing on the vehicle for " +
-                            VariantLabel(variantId) +
-                            " on this route today - nothing was loaded " +
-                            "for it. The rest of the bill was not saved.");
-                    }
-                }
+            // Second pass: all validations passed, perform updates and ledger writes.
+            foreach (KeyValuePair<int, int> pair in needed)
+            {
+                int variantId = pair.Key;
+                int want = pair.Value;
 
                 using (SqlCommand cmd =
                     new SqlCommand(update, con, tx))

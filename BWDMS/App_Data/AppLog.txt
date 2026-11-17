@@ -1111,3 +1111,69 @@ Stack: System.Web.HttpException (0x80004005): The file '/Master/SalesmandMaster.
    at System.Web.UI.TemplateParser.ProcessMainDirective(IDictionary mainDirective)
 ===
 
+=== 2026-10-19T09:58:27.718Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-19T10:00:35.087Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-19T10:00:54.370Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-19T10:01:27.456Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-19T10:06:41.973Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
+=== 2026-10-19T10:07:55.166Z
+URL: /Salesman/Orders.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: The ID 'lblTotalAmount' is already used by another control.
+Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already used by another control.
+   at System.Web.UI.TemplateParser.ProcessError(String message)
+   at System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+===
+
