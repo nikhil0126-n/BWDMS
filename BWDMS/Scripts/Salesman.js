@@ -54,5 +54,13 @@
                 close();
             }
         });
+
+        /* Leaving the mobile breakpoint must reset the drawer, otherwise a
+           phone rotated to landscape keeps the backdrop over the page. */
+        window.addEventListener("resize", function () {
+            if (window.innerWidth >= 768) {
+                close();
+            }
+        });
     });
 })();
