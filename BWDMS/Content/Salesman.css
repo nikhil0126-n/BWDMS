@@ -241,6 +241,19 @@ body.sw-body {
     font-size: 11px;
 }
 
+/* The sidebar profile block doubles as the shortcut to My Profile. */
+.sw-profile-link {
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background .18s ease;
+}
+
+.sw-profile-link:hover,
+.sw-profile-link:focus {
+    background: rgba(255, 255, 255, .07);
+    text-decoration: none;
+}
+
 .sw-logout {
     width: 100%;
     display: flex;
