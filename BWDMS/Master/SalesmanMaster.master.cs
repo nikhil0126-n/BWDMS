@@ -136,8 +136,6 @@ namespace BWDMS.Master
             ApplyActive(lnkClosing, path, "/salesman/collection.aspx");
 
             ApplyActive(lnkReports, path, "/salesman/reports.aspx");
-
-            ApplyActive(lnkProfile, path, "/salesman/profile.aspx");
         }
 
 

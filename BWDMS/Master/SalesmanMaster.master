@@ -160,19 +160,6 @@
 
 
             <asp:HyperLink
-                ID="lnkProfile"
-                runat="server"
-                CssClass="sw-menu-item"
-                NavigateUrl="~/Salesman/Profile.aspx">
-
-                <i class="bi bi-person-circle"></i>
-
-                <span>My Profile</span>
-
-            </asp:HyperLink>
-
-
-            <asp:HyperLink
                 ID="lnkStock"
                 runat="server"
                 CssClass="sw-menu-item"
