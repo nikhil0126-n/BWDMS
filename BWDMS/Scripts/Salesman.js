@@ -40,5 +40,19 @@
         if (backdrop) {
             backdrop.addEventListener("click", close);
         }
+
+        /* Tapping a menu item navigates, so drop the drawer first —
+           otherwise it is still open when the next page renders. */
+        Array.prototype.forEach.call(
+            sidebar.querySelectorAll("a"),
+            function (link) {
+                link.addEventListener("click", close);
+            });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                close();
+            }
+        });
     });
 })();

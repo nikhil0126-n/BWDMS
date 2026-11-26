@@ -57,8 +57,8 @@
       SIDEBAR
       ===================================================== -->
 
-<aside class="sidebar"
-     id="sidebar">
+<aside class="sidebar sw-sidebar"
+     id="swSidebar">
 
 
   <!-- SIDEBAR LOGO -->
