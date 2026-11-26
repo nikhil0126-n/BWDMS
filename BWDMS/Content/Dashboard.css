@@ -1800,15 +1800,17 @@ hr {
 /* --- SHELL ---------------------------------------------------------------- */
 
 /* The reference shell has no top header; keep it only for the drawer mode
-   (below 768px), where the hamburger lives. */
-@media (min-width: 768px) {
+   (below 769px), where the hamburger lives. The shell drops the sidebar at
+   768px, so hiding the header from 768px up would leave a 768px-wide
+   viewport (iPad portrait) with neither a sidebar nor a hamburger. */
+@media (min-width: 769px) {
     .top-header {
         display: none;
     }
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .main-content {
         padding: 32px 34px 80px;
     }
