@@ -134,7 +134,7 @@
         {
             border        : 1px solid #d9d9d9;
             border-radius : 8px;
-            overflow      : hidden;
+            overflow-x    : auto;
             background    : #fff;
         }
 
@@ -172,6 +172,47 @@
         .vs-num
         {
             text-align : center;
+        }
+
+
+        /* ---------- phones / small tablets ---------- */
+
+        @media (max-width: 767.98px) {
+            .vs-topbar {
+                flex-wrap: wrap;
+                gap: 8px 12px;
+                margin-bottom: 16px;
+            }
+
+            .vs-topbar h3 { font-size: 18px; }
+
+            .vs-card {
+                padding: 16px 14px 18px;
+                margin-bottom: 18px;
+            }
+
+            .vs-vehicle {
+                flex-wrap: wrap;
+                gap: 10px 14px;
+                margin-bottom: 16px;
+            }
+
+            .vs-truck {
+                width: 48px;
+                height: 36px;
+            }
+
+            .vs-plate { font-size: 17px; }
+
+            .vs-stat-lbl,
+            .vs-stat-val { font-size: 14px; }
+
+            .vs-table th,
+            .vs-table td {
+                padding: 12px 10px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
         }
 
     </style>
