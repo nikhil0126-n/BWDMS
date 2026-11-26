@@ -824,10 +824,28 @@ body.sw-body {
 }
 
 @media (max-width: 767.98px) {
-    .sw-sidebar { left: calc(-1 * var(--sw-sidebar-w)); transition: left .28s ease; }
-    .sw-sidebar.show { left: 0; }
-    .sw-main { margin-left: 0; padding: 84px 18px 60px; }
-    .sw-mobile-toggle { display: inline-flex; }
+    /* Sidebar becomes an off-canvas drawer: hidden until #swSidebar.show.
+       (The rule below used to target a ".sw-sidebar" class that the markup
+        never had, so the sidebar stayed parked on top of the content.) */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform .28s ease;
+        box-shadow: 0 0 30px rgba(4, 18, 82, .4);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .sw-main {
+        margin-left: 0;
+        padding: 84px 16px 60px;
+    }
+
+    .sw-mobile-toggle {
+        display: inline-flex;
+    }
+
     .sw-sidebar-backdrop.show {
         display: block;
         position: fixed;
@@ -835,10 +853,82 @@ body.sw-body {
         background: rgba(4, 18, 82, .55);
         z-index: 1050;
     }
+
+    /* ---- page furniture ---- */
+    .sw-page-head {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sw-page-head h1,
+    .sw-page-head h3 {
+        font-size: 20px;
+    }
+
+    .sw-head-actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .sw-head-actions .btn {
+        flex: 1 1 auto;
+    }
+
+    .sw-card {
+        padding: 16px;
+    }
+
+    .sw-card.sw-stat {
+        padding: 14px;
+    }
+
+    .sw-greeting-date {
+        text-align: left;
+    }
+
+    .sw-route-head {
+        flex-wrap: wrap;
+        gap: 8px 14px;
+    }
+
+    /* tables scroll inside their wrapper instead of clipping columns */
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sw-table thead th {
+        font-size: 11px;
+        padding: 10px;
+    }
+
+    .sw-table tbody td {
+        padding: 10px;
+        font-size: 13.5px;
+    }
+
+    .sw-main img,
+    .sw-main video {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 @media (max-width: 575.98px) {
     .sw-main { padding: 78px 14px 60px; }
     .grid-search-box { width: 100%; }
     .sw-page-head { flex-direction: column; }
+
+    .sw-card { padding: 14px; }
+    .sw-status-num { font-size: 20px; }
+    .sw-status-item { padding: 8px 6px; }
+    .sw-status-lbl { font-size: 11px; gap: 4px; }
+    .sw-route-stat { padding: 0 6px; }
+    .sw-route-stat-val { font-size: 16px; }
+    .sw-metric-val { font-size: 20px; }
+    .sw-seg-legend { gap: 12px; }
+
+    /* let a page-head button own the full row so it stays thumb-sized */
+    .sw-head-actions .btn {
+        min-height: 42px;
+    }
 }
