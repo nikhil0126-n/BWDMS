@@ -2398,3 +2398,36 @@ td[colspan] > table span {
         color: var(--bw-text-muted);
     }
 
+
+/* ============================================================================
+   RESPONSIVE HARDENING — ALL ADMIN PAGES
+   ----------------------------------------------------------------------------
+   Kept at the end of the file so these rules override the earlier component
+   defaults. Desktop layout is untouched; only narrow screens are adjusted.
+   ============================================================================ */
+
+/* Wide tables scroll sideways inside their card instead of being clipped. */
+
+.table-responsive {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.table-responsive > .table,
+.table-responsive table {
+    max-width: none;
+}
+
+
+/* Let flex children and grid columns shrink so long labels never push a page
+   wider than the viewport. */
+
+.main-content .d-flex > *,
+.main-content .row > [class*="col-"] {
+    min-width: 0;
+}
+
+
+

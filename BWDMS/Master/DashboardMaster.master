@@ -39,6 +39,12 @@
           rel="stylesheet" />
 
 
+    <!-- Admin responsive layout (phone / tablet rules) -->
+
+    <link href="<%= ResolveUrl("~/Content/AdminResponsive.css") %>"
+          rel="stylesheet" />
+
+
     <!-- Page-specific Head Content -->
 
     <asp:ContentPlaceHolder ID="HeadContent"

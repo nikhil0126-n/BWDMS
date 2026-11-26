@@ -290,7 +290,7 @@
 
                 <HeaderTemplate>
 
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover align-middle mb-0 variant-grid">
 
                         <thead>
 

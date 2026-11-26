@@ -1,0 +1,180 @@
+/* ============================================================================
+   BWDMS — ADMIN RESPONSIVE LAYOUT (GROUP 2)
+   ----------------------------------------------------------------------------
+   Phone and tablet rules for every page using DashboardMaster.master.
+   Loaded after Dashboard.css so these rules win at equal specificity.
+   ============================================================================ */
+
+
+/* ----------------------------------------
+   PHONES (up to 767.98px)
+   ---------------------------------------- */
+
+@media (max-width: 767.98px) {
+
+    .main-content {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    /* Button groups and filter rows wrap onto new lines. */
+
+    .main-content .d-flex.gap-1,
+    .main-content .d-flex.gap-2,
+    .main-content .d-flex.gap-3,
+    .main-content .d-flex.gap-4,
+    .main-content .d-flex.justify-content-end,
+    .main-content .top-products-row,
+    .main-content .admin-topbar-right,
+    .main-content .admin-header-actions {
+        flex-wrap: wrap;
+    }
+
+
+    .main-content .d-flex.gap-2,
+    .main-content .d-flex.gap-3,
+    .main-content .d-flex.gap-4 {
+        gap: 8px;
+    }
+
+
+    /* Search fields take the full row. */
+
+    .grid-search-box,
+    .main-content .admin-header-search,
+    .main-content .admin-topbar-search {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+
+    .main-content .admin-topbar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+
+    .main-content .admin-topbar-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+
+    .main-content .admin-topbar-search input,
+    .main-content .admin-header-search input {
+        width: 100%;
+    }
+
+
+    /* Keep the profile icon; drop only its text label. */
+
+    .admin-topbar-profile span {
+        display: none;
+    }
+
+
+    /* Report date range: date fields and Apply button stack cleanly. */
+
+    .main-content .d-flex.flex-wrap {
+        width: 100%;
+    }
+
+
+    .report-range {
+        display: flex;
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 6px;
+        padding: 8px;
+    }
+
+
+    .report-range input[type="date"] {
+        flex: 1 1 120px;
+        width: auto;
+        min-width: 0;
+    }
+
+
+    /* Dashboard / report header blocks stack instead of squeezing. */
+
+    .admin-page-header {
+        flex-direction: column;
+    }
+
+
+    .admin-page-header .admin-header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+
+    /* Long product and profile values may break onto a second line. */
+
+    .top-products-name,
+    .dash-top-item .name,
+    .profile-list > div,
+    .stat-tile,
+    .dash-kpi {
+        overflow-wrap: anywhere;
+    }
+
+
+    .top-products-row .text-end,
+    .dash-top-item .qty {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+
+    /* Unit-conversion matrix keeps usable column widths and scrolls
+       horizontally inside its card. */
+
+    .variant-grid {
+        min-width: 720px;
+    }
+
+
+    /* Built-in GridView pagers with many page links wrap instead of
+       stretching the table. */
+
+    td[colspan] > table > tbody > tr > td {
+        white-space: normal !important;
+    }
+
+
+    /* Detail-page tiles go one per row on small phones. */
+
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .profile-card,
+    .summary-box,
+    .dashboard-card {
+        padding: 16px;
+    }
+
+
+    .dashboard-footer span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+
+/* ----------------------------------------
+   TABLETS (768px - 991.98px)
+   ---------------------------------------- */
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    .main-content .table-responsive > .table {
+        min-width: 600px;
+    }
+}
