@@ -1177,3 +1177,36 @@ Stack: System.Web.HttpException (0x80004005): The ID 'lblTotalAmount' is already
    at System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
 ===
 
+=== 2026-11-26T16:38:27.190Z
+URL: /Salesman/Profile.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Salesman.Profile'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Salesman.Profile'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-11-26T16:41:40.560Z
+URL: /Salesman/Profile.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Salesman.Profile'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Salesman.Profile'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
+=== 2026-11-26T16:42:18.779Z
+URL: /Salesman/Profile.aspx
+User: anonymous
+Type: System.Web.HttpException
+Message: Could not load type 'BWDMS.Salesman.Profile'.
+Stack: System.Web.HttpException (0x80004005): Could not load type 'BWDMS.Salesman.Profile'.
+   at System.Web.UI.TemplateParser.GetType(String typeName, Boolean ignoreCase, Boolean throwOnError)
+   at System.Web.UI.TemplateParser.ProcessInheritsAttribute(String baseTypeName, String codeFileBaseTypeName, String src, Assembly assembly)
+   at System.Web.UI.TemplateParser.PostProcessMainDirectiveAttributes(IDictionary parseData)
+===
+
