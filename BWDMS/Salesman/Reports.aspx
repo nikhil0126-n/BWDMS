@@ -19,297 +19,178 @@
     ContentPlaceHolderID="MainContent"
     runat="server">
 
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-        <div>
-
-            <h3 class="fw-bold mb-1">
-                My Reports
-            </h3>
-
-            <p class="text-muted mb-0">
-                Your routes, orders and stock
-            </p>
-
-        </div>
-
-
-        <a href="Dashboard.aspx"
-           class="btn btn-outline-secondary">
-
-            <i class="bi bi-arrow-left"></i>
-
-            Back to Dashboard
-
-        </a>
-
-    </div>
-
-
-    <asp:Label
-        ID="lblMessage"
-        runat="server"
-        Visible="false"
-        CssClass="alert d-block">
-    </asp:Label>
-
-
-    <!-- KPI tiles -->
-
-    <div class="row g-3 mb-4">
-
-        <div class="col-md-3">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex align-items-center gap-3">
-
-                    <span class="stat-icon bg-primary-subtle text-primary-emphasis">
-                        <i class="bi bi-cart-check"></i>
-                    </span>
-
-                    <div>
-
-                        <div class="text-muted small">
-                            Orders Taken
-                        </div>
-
-
-                        <div class="fw-bold fs-4">
-
-                            <asp:Label
-                                ID="lblKpiOrders"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex align-items-center gap-3">
-
-                    <span class="stat-icon bg-success-subtle text-success-emphasis">
-                        <i class="bi bi-currency-rupee"></i>
-                    </span>
-
-                    <div>
-
-                        <div class="text-muted small">
-                            Order Value
-                        </div>
-
-
-                        <div class="fw-bold fs-4 text-danger">
-
-                            <asp:Label
-                                ID="lblKpiValue"
-                                runat="server"
-                                Text="0.00">
-                            </asp:Label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex align-items-center gap-3">
-
-                    <span class="stat-icon bg-warning-subtle text-warning-emphasis">
-                        <i class="bi bi-shop"></i>
-                    </span>
-
-                    <div>
-
-                        <div class="text-muted small">
-                            Shops Served
-                        </div>
-
-
-                        <div class="fw-bold fs-4">
-
-                            <asp:Label
-                                ID="lblKpiShops"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex align-items-center gap-3">
-
-                    <span class="stat-icon bg-info-subtle text-info-emphasis">
-                        <i class="bi bi-signpost-split"></i>
-                    </span>
-
-                    <div>
-
-                        <div class="text-muted small">
-                            Routes
-                        </div>
-
-
-                        <div class="fw-bold fs-4">
-
-                            <asp:Label
-                                ID="lblKpiRoutes"
-                                runat="server"
-                                Text="0">
-                            </asp:Label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Report picker -->
-
-    <div class="dashboard-card">
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-
+    <style>
+        .sw-report .sw-report-picker {
+            min-width: 220px;
+        }
+
+        .sw-report .sw-stat > div:last-child {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .sw-report .sw-stat-value,
+        .sw-report .sw-card-head h5,
+        .sw-report .sw-card-head small {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        @media (max-width: 767.98px) {
+            .sw-report .sw-card-head {
+                align-items: stretch;
+            }
+
+            .sw-report .sw-report-picker {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+    </style>
+
+    <div class="sw-report">
+
+        <div class="sw-page-head">
             <div>
-
-                <h5 class="fw-bold mb-1">
-
-                    <asp:Label
-                        ID="lblReportTitle"
-                        runat="server"
-                        Text="Orders by Status">
-                    </asp:Label>
-
-                </h5>
-
-
-                <small class="text-muted">
-
-                    <asp:Label
-                        ID="lblRecordCount"
-                        runat="server"
-                        Text="records: 0">
-                    </asp:Label>
-
-                </small>
-
+                <h1 class="mb-1">My Reports</h1>
+                <p>Your routes, orders, shops, and stock summary.</p>
             </div>
 
+            <div class="sw-head-actions">
+                <a href="Dashboard.aspx" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
 
-            <div class="grid-search-box">
+        <asp:Label
+            ID="lblMessage"
+            runat="server"
+            Visible="false"
+            CssClass="alert d-block mb-4">
+        </asp:Label>
 
-                <asp:DropDownList
-                    ID="ddlReport"
-                    runat="server"
-                    CssClass="form-select"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="ReportChanged">
+        <!-- KPI tiles -->
+        <div class="row g-4 mb-4">
 
-                    <asp:ListItem Text="Orders by Status" Value="orderstatus" Selected="True">
-                    </asp:ListItem>
+            <div class="col-6 col-lg-3">
+                <div class="sw-card sw-stat h-100">
+                    <div class="sw-stat-icon sw-tint-primary">
+                        <i class="bi bi-cart-check"></i>
+                    </div>
+                    <div>
+                        <div class="sw-stat-value">
+                            <asp:Label ID="lblKpiOrders" runat="server" Text="0" />
+                        </div>
+                        <div class="sw-stat-label">Orders Taken</div>
+                    </div>
+                </div>
+            </div>
 
-                    <asp:ListItem Text="Orders by Day" Value="orderday">
-                    </asp:ListItem>
+            <div class="col-6 col-lg-3">
+                <div class="sw-card sw-stat h-100">
+                    <div class="sw-stat-icon sw-tint-green">
+                        <i class="bi bi-currency-rupee"></i>
+                    </div>
+                    <div>
+                        <div class="sw-stat-value">
+                            <asp:Label ID="lblKpiValue" runat="server" Text="0.00" />
+                        </div>
+                        <div class="sw-stat-label">Order Value</div>
+                    </div>
+                </div>
+            </div>
 
-                    <asp:ListItem Text="Shops by Village" Value="shops">
-                    </asp:ListItem>
+            <div class="col-6 col-lg-3">
+                <div class="sw-card sw-stat h-100">
+                    <div class="sw-stat-icon sw-tint-orange">
+                        <i class="bi bi-shop"></i>
+                    </div>
+                    <div>
+                        <div class="sw-stat-value">
+                            <asp:Label ID="lblKpiShops" runat="server" Text="0" />
+                        </div>
+                        <div class="sw-stat-label">Shops Served</div>
+                    </div>
+                </div>
+            </div>
 
-                    <asp:ListItem Text="Stock Loaded" Value="stock">
-                    </asp:ListItem>
-
-                </asp:DropDownList>
-
+            <div class="col-6 col-lg-3">
+                <div class="sw-card sw-stat h-100">
+                    <div class="sw-stat-icon sw-tint-cyan">
+                        <i class="bi bi-signpost-split"></i>
+                    </div>
+                    <div>
+                        <div class="sw-stat-value">
+                            <asp:Label ID="lblKpiRoutes" runat="server" Text="0" />
+                        </div>
+                        <div class="sw-stat-label">Routes</div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
+        <!-- Report picker -->
+        <div class="sw-card">
 
-        <div class="table-responsive">
+            <div class="sw-card-head">
+                <div>
+                    <h5>
+                        <i class="bi bi-bar-chart-line me-2"></i>
+                        <asp:Label ID="lblReportTitle" runat="server" Text="Orders by Status" />
+                    </h5>
+                    <small>
+                        <asp:Label ID="lblRecordCount" runat="server" Text="records: 0" />
+                    </small>
+                </div>
 
-            <asp:GridView
-                ID="gvReport"
-                runat="server"
-                AutoGenerateColumns="False"
-                CssClass="table table-hover align-middle"
-                GridLines="None" AllowPaging="true" OnPageIndexChanging="gvReport_PageIndexChanging" PageSize="25" PagerSettings-Mode="NumericFirstLast" PagerSettings-PageButtonCount="10" PagerSettings-Position="TopAndBottom">
+                <div class="sw-report-picker">
+                    <asp:DropDownList
+                        ID="ddlReport"
+                        runat="server"
+                        CssClass="form-select"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ReportChanged">
+                        <asp:ListItem Text="Orders by Status" Value="orderstatus" Selected="True" />
+                        <asp:ListItem Text="Orders by Day" Value="orderday" />
+                        <asp:ListItem Text="Shops by Village" Value="shops" />
+                        <asp:ListItem Text="Stock Loaded" Value="stock" />
+                    </asp:DropDownList>
+                </div>
+            </div>
 
-                <Columns>
+            <div class="table-responsive">
+                <asp:GridView
+                    ID="gvReport"
+                    runat="server"
+                    ClientIDMode="Static"
+                    AutoGenerateColumns="False"
+                    CssClass="sw-table align-middle mb-0"
+                    GridLines="None"
+                    AllowPaging="true"
+                    OnPageIndexChanging="gvReport_PageIndexChanging"
+                    PageSize="25"
+                    PagerSettings-Mode="NumericFirstLast"
+                    PagerSettings-PageButtonCount="10"
+                    PagerSettings-Position="TopAndBottom">
+                    <Columns>
+                        <asp:BoundField DataField="Label" HeaderText="Label" />
+                        <asp:BoundField DataField="Count" HeaderText="Count" />
+                        <asp:BoundField DataField="Amount" HeaderText="Amount" />
+                    </Columns>
 
-                    <asp:BoundField
-                        DataField="Label"
-                        HeaderText="Label" />
-
-                    <asp:BoundField
-                        DataField="Count"
-                        HeaderText="Count" />
-
-                    <asp:BoundField
-                        DataField="Amount"
-                        HeaderText="Amount" />
-
-                </Columns>
-
-
-                <EmptyDataTemplate>
-
-                    <div class="text-center py-5">
-
-                        <i class="bi bi-bar-chart fs-1 text-muted"></i>
-
-                        <p class="text-muted mt-3 mb-0">
-                            Nothing to report yet.
-                        </p>
-
-                    </div>
-
-                </EmptyDataTemplate>
-
-            </asp:GridView>
+                    <EmptyDataTemplate>
+                        <div class="text-center py-5">
+                            <i class="bi bi-bar-chart fs-1 text-muted"></i>
+                            <p class="text-muted mt-3 mb-0">Nothing to report yet.</p>
+                        </div>
+                    </EmptyDataTemplate>
+                </asp:GridView>
+            </div>
 
         </div>
 
     </div>
-
 
 </asp:Content>

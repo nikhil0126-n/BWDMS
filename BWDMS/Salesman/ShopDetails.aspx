@@ -415,7 +415,7 @@
                         <span class="sd-row-label">Credit Status</span>
                     </div>
                     <span class="sd-row-value">
-                        <asp:Label ID="lblCreditStatus" runat="server" Text="✓ Within Credit Limit"></asp:Label>
+                        <asp:Literal ID="lblCreditStatus" runat="server" Text="<span class='text-success'><i class='bi bi-check-circle-fill me-1'></i>Within Credit Limit</span>" />
                     </span>
 
                 </div>

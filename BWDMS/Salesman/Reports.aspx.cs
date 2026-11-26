@@ -132,6 +132,7 @@ namespace BWDMS.Salesman
                                 row["Orders"].ToString();
 
                             lblKpiValue.Text =
+                                "\u20B9" +
                                 Convert.ToDecimal(row["Value"])
                                     .ToString("N2");
 

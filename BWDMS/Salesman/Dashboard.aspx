@@ -67,6 +67,49 @@
 
 
 
+    <style>
+        .sw-dashboard .sw-status-row {
+            gap: 0;
+        }
+
+        .sw-dashboard .sw-status-item {
+            min-width: 0;
+        }
+
+        .sw-dashboard .sw-stat-value,
+        .sw-dashboard .sw-metric-val,
+        .sw-dashboard .sw-route-name {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .sw-dashboard .sw-stat > div:last-child {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .sw-dashboard .sw-card {
+            height: 100%;
+        }
+
+        @media (max-width: 575.98px) {
+            .sw-dashboard .sw-status-row {
+                flex-direction: column;
+            }
+
+            .sw-dashboard .sw-status-item + .sw-status-item {
+                border-left: 0;
+                border-top: 1px solid var(--sw-border-soft);
+            }
+
+            .sw-greeting-date {
+                text-align: left;
+            }
+        }
+    </style>
+
+    <div class="sw-dashboard">
+
     <!-- ============================================================
          STAT CARDS
          ============================================================ -->
@@ -195,7 +238,7 @@
                     <div class="sw-status-item">
 
                         <div class="sw-status-num">
-                            8
+                            <asp:Label ID="lblVisitedCount" runat="server" Text="0" />
                         </div>
 
                         <div class="sw-status-lbl">
@@ -208,7 +251,7 @@
                     <div class="sw-status-item">
 
                         <div class="sw-status-num">
-                            14
+                            <asp:Label ID="lblPendingCount" runat="server" Text="0" />
                         </div>
 
                         <div class="sw-status-lbl">
@@ -221,12 +264,12 @@
                     <div class="sw-status-item">
 
                         <div class="sw-status-num">
-                            0
+                            <asp:Label ID="lblTotalShops" runat="server" Text="0" />
                         </div>
 
                         <div class="sw-status-lbl">
                             <span class="sw-dot" style="background:#98a2b3"></span>
-                            Yet to visit
+                            Total Shops
                         </div>
 
                     </div>
@@ -255,11 +298,11 @@
                     <div>
 
                         <div class="sw-stat-value">
-                            100 Box
+                            <asp:Label ID="lblStockRemaining" runat="server" Text="0 Box" />
                         </div>
 
                         <div class="sw-stat-label">
-                            Remaining
+                            Remaining on latest load
                         </div>
 
                     </div>
@@ -297,11 +340,11 @@
                     <div>
 
                         <div class="sw-stat-value">
-                            Beat 01
+                            <asp:Label ID="lblTodayRoute" runat="server" Text="No route assigned" />
                         </div>
 
                         <div class="sw-stat-label">
-                            Assigned beat
+                            <asp:Label ID="lblRouteSubtext" runat="server" Text="No beat assigned today" />
                         </div>
 
                     </div>
@@ -318,17 +361,17 @@
             <div class="sw-card h-100">
 
                 <div class="sw-card-title">
-                    Summary
+                    Sales Summary
                 </div>
 
                 <div class="sw-metric">
 
                     <div class="sw-metric-val">
-                        &#8377;2,500
+                        <asp:Label ID="lblTodaySales" runat="server" Text="&#8377;0" />
                     </div>
 
                     <div class="sw-metric-lbl">
-                        Today
+                        Today's Sales
                     </div>
 
                 </div>
@@ -336,11 +379,11 @@
                 <div class="sw-metric">
 
                     <div class="sw-metric-val">
-                        &#8377;2,300
+                        <asp:Label ID="lblPreviousSales" runat="server" Text="&#8377;0" />
                     </div>
 
                     <div class="sw-metric-lbl">
-                        Previous
+                        Yesterday's Sales
                     </div>
 
                 </div>
@@ -429,5 +472,6 @@
 
     </div>
 
+    </div>
 
 </asp:Content>

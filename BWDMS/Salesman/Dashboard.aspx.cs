@@ -75,7 +75,10 @@ namespace BWDMS.Salesman
             if (!IsPostBack)
             {
                 LoadSummary();
-
+                LoadShopStatus();
+                LoadVehicleStock();
+                LoadTodayRoute();
+                LoadSalesSummary();
                 LoadTodaysBeat();
             }
         }
@@ -97,6 +100,8 @@ namespace BWDMS.Salesman
 
         private void LoadSummary()
         {
+            string today = DateTime.Now.DayOfWeek.ToString();
+
             string query = @"
                 SELECT
                     COUNT(DISTINCT r.RouteId) AS RouteCount,
@@ -124,8 +129,7 @@ namespace BWDMS.Salesman
                     cmd.Parameters.Add(
                         "@Today",
                         SqlDbType.NVarChar,
-                        40).Value =
-                        DateTime.Now.DayOfWeek.ToString();
+                        40).Value = today;
 
                     con.Open();
 
@@ -135,19 +139,19 @@ namespace BWDMS.Salesman
                         if (reader.Read())
                         {
                             lblRouteCount.Text =
-                                reader["RouteCount"].ToString();
+                                Convert.ToString(reader["RouteCount"]);
 
                             lblScheduleCount.Text =
-                                reader["TodayCount"].ToString();
+                                Convert.ToString(reader["TodayCount"]);
                         }
                     }
                 }
             }
 
 
-            // Villages on the salesman's routes
+            // Villages on the salesman's active routes
             string villageQuery = @"
-                SELECT COUNT(*)
+                SELECT COUNT(DISTINCT rv.RouteVillageId)
                 FROM RouteVillages rv
                 INNER JOIN Routes r
                     ON rv.RouteId = r.RouteId
@@ -155,6 +159,7 @@ namespace BWDMS.Salesman
                     ON rs.RouteId = r.RouteId
                 WHERE rs.SalesmanId = @SalesmanId
                 AND rs.IsActive = 1
+                AND r.IsActive = 1
                 AND rv.IsActive = 1;";
 
             using (SqlConnection con =
@@ -170,10 +175,11 @@ namespace BWDMS.Salesman
 
                     con.Open();
 
+                    object result = cmd.ExecuteScalar();
                     lblVillageCount.Text =
-                        Convert.ToInt32(
-                            cmd.ExecuteScalar())
-                        .ToString();
+                        result == null || result == DBNull.Value
+                            ? "0"
+                            : Convert.ToInt32(result).ToString();
                 }
             }
 
@@ -181,13 +187,14 @@ namespace BWDMS.Salesman
             // Vehicle assigned to today's schedule, if any
             string vehicleQuery = @"
                 SELECT TOP 1
-                    ISNULL(v.VehicleNumber, '-')
+                    ISNULL(NULLIF(LTRIM(RTRIM(v.VehicleNumber)), ''), '-')
                 FROM RouteSchedules rs
                 LEFT JOIN Vehicles v
                     ON rs.VehicleId = v.VehicleId
                 WHERE rs.SalesmanId = @SalesmanId
                 AND rs.DayOfWeek = @Today
-                AND rs.IsActive = 1;";
+                AND rs.IsActive = 1
+                ORDER BY rs.RouteScheduleId;";
 
             using (SqlConnection con =
                 DatabaseHelper.GetConnection())
@@ -203,20 +210,347 @@ namespace BWDMS.Salesman
                     cmd.Parameters.Add(
                         "@Today",
                         SqlDbType.NVarChar,
-                        40).Value =
-                        DateTime.Now.DayOfWeek.ToString();
+                        40).Value = today;
 
                     con.Open();
 
-                    object result =
-                        cmd.ExecuteScalar();
-
+                    object result = cmd.ExecuteScalar();
                     lblVehicle.Text =
                         result == null || result == DBNull.Value
                             ? "-"
-                            : result.ToString();
+                            : Convert.ToString(result);
                 }
             }
+        }
+
+
+        // ============================================================
+        // TODAY'S SHOP STATUS
+        // ============================================================
+
+        private void LoadShopStatus()
+        {
+            string today = DateTime.Now.DayOfWeek.ToString();
+            DateTime todayDate = DateTime.Today;
+
+            string query = @"
+                ;WITH TodaySchedules AS
+                (
+                    SELECT rs.RouteScheduleId, rs.RouteId
+                    FROM RouteSchedules rs
+                    INNER JOIN Routes r
+                        ON r.RouteId = rs.RouteId
+                    WHERE rs.SalesmanId = @SalesmanId
+                      AND rs.DayOfWeek = @Today
+                      AND rs.IsActive = 1
+                      AND r.IsActive = 1
+                ),
+                BeatShops AS
+                (
+                    SELECT DISTINCT s.ShopId
+                    FROM Shops s
+                    WHERE s.IsActive = 1
+                      AND
+                      (
+                        s.RouteScheduleId IN
+                            (SELECT RouteScheduleId FROM TodaySchedules)
+                        OR s.RouteId IN
+                            (SELECT RouteId FROM TodaySchedules)
+                      )
+                ),
+                Visited AS
+                (
+                    SELECT DISTINCT o.ShopId
+                    FROM Orders o
+                    INNER JOIN BeatShops b
+                        ON b.ShopId = o.ShopId
+                    WHERE o.SalesmanId = @SalesmanId
+                      AND CAST(o.OrderDate AS date) = @TodayDate
+                )
+                SELECT
+                    (SELECT COUNT(*) FROM BeatShops) AS TotalShops,
+                    (SELECT COUNT(*) FROM Visited) AS VisitedShops;";
+
+            int total = 0;
+            int visited = 0;
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    cmd.Parameters.Add(
+                        "@Today",
+                        SqlDbType.NVarChar,
+                        40).Value = today;
+
+                    cmd.Parameters.Add(
+                        "@TodayDate",
+                        SqlDbType.Date).Value = todayDate;
+
+                    con.Open();
+
+                    using (SqlDataReader reader =
+                        cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            total = ToInt(reader["TotalShops"]);
+                            visited = ToInt(reader["VisitedShops"]);
+                        }
+                    }
+                }
+            }
+
+            int pending = total - visited;
+            if (pending < 0)
+            {
+                pending = 0;
+            }
+
+            lblVisitedCount.Text = visited.ToString();
+            lblPendingCount.Text = pending.ToString();
+            lblTotalShops.Text = total.ToString();
+        }
+
+
+        // ============================================================
+        // VEHICLE STOCK
+        // ============================================================
+
+        private void LoadVehicleStock()
+        {
+            string query = @"
+                ;WITH Latest AS
+                (
+                    SELECT MAX(StockDate) AS StockDate
+                    FROM VehicleStock
+                    WHERE SalesmanId = @SalesmanId
+                )
+                SELECT ISNULL(SUM(
+                    vs.LoadedPackets
+                    - vs.SoldPackets
+                    - vs.ReturnedPackets
+                    - vs.DamagedPackets
+                ), 0) AS RemainingPackets
+                FROM VehicleStock vs
+                INNER JOIN Latest l
+                    ON l.StockDate = vs.StockDate
+                WHERE vs.SalesmanId = @SalesmanId;";
+
+            int remaining = 0;
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    con.Open();
+
+                    object result = cmd.ExecuteScalar();
+                    remaining = ToInt(result);
+                }
+            }
+
+            if (remaining < 0)
+            {
+                remaining = 0;
+            }
+
+            lblStockRemaining.Text =
+                remaining.ToString("N0") + " Box";
+        }
+
+
+        // ============================================================
+        // TODAY'S ROUTE
+        // ============================================================
+
+        private void LoadTodayRoute()
+        {
+            string today = DateTime.Now.DayOfWeek.ToString();
+
+            string query = @"
+                SELECT TOP 1
+                    r.RouteName,
+                    ISNULL(NULLIF(LTRIM(RTRIM(v.VehicleNumber)), ''), '') AS VehicleNumber
+                FROM RouteSchedules rs
+                INNER JOIN Routes r
+                    ON r.RouteId = rs.RouteId
+                LEFT JOIN Vehicles v
+                    ON v.VehicleId = rs.VehicleId
+                WHERE rs.SalesmanId = @SalesmanId
+                  AND rs.DayOfWeek = @Today
+                  AND rs.IsActive = 1
+                  AND r.IsActive = 1
+                ORDER BY r.RouteName, rs.RouteScheduleId;";
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    cmd.Parameters.Add(
+                        "@Today",
+                        SqlDbType.NVarChar,
+                        40).Value = today;
+
+                    con.Open();
+
+                    using (SqlDataReader reader =
+                        cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string routeName =
+                                Convert.ToString(reader["RouteName"]);
+                            string vehicle =
+                                Convert.ToString(reader["VehicleNumber"]);
+
+                            lblTodayRoute.Text =
+                                string.IsNullOrWhiteSpace(routeName)
+                                    ? "No route assigned"
+                                    : routeName;
+
+                            lblRouteSubtext.Text =
+                                string.IsNullOrWhiteSpace(vehicle)
+                                    ? "Assigned beat"
+                                    : "Vehicle: " + vehicle;
+
+                            return;
+                        }
+                    }
+                }
+            }
+
+            lblTodayRoute.Text = "No route assigned";
+            lblRouteSubtext.Text = "No beat assigned today";
+        }
+
+
+        // ============================================================
+        // SALES SUMMARY
+        // ============================================================
+
+        private void LoadSalesSummary()
+        {
+            DateTime todayDate = DateTime.Today;
+            DateTime yesterdayDate = todayDate.AddDays(-1);
+
+            string query = @"
+                SELECT
+                    ISNULL(SUM(CASE
+                        WHEN CAST(OrderDate AS date) = @TodayDate
+                        THEN GrandTotal ELSE 0 END), 0) AS TodayTotal,
+                    ISNULL(SUM(CASE
+                        WHEN CAST(OrderDate AS date) = @YesterdayDate
+                        THEN GrandTotal ELSE 0 END), 0) AS YesterdayTotal
+                FROM Orders
+                WHERE SalesmanId = @SalesmanId
+                  AND CAST(OrderDate AS date) IN (@TodayDate, @YesterdayDate);";
+
+            decimal todayTotal = 0m;
+            decimal yesterdayTotal = 0m;
+
+            using (SqlConnection con =
+                DatabaseHelper.GetConnection())
+            {
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@SalesmanId",
+                        SqlDbType.Int).Value = SalesmanId;
+
+                    cmd.Parameters.Add(
+                        "@TodayDate",
+                        SqlDbType.Date).Value = todayDate;
+
+                    cmd.Parameters.Add(
+                        "@YesterdayDate",
+                        SqlDbType.Date).Value = yesterdayDate;
+
+                    con.Open();
+
+                    using (SqlDataReader reader =
+                        cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            todayTotal = ToDecimal(reader["TodayTotal"]);
+                            yesterdayTotal = ToDecimal(reader["YesterdayTotal"]);
+                        }
+                    }
+                }
+            }
+
+            lblTodaySales.Text = FormatCurrency(todayTotal);
+            lblPreviousSales.Text = FormatCurrency(yesterdayTotal);
+        }
+
+
+        private static int ToInt(object value)
+        {
+            if (value == null || value == DBNull.Value)
+            {
+                return 0;
+            }
+
+            int number;
+            if (int.TryParse(Convert.ToString(value), out number))
+            {
+                return number;
+            }
+
+            decimal decimalNumber;
+            if (decimal.TryParse(
+                Convert.ToString(value),
+                out decimalNumber))
+            {
+                return Convert.ToInt32(decimalNumber);
+            }
+
+            return 0;
+        }
+
+
+        private static decimal ToDecimal(object value)
+        {
+            if (value == null || value == DBNull.Value)
+            {
+                return 0m;
+            }
+
+            decimal number;
+            if (decimal.TryParse(
+                Convert.ToString(value),
+                out number))
+            {
+                return number;
+            }
+
+            return 0m;
+        }
+
+
+        private static string FormatCurrency(decimal amount)
+        {
+            return "\u20B9" + amount.ToString("N0");
         }
 
 

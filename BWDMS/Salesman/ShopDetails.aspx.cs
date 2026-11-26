@@ -370,14 +370,14 @@ namespace BWDMS.Salesman
                         if (outstanding > creditLimit)
                         {
                             lblOutstanding.CssClass = "text-danger fw-bold";
-                            lblCreditStatus.Text = "⚠ OVER CREDIT LIMIT";
-                            lblCreditStatus.CssClass = "text-danger fw-bold";
+                            lblCreditStatus.Text =
+                                "<span class='text-danger fw-bold'><i class='bi bi-exclamation-triangle-fill me-1'></i>OVER CREDIT LIMIT</span>";
                         }
                         else
                         {
                             lblOutstanding.CssClass = "text-success fw-bold";
-                            lblCreditStatus.Text = "✓ Within Credit Limit";
-                            lblCreditStatus.CssClass = "text-success";
+                            lblCreditStatus.Text =
+                                "<span class='text-success'><i class='bi bi-check-circle-fill me-1'></i>Within Credit Limit</span>";
                         }
 
                         // Month collections

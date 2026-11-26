@@ -1,4 +1,4 @@
-<%@ Page Title="Admin Dashboard"
+    <%@ Page Title="Admin Dashboard"
     Language="C#"
     MasterPageFile="~/Master/DashboardMaster.master"
     AutoEventWireup="true"
