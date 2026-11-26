@@ -280,7 +280,10 @@
 
     <button type="button"
             class="btn btn-primary d-md-none sw-mobile-toggle"
-            id="swToggle">
+            id="swToggle"
+            aria-label="Open navigation menu"
+            aria-controls="swSidebar"
+            aria-expanded="false">
         <i class="bi bi-list"></i>
     </button>
 

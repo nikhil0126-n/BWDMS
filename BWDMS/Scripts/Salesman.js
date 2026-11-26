@@ -23,8 +23,13 @@
             return;
         }
 
+        function setExpanded(open) {
+            toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
         function close() {
             sidebar.classList.remove("show");
+            setExpanded(false);
             if (backdrop) {
                 backdrop.classList.remove("show");
             }
@@ -32,6 +37,7 @@
 
         toggle.addEventListener("click", function () {
             sidebar.classList.toggle("show");
+            setExpanded(sidebar.classList.contains("show"));
             if (backdrop) {
                 backdrop.classList.toggle("show");
             }
