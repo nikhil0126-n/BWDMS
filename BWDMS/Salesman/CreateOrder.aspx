@@ -605,6 +605,15 @@
     <div class="dashboard-card co-page-card">
 
 
+        <a class="sw-crumb mb-2"
+           href="<%= ResolveUrl("~/Salesman/Dashboard.aspx") %>">
+
+            <i class="bi bi-arrow-left"></i>
+            Back to dashboard
+
+        </a>
+
+
         <div class="co-top">
 
             <h3 class="co-title">
