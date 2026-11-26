@@ -156,7 +156,7 @@
         .rt-table-wrap {
             border: 1px solid #d9dde7;
             border-radius: 10px;
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         /* header + body cells are targeted through the row classes the
@@ -228,6 +228,51 @@
         .sw-table.rt-table .pager a,
         .sw-table.rt-table .pager span {
             color: #3f4a5a;
+        }
+
+
+        /* ---------- phones / small tablets ---------- */
+
+        @media (max-width: 767.98px) {
+            .rt-head h3 { font-size: 20px; }
+
+            .rt-card {
+                padding: 18px 14px;
+                margin-bottom: 18px;
+            }
+
+            .rt-card-top {
+                flex-wrap: wrap;
+                gap: 10px 14px;
+            }
+
+            .rt-truck {
+                width: 50px;
+                height: 42px;
+                font-size: 38px;
+            }
+
+            .rt-beat { font-size: 20px; }
+
+            .rt-stats {
+                margin-top: 20px;
+                gap: 8px 0;
+            }
+
+            .rt-stat-lbl { font-size: 13px; margin-bottom: 6px; }
+            .rt-stat-val { font-size: 16px; }
+
+            .sw-table.rt-table .rt-th > th,
+            .sw-table.rt-table .rt-th > td,
+            .sw-table.rt-table .rt-td > td {
+                padding: 11px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .rt-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .rt-stat:nth-child(3) { grid-column: 1 / -1; }
         }
 
     </style>
