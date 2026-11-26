@@ -92,6 +92,30 @@
             height: 100%;
         }
 
+        @media (max-width: 767.98px) {
+            .sw-dashboard .sw-status-item {
+                padding: 8px 6px;
+            }
+
+            .sw-dashboard .sw-status-num {
+                font-size: 20px;
+            }
+
+            .sw-dashboard .sw-status-lbl {
+                font-size: 11px;
+                gap: 4px;
+            }
+
+            .sw-dashboard .sw-card {
+                padding: 14px;
+            }
+
+            .sw-dashboard .sw-table thead th,
+            .sw-dashboard .sw-table tbody td {
+                padding: 10px;
+            }
+        }
+
         @media (max-width: 575.98px) {
             .sw-dashboard .sw-status-row {
                 flex-direction: column;
