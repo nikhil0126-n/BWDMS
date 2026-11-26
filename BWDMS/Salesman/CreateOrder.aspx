@@ -517,6 +517,18 @@
         }
 
         @media (max-width: 767px) {
+            .co-top {
+                flex-wrap: wrap;
+                gap: .6rem;
+            }
+
+            .co-title { font-size: 1.05rem; }
+
+            .co-top-actions {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
             .co-table thead {
                 display: none;
             }
@@ -533,14 +545,51 @@
                 padding: .5rem 0;
             }
 
+            /* .co-totals is a grid — flex-direction had no effect here */
             .co-totals {
-                flex-direction: column;
-                align-items: flex-start;
+                grid-template-columns: 1fr;
+                gap: .6rem;
+                padding: .9rem 1rem;
+            }
+
+            .co-totals .co-t,
+            .co-totals .co-t:nth-child(2),
+            .co-totals .co-t:nth-child(3) {
+                text-align: left;
             }
 
             .co-t-amount {
                 margin-left: 0;
                 text-align: left;
+            }
+
+            .co-mini {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: .4rem 1.2rem;
+            }
+
+            .co-sum-totals {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .co-sum-totals .co-sum-left {
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+
+            .co-sum-right {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .co-btn-outline,
+            .co-btn-primary {
+                min-height: 42px;
             }
         }
     </style>
@@ -1392,13 +1441,18 @@
             BwdmsOffline.counts().then(function (c) {
                 var waiting = c.pending + c.syncing + c.failed;
                 var badge = document.getElementById('offlineBadge');
-                if (waiting > 0) {
-                    badge.textContent = String(waiting);
-                    badge.classList.remove('d-none');
-                } else {
-                    badge.classList.add('d-none');
+                if (badge) {
+                    if (waiting > 0) {
+                        badge.textContent = String(waiting);
+                        badge.classList.remove('d-none');
+                    } else {
+                        badge.classList.add('d-none');
+                    }
                 }
                 var note = document.getElementById('offlineNote');
+                if (!note) {
+                    return;
+                }
                 if (!BwdmsOffline.isOnline()) {
                     note.className = 'alert alert-warning mt-3';
                     note.textContent =
