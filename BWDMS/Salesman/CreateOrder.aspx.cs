@@ -289,7 +289,7 @@ namespace BWDMS.Salesman
             {
                 return false;
             }
-
+                
             // The catalogue keeps a price history, so the row used is the one in
             // force on the ORDER date - the newest price that had already
             // started. Without the APPLY this join would return one row

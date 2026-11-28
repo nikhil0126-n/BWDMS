@@ -33,6 +33,24 @@
         });
 
 
+        // Admin/Dashboard.aspx has its own top-bar hamburger; make it open
+        // the same mobile drawer instead of leaving it as a dead button.
+
+        const adminTopbarToggle =
+            document.getElementById("adminTopbarToggle");
+
+
+        if (adminTopbarToggle) {
+
+            adminTopbarToggle.addEventListener("click", function () {
+
+                setSidebarOpen(!sidebar.classList.contains("show"));
+
+            });
+
+        }
+
+
         // Click outside (on the backdrop) closes the sidebar
 
         if (backdrop) {
