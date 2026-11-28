@@ -152,6 +152,7 @@
     <Content Include="Salesman\Dashboard.aspx" />
     <Content Include="Salesman\OfflineQueue.aspx" />
     <Content Include="Salesman\Orders.aspx" />
+    <Content Include="Salesman\Profile.aspx" />
     <Content Include="Salesman\Reports.aspx" />
     <Content Include="Salesman\Routes.aspx" />
     <Content Include="Salesman\DailyClosing.aspx" />
@@ -630,6 +631,13 @@
     </Compile>
     <Compile Include="Salesman\Orders.aspx.designer.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salesman\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salesman\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Salesman\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>

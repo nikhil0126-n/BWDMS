@@ -51,6 +51,15 @@ namespace BWDMS.Salesman
         protected global::System.Web.UI.WebControls.Label lblTotalAmount;
 
         /// <summary>
+        /// lblTotalAmountSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalAmountSuccess;
+
+        /// <summary>
         /// lblPaymentMethod control.
         /// </summary>
         /// <remarks>

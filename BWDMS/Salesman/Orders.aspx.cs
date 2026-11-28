@@ -134,17 +134,17 @@ namespace BWDMS.Salesman
             DataRow row = dt.Rows[0];
 
             lblShopName.Text =
-                row["ShopName"].ToString();
+                row["ShopName"] == DBNull.Value ? "-" : row["ShopName"].ToString();
 
             lblPlacedOn.Text =
-                row["OrderDateText"].ToString();
+                row["OrderDateText"] == DBNull.Value ? "-" : row["OrderDateText"].ToString();
 
-            lblTotalAmount.Text =
-                Convert.ToDecimal(
-                    row["GrandTotal"]).ToString("N2");
+            decimal grandTotal = row["GrandTotal"] == DBNull.Value ? 0m : Convert.ToDecimal(row["GrandTotal"]);
+            lblTotalAmount.Text = grandTotal.ToString("N2");
+            lblTotalAmountSuccess.Text = grandTotal.ToString("N2");
 
             lblOrderNumber.Text =
-                row["OrderNumber"].ToString();
+                row["OrderNumber"] == DBNull.Value ? "-" : row["OrderNumber"].ToString();
 
             lblPaymentMethod.Text = "Cash";
 
@@ -243,15 +243,12 @@ namespace BWDMS.Salesman
 
             foreach (DataRow row in dt.Rows)
             {
-                row["StatusCss"] = StatusCss(
-                    row["Status"].ToString());
+                string rowStatus = row["Status"] == DBNull.Value ? "" : row["Status"].ToString();
+                row["StatusCss"] = StatusCss(rowStatus);
 
-                row["GrandTotalText"] =
-                    Convert.ToDecimal(row["GrandTotal"])
-                        .ToString("N2");
-
-                row["AmountText"] =
-                    AmountOf(row["GrandTotal"]);
+                decimal grandTotal = row["GrandTotal"] == DBNull.Value ? 0m : Convert.ToDecimal(row["GrandTotal"]);
+                row["GrandTotalText"] = grandTotal.ToString("N2");
+                row["AmountText"] = AmountOf(grandTotal);
 
                 // Orders are settled in cash at delivery.
                 row["PaymentText"] = "Cash";

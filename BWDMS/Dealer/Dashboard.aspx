@@ -143,7 +143,7 @@
 
                     <h3 class="fw-bold mb-0">
                         <asp:Label
-                            ID="lblTodayDispatched"
+                            ID="lblTodayCollections"
                             runat="server"
                             Text="&#8377;0">
                         </asp:Label>

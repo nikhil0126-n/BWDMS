@@ -407,6 +407,32 @@
 
                 </div>
 
+                <div class="sd-row">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    <div>
+                        <span class="sd-row-label">Credit Status</span>
+                    </div>
+                    <span class="sd-row-value">
+                        <asp:Literal ID="lblCreditStatus" runat="server" Text="<span class='text-success'><i class='bi bi-check-circle-fill me-1'></i>Within Credit Limit</span>" />
+                    </span>
+
+                </div>
+
+                <div class="sd-row">
+
+                    <i class="bi bi-arrow-down-circle"></i>
+
+                    <div>
+                        <span class="sd-row-label">Month Collections</span>
+                    </div>
+                    <span class="sd-row-value">
+                        <asp:Label ID="lblMonthCollections" runat="server" Text="₹0"></asp:Label>
+                    </span>
+
+                </div>
+
             </div>
 
             <div class="sd-actions">
@@ -419,6 +445,52 @@
 
         </div>
 
+    </div>
+
+
+    <!-- Collection History Section -->
+    <div class="mt-5">
+        <h5 class="fw-bold mb-3">
+            <i class="bi bi-clock-history me-2"></i>Collection History
+        </h5>
+
+        <asp:Label
+            ID="lblNoHistory"
+            runat="server"
+            Visible="false"
+            CssClass="text-muted"
+            Text="No collection records found for this shop.">
+
+        </asp:Label>
+
+        <div class="table-responsive">
+            <asp:GridView
+                ID="gvCollectionHistory"
+                runat="server"
+                AutoGenerateColumns="False"
+                CssClass="table table-sm table-hover"
+                GridLines="None"
+                Visible="false"
+                ShowHeaderWhenEmpty="true">
+
+                <Columns>
+                    <asp:BoundField DataField="DateText" HeaderText="Date" />
+                    <asp:BoundField DataField="TimeText" HeaderText="Time" />
+                    <asp:BoundField DataField="AmountText" HeaderText="Amount" ItemStyle-CssClass="text-success fw-bold" />
+                    <asp:BoundField DataField="PaymentMode" HeaderText="Mode" />
+                    <asp:BoundField DataField="ReferenceNumber" HeaderText="Reference" />
+                    <asp:BoundField DataField="CollectedBy" HeaderText="Collected By" />
+                    <asp:BoundField DataField="Notes" HeaderText="Notes" />
+                </Columns>
+
+                <EmptyDataTemplate>
+                    <div class="text-center py-3 text-muted">
+                        No collection records found.
+                    </div>
+                </EmptyDataTemplate>
+
+            </asp:GridView>
+        </div>
     </div>
 
 </asp:Content>

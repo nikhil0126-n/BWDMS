@@ -103,6 +103,7 @@ namespace BWDMS.Salesman
             if (!IsPostBack)
             {
                 LoadSummary();
+                LoadCollectionHistory();
             }
         }
 
@@ -270,6 +271,20 @@ namespace BWDMS.Salesman
                                AND o.Status NOT IN
                                    ('Cancelled', 'Returned')),
                             0),
+                    TotalCollections =
+                        ISNULL(
+                            (SELECT SUM(c.Amount)
+                             FROM Collections c
+                             WHERE c.ShopId = @ShopId),
+                            0),
+                    MonthCollections =
+                        ISNULL(
+                            (SELECT SUM(c.Amount)
+                             FROM Collections c
+                             WHERE c.ShopId = @ShopId
+                               AND c.CollectionDate >= @From
+                               AND c.CollectionDate < @To),
+                            0),
                     OpenOrders =
                         ISNULL(
                             (SELECT COUNT(*)
@@ -291,7 +306,8 @@ namespace BWDMS.Salesman
                              WHERE o.ShopId = @ShopId
                                AND o.OrderDate >= @VisitCutOff),
                             0),
-                    OpeningBalance = s.OpeningBalance
+                    OpeningBalance = s.OpeningBalance,
+                    CreditLimit = s.CreditLimit
                 FROM Shops s
                 WHERE s.ShopId = @ShopId";
 
@@ -337,16 +353,36 @@ namespace BWDMS.Salesman
                                 reader["MonthSales"])
                                 .ToString("N0");
 
-                        // No payments table exists in this schema,
-                        // so the shop still owes its opening
-                        // balance plus every sale that was booked.
-                        decimal outstanding =
-                            Convert.ToDecimal(
-                                reader["OpeningBalance"]) +
-                            Convert.ToDecimal(reader["AllSales"]);
+                        // Calculate outstanding: OpeningBalance + AllSales - TotalCollections
+                        decimal openingBalance = Convert.ToDecimal(reader["OpeningBalance"]);
+                        decimal allSales = Convert.ToDecimal(reader["AllSales"]);
+                        decimal totalCollections = Convert.ToDecimal(reader["TotalCollections"]);
+                        decimal outstanding = openingBalance + allSales - totalCollections;
 
                         lblOutstanding.Text =
                             "₹" + outstanding.ToString("N0");
+
+                        // Show credit limit status
+                        decimal creditLimit = reader["CreditLimit"] == DBNull.Value
+                            ? decimal.MaxValue
+                            : Convert.ToDecimal(reader["CreditLimit"]);
+
+                        if (outstanding > creditLimit)
+                        {
+                            lblOutstanding.CssClass = "text-danger fw-bold";
+                            lblCreditStatus.Text =
+                                "<span class='text-danger fw-bold'><i class='bi bi-exclamation-triangle-fill me-1'></i>OVER CREDIT LIMIT</span>";
+                        }
+                        else
+                        {
+                            lblOutstanding.CssClass = "text-success fw-bold";
+                            lblCreditStatus.Text =
+                                "<span class='text-success'><i class='bi bi-check-circle-fill me-1'></i>Within Credit Limit</span>";
+                        }
+
+                        // Month collections
+                        decimal monthCollections = Convert.ToDecimal(reader["MonthCollections"]);
+                        lblMonthCollections.Text = "₹" + monthCollections.ToString("N0");
 
                         lblOutstandingShops.Text =
                             Convert.ToInt32(
@@ -376,6 +412,71 @@ namespace BWDMS.Salesman
         }
 
 
+        // ============================================================
+        // LOAD COLLECTION HISTORY
+        // ============================================================
+
+        private void LoadCollectionHistory()
+        {
+            if (!shopLoaded)
+            {
+                return;
+            }
+
+            string query = @"
+                SELECT TOP (20)
+                    c.CollectionDate,
+                    c.CollectionTime,
+                    c.Amount,
+                    c.PaymentMode,
+                    c.ReferenceNumber,
+                    c.Notes,
+                    u.FullName AS CollectedBy
+                FROM Collections c
+                LEFT JOIN Users u ON u.UserId = c.SalesmanId
+                WHERE c.ShopId = @ShopId
+                ORDER BY c.CollectionDate DESC, c.CollectionTime DESC";
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = DatabaseHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.Add("@ShopId", SqlDbType.Int).Value = ShopId;
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    da.Fill(dt);
+                }
+            }
+
+            if (dt.Rows.Count > 0)
+            {
+                // Add formatted columns
+                dt.Columns.Add("DateText", typeof(string));
+                dt.Columns.Add("TimeText", typeof(string));
+                dt.Columns.Add("AmountText", typeof(string));
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    row["DateText"] = Convert.ToDateTime(row["CollectionDate"]).ToString("dd MMM yyyy");
+                    row["TimeText"] = row["CollectionTime"].ToString();
+                    row["AmountText"] = "₹" + Convert.ToDecimal(row["Amount"]).ToString("N2");
+                }
+
+                gvCollectionHistory.DataSource = dt;
+                gvCollectionHistory.DataBind();
+                gvCollectionHistory.Visible = true;
+                lblNoHistory.Visible = false;
+            }
+            else
+            {
+                gvCollectionHistory.Visible = false;
+                lblNoHistory.Visible = true;
+            }
+        }
+
+
         private static string TextOrDash(object value)
         {
             if (value == null || value == DBNull.Value)
@@ -387,6 +488,5 @@ namespace BWDMS.Salesman
 
             return string.IsNullOrWhiteSpace(text) ? "-" : text;
         }
-
     }
 }

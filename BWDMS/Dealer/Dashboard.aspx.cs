@@ -107,10 +107,6 @@ namespace BWDMS.Dealer
 
         private void LoadHeadlineTiles()
         {
-            // "Today's Collections" has no source: BWDMS records no
-            // shop payments anywhere, so the fourth tile reports the
-            // value of the orders that actually left for delivery
-            // today, which is a real, computable figure.
             string query = @"
                 SELECT
                     ShopCount =
@@ -143,6 +139,14 @@ namespace BWDMS.Dealer
                                AND OrderDate = @Today
                                AND Status IN
                                    ('Dispatched', 'Delivered')),
+                            0),
+                    TodayCollections =
+                        ISNULL(
+                            (SELECT SUM(c.Amount)
+                             FROM Collections c
+                             INNER JOIN Shops s ON s.ShopId = c.ShopId
+                             WHERE s.DealerId = @DealerId
+                               AND c.CollectionDate = @Today),
                             0)";
 
             using (SqlConnection con =
@@ -187,6 +191,12 @@ namespace BWDMS.Dealer
                                 "&#8377;" +
                                 Convert.ToDecimal(
                                     reader["TodayDispatched"])
+                                .ToString("N2", Indian);
+
+                            lblTodayCollections.Text =
+                                "&#8377;" +
+                                Convert.ToDecimal(
+                                    reader["TodayCollections"])
                                 .ToString("N2", Indian);
                         }
                     }

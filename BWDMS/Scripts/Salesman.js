@@ -23,8 +23,13 @@
             return;
         }
 
+        function setExpanded(open) {
+            toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
         function close() {
             sidebar.classList.remove("show");
+            setExpanded(false);
             if (backdrop) {
                 backdrop.classList.remove("show");
             }
@@ -32,6 +37,7 @@
 
         toggle.addEventListener("click", function () {
             sidebar.classList.toggle("show");
+            setExpanded(sidebar.classList.contains("show"));
             if (backdrop) {
                 backdrop.classList.toggle("show");
             }
@@ -40,5 +46,27 @@
         if (backdrop) {
             backdrop.addEventListener("click", close);
         }
+
+        /* Tapping a menu item navigates, so drop the drawer first —
+           otherwise it is still open when the next page renders. */
+        Array.prototype.forEach.call(
+            sidebar.querySelectorAll("a"),
+            function (link) {
+                link.addEventListener("click", close);
+            });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                close();
+            }
+        });
+
+        /* Leaving the mobile breakpoint must reset the drawer, otherwise a
+           phone rotated to landscape keeps the backdrop over the page. */
+        window.addEventListener("resize", function () {
+            if (window.innerWidth >= 768) {
+                close();
+            }
+        });
     });
 })();

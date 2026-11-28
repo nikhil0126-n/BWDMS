@@ -28,6 +28,15 @@
     ContentPlaceHolderID="MainContent"
     runat="server">
 
+    <a class="sw-crumb mb-3"
+       href="<%= ResolveUrl("~/Salesman/Dashboard.aspx") %>">
+
+        <i class="bi bi-arrow-left"></i>
+        Back to dashboard
+
+    </a>
+
+
     <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-4">
 
         <div>

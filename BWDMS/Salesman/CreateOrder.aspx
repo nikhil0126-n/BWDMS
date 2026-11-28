@@ -166,21 +166,30 @@
             margin-bottom: .6rem;
         }
 
+        .co-prod-card {
+            border: 1px solid #d5d5da;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 1rem;
+        }
+
         .co-table thead th {
-            background: #e9edf3;
+            background: #e6e6e6;
             font-weight: 700;
-            font-size: .9rem;
-            padding: .75rem 1rem;
+            font-size: .95rem;
+            color: #111;
+            padding: 1rem 1.2rem;
             border: none;
             white-space: nowrap;
         }
 
         .co-table thead tr th:first-child {
-            border-radius: 8px 0 0 8px;
+            border-radius: 10px 0 0 0;
         }
 
         .co-table thead tr th:last-child {
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 0 0;
         }
 
         .co-table tbody td {
@@ -211,17 +220,18 @@
         }
 
         .co-step a {
-            width: 26px;
+            width: 22px;
             height: 26px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--bw-border);
+            border: none;
             border-radius: 6px;
-            background: #fff;
+            background: transparent;
             color: var(--bw-text-soft);
             text-decoration: none;
             font-weight: 700;
+            font-size: .85rem;
             line-height: 1;
         }
 
@@ -268,35 +278,43 @@
         }
 
         .co-totals {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
             gap: 1.5rem;
-            border: 1px solid var(--bw-border);
+            border: 1px solid #d5d5da;
             border-radius: 10px;
-            background: #fbfcfe;
-            padding: .85rem 1.2rem;
+            background: #fff;
+            padding: 1rem 1.4rem;
             margin-top: 1rem;
         }
 
         .co-totals .co-t > span {
             display: block;
             font-size: .75rem;
-            color: var(--bw-text-muted);
+            color: #6b7280;
             margin-bottom: .15rem;
         }
 
         .co-totals .co-t strong {
             font-size: 1.05rem;
-            color: var(--bw-text);
+            color: #111;
             white-space: nowrap;
         }
 
+        .co-totals .co-t:nth-child(1) {
+            text-align: left;
+        }
+
         .co-totals .co-t:nth-child(2) {
-            margin-left: auto;
+            text-align: center;
+        }
+
+        .co-totals .co-t:nth-child(3) {
+            text-align: right;
         }
 
         .co-t-amount {
-            margin-left: auto;
             text-align: right;
         }
 
@@ -348,28 +366,50 @@
         }
 
         .co-sum-table thead th {
-            background: #d7d7d7;
+            background: #e6e6e6;
             font-weight: 700;
             font-size: .95rem;
             color: #111;
             text-align: center;
-            padding: .85rem 1rem;
+            padding: 1.05rem 1.2rem;
+        }
+
+        .co-sum-table thead th:nth-child(1),
+        .co-sum-table thead th:nth-child(2) {
+            text-align: left;
+        }
+
+        .co-sum-table thead th:last-child {
+            text-align: right;
         }
 
         .co-sum-table thead tr th:first-child {
-            border-radius: 8px 0 0 0;
+            border-radius: 10px 0 0 0;
         }
 
         .co-sum-table thead tr th:last-child {
-            border-radius: 0 8px 0 0;
+            border-radius: 0 10px 0 0;
         }
 
         .co-sum-table tbody td {
-            padding: 1rem;
+            padding: 1.35rem 1.2rem;
             font-size: .95rem;
             font-weight: 700;
             color: #111;
             text-align: center;
+        }
+
+        .co-sum-table tbody td:nth-child(1),
+        .co-sum-table tbody td:nth-child(2) {
+            text-align: left;
+        }
+
+        .co-sum-table tbody td:last-child {
+            text-align: right;
+        }
+
+        #btnAddBack {
+            display: none;
         }
 
         .co-sum-totals {
@@ -477,6 +517,18 @@
         }
 
         @media (max-width: 767px) {
+            .co-top {
+                flex-wrap: wrap;
+                gap: .6rem;
+            }
+
+            .co-title { font-size: 1.05rem; }
+
+            .co-top-actions {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
             .co-table thead {
                 display: none;
             }
@@ -493,14 +545,51 @@
                 padding: .5rem 0;
             }
 
+            /* .co-totals is a grid — flex-direction had no effect here */
             .co-totals {
-                flex-direction: column;
-                align-items: flex-start;
+                grid-template-columns: 1fr;
+                gap: .6rem;
+                padding: .9rem 1rem;
+            }
+
+            .co-totals .co-t,
+            .co-totals .co-t:nth-child(2),
+            .co-totals .co-t:nth-child(3) {
+                text-align: left;
             }
 
             .co-t-amount {
                 margin-left: 0;
                 text-align: left;
+            }
+
+            .co-mini {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: .4rem 1.2rem;
+            }
+
+            .co-sum-totals {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .co-sum-totals .co-sum-left {
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+
+            .co-sum-right {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .co-btn-outline,
+            .co-btn-primary {
+                min-height: 42px;
             }
         }
     </style>
@@ -516,6 +605,15 @@
     <div class="dashboard-card co-page-card">
 
 
+        <a class="sw-crumb mb-2"
+           href="<%= ResolveUrl("~/Salesman/Dashboard.aspx") %>">
+
+            <i class="bi bi-arrow-left"></i>
+            Back to dashboard
+
+        </a>
+
+
         <div class="co-top">
 
             <h3 class="co-title">
@@ -527,7 +625,7 @@
                 <button type="button"
                         id="btnDetails"
                         class="co-ghost-btn"
-                        aria-expanded="false"
+                        aria-expanded="true"
                         aria-controls="coDetails">
                     Order details
                     <i class="bi bi-chevron-down"></i>
@@ -544,7 +642,7 @@
 
 
         <!-- Order details -->
-        <div class="co-details" id="coDetails">
+        <div class="co-details co-open" id="coDetails">
 
         <asp:Label
             ID="lblHeading"
@@ -838,7 +936,7 @@
 
 
         <!-- Line builder (toggled by + Add Products) -->
-        <div class="co-builder" id="coBuilder">
+        <div class="co-builder co-open" id="coBuilder">
 
             <div class="row g-3 align-items-end">
 
@@ -988,6 +1086,8 @@
 
         <!-- Lines grid -->
 
+        <div class="co-prod-card">
+
         <asp:Panel
             ID="pnlLines"
             runat="server">
@@ -1055,7 +1155,7 @@
 
                             <td>
 
-                                <%# Eval("QuantityPackets") %>
+                                <%# Eval("QuantityPackets") %> <%# Eval("UnitCode") %>
 
                             </td>
 
@@ -1094,7 +1194,7 @@
 
                             <td class="text-end">
 
-                                &#8377;<%# Convert.ToDecimal(Eval("UnitPrice")).ToString("N2") %>
+                                &#8377;<%# Convert.ToDecimal(Eval("UnitPrice")).ToString("0.##") %>
 
                             </td>
 
@@ -1103,7 +1203,7 @@
 
                                 <span class="co-money">
 
-                                    &#8377;<%# Convert.ToDecimal(Eval("LineTotal")).ToString("N2") %>
+                                    &#8377;<%# Convert.ToDecimal(Eval("LineTotal")).ToString("0.##") %>
 
                                 </span>
 
@@ -1196,11 +1296,12 @@
         <button type="button"
                 id="btnAddProducts"
                 class="co-btn-outline"
-                aria-expanded="false"
+                aria-expanded="true"
                 aria-controls="coBuilder">
-            + Add Products
+            &times;&nbsp; Close
         </button>
 
+        </div><!-- /co-prod-card -->
 
         <!-- Totals -->
         <div class="co-totals">
@@ -1301,7 +1402,7 @@
                   Offline capture. The button below is plain HTML on purpose:
                   it never posts back, it writes the draft straight into the
                   local queue so it works with no network at all.
-                -->
+                
                 <button
                     type="button"
                     id="btnSaveOffline"
@@ -1321,6 +1422,7 @@
                     <span id="offlineBadge" class="badge bg-danger d-none"></span>
 
                 </a>
+                    -->
 
             </div>
 
@@ -1348,13 +1450,18 @@
             BwdmsOffline.counts().then(function (c) {
                 var waiting = c.pending + c.syncing + c.failed;
                 var badge = document.getElementById('offlineBadge');
-                if (waiting > 0) {
-                    badge.textContent = String(waiting);
-                    badge.classList.remove('d-none');
-                } else {
-                    badge.classList.add('d-none');
+                if (badge) {
+                    if (waiting > 0) {
+                        badge.textContent = String(waiting);
+                        badge.classList.remove('d-none');
+                    } else {
+                        badge.classList.add('d-none');
+                    }
                 }
                 var note = document.getElementById('offlineNote');
+                if (!note) {
+                    return;
+                }
                 if (!BwdmsOffline.isOnline()) {
                     note.className = 'alert alert-warning mt-3';
                     note.textContent =
@@ -1547,12 +1654,27 @@
                 toggleBuilder(true, true);
             }
 
+
+
             /* ------------------------------------------
                Orders Summary screen
                "Proceed to Summary" swaps the form for the
                summary; "Place Orders" does the real postback.
                ------------------------------------------ */
             var summaryOn = false;
+
+            // If the page already has lines (editing an existing draft),
+            // show the summary first so the user sees the order at a glance.
+            try {
+                var initialItems = parseInt((document.getElementById('MainContent_lblTotalItems') || {}).textContent, 10) || 0;
+                if (initialItems > 0) {
+                    if (showSummary()) {
+                        summaryOn = true;
+                    }
+                }
+            } catch (e) {
+                // swallow init errors
+            }
 
             function sumHide(id) {
                 var el = document.getElementById(id);

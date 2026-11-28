@@ -33,22 +33,22 @@ namespace BWDMS.Salesman
         protected global::System.Web.UI.WebControls.Label lblShopCount;
 
         /// <summary>
-        /// lblBalanceTotal control.
+        /// lblTotalOutstanding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBalanceTotal;
+        protected global::System.Web.UI.WebControls.Label lblTotalOutstanding;
 
         /// <summary>
-        /// lblCreditTotal control.
+        /// lblTodayCollections control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreditTotal;
+        protected global::System.Web.UI.WebControls.Label lblTodayCollections;
 
         /// <summary>
         /// txtSearch control.
@@ -67,6 +67,15 @@ namespace BWDMS.Salesman
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlVillage;
+
+        /// <summary>
+        /// ddlFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilter;
 
         /// <summary>
         /// gvShops control.

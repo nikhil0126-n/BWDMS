@@ -141,7 +141,7 @@
         {
             border:1px solid #d5d5d5;
             border-radius:8px;
-            overflow:hidden;
+            overflow-x:auto;
             background:#fff;
         }
 
@@ -233,6 +233,43 @@
         {
             background:#eef1ff;
             color:#2f4ff0;
+        }
+
+
+        /* ---------- phones / small tablets ---------- */
+
+        @media (max-width: 767.98px)
+        {
+            .shops-toolbar
+            {
+                flex-direction:column;
+                align-items:stretch;
+                gap:12px;
+                margin-bottom:16px;
+            }
+
+            .shops-search
+            {
+                flex:none;
+                max-width:none;
+                width:100%;
+                padding:12px 14px;
+            }
+
+            .shops-filter
+            {
+                width:100%;
+                padding:12px 34px 12px 16px;
+            }
+
+            table.shops-grid > tbody > tr > th,
+            table.shops-grid th,
+            table.shops-grid td
+            {
+                padding:12px 10px;
+                font-size:13px;
+                white-space:nowrap;
+            }
         }
 
 
